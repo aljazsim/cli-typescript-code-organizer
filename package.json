@@ -6,7 +6,10 @@
   "dependencies": {
     "commander": "^11.1.0",
     "figlet": "^1.7.0",
-    "undici-types": "^5.26.5"
+    "glob": "^10.3.10",
+    "save": "^2.9.0",
+    "undici-types": "^5.26.5",
+    "watcher": "^2.3.0"
   },
   "scripts": {
     "build": "tsc ./src/index.ts --outDir ./dist --sourceMap true",
