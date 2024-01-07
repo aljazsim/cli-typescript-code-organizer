@@ -1,0 +1,35 @@
+{
+  "name": "cli-typescript-class-organizer",
+  "version": "1.0.0",
+  "description": "TypeScript Class Organizer CLI",
+  "main": "index.js",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "figlet": "^1.7.0",
+    "undici-types": "^5.26.5"
+  },
+  "scripts": {
+    "build": "tsc ./src/index.ts --outDir ./dist --sourceMap true",
+    "test": "npm run build && node ./dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aljazsim/cli-typescript-class-organizer.git"
+  },
+  "keywords": [
+    "TypeScript",
+    "Class",
+    "Members",
+    "Organize"
+  ],
+  "author": "Aljaz Simonic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aljazsim/cli-typescript-class-organizer/issues"
+  },
+  "homepage": "https://github.com/aljazsim/cli-typescript-class-organizer#readme",
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "typescript": "^5.3.3"
+  }
+}
