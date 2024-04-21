@@ -3,30 +3,54 @@ import * as figlet from 'figlet';
 import { Command, Option } from 'commander';
 import { Glob, glob, globStream, globStreamSync, globSync } from 'glob'
 
+import { Configuration } from './configuration/configuration';
 import Watcher from 'watcher';
+import { organizeSourceCodeFile } from './organizer';
+
+const fs = require('fs');
 
 const program = new Command();
 
 console.log(figlet.textSync("TypeScript Class Organizer CLI"));
 
-
 program.version("1.0.0")
     .description("CLI tool for organizing TypeScript code")
+    .addOption(new Option("-i, --initialize", "Generates a default configuration file").default(false, "false"))
     .addOption(new Option("-w, --watch", "Watches TypeScript files for changes").default(false, "false"))
-    .addOption(new Option("-i, --input <string>", "Glob pattern to TypeScript source files").default("./**/*.ts", "./**/*.ts"))
+    .addOption(new Option("-sc, --sourceCode <string>", "Glob pattern to TypeScript source code files").default("./**/*.ts", "./**/*.ts"))
     .addOption(new Option("-c, --configuration <string>", "Path to TypeScript Class Organizer configuration file").default("./tsco.json", "./tsco.json"))
     .parse(process.argv);
 
+const initialize = program.opts().initialize ?? false;
 const watchFiles = program.opts().watch ?? false;
-const configurationFilePath = program.opts().configuration;
+const defaultConfigurationFilePath = "./tsco.json";
+const configurationFilePath = program.opts().configuration ?? defaultConfigurationFilePath;
+const configuration = await Configuration.getConfiguration(configurationFilePath);
+const typeScriptSourceFileGlobPattern = program.opts().sourceCode;
 
-const typeScriptSourceFileGlobPattern = program.opts().input;
-const typeScriptSourceFiles = await glob([typeScriptSourceFileGlobPattern]);
+if (initialize)
+{
+    if (await fs.exists(configurationFilePath))
+    {
+        await fs.unlink(configurationFilePath);
+    }
+
+    await fs.writeFile(configurationFilePath, JSON.stringify(Configuration.getDefaultConfiguration()));
+}
 
 if (watchFiles)
 {
+    // run on file changes
     const watcher = new Watcher(typeScriptSourceFileGlobPattern);
 
-    watcher.on('add', filePath => console.log(filePath));
-    watcher.on('change', filePath => console.log(filePath));
+    watcher.on('add', filePath => organizeSourceCodeFile(filePath, configuration));
+    watcher.on('change', filePath => organizeSourceCodeFile(filePath, configuration));
+}
+else
+{
+    // run once
+    for (const filePath of await glob([typeScriptSourceFileGlobPattern]))
+    {
+        organizeSourceCodeFile(filePath, configuration);
+    }
 }
