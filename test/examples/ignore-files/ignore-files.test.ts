@@ -5,14 +5,23 @@ import { organizeSourceCode } from '../../../src/organizer';
 
 const fs = require('fs').promises;
 
-test('ignore auto-generated files', async () =>
+test('ignore files', async () =>
 {
     // arrange
-    const sourceCode = await fs.readFile("./test/examples/ignore-files/ts-files/test-auto-generated.ts");
+    const sourceCodes = [
+        await fs.readFile("./test/examples/ignore-files/ts-files/test-ignore-auto-generated.ts"),
+        await fs.readFile("./test/examples/ignore-files/ts-files/test-ignore.ts"),
+        await fs.readFile("./test/examples/ignore-files/ts-files/test-ignore-enum.ts"),
+        await fs.readFile("./test/examples/ignore-files/ts-files/test-ignore-type.ts"),
+    ];
 
-    // act
-    const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, Configuration.getDefaultConfiguration());
+    // act & assert
+    for (const sourceCode of sourceCodes)
+    {
+        const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, Configuration.getDefaultConfiguration());
 
-    // assert
-    expect(sourceCode).toBe(organizedSourceCode);
+        expect(sourceCode).toBe(organizedSourceCode);
+    }
 });
+
+
