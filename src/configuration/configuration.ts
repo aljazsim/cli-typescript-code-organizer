@@ -52,7 +52,7 @@ export class Configuration
 
         try
         {
-            configuration = JSON.parse(await fs.readFile(configurationFilePath));
+            configuration = JSON.parse(await fs.readFile(configurationFilePath, "utf8"));
         }
         catch
         {

@@ -1,18 +1,18 @@
 {
   "regions": {
     "useRegions": false,
-    "addRegionIndentation": true,
-    "addMemberCountInRegionName": true,
-    "addRegionCaptionToRegionEnd": true
+    "addRegionIndentation": false,
+    "addMemberCountInRegionName": false,
+    "addRegionCaptionToRegionEnd": false
   },
   "grouping": {
-    "groupPropertiesWithDecorators": true
+    "groupPropertiesWithDecorators": false
   },
   "accessModifiers": {
-    "addPublicModifierIfMissing": true
+    "addPublicModifierIfMissing": false
   },
   "members": {
-    "treatArrowFunctionPropertiesAsMethods": true,
+    "treatArrowFunctionPropertiesAsMethods": false,
     "memberOrder": [
       {
         "caption": "Properties",

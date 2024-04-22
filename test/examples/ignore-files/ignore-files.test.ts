@@ -9,10 +9,10 @@ test('ignore files', async () =>
 {
     // arrange
     const sourceCodes = [
-        await fs.readFile("./test/examples/ignore-files/ts-files/test-ignore-auto-generated.ts"),
-        await fs.readFile("./test/examples/ignore-files/ts-files/test-ignore.ts"),
-        await fs.readFile("./test/examples/ignore-files/ts-files/test-ignore-enum.ts"),
-        await fs.readFile("./test/examples/ignore-files/ts-files/test-ignore-type.ts"),
+        await fs.readFile("./test/examples/ignore-files/ts-files/test-ignore-auto-generated.ts", "utf8"),
+        await fs.readFile("./test/examples/ignore-files/ts-files/test-ignore.ts", "utf8"),
+        await fs.readFile("./test/examples/ignore-files/ts-files/test-ignore-enum.ts", "utf8"),
+        await fs.readFile("./test/examples/ignore-files/ts-files/test-ignore-type.ts", "utf8"),
     ];
 
     // act & assert

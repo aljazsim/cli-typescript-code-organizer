@@ -1,18 +1,17 @@
+import { getFileName, readFile, writeFile } from "./helpers/file-system-helper";
+
 import { Configuration } from "./configuration/configuration";
 import { organizeTypes } from "./helpers/code-helper";
 
-const fs = require('fs').promises;
-const path = require('path');
-
 export async function organizeSourceCodeFile(sourceCodeFilePath: string, configuration: Configuration)
 {
-    const sourceCodeFileName = path.basename(sourceCodeFilePath);
+    const sourceCodeFileName = getFileName(sourceCodeFilePath);
     let sourceCode = "";
-    let organizedSourceCode = ""
+    let organizedSourceCode = "";
 
     try 
     {
-        sourceCode = await fs.readFile(sourceCodeFilePath)
+        sourceCode = await readFile(sourceCodeFilePath);
     }
     catch
     {
@@ -30,8 +29,7 @@ export async function organizeSourceCodeFile(sourceCodeFilePath: string, configu
 
     if (organizedSourceCode !== sourceCode)
     {
-        await fs.unlink(sourceCodeFilePath);
-        await fs.writeFile(sourceCodeFilePath, organizedSourceCode);
+        await writeFile(sourceCodeFilePath, organizedSourceCode);
     }
 }
 

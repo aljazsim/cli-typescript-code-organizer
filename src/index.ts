@@ -1,13 +1,12 @@
 import * as figlet from 'figlet';
 
 import { Command, Option } from 'commander';
-import { Glob, glob, globStream, globStreamSync, globSync } from 'glob'
+import { deleteFile, fileExists, writeFile } from './helpers/file-system-helper';
 
 import { Configuration } from './configuration/configuration';
 import Watcher from 'watcher';
+import { glob } from 'glob';
 import { organizeSourceCodeFile } from './organizer';
-
-const fs = require('fs');
 
 const program = new Command();
 
@@ -30,12 +29,12 @@ const typeScriptSourceFileGlobPattern = program.opts().sourceCode;
 
 if (initialize)
 {
-    if (await fs.exists(configurationFilePath))
+    if (await fileExists(configurationFilePath))
     {
-        await fs.unlink(configurationFilePath);
+        await deleteFile(configurationFilePath);
     }
 
-    await fs.writeFile(configurationFilePath, JSON.stringify(Configuration.getDefaultConfiguration()));
+    await writeFile(configurationFilePath, JSON.stringify(Configuration.getDefaultConfiguration()));
 }
 
 if (watchFiles)
