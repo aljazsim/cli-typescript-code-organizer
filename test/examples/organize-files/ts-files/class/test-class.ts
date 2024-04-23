@@ -1,41 +1,41 @@
 export abstract class TestClass
 {
-    #zegyybadbh = (ltgeubyxvt: string) => { };
-    static zegyybadbh = () =>
+    protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
+    #privateProperty1 = (ltgeubyxvt: string) => { };
+    private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
+    private readonly privateReadonlyProperty1: string | undefined = "ohqx31vc3a";
+    private privateProperty1 = "1jznbqo1ck";
+    protected protectedProperty1 = "jwm4jkf16m";
+    protected readonly protectedReadonlyProperty1 = "tbgokvjelv";
+    public static publicStaticProperty2: Number;
+    #privateProperty2: string;
+    static readonly publicStaticReadonlyProperty1: Number = 8345836946;
+    protected static protectedStaticProperty2 = "hyc8khk2oj";
+    private privateProperty2 = () => 3357116507;
+    protected protectedProperty2: Number = 9777108868;
+    public publicProperty2 = "pe2bmn4hgi";
+    private readonly privateReadonlyProperty2 = "jwm4jkf16m";
+    protected static protectedStaticProperty1 = "hyc8khk2oj";
+    protected readonly protectedReadonlyProperty2 = "txpobjdpsj";
+    protected static readonly protectedStaticReadonlyProperty2 = "oyasnkxrza";
+    private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
+    public static readonly publicStaticReadonlyProperty2: string;
+    static readonly publicStaticReadonlyProperty3: Number;
+    public readonly publicReadonlyProperty1 = "ztrfjcvmrm";
+    publicProperty1: string | null;
+    private readonly privateReadonlyProperty3: String = "709w42symh";
+    static publicStaticProperty1 = () =>
     {
         return 3016660817 + 9761854145;
     };
-    private static readonly biudxcvxca = "nt4r2igy03";
-    private static byosbcpsog: boolean;
-    private readonly clqjuqiifl: string | undefined = "ohqx31vc3a";
-    protected static readonly sewaqfpuhw = "cc7r9dr3zj";
-    protected ujfvsbpock = "jwm4jkf16m";
-    crvkhuceeg: string | null;
-    private frzbqtfhpc = "1jznbqo1ck";
-    #cvtclyqant: string;
-    protected readonly nakhvglrek = "tbgokvjelv";
-    private zlapcyzesb = () => 3357116507;
-    protected whurpwgspt: Number = 9777108868;
-    static readonly vvqbtxhsmw: Number = 8345836946;
-    private readonly tuqlqrhkqj = "jwm4jkf16m";
-    protected static aletbvcxgu = "hyc8khk2oj";
-    private readonly vkzuluhbou: String = "709w42symh";
-    protected readonly zundapjnxr = "txpobjdpsj";
-    private static readonly cjauumoxgb: string | undefined = "ckrxombx0g";
-    protected static jhyhqgwbms = "hyc8khk2oj";
-    public static readonly sqarhgxavp: string;
-    static readonly bieldgpspi: Number;
-    public readonly xzfkmndzen = "ztrfjcvmrm";
-    protected static readonly gciolhiign = "oyasnkxrza";
-    public static wgeokwoeuv: Number;
-    readonly xaejguxiyb = "uialqi4dkc";
-    private static lpflpnazug = new Date();
-    tone = "pe2bmn4hgi";
-    wgeokwoeuv: Number = 5502271448;
+    readonly publicReadonlyProperty2 = "uialqi4dkc";
+    private static privateStaticProperty1: boolean;
+    private static privateStaticProperty2 = new Date();
+    publicProperty3: Number = 5502271448;
 
     constructor(private readonly description: string)
     {
-        this.#cvtclyqant = "2";
-        this.crvkhuceeg = "borg";
+        this.#privateProperty2 = "xzfkmndzen";
+        this.publicProperty1 = "jxjfoeibzf";
     }
 }
