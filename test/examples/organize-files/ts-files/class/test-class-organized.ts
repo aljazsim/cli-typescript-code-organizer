@@ -1,7 +1,5 @@
 export abstract class TestClass
 {
-    // #region Properties (21)
-
     private static readonly address = "Lane 1";
     private static readonly city: string | undefined = "City X";
 
@@ -33,20 +31,12 @@ export abstract class TestClass
 
     public areaCode: Number = 123;
     public maker: string | null;
-    public tone = "dark";
-
-    // #endregion Properties (21)
-
-    // #region Static Block Declarations (1)
+    tone = "dark";
 
     static {
         TestClass.year = 42;
         this.isMissing = true;
     }
-
-    // #endregion Static Block Declarations (1)
-
-    // #region Constructors (1)
 
     constructor(private readonly description: string)
     {
@@ -54,28 +44,12 @@ export abstract class TestClass
         this.surname = "borg";
     }
 
-    // #endregion Constructors (1)
-
-    // #region Public Static Accessors (1)
-
-    public static accessor isLast: boolean | undefined;
-
-    // #endregion Public Static Accessors (1)
-
-    // #region Protected Accessors (1)
+    static accessor isLast: boolean | undefined;
 
     protected accessor isFirst = true;
 
-    // #endregion Protected Accessors (1)
-
-    // #region Private Accessors (2)
-
     private accessor isEnabled: boolean = true;
     private accessor isLast: boolean | undefined;
-
-    // #endregion Private Accessors (2)
-
-    // #region Public Static Getters And Setters (2)
 
     public static get getter1(): Number
     {
@@ -87,38 +61,22 @@ export abstract class TestClass
         return 2;
     }
 
-    // #endregion Public Static Getters And Setters (2)
-
-    // #region Public Getters And Setters (2)
-
-    public get size(): Number
+    get size(): Number
     {
         return 2;
     }
 
-    public set size(size: Number) { }
+    set size(size: Number) { }
 
-    // #endregion Public Getters And Setters (2)
+    abstract set height(size: Number);
+    abstract get width(): Number;
 
-    // #region Public Abstract Getters And Setters (2)
-
-    public abstract set height(size: Number);
-    public abstract get width(): Number;
-
-    // #endregion Public Abstract Getters And Setters (2)
-
-    // #region Public Static Methods (2)
-
-    public static calculate() { }
+    static calculate() { }
 
     /**
      * This method resolves everything.
      */
-    public static resolve() { }
-
-    // #endregion Public Static Methods (2)
-
-    // #region Public Methods (4)
+    static resolve() { }
 
     public end() { }
 
@@ -127,25 +85,15 @@ export abstract class TestClass
         return 2;
     }
 
-    public async run()
+    async run()
     {
         return Promise.resolve();
     }
 
-    public start() { }
-
-    // #endregion Public Methods (4)
-
-    // #region Public Abstract Methods (2)
+    start() { }
 
     public abstract do(): number;
-    public abstract measure(): number;
-
-    // #endregion Public Abstract Methods (2)
-
-    // #region Protected Abstract Methods (1)
+    abstract measure(): number;
 
     protected abstract hack(): number;
-
-    // #endregion Protected Abstract Methods (1)
 }
