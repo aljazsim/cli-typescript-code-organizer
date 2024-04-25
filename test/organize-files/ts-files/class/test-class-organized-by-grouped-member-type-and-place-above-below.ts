@@ -27,9 +27,9 @@ export abstract class TestClass
     private _privateGetterSetter1: string = "";
     private _protectedGetterSetter1: string = "";
     private _publicGetterSetter1: string = "";
-    #privateProperty1 = (ltgeubyxvt: string) => { };
     @decoratorB()
     private privateProperty1 = "1jznbqo1ck";
+    #privateProperty1 = (ltgeubyxvt: string) => { };
     #privateProperty2: string;
 
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";

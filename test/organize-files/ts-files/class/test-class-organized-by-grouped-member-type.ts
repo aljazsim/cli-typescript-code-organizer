@@ -22,15 +22,15 @@ export abstract class TestClass
     private static privateStaticProperty1: boolean;
     private static privateStaticProperty2 = new Date();
 
-    #privateProperty1 = (ltgeubyxvt: string) => { };
-    #privateProperty2: string;
     private _privateGetterSetter1: string = "";
     private _protectedGetterSetter1: string = "";
     private _publicGetterSetter1: string = "";
     @decoratorB()
     private privateProperty1 = "1jznbqo1ck";
+    #privateProperty1 = (ltgeubyxvt: string) => { };
     @decoratorC(9860836855)
     private privateProperty2 = () => 3357116507;
+    #privateProperty2: string;
 
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
     @decoratorB()

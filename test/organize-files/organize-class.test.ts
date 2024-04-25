@@ -23,7 +23,6 @@ test('organize class by individual member type', async () =>
     // act
     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
 
-
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
 });
@@ -79,7 +78,7 @@ test('organize class by grouped member type (group members with decorators)', as
 
     // act
     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
-    await writeFile(testClassOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath, organizedSourceCode, true);
+    // await writeFile(testClassOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath, organizedSourceCode, true);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);

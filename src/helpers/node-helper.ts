@@ -45,7 +45,7 @@ export function getInterfaces(nodes: ElementNode[], groupWithDecorators: boolean
 
 export function getName(node: ElementNode, groupWithDecorators: boolean): string
 {
-    const nodeName = (node.name.startsWith("#") ? node.name.substring(1) : node.name); // private properties can start with #
+    const nodeName = (node.name.startsWith("#") ? (node.name.substring(1) + "#") : node.name); // private properties can start with #
     const nodeDecorators = groupWithDecorators && node.decoratorsWithoutParameters.length > 0 ? node.decoratorsWithoutParameters.join(", ") : "";
 
     return `${nodeDecorators} ${nodeName}`.trim();
