@@ -15,27 +15,76 @@
     "treatArrowFunctionPropertiesAsMethods": false,
     "memberOrder": [
       {
-        "caption": "Properties",
-        "memberTypes": [
-          "privateStaticConstProperties",
-          "privateConstProperties",
-          "privateStaticReadOnlyProperties",
-          "privateReadOnlyProperties",
-          "privateStaticProperties",
-          "privateProperties",
-          "protectedStaticConstProperties",
-          "protectedConstProperties",
-          "protectedStaticReadOnlyProperties",
-          "protectedReadOnlyProperties",
-          "protectedStaticProperties",
-          "protectedProperties",
-          "publicStaticConstProperties",
-          "publicConstProperties",
-          "publicStaticReadOnlyProperties",
-          "publicReadOnlyProperties",
-          "publicStaticProperties",
-          "publicProperties"
-        ]
+        "caption": "Private Static Const Properties",
+        "memberTypes": ["privateStaticConstProperties"]
+      },
+      {
+        "caption": "Private Const Properties",
+        "memberTypes": ["privateConstProperties"]
+      },
+      {
+        "caption": "Private Static ReadOnly Properties",
+        "memberTypes": ["privateStaticReadOnlyProperties"]
+      },
+      {
+        "caption": "Private ReadOnly Properties",
+        "memberTypes": ["privateReadOnlyProperties"]
+      },
+      {
+        "caption": "Private Static Properties",
+        "memberTypes": ["privateStaticProperties"]
+      },
+      {
+        "caption": "Private Properties",
+        "memberTypes": ["privateProperties"]
+      },
+      {
+        "caption": "Protected Static Const Properties",
+        "memberTypes": ["protectedStaticConstProperties"]
+      },
+      {
+        "caption": "Protected Const Properties",
+        "memberTypes": ["protectedConstProperties"]
+      },
+      {
+        "caption": "Protected Static ReadOnly Properties",
+        "memberTypes": ["protectedStaticReadOnlyProperties"]
+      },
+      {
+        "caption": "Protected ReadOnly Properties",
+        "memberTypes": ["protectedReadOnlyProperties"]
+      },
+      {
+        "caption": "Protected Static Properties",
+        "memberTypes": ["protectedStaticProperties"]
+      },
+      {
+        "caption": "Protected Properties",
+        "memberTypes": ["protectedProperties"]
+      },
+      {
+        "caption": "Public Static Const Properties",
+        "memberTypes": ["publicStaticConstProperties"]
+      },
+      {
+        "caption": "Public Const Properties",
+        "memberTypes": ["publicConstProperties"]
+      },
+      {
+        "caption": "Public Static ReadOnly Properties",
+        "memberTypes": ["publicStaticReadOnlyProperties"]
+      },
+      {
+        "caption": "Public ReadOnly Properties",
+        "memberTypes": ["publicReadOnlyProperties"]
+      },
+      {
+        "caption": "Public Static Properties",
+        "memberTypes": ["publicStaticProperties"]
+      },
+      {
+        "caption": "Public Properties",
+        "memberTypes": ["publicProperties"]
       },
       {
         "caption": "Static Block Declarations",
@@ -52,10 +101,6 @@
       {
         "caption": "Public Indexers",
         "memberTypes": ["publicIndexes"]
-      },
-      {
-        "caption": "Private Abstract Indexers",
-        "memberTypes": ["privateAbstractIndexes"]
       },
       {
         "caption": "Public Static Accessors",

@@ -186,34 +186,6 @@ export function organizeClassMembers(classNode: ClassNode, memberTypeOrder: Elem
             {
                 memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPublicIndexes(), placeAbove, placeBelow, groupElementsWithDecorators), false));
             }
-            else if (memberType === MemberType.publicAbstractIndexes)
-            {
-                memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPublicAbstractIndexes(), placeAbove, placeBelow, groupElementsWithDecorators), false));
-            }
-            else if (memberType === MemberType.protectedStaticIndexes)
-            {
-                memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getProtectedStaticIndexes(), placeAbove, placeBelow, groupElementsWithDecorators), false));
-            }
-            else if (memberType === MemberType.protectedIndexes)
-            {
-                memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getProtectedIndexes(), placeAbove, placeBelow, groupElementsWithDecorators), false));
-            }
-            else if (memberType === MemberType.protectedAbstractIndexes)
-            {
-                memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getProtectedAbstractIndexes(), placeAbove, placeBelow, groupElementsWithDecorators), false));
-            }
-            else if (memberType === MemberType.privateStaticIndexes)
-            {
-                memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPrivateStaticIndexes(), placeAbove, placeBelow, groupElementsWithDecorators), false));
-            }
-            else if (memberType === MemberType.privateIndexes)
-            {
-                memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPrivateIndexes(), placeAbove, placeBelow, groupElementsWithDecorators), false));
-            }
-            else if (memberType === MemberType.privateAbstractIndexes)
-            {
-                memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPrivateAbstractIndexes(), placeAbove, placeBelow, groupElementsWithDecorators), false));
-            }
             else if (memberType === MemberType.publicStaticAccessors)
             {
                 memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPublicStaticAccessors(), placeAbove, placeBelow, groupElementsWithDecorators), false));
@@ -529,7 +501,7 @@ export function print(groups: ElementNodeGroup[], sourceCode: string, start: num
                             }
                             else if (node instanceof PropertyNode)
                             {
-                                regex = new RegExp(`${staticRegex}${abstractRegex}${constRegex}${readonlyRegex}${node.name}`)
+                                regex = new RegExp(`${staticRegex}${abstractRegex}${constRegex}${readonlyRegex}${node.name}`);
                                 replaceWith = addPublic([getStatic(node.isStatic), getAbstract(node.isAbstract), getConst(node.writeMode), getReadOnly(node.writeMode), node.name]);
                             }
                             else if (node instanceof AccessorNode)

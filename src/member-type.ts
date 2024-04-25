@@ -26,15 +26,6 @@ export enum MemberType
 
     publicStaticIndexes,
     publicIndexes,
-    publicAbstractIndexes,
-
-    protectedStaticIndexes,
-    protectedIndexes,
-    protectedAbstractIndexes,
-
-    privateStaticIndexes,
-    privateIndexes,
-    privateAbstractIndexes,
 
     publicStaticAccessors,
     publicAccessors,

@@ -1,10 +1,10 @@
 import { expect, test } from '@jest/globals';
 
-import { Configuration } from '../../../src/configuration/configuration';
-import { organizeSourceCode } from '../../../src/organizer';
-import { readFile } from '../../../src/helpers/file-system-helper';
+import { Configuration } from '../../src/configuration/configuration';
+import { organizeSourceCode } from '../../src/organizer';
+import { readFile } from '../../src/helpers/file-system-helper';
 
-const testFileDirectoryPath = "./test/examples/organize-files/ts-files/class";
+const testFileDirectoryPath = "./test/organize-files/ts-files/class/properties";
 const testClassFilePath = `${testFileDirectoryPath}/test-class.ts`;
 const testClassOrganizedFilePath = `${testFileDirectoryPath}/test-class-organized.ts`;
 const testClassOrganizedWithRegionsFilePath = `${testFileDirectoryPath}/test-class-organized-with-regions.ts`;
@@ -43,7 +43,7 @@ test('organize class with regions', async () =>
         false, // addRegionIndentation
         false, // addMemberCountInRegionName
         false, // addRegionCaptionToRegionEnd
-        false, // groupPropertiesWithDecorators
+        false, // groupPropertiesWithDecorator
         false, // addPublicModifierIfMissing
         false, // treatArrowFunctionPropertiesAsMethods
         Configuration.getDefaultConfiguration().members.memberOrder); // memberOrder

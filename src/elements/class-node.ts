@@ -70,11 +70,6 @@ export class ClassNode extends ElementNode
     return this.getters.concat(this.setters).filter(x => this.isPrivate(x) && !x.isStatic && x.isAbstract);
   }
 
-  public getPrivateAbstractIndexes()
-  {
-    return this.indexes.filter(x => this.isPrivate(x) && !x.isStatic && x.isAbstract);
-  }
-
   public getPrivateAbstractMethods()
   {
     return this.methods.filter(x => this.isPrivate(x) && !x.isStatic && x.isAbstract);
@@ -93,11 +88,6 @@ export class ClassNode extends ElementNode
   public getPrivateGettersAndSetters()
   {
     return this.getters.concat(this.setters).filter(x => this.isPrivate(x) && !x.isStatic && !x.isAbstract);
-  }
-
-  public getPrivateIndexes()
-  {
-    return this.indexes.filter(x => this.isPrivate(x) && !x.isStatic && !x.isAbstract);
   }
 
   public getPrivateMethods()
@@ -130,11 +120,6 @@ export class ClassNode extends ElementNode
     return this.getters.concat(this.setters).filter(x => this.isPrivate(x) && x.isStatic && !x.isAbstract);
   }
 
-  public getPrivateStaticIndexes()
-  {
-    return this.indexes.filter(x => this.isPrivate(x) && x.isStatic && !x.isAbstract);
-  }
-
   public getPrivateStaticMethods()
   {
     return this.methods.filter(x => this.isPrivate(x) && x.isStatic && !x.isAbstract);
@@ -160,11 +145,6 @@ export class ClassNode extends ElementNode
     return this.getters.concat(this.setters).filter(x => this.isProtected(x) && !x.isStatic && x.isAbstract);
   }
 
-  public getProtectedAbstractIndexes()
-  {
-    return this.indexes.filter(x => this.isProtected(x) && !x.isStatic && x.isAbstract);
-  }
-
   public getProtectedAbstractMethods()
   {
     return this.methods.filter(x => this.isProtected(x) && !x.isStatic && x.isAbstract);
@@ -183,11 +163,6 @@ export class ClassNode extends ElementNode
   public getProtectedGettersAndSetters()
   {
     return this.getters.concat(this.setters).filter(x => this.isProtected(x) && !x.isStatic && !x.isAbstract);
-  }
-
-  public getProtectedIndexes()
-  {
-    return this.indexes.filter(x => this.isProtected(x) && !x.isStatic && !x.isAbstract);
   }
 
   public getProtectedMethods()
@@ -220,11 +195,6 @@ export class ClassNode extends ElementNode
     return this.getters.concat(this.setters).filter(x => this.isProtected(x) && x.isStatic && !x.isAbstract);
   }
 
-  public getProtectedStaticIndexes()
-  {
-    return this.indexes.filter(x => this.isProtected(x) && x.isStatic && !x.isAbstract);
-  }
-
   public getProtectedStaticMethods()
   {
     return this.methods.filter(x => this.isProtected(x) && x.isStatic && !x.isAbstract);
@@ -248,11 +218,6 @@ export class ClassNode extends ElementNode
   public getPublicAbstractGettersAndSetters()
   {
     return this.getters.concat(this.setters).filter(x => this.isPublic(x) && !x.isStatic && x.isAbstract);
-  }
-
-  public getPublicAbstractIndexes()
-  {
-    return this.indexes.filter(x => this.isPublic(x) && !x.isStatic && x.isAbstract);
   }
 
   public getPublicAbstractMethods()
@@ -302,7 +267,7 @@ export class ClassNode extends ElementNode
 
   public getPublicStaticConstProperties()
   {
-    return this.indexes.filter(x => this.isPublic(x) && this.isConstant(x) && x.isStatic);
+    return this.properties.filter(x => this.isPublic(x) && this.isConstant(x) && x.isStatic);
   }
 
   public getPublicStaticGettersAndSetters()
