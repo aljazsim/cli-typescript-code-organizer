@@ -125,4 +125,21 @@ export abstract class TestClass
     {
         this._publicStaticGetterSetter2 = value;
     }
+
+    public static set publicStaticGetterSetter4(value: string)
+    {
+    }
+
+
+
+    private _publicGetterSetter1: string = "";
+    public get publicGetterSetter1(): string
+    {
+        return this._publicGetterSetter1;
+    }
+
+    public set publicGetterSetter1(value: string)
+    {
+        this._publicGetterSetter1 = value;
+    }
 }
