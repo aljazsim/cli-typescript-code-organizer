@@ -349,12 +349,12 @@ export function organizeTypes(sourceCode: string, fileName: string, configuratio
     // organize type aliases, interfaces, classes, enums, functions and variables
     let sourceFile = ts.createSourceFile(fileName, sourceCode, ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
     let elements = new Transformer().analyzeSyntaxTree(sourceFile, configuration.members.treatArrowFunctionPropertiesAsMethods);
-    let imports = getImports(elements, configuration.grouping.groupPropertiesWithDecorators);
-    let typeAliases = getTypeAliases(elements, configuration.grouping.groupPropertiesWithDecorators);
-    let interfaces = getInterfaces(elements, configuration.grouping.groupPropertiesWithDecorators);
-    let classes = getClasses(elements, configuration.grouping.groupPropertiesWithDecorators);
-    let enums = getEnums(elements, configuration.grouping.groupPropertiesWithDecorators);
-    let functions = getFunctions(elements, configuration.grouping.groupPropertiesWithDecorators);
+    let imports = getImports(elements, configuration.grouping.groupMembersWithDecorators);
+    let typeAliases = getTypeAliases(elements, configuration.grouping.groupMembersWithDecorators);
+    let interfaces = getInterfaces(elements, configuration.grouping.groupMembersWithDecorators);
+    let classes = getClasses(elements, configuration.grouping.groupMembersWithDecorators);
+    let enums = getEnums(elements, configuration.grouping.groupMembersWithDecorators);
+    let functions = getFunctions(elements, configuration.grouping.groupMembersWithDecorators);
     let variables = getVariables(elements);
     let expressions = getExpressions(elements);
 
@@ -374,7 +374,7 @@ export function organizeTypes(sourceCode: string, fileName: string, configuratio
         if (typeAliases.length + interfaces.length + classes.length + enums.length + functions.length > 1 ||
             typeAliases.length + interfaces.length + classes.length + enums.length == 0 && functions.length >= 1)
         {
-            sourceCode = print(groups, sourceCode, 0, sourceCode.length, 0, configuration.regions.addMemberCountInRegionName, false, false, indentation, configuration.regions.addRegionCaptionToRegionEnd, configuration.grouping.groupPropertiesWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods);
+            sourceCode = print(groups, sourceCode, 0, sourceCode.length, 0, configuration.regions.addMemberCountInRegionName, false, false, indentation, configuration.regions.addRegionCaptionToRegionEnd, configuration.grouping.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods);
         }
     }
 
@@ -388,16 +388,16 @@ export function organizeTypes(sourceCode: string, fileName: string, configuratio
         if (element instanceof InterfaceNode)
         {
             let interfaceNode = <InterfaceNode>element;
-            let groups = organizeInterfaceMembers(interfaceNode, configuration.members.memberOrder, configuration.grouping.groupPropertiesWithDecorators);
+            let groups = organizeInterfaceMembers(interfaceNode, configuration.members.memberOrder, configuration.grouping.groupMembersWithDecorators);
 
-            sourceCode = print(groups, sourceCode, interfaceNode.membersStart, interfaceNode.membersEnd, 1, configuration.regions.addMemberCountInRegionName, false, configuration.regions.addRegionIndentation, indentation, configuration.regions.addRegionCaptionToRegionEnd, configuration.grouping.groupPropertiesWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods);
+            sourceCode = print(groups, sourceCode, interfaceNode.membersStart, interfaceNode.membersEnd, 1, configuration.regions.addMemberCountInRegionName, false, configuration.regions.addRegionIndentation, indentation, configuration.regions.addRegionCaptionToRegionEnd, configuration.grouping.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods);
         }
         else if (element instanceof ClassNode)
         {
             let classNode = <ClassNode>element;
-            let groups = organizeClassMembers(classNode, configuration.members.memberOrder, configuration.grouping.groupPropertiesWithDecorators);
+            let groups = organizeClassMembers(classNode, configuration.members.memberOrder, configuration.grouping.groupMembersWithDecorators);
 
-            sourceCode = print(groups, sourceCode, classNode.membersStart, classNode.membersEnd, 1, configuration.regions.addMemberCountInRegionName, configuration.accessModifiers.addPublicModifierIfMissing, configuration.regions.addRegionIndentation, indentation, configuration.regions.addRegionCaptionToRegionEnd, configuration.grouping.groupPropertiesWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods);
+            sourceCode = print(groups, sourceCode, classNode.membersStart, classNode.membersEnd, 1, configuration.regions.addMemberCountInRegionName, configuration.accessModifiers.addPublicModifierIfMissing, configuration.regions.addRegionIndentation, indentation, configuration.regions.addRegionCaptionToRegionEnd, configuration.grouping.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods);
         }
     }
 

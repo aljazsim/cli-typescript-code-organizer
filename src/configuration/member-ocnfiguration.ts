@@ -2,7 +2,10 @@ import { ElementNodeGroupConfiguration } from "./element-node-group-configuratio
 
 export class MemberConfigurationConfiguration
 {
-    constructor(public readonly treatArrowFunctionPropertiesAsMethods: boolean, public readonly memberOrder: ElementNodeGroupConfiguration[]) 
+    constructor(
+        public readonly groupMembersWithDecorators: boolean,
+        public readonly treatArrowFunctionPropertiesAsMethods: boolean,
+        public readonly memberOrder: ElementNodeGroupConfiguration[]) 
     {
     }
 }

@@ -1,6 +1,5 @@
 import { AccessModifierConfiguration } from "./access-modifier-configuration";
 import { ElementNodeGroupConfiguration } from "./element-node-group-configuration";
-import { GroupingConfiguration } from "./grouping-configuration";
 import { MemberConfigurationConfiguration } from "./member-ocnfiguration";
 import { MemberType } from "../member-type";
 import { RegionConfiguration } from "./region-configuration";
@@ -15,7 +14,6 @@ export class Configuration
     // #region Properties (4)
 
     public readonly accessModifiers: AccessModifierConfiguration;
-    public readonly grouping: GroupingConfiguration;
     public readonly members: MemberConfigurationConfiguration;
     public readonly regions: RegionConfiguration;
 
@@ -29,16 +27,15 @@ export class Configuration
             addRegionIndentation: boolean,
             addMemberCountInRegionName: boolean,
             addRegionCaptionToRegionEnd: boolean,
-            groupPropertiesWithDecorators: boolean,
             addPublicModifierIfMissing: boolean,
+            groupMembersWithDecorators: boolean,
             treatArrowFunctionPropertiesAsMethods: boolean,
             memberOrder: ElementNodeGroupConfiguration[]
         )
     {
         this.regions = new RegionConfiguration(useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd);
-        this.grouping = new GroupingConfiguration(groupPropertiesWithDecorators);
         this.accessModifiers = new AccessModifierConfiguration(addPublicModifierIfMissing);
-        this.members = new MemberConfigurationConfiguration(treatArrowFunctionPropertiesAsMethods, memberOrder);
+        this.members = new MemberConfigurationConfiguration(groupMembersWithDecorators, treatArrowFunctionPropertiesAsMethods, memberOrder);
     }
 
     // #endregion Constructors (1)
@@ -63,8 +60,8 @@ export class Configuration
             configuration.regions.addRegionIndentation,
             configuration.regions.addMemberCountInRegionName,
             configuration.regions.addRegionCaptionToRegionEnd,
-            configuration.grouping.groupPropertiesWithDecorators,
             configuration.accessModifiers.addPublicModifierIfMissing,
+            configuration.members.groupMembersWithDecorators,
             configuration.members.treatArrowFunctionPropertiesAsMethods,
             this.fixMemberOrderConfig(defaultConfiguration.members.memberOrder, configuration.members.memberOrder)
         );
@@ -78,7 +75,7 @@ export class Configuration
             defaultConfiguration.regions.addMemberCountInRegionName,
             defaultConfiguration.regions.addRegionCaptionToRegionEnd,
             defaultConfiguration.accessModifiers.addPublicModifierIfMissing,
-            defaultConfiguration.grouping.groupPropertiesWithDecorators,
+            defaultConfiguration.members.groupMembersWithDecorators,
             defaultConfiguration.members.treatArrowFunctionPropertiesAsMethods,
             defaultConfiguration.members.memberOrder.map(mo => this.parseElementNodeGroupConfiguration(mo))
         );

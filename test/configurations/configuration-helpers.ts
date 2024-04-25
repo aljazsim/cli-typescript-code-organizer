@@ -2,6 +2,7 @@ import { ElementNodeGroupConfiguration } from "../../src/configuration/element-n
 import { MemberType } from "../../src/member-type";
 import { distinct } from "../../src/helpers/array-helper";
 import membersByGroupedMemberType from '../configurations/members-by-grouped-member-type.json';
+import membersByGroupedMemberTypeWithPlaceAboveBelow from '../configurations/members-by-grouped-member-type-with-place-above-below.json';
 import membersByIndividualMemberType from '../configurations/members-by-individual-member-type.json';
 
 function parseElementNodeGroupConfiguration(x: any)
@@ -18,3 +19,4 @@ function parseElementNodeGroupConfiguration(x: any)
 
 export const membersByIndividualMemberTypeConfiguration = membersByIndividualMemberType.map((mt: any) => parseElementNodeGroupConfiguration(mt));
 export const membersByGroupedMemberTypeConfiguration = membersByGroupedMemberType.map((mt: any) => parseElementNodeGroupConfiguration(mt));
+export const membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration = membersByGroupedMemberTypeWithPlaceAboveBelow.map((mt: any) => parseElementNodeGroupConfiguration(mt));

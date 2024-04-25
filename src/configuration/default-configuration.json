@@ -5,13 +5,11 @@
     "addMemberCountInRegionName": false,
     "addRegionCaptionToRegionEnd": false
   },
-  "grouping": {
-    "groupPropertiesWithDecorators": false
-  },
   "accessModifiers": {
     "addPublicModifierIfMissing": false
   },
   "members": {
+    "groupMembersWithDecorators": false,
     "treatArrowFunctionPropertiesAsMethods": false,
     "memberOrder": [
       {
