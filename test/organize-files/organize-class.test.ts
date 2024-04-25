@@ -9,9 +9,9 @@ const testFileDirectoryPath = "test/organize-files/ts-files/class";
 const testClassFilePath = `${testFileDirectoryPath}/test-class.ts`;
 const testClassOrganizedByIndividualMemberTypeFilePath = `${testFileDirectoryPath}/test-class-organized-by-individual-member-type.ts`;
 const testClassOrganizedByGroupedMemberTypeFilePath = `${testFileDirectoryPath}/test-class-organized-by-grouped-member-type.ts`;
+const testClassOrganizedByGroupedMemberTypeAndPlaceAboveBelowFilePath = `${testFileDirectoryPath}/test-class-organized-by-grouped-member-type-and-place-above-below.ts`;
 const testClassOrganizedByGroupedMemberTypeAndTreatArrowPropertiesAsMethodsFilePath = `${testFileDirectoryPath}/test-class-organized-by-grouped-member-type-and-treat-arrow-properties-as-methods.ts`;
 const testClassOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath = `${testFileDirectoryPath}/test-class-organized-by-grouped-member-type-and-group-members-with-decorators.ts`;
-const testClassOrganizedByGroupedMemberTypeWithPlaceAboveBelowFilePath = `${testFileDirectoryPath}/test-class-organized-by-grouped-member-type-withPlaceAboveBelow.ts`;
 
 test('organize class by individual member type', async () =>
 {
@@ -22,6 +22,7 @@ test('organize class by individual member type', async () =>
 
     // act
     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
@@ -41,12 +42,12 @@ test('organize class by grouped member type', async () =>
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
 });
 
-test('organize class by grouped member type with place above below', async () =>
+test('organize class by grouped member type (place above below)', async () =>
 {
     // arrange
     const configuration = new Configuration(true, true, true, true, true, false, false, membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration);
     const sourceCode = await readFile(testClassFilePath);
-    const validOrganizedSourceCode = await readFile(testClassOrganizedByGroupedMemberTypeWithPlaceAboveBelowFilePath);
+    const validOrganizedSourceCode = await readFile(testClassOrganizedByGroupedMemberTypeAndPlaceAboveBelowFilePath);
 
     // act
     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
@@ -72,7 +73,7 @@ test('organize class by grouped member type (treat arrow function properties as 
 test('organize class by grouped member type (group members with decorators)', async () =>
 {
     // arrange
-    const configuration = new Configuration(true, true, true, true, true, false, true, membersByGroupedMemberTypeConfiguration);
+    const configuration = new Configuration(true, true, true, true, true, true, false, membersByGroupedMemberTypeConfiguration);
     const sourceCode = await readFile(testClassFilePath);
     const validOrganizedSourceCode = await readFile(testClassOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath);
 

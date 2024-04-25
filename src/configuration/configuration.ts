@@ -1,6 +1,6 @@
 import { AccessModifierConfiguration } from "./access-modifier-configuration";
 import { ElementNodeGroupConfiguration } from "./element-node-group-configuration";
-import { MemberConfigurationConfiguration } from "./member-ocnfiguration";
+import { MemberConfigurationConfiguration } from "./member-configuration";
 import { MemberType } from "../member-type";
 import { RegionConfiguration } from "./region-configuration";
 import { convertPascalCaseToTitleCase } from "../helpers/string-helper";

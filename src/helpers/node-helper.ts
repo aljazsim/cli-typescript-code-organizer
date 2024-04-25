@@ -17,9 +17,9 @@ export function getClasses(nodes: ElementNode[], groupWithDecorators: boolean)
     return nodes.filter(x => x instanceof ClassNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
 }
 
-export function getEnums(nodes: ElementNode[], groupWithDecorators: boolean)
+export function getEnums(nodes: ElementNode[])
 {
-    return nodes.filter(x => x instanceof EnumNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+    return nodes.filter(x => x instanceof EnumNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
 export function getExpressions(nodes: ElementNode[])
@@ -33,9 +33,9 @@ export function getFunctions(nodes: ElementNode[], groupWithDecorators: boolean)
     return nodes.filter(x => x instanceof FunctionNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
 }
 
-export function getImports(nodes: ElementNode[], groupWithDecorators: boolean)
+export function getImports(nodes: ElementNode[])
 {
-    return nodes.filter(x => x instanceof ImportNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+    return nodes.filter(x => x instanceof ImportNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
 export function getInterfaces(nodes: ElementNode[], groupWithDecorators: boolean)
@@ -56,9 +56,9 @@ export function getName(node: ElementNode, groupWithDecorators: boolean): string
     return node.name;
 }
 
-export function getTypeAliases(nodes: ElementNode[], groupWithDecorators: boolean)
+export function getTypeAliases(nodes: ElementNode[])
 {
-    return nodes.filter(x => x instanceof TypeAliasNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+    return nodes.filter(x => x instanceof TypeAliasNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
 export function getVariables(nodes: ElementNode[])
@@ -87,7 +87,7 @@ export function splitByPlaceAboveBelow<T extends ElementNode>(nodes: T[], placeA
         nodesAbove,
         nodesMiddle,
         nodesBelow
-    }
+    };
 }
 
 // #endregion Functions (11)
