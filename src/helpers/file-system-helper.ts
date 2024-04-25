@@ -29,7 +29,16 @@ export async function writeFile(filePath: string, fileContents: string, overwrit
 
 export async function fileExists(filePath: string)
 {
-    return await fs.fileExists(filePath);
+    try
+    {
+        await fs.promises.access(filePath, fs.constants.F_OK);
+
+        return true;
+    }
+    catch
+    {
+        return false;
+    }
 }
 
 export async function deleteFile(filePath: string)
