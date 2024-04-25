@@ -44,7 +44,6 @@ export enum MemberType
 
     privateStaticGettersAndSetters,
     privateGettersAndSetters,
-    privateAbstractGettersAndSetters,
 
     protectedStaticGettersAndSetters,
     protectedGettersAndSetters,
@@ -59,6 +58,5 @@ export enum MemberType
     protectedAbstractMethods,
 
     privateStaticMethods,
-    privateMethods,
-    privateAbstractMethods
+    privateMethods
 }

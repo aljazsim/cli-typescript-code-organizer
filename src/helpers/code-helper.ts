@@ -250,10 +250,6 @@ export function organizeClassMembers(classNode: ClassNode, memberTypeOrder: Elem
             {
                 memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPrivateGettersAndSetters(), placeAbove, placeBelow, groupElementsWithDecorators), false));
             }
-            else if (memberType === MemberType.privateAbstractGettersAndSetters)
-            {
-                memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPrivateAbstractGettersAndSetters(), placeAbove, placeBelow, groupElementsWithDecorators), false));
-            }
             else if (memberType === MemberType.publicStaticMethods)
             {
                 memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPublicStaticMethods(), placeAbove, placeBelow, groupElementsWithDecorators), false));
@@ -285,10 +281,6 @@ export function organizeClassMembers(classNode: ClassNode, memberTypeOrder: Elem
             else if (memberType === MemberType.privateMethods)
             {
                 memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPrivateMethods(), placeAbove, placeBelow, groupElementsWithDecorators), false));
-            }
-            else if (memberType === MemberType.privateAbstractMethods)
-            {
-                memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPrivateAbstractMethods(), placeAbove, placeBelow, groupElementsWithDecorators), false));
             }
         }
 

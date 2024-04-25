@@ -118,10 +118,6 @@
         "memberTypes": ["privateGettersAndSetters"]
       },
       {
-        "caption": "Private Abstract Getters And Setters",
-        "memberTypes": ["privateAbstractGettersAndSetters"]
-      },
-      {
         "caption": "Public Static Methods",
         "memberTypes": ["publicStaticMethods"]
       },
@@ -152,10 +148,6 @@
       {
         "caption": "Private Methods",
         "memberTypes": ["privateMethods"]
-      },
-      {
-        "caption": "Private Abstract Methods",
-        "memberTypes": ["privateAbstractMethods"]
       }
     ]
   }

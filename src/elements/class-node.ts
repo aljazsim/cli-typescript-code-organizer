@@ -60,16 +60,6 @@ export class ClassNode extends ElementNode
     return this.constructors;
   }
 
-  public getPrivateAbstractGettersAndSetters()
-  {
-    return this.getters.concat(this.setters).filter(x => this.isPrivate(x) && !x.isStatic && x.isAbstract);
-  }
-
-  public getPrivateAbstractMethods()
-  {
-    return this.methods.filter(x => this.isPrivate(x) && !x.isStatic && x.isAbstract);
-  }
-
   public getPrivateAccessors()
   {
     return this.accessors.filter(x => this.isPrivate(x) && !x.isStatic && !x.isAbstract);
