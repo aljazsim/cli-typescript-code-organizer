@@ -515,18 +515,6 @@ export function print(groups: ElementNodeGroup[], sourceCode: string, start: num
                         }
                     }
 
-                    if (groupElementsWithDecorators)
-                    {
-                        if (i > 0)
-                        {
-                            if (nodeGroup[i - 1].decorators.length > 0 &&
-                                nodeGroup[i].decorators.length === 0)
-                            {
-                                members += newLine;
-                            }
-                        }
-                    }
-
                     if (comment !== "")
                     {
                         members += `${IndentationLevel === 1 ? indentation : ""}${comment}${newLine}`;

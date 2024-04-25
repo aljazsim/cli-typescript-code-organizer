@@ -11,7 +11,6 @@ export abstract class TestClass
     private readonly privateReadonlyProperty1: string | undefined = "ohqx31vc3a";
     @decoratorC(7573192855)
     private readonly privateReadonlyProperty3: String = "709w42symh";
-
     private readonly privateReadonlyProperty2 = "jwm4jkf16m";
 
     private static _privateStaticGetterSetter1: string;
@@ -23,20 +22,18 @@ export abstract class TestClass
     private static privateStaticProperty1: boolean;
     private static privateStaticProperty2 = new Date();
 
-    #privateProperty1 = (ltgeubyxvt: string) => { };
-    #privateProperty2: string;
     @decoratorB()
     private privateProperty1 = "1jznbqo1ck";
     @decoratorC(9860836855)
     private privateProperty2 = () => 3357116507;
-
     private _privateGetterSetter1: string = "";
     private _protectedGetterSetter1: string = "";
     private _publicGetterSetter1: string = "";
+    #privateProperty1 = (ltgeubyxvt: string) => { };
+    #privateProperty2: string;
 
     @decoratorB()
     protected static readonly protectedStaticReadonlyProperty2 = "oyasnkxrza";
-
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
 
     @decoratorA("dozslltkqe")
@@ -44,7 +41,6 @@ export abstract class TestClass
     protected readonly protectedReadonlyProperty3 = 1187372274;
     @decoratorB()
     protected readonly protectedReadonlyProperty5 = 4089519931;
-
     protected readonly protectedReadonlyProperty1 = "tbgokvjelv";
     protected readonly protectedReadonlyProperty2 = "txpobjdpsj";
     protected readonly protectedReadonlyProperty4 = 6494372165;
@@ -52,7 +48,6 @@ export abstract class TestClass
 
     @decoratorC(9860836855)
     protected static protectedStaticProperty1 = 8522782648;
-
     protected static protectedStaticProperty2 = "hyc8khk2oj";
 
     protected protectedProperty1 = "jwm4jkf16m";
@@ -62,12 +57,10 @@ export abstract class TestClass
     public static readonly publicStaticReadonlyProperty1: Number = 8345836946;
     @decoratorB()
     public static readonly publicStaticReadonlyProperty3: Number;
-
     public static readonly publicStaticReadonlyProperty2: string;
 
     @decoratorB()
     public readonly publicReadonlyProperty1 = "ztrfjcvmrm";
-
     public readonly publicReadonlyProperty2 = "uialqi4dkc";
 
     public static publicStaticProperty1 = () =>
@@ -78,7 +71,6 @@ export abstract class TestClass
 
     @decoratorA("qeyfjngywl")
     public publicProperty2 = "pe2bmn4hgi";
-
     public publicProperty1: string | null;
     public publicProperty3: Number = 5502271448;
 
@@ -110,7 +102,6 @@ export abstract class TestClass
     @decoratorD()
     @decoratorE()
     public static accessor publicStaticAccessor3: boolean | undefined;
-
     public static accessor publicStaticAccessor2: number;
 
     public accessor publicAccessor1: boolean | undefined;
@@ -123,7 +114,6 @@ export abstract class TestClass
     public abstract accessor publicAbstractAccessor2: boolean | undefined;
     @decoratorD()
     public abstract accessor publicAbstractAccessor3: string;
-
     public abstract accessor publicAbstractAccessor4: boolean | undefined;
 
     protected static accessor protectedStaticAccessor1: boolean | undefined;
@@ -137,18 +127,15 @@ export abstract class TestClass
 
     @decoratorD()
     protected abstract accessor protectedAbstractAccessor3: boolean | undefined;
-
     protected abstract accessor protectedAbstractAccessor1: boolean | undefined;
     protected abstract accessor protectedAbstractAccessor2: string;
 
     @decoratorD()
     private static accessor privateStaticAccessor2: string;
-
     private static accessor privateStaticAccessor1: boolean | undefined;
 
     @decoratorD()
     private accessor privateAccessor1: boolean | undefined;
-
     private accessor privateAccessor2: boolean | undefined;
 
     // #endregion Accessors (21)

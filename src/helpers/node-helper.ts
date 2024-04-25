@@ -45,15 +45,10 @@ export function getInterfaces(nodes: ElementNode[], groupWithDecorators: boolean
 
 export function getName(node: ElementNode, groupWithDecorators: boolean): string
 {
-    if (groupWithDecorators)
-    {
-        if (node.decoratorsWithoutParameters.length > 0)
-        {
-            return node.decoratorsWithoutParameters.join(", ") + " " + node.name;
-        }
-    }
+    const nodeName = (node.name.startsWith("#") ? node.name.substring(1) : node.name); // private properties can start with #
+    const nodeDecorators = groupWithDecorators && node.decoratorsWithoutParameters.length > 0 ? node.decoratorsWithoutParameters.join(", ") : "";
 
-    return node.name;
+    return `${nodeDecorators} ${nodeName}`.trim();
 }
 
 export function getTypeAliases(nodes: ElementNode[])
