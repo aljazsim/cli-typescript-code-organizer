@@ -13,12 +13,12 @@ test('organize class', async () =>
     // arrange
     const configuration = new Configuration(true, true, true, true, false, true, false, Configuration.getDefaultConfigurationByIndividualMemberType().members.memberOrder);
     const sourceCode = await readFile(testClassFilePath);
-    // const validOrganizedSourceCode = await readFile(testClassOrganizedFilePath);
+    const validOrganizedSourceCode = await readFile(testClassOrganizedFilePath);
 
     // act
     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
-    await writeFile(testClassOrganizedFilePath, organizedSourceCode, true);
+    // await writeFile(testClassOrganizedFilePath, organizedSourceCode, true);
 
     // assert
-    // expect(organizedSourceCode).toBe(validOrganizedSourceCode);
+    expect(organizedSourceCode).toBe(validOrganizedSourceCode);
 });

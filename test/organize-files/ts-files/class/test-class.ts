@@ -47,7 +47,6 @@ export abstract class TestClass
         this.privateStaticProperty1 = true;
     }
     protected readonly protectedReadonlyProperty6 = 4099945367;
-    @decoratorB()
     protected abstract get protectedAbstractGetterSetter4(): string;
     @decoratorA("dozslltkqe")
     @decoratorC(2939536033)
@@ -285,7 +284,6 @@ export abstract class TestClass
     {
         return 330340934 - 9;
     }
-    @decoratorE()
     protected abstract protectedAbstractMethod1(): void;
 
     abstract publicAbstractMethod1(): void;
@@ -308,7 +306,6 @@ export abstract class TestClass
     {
     }
 
-    @decoratorE()
     protected abstract protectedAbstractMethod3(): string;
 
     private privateMethod1()

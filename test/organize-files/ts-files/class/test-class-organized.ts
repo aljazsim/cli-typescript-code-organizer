@@ -326,7 +326,6 @@ export abstract class TestClass
     protected abstract get protectedAbstractGetterSetter2(): string;
     protected abstract set protectedAbstractGetterSetter2(value: string);
     protected abstract set protectedAbstractGetterSetter3(value: string);
-    @decoratorB()
     protected abstract get protectedAbstractGetterSetter4(): string;
 
     // #endregion Protected Abstract Getters And Setters (6)
@@ -463,10 +462,8 @@ export abstract class TestClass
 
     // #region Protected Abstract Methods (3)
 
-    @decoratorE()
     protected abstract protectedAbstractMethod1(): void;
     protected abstract protectedAbstractMethod2(): number;
-    @decoratorE()
     protected abstract protectedAbstractMethod3(): string;
 
     // #endregion Protected Abstract Methods (3)
