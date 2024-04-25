@@ -54,10 +54,6 @@
         "memberTypes": ["publicIndexes"]
       },
       {
-        "caption": "Private Abstract Indexers",
-        "memberTypes": ["privateAbstractIndexes"]
-      },
-      {
         "caption": "Public Static Accessors",
         "memberTypes": ["publicStaticAccessors"]
       },
@@ -88,10 +84,6 @@
       {
         "caption": "Private Accessors",
         "memberTypes": ["privateAccessors"]
-      },
-      {
-        "caption": "Private Abstract Accessors",
-        "memberTypes": ["privateAbstractAccessors"]
       },
       {
         "caption": "Public Static Getters And Setters",

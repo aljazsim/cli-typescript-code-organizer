@@ -33,7 +33,6 @@ export enum MemberType
 
     privateStaticAccessors,
     privateAccessors,
-    privateAbstractAccessors,
 
     protectedStaticAccessors,
     protectedAccessors,

@@ -11,7 +11,7 @@ const testClassOrganizedFilePath = `${testFileDirectoryPath}/test-class-organize
 test('organize class', async () =>
 {
     // arrange
-    const configuration = new Configuration(false, false, false, false, false, false, false, Configuration.getDefaultConfigurationByIndividualMemberType().members.memberOrder);
+    const configuration = new Configuration(true, true, true, true, false, true, false, Configuration.getDefaultConfigurationByIndividualMemberType().members.memberOrder);
     const sourceCode = await readFile(testClassFilePath);
     // const validOrganizedSourceCode = await readFile(testClassOrganizedFilePath);
 

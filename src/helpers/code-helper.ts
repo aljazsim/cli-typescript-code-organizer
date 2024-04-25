@@ -218,10 +218,6 @@ export function organizeClassMembers(classNode: ClassNode, memberTypeOrder: Elem
             {
                 memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPrivateAccessors(), placeAbove, placeBelow, groupElementsWithDecorators), false));
             }
-            else if (memberType === MemberType.privateAbstractAccessors)
-            {
-                memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPrivateAbstractAccessors(), placeAbove, placeBelow, groupElementsWithDecorators), false));
-            }
             else if (memberType === MemberType.publicStaticGettersAndSetters)
             {
                 memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classNode.getPublicStaticGettersAndSetters(), placeAbove, placeBelow, groupElementsWithDecorators), false));

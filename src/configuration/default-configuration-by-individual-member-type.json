@@ -135,10 +135,6 @@
         "memberTypes": ["privateAccessors"]
       },
       {
-        "caption": "Private Abstract Accessors",
-        "memberTypes": ["privateAbstractAccessors"]
-      },
-      {
         "caption": "Public Static Getters And Setters",
         "memberTypes": ["publicStaticGettersAndSetters"]
       },

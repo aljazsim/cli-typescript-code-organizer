@@ -1,6 +1,6 @@
-import { decoratorA, decoratorB, decoratorC } from "../../../helpers/test-decorators";
+import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../../../helpers/test-decorators";
 
-export class TestClass
+export abstract class TestClass
 {
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
 
@@ -27,6 +27,9 @@ export class TestClass
     @decoratorC(9860836855)
     protected static protectedStaticProperty1 = 8522782648;
     protected readonly protectedReadonlyProperty2 = "txpobjdpsj";
+    public accessor publicAccessor1: boolean | undefined;
+    @decoratorD()
+    public static accessor publicStaticAccessor1: boolean | undefined;
     @decoratorB()
     protected static readonly protectedStaticReadonlyProperty2 = "oyasnkxrza";
     private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
@@ -37,14 +40,13 @@ export class TestClass
     protected readonly protectedReadonlyProperty4 = 6494372165;
     @decoratorB()
     protected readonly protectedReadonlyProperty5 = 4089519931;
-    static [key: string]: any;
-    [key: string]: any;
-    [key: number]: any;
+    protected static accessor protectedStaticAccessor1: boolean | undefined;
 
     static {
         this.protectedStaticProperty1 = 4286562276;
         this.privateStaticProperty1 = true;
     }
+    protected static accessor protectedStaticAccessor2: boolean | undefined;
     protected readonly protectedReadonlyProperty6 = 4099945367;
     @decoratorB()
     @decoratorA("dozslltkqe")
@@ -52,6 +54,20 @@ export class TestClass
     protected readonly protectedReadonlyProperty3 = 1187372274;
     @decoratorB()
     public readonly publicReadonlyProperty1 = "ztrfjcvmrm";
+    @decoratorD()
+    @decoratorE()
+    public static accessor publicStaticAccessor3: boolean | undefined;
+    @decoratorD()
+    public accessor publicAccessor2: number = 8647818341;
+    @decoratorE()
+    public accessor publicAccessor3 = 4184534899;
+    @decoratorE()
+    @decoratorD()
+    public abstract accessor publicAbstractAccessor1: string;
+    @decoratorD()
+    public abstract accessor publicAbstractAccessor3: string;
+    public static accessor publicStaticAccessor2: number;
+    protected accessor protectedAccessor2: boolean | undefined;
     publicProperty1: string | null;
     constructor(private readonly name: string)
     {
@@ -60,12 +76,53 @@ export class TestClass
     }
     @decoratorC(7573192855)
     private readonly privateReadonlyProperty3: String = "709w42symh";
+    @decoratorD()
+    public abstract accessor publicAbstractAccessor2: boolean | undefined;
     static publicStaticProperty1 = () =>
     {
         return 3016660817 + 9761854145;
     };
     readonly publicReadonlyProperty2 = "uialqi4dkc";
-    private static privateStaticProperty2 = new Date();
+    public abstract accessor publicAbstractAccessor4: boolean | undefined;
     publicProperty3: Number = 5502271448;
+    protected abstract accessor protectedAbstractAccessor2: string;
+    @decoratorD()
+    protected accessor protectedAccessor1: boolean | undefined;
+    private accessor privateAccessor2: boolean | undefined;
+    private static privateStaticProperty2 = new Date();
+    protected abstract accessor protectedAbstractAccessor1: boolean | undefined;
+    @decoratorD()
+    protected abstract accessor protectedAbstractAccessor3: boolean | undefined;
+    private static accessor privateStaticAccessor1: boolean | undefined;
+    @decoratorD()
+    private static accessor privateStaticAccessor2: string;
+    @decoratorD()
+    private accessor privateAccessor1: boolean | undefined;
 
+    private static _publicStaticGetterSetter1: string;
+    public static get publicStaticGetterSetter1(): string
+    {
+        return this._publicStaticGetterSetter1;
+    }
+
+    public static set publicStaticGetterSetter1(value: string)
+    {
+        this._publicStaticGetterSetter1 = value;
+    }
+
+    private static _publicStaticGetterSetter2: string;
+    public static get publicStaticGetterSetter2(): string
+    {
+        return this._publicStaticGetterSetter2;
+    }
+
+    public static get publicStaticGetterSetter3()
+    {
+        return "zkugxgqjen";
+    }
+
+    public static set publicStaticGetterSetter2(value: string)
+    {
+        this._publicStaticGetterSetter2 = value;
+    }
 }
