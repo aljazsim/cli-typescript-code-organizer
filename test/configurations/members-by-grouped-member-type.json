@@ -1,0 +1,76 @@
+[
+  {
+    "caption": "Properties",
+    "memberTypes": [
+      "privateStaticConstProperties",
+      "privateConstProperties",
+      "privateStaticReadOnlyProperties",
+      "privateReadOnlyProperties",
+      "privateStaticProperties",
+      "privateProperties",
+      "protectedStaticConstProperties",
+      "protectedConstProperties",
+      "protectedStaticReadOnlyProperties",
+      "protectedReadOnlyProperties",
+      "protectedStaticProperties",
+      "protectedProperties",
+      "publicStaticConstProperties",
+      "publicConstProperties",
+      "publicStaticReadOnlyProperties",
+      "publicReadOnlyProperties",
+      "publicStaticProperties",
+      "publicProperties"
+    ]
+  },
+  {
+    "caption": "Static Block Declarations",
+    "memberTypes": ["staticBlockDeclarations"]
+  },
+  {
+    "caption": "Constructors",
+    "memberTypes": ["constructors"]
+  },
+  {
+    "caption": "Indexers",
+    "memberTypes": ["publicStaticIndexes", "publicIndexes"]
+  },
+  {
+    "caption": "Accessors",
+    "memberTypes": [
+      "publicStaticAccessors",
+      "publicAccessors",
+      "publicAbstractAccessors",
+      "protectedStaticAccessors",
+      "protectedAccessors",
+      "protectedAbstractAccessors",
+      "privateStaticAccessors",
+      "privateAccessors"
+    ]
+  },
+  {
+    "caption": "Getters And Setters",
+    "memberTypes": [
+      "publicStaticGettersAndSetters",
+      "publicGettersAndSetters",
+      "publicAbstractGettersAndSetters",
+      "protectedStaticGettersAndSetters",
+      "protectedGettersAndSetters",
+      "protectedAbstractGettersAndSetters",
+      "privateStaticGettersAndSetters",
+      "privateGettersAndSetters"
+    ]
+  },
+  {
+    "caption": "Methods",
+    "memberTypes": [
+      "publicStaticMethods",
+      "publicMethods",
+      "publicAbstractMethods",
+      "protectedStaticMethods",
+      "protectedMethods",
+      "protectedAbstractMethods",
+      "privateStaticMethods",
+      "privateMethods"
+    ]
+  }
+]

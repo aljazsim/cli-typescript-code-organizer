@@ -1,0 +1,186 @@
+[
+  {
+    "caption": "Private Static Const Properties",
+    "memberTypes": ["privateStaticConstProperties"]
+  },
+  {
+    "caption": "Private Const Properties",
+    "memberTypes": ["privateConstProperties"]
+  },
+  {
+    "caption": "Private Static ReadOnly Properties",
+    "memberTypes": ["privateStaticReadOnlyProperties"]
+  },
+  {
+    "caption": "Private ReadOnly Properties",
+    "memberTypes": ["privateReadOnlyProperties"]
+  },
+  {
+    "caption": "Private Static Properties",
+    "memberTypes": ["privateStaticProperties"]
+  },
+  {
+    "caption": "Private Properties",
+    "memberTypes": ["privateProperties"]
+  },
+  {
+    "caption": "Protected Static Const Properties",
+    "memberTypes": ["protectedStaticConstProperties"]
+  },
+  {
+    "caption": "Protected Const Properties",
+    "memberTypes": ["protectedConstProperties"]
+  },
+  {
+    "caption": "Protected Static ReadOnly Properties",
+    "memberTypes": ["protectedStaticReadOnlyProperties"]
+  },
+  {
+    "caption": "Protected ReadOnly Properties",
+    "memberTypes": ["protectedReadOnlyProperties"]
+  },
+  {
+    "caption": "Protected Static Properties",
+    "memberTypes": ["protectedStaticProperties"]
+  },
+  {
+    "caption": "Protected Properties",
+    "memberTypes": ["protectedProperties"]
+  },
+  {
+    "caption": "Public Static Const Properties",
+    "memberTypes": ["publicStaticConstProperties"]
+  },
+  {
+    "caption": "Public Const Properties",
+    "memberTypes": ["publicConstProperties"]
+  },
+  {
+    "caption": "Public Static ReadOnly Properties",
+    "memberTypes": ["publicStaticReadOnlyProperties"]
+  },
+  {
+    "caption": "Public ReadOnly Properties",
+    "memberTypes": ["publicReadOnlyProperties"]
+  },
+  {
+    "caption": "Public Static Properties",
+    "memberTypes": ["publicStaticProperties"]
+  },
+  {
+    "caption": "Public Properties",
+    "memberTypes": ["publicProperties"]
+  },
+  {
+    "caption": "Static Block Declarations",
+    "memberTypes": ["staticBlockDeclarations"]
+  },
+  {
+    "caption": "Constructors",
+    "memberTypes": ["constructors"]
+  },
+  {
+    "caption": "Public Static Indexers",
+    "memberTypes": ["publicStaticIndexes"]
+  },
+  {
+    "caption": "Public Indexers",
+    "memberTypes": ["publicIndexes"]
+  },
+  {
+    "caption": "Public Static Accessors",
+    "memberTypes": ["publicStaticAccessors"]
+  },
+  {
+    "caption": "Public Accessors",
+    "memberTypes": ["publicAccessors"]
+  },
+  {
+    "caption": "Public Abstract Accessors",
+    "memberTypes": ["publicAbstractAccessors"]
+  },
+  {
+    "caption": "Protected Static Accessors",
+    "memberTypes": ["protectedStaticAccessors"]
+  },
+  {
+    "caption": "Protected Accessors",
+    "memberTypes": ["protectedAccessors"]
+  },
+  {
+    "caption": "Protected Abstract Accessors",
+    "memberTypes": ["protectedAbstractAccessors"]
+  },
+  {
+    "caption": "Private Static Accessors",
+    "memberTypes": ["privateStaticAccessors"]
+  },
+  {
+    "caption": "Private Accessors",
+    "memberTypes": ["privateAccessors"]
+  },
+  {
+    "caption": "Public Static Getters And Setters",
+    "memberTypes": ["publicStaticGettersAndSetters"]
+  },
+  {
+    "caption": "Public Getters And Setters",
+    "memberTypes": ["publicGettersAndSetters"]
+  },
+  {
+    "caption": "Public Abstract Getters And Setters",
+    "memberTypes": ["publicAbstractGettersAndSetters"]
+  },
+  {
+    "caption": "Protected Static Getters And Setters",
+    "memberTypes": ["protectedStaticGettersAndSetters"]
+  },
+  {
+    "caption": "Protected Getters And Setters",
+    "memberTypes": ["protectedGettersAndSetters"]
+  },
+  {
+    "caption": "Protected Abstract Getters And Setters",
+    "memberTypes": ["protectedAbstractGettersAndSetters"]
+  },
+  {
+    "caption": "Private Static Getters And Setters",
+    "memberTypes": ["privateStaticGettersAndSetters"]
+  },
+  {
+    "caption": "Private Getters And Setters",
+    "memberTypes": ["privateGettersAndSetters"]
+  },
+  {
+    "caption": "Public Static Methods",
+    "memberTypes": ["publicStaticMethods"]
+  },
+  {
+    "caption": "Public Methods",
+    "memberTypes": ["publicMethods"]
+  },
+  {
+    "caption": "Public Abstract Methods",
+    "memberTypes": ["publicAbstractMethods"]
+  },
+  {
+    "caption": "Protected Static Methods",
+    "memberTypes": ["protectedStaticMethods"]
+  },
+  {
+    "caption": "Protected Methods",
+    "memberTypes": ["protectedMethods"]
+  },
+  {
+    "caption": "Protected Abstract Methods",
+    "memberTypes": ["protectedAbstractMethods"]
+  },
+  {
+    "caption": "Private Static Methods",
+    "memberTypes": ["privateStaticMethods"]
+  },
+  {
+    "caption": "Private Methods",
+    "memberTypes": ["privateMethods"]
+  }
+]

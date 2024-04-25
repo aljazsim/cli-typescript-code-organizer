@@ -6,7 +6,6 @@ import { MemberType } from "../member-type";
 import { RegionConfiguration } from "./region-configuration";
 import { convertPascalCaseToTitleCase } from "../helpers/string-helper";
 import defaultConfiguration from './default-configuration.json';
-import defaultConfigurationByIndividualMemberType from './default-configuration-by-individual-member-type.json';
 import { distinct } from "../helpers/array-helper";
 
 const fs = require('fs').promises;
@@ -82,20 +81,6 @@ export class Configuration
             defaultConfiguration.grouping.groupPropertiesWithDecorators,
             defaultConfiguration.members.treatArrowFunctionPropertiesAsMethods,
             defaultConfiguration.members.memberOrder.map(mo => this.parseElementNodeGroupConfiguration(mo))
-        );
-    }
-
-    public static getDefaultConfigurationByIndividualMemberType()
-    {
-        return new Configuration(
-            defaultConfigurationByIndividualMemberType.regions.useRegions,
-            defaultConfigurationByIndividualMemberType.regions.addRegionIndentation,
-            defaultConfigurationByIndividualMemberType.regions.addMemberCountInRegionName,
-            defaultConfigurationByIndividualMemberType.regions.addRegionCaptionToRegionEnd,
-            defaultConfigurationByIndividualMemberType.accessModifiers.addPublicModifierIfMissing,
-            defaultConfigurationByIndividualMemberType.grouping.groupPropertiesWithDecorators,
-            defaultConfigurationByIndividualMemberType.members.treatArrowFunctionPropertiesAsMethods,
-            defaultConfigurationByIndividualMemberType.members.memberOrder.map(mo => this.parseElementNodeGroupConfiguration(mo))
         );
     }
 

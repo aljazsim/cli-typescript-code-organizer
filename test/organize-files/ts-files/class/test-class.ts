@@ -1,4 +1,4 @@
-import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../../../helpers/test-decorators";
+import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
 
 export abstract class TestClass
 {
