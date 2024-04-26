@@ -16,7 +16,7 @@ export class VariableNode extends ElementNode
     {
         super(variableStatement);
 
-        this._name = "";
+        this._name = variableStatement.declarationList.declarations.map(d => (<ts.Identifier>d.name).escapedText.toString()).join(",");
 
         this._fullStart = variableStatement.getFullStart();
         this._end = variableStatement.getEnd();

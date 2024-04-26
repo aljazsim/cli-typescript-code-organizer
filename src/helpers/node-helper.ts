@@ -34,7 +34,7 @@ export function getFunctions(nodes: ElementNode[], groupWithDecorators: boolean,
         .map(f => f as FunctionNode)
         .filter(f => f.isExport === exported)
         .map(f => f as ElementNode);
-    const arrowFunctionVariables = treatArrowFunctionPropertiesAsMethods ? getVariables(nodes, true) : [];
+    const arrowFunctionVariables = treatArrowFunctionPropertiesAsMethods ? getVariables(nodes, groupWithDecorators, true) : [];
 
     return functions.concat(arrowFunctionVariables).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
 }
@@ -62,7 +62,7 @@ export function getTypeAliases(nodes: ElementNode[])
     return nodes.filter(n => n instanceof TypeAliasNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
-export function getVariables(nodes: ElementNode[], arrowFunctionVariables: boolean | null)
+export function getVariables(nodes: ElementNode[], groupWithDecorators: boolean, arrowFunctionVariables: boolean | null)
 {
     // variable declaration can be dependant on order variables, so it is best to not sort them
     let variables = nodes.filter(n => n instanceof VariableNode).map(v => v as VariableNode);
@@ -72,7 +72,7 @@ export function getVariables(nodes: ElementNode[], arrowFunctionVariables: boole
         variables = variables.filter(v => v.isArrowFunction === arrowFunctionVariables);
     }
 
-    return variables.map(v => v as ElementNode);
+    return variables.map(v => v as ElementNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
 }
 
 export function groupByPlaceAboveBelow(nodes: ElementNode[], placeAbove: string[], placeBelow: string[], groupWithDecorators: boolean)

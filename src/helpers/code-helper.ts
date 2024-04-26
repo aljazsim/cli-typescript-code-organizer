@@ -356,7 +356,7 @@ export function organizeTypes(sourceCode: string, fileName: string, configuratio
     let enums = getEnums(elements);
     let nonExportedFunctions = getFunctions(elements, configuration.members.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods, false);
     let exportedFunctions = getFunctions(elements, configuration.members.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods, true);
-    let variables = getVariables(elements, configuration.members.treatArrowFunctionPropertiesAsMethods ? false : null);
+    let variables = getVariables(elements, configuration.members.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods ? false : null);
     let expressions = getExpressions(elements);
 
     if (expressions.length === 0)

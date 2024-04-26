@@ -25,7 +25,7 @@ let variable2 = () => 4978875552;
 export const const1 = 4886536564;
 export const function8 = () => { function9(); };
 
-const const2 = 1981188020;
+const const2 = 1981188020, const5 = 2963139131;
 export function function1()
 {
     return function4();

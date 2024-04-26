@@ -4,6 +4,7 @@ import { readFile, writeFile } from '../../src/helpers/file-system-helper';
 
 import { Configuration } from '../../src/configuration/configuration';
 import { organizeSourceCode } from '../../src/organizer';
+import { write } from "fs";
 
 const testFileDirectoryPath = "test/organize-files/ts-files/interface";
 const testInterfaceFilePath = `${testFileDirectoryPath}/test-interface.ts`;
