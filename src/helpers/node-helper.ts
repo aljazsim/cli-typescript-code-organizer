@@ -34,12 +34,9 @@ export function getFunctions(nodes: ElementNode[], groupWithDecorators: boolean,
         .map(f => f as FunctionNode)
         .filter(f => f.isExport === exported)
         .map(f => f as ElementNode);
-    const arrowFunctionProperties = nodes.filter(n => n instanceof VariableNode)
-        .map(v => v as VariableNode)
-        .filter(v => v.isArrowFunction === exported)
-        .map(f => f as ElementNode);
+    const arrowFunctionVariables = treatArrowFunctionPropertiesAsMethods ? getVariables(nodes, true) : [];
 
-    return functions.concat(arrowFunctionProperties).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+    return functions.concat(arrowFunctionVariables).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
 }
 
 export function getImports(nodes: ElementNode[])
@@ -65,14 +62,17 @@ export function getTypeAliases(nodes: ElementNode[])
     return nodes.filter(n => n instanceof TypeAliasNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
-export function getVariables(nodes: ElementNode[], treatArrowFunctionPropertiesAsMethods: boolean)
+export function getVariables(nodes: ElementNode[], arrowFunctionVariables: boolean | null)
 {
     // variable declaration can be dependant on order variables, so it is best to not sort them
-    return nodes.filter(n => n instanceof VariableNode)
-        .map(v => v as VariableNode)
-        .filter(v => !treatArrowFunctionPropertiesAsMethods || !v.isArrowFunction)
-        .map(v => v as ElementNode)
-        ;
+    let variables = nodes.filter(n => n instanceof VariableNode).map(v => v as VariableNode);
+
+    if (arrowFunctionVariables != null)
+    {
+        variables = variables.filter(v => v.isArrowFunction === arrowFunctionVariables);
+    }
+
+    return variables.map(v => v as ElementNode);
 }
 
 export function groupByPlaceAboveBelow(nodes: ElementNode[], placeAbove: string[], placeBelow: string[], groupWithDecorators: boolean)

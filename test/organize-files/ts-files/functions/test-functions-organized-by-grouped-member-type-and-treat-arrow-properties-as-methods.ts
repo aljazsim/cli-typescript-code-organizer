@@ -1,5 +1,7 @@
-// #region Functions (3)
+// #region Functions (5)
 
+let variable2 = () => 4978875552;
+export const function8 = () => { function9(); };
 function function3()
 {
     console.log("wduyuaeemi");
@@ -15,10 +17,11 @@ function function5()
     return 1787688184;
 }
 
-// #endregion Functions (3)
+// #endregion Functions (5)
 
-// #region Exported Functions (6)
+// #region Exported Functions (7)
 
+let variable2 = () => 4978875552;
 export const function8 = () => { function9(); };
 export function function1()
 {
@@ -44,4 +47,15 @@ export function function9()
     return 1085703832 * 1085703832;
 }
 
-// #endregion Exported Functions (6)
+// #endregion Exported Functions (7)
+
+// #region Variables (6)
+
+let variable3;
+let variable1 = 6751147137;
+export const const1 = 4886536564;
+const const2 = 1981188020;
+const const4 = const2;
+export const const3 = const2;
+
+// #endregion Variables (6)
