@@ -7,10 +7,10 @@ export class PropertyNode extends ElementNode
 {
   // #region Properties (4)
 
-  public isAbstract: boolean;
-  public isArrowFunction: boolean;
-  public isStatic: boolean;
-  public writeMode: WriteModifier = WriteModifier.writable;
+  public readonly isAbstract: boolean;
+  public readonly isArrowFunction: boolean;
+  public readonly isStatic: boolean;
+  public readonly writeMode: WriteModifier;
 
   // #endregion Properties (4)
 
@@ -20,25 +20,26 @@ export class PropertyNode extends ElementNode
   {
     super(propertyDeclaration);
 
-    this.name = (<ts.Identifier>propertyDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(propertyDeclaration.name.pos, propertyDeclaration.name.end);
+    this._name = (<ts.Identifier>propertyDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(propertyDeclaration.name.pos, propertyDeclaration.name.end);
 
-    this.fullStart = propertyDeclaration.getFullStart();
-    this.end = propertyDeclaration.getEnd();
-    this.start = propertyDeclaration.getStart(sourceFile, false);
+    this._fullStart = propertyDeclaration.getFullStart();
+    this._end = propertyDeclaration.getEnd();
+    this._start = propertyDeclaration.getStart(sourceFile, false);
 
-    this.accessModifier = this.getAccessModifier(propertyDeclaration);
-    this.isAbstract = this.getIsAbstract(propertyDeclaration);
-    this.isStatic = this.getIsStatic(propertyDeclaration);
-    this.writeMode = this.getWriteMode(propertyDeclaration);
-    this.decorators = this.getDecorators(propertyDeclaration, sourceFile);
-
-    this.isArrowFunction = this.getIsArrowFunction(propertyDeclaration);
+    this._accessModifier = this.getAccessModifier(propertyDeclaration);
+    this._decorators = this.getDecorators(propertyDeclaration, sourceFile);
 
     if (this.name.startsWith("#"))
     {
       // properties starting with # are private by default!
-      this.accessModifier = AccessModifier.private;
+      this._accessModifier = AccessModifier.private;
     }
+
+    this.isAbstract = this.getIsAbstract(propertyDeclaration);
+    this.isStatic = this.getIsStatic(propertyDeclaration);
+    this.writeMode = this.getWriteMode(propertyDeclaration);
+
+    this.isArrowFunction = this.getIsArrowFunction(propertyDeclaration);
   }
 
   // #endregion Constructors (1)

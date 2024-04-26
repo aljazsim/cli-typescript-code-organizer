@@ -21,8 +21,18 @@
       "publicStaticProperties",
       "publicProperties"
     ],
-    "placeAbove": ["privateProperty2", "unknownProperty"],
-    "placeBelow": ["protectedReadonlyProperty1", "missingProperty"]
+    "placeAbove": [
+      "publicProperty2",
+      "protectedProperty2",
+      "privateProperty2",
+      "unknownProperty"
+    ],
+    "placeBelow": [
+      "privateProperty2",
+      "protectedProperty2",
+      "publicProperty1",
+      "missingProperty"
+    ]
   },
   {
     "caption": "Static Block Declarations",

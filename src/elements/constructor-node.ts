@@ -1,5 +1,6 @@
-import { ElementNode } from "./element-node";
 import * as ts from "typescript";
+
+import { ElementNode } from "./element-node";
 
 export class ConstructorNode extends ElementNode
 {
@@ -9,12 +10,13 @@ export class ConstructorNode extends ElementNode
   {
     super(constructorDeclaration);
 
-    this.name = "constructor";
+    this._name = "constructor";
 
-    this.fullStart = constructorDeclaration.getFullStart();
-    this.end = constructorDeclaration.getEnd();
-    this.start = constructorDeclaration.getStart(sourceFile, false);
-    this.decorators = this.getDecorators(constructorDeclaration, sourceFile);
+    this._fullStart = constructorDeclaration.getFullStart();
+    this._end = constructorDeclaration.getEnd();
+    this._start = constructorDeclaration.getStart(sourceFile, false);
+
+    this._decorators = this.getDecorators(constructorDeclaration, sourceFile);
   }
 
   // #endregion Constructors (1)

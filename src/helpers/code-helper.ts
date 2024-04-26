@@ -354,8 +354,9 @@ export function organizeTypes(sourceCode: string, fileName: string, configuratio
     let interfaces = getInterfaces(elements, configuration.members.groupMembersWithDecorators);
     let classes = getClasses(elements, configuration.members.groupMembersWithDecorators);
     let enums = getEnums(elements);
-    let functions = getFunctions(elements, configuration.members.groupMembersWithDecorators);
-    let variables = getVariables(elements);
+    let nonExportedFunctions = getFunctions(elements, configuration.members.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods, false);
+    let exportedFunctions = getFunctions(elements, configuration.members.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods, true);
+    let variables = getVariables(elements, configuration.members.treatArrowFunctionPropertiesAsMethods);
     let expressions = getExpressions(elements);
 
     if (expressions.length === 0)
@@ -367,12 +368,13 @@ export function organizeTypes(sourceCode: string, fileName: string, configuratio
             new ElementNodeGroup("Interfaces", [], interfaces, true),
             new ElementNodeGroup("Classes", [], classes, true),
             new ElementNodeGroup("Enums", [], enums, true),
-            new ElementNodeGroup("Functions", [], functions, true),
+            new ElementNodeGroup("Functions", [], nonExportedFunctions, true),
+            new ElementNodeGroup("Exported Functions", [], exportedFunctions, true),
             new ElementNodeGroup("Variables", [], variables, true)
         ];
 
-        if (typeAliases.length + interfaces.length + classes.length + enums.length + functions.length > 1 ||
-            typeAliases.length + interfaces.length + classes.length + enums.length == 0 && functions.length >= 1)
+        if (typeAliases.length + interfaces.length + classes.length + enums.length + nonExportedFunctions.length + exportedFunctions.length > 1 ||
+            typeAliases.length + interfaces.length + classes.length + enums.length == 0 && nonExportedFunctions.length + exportedFunctions.length >= 1)
         {
             sourceCode = print(groups, sourceCode, 0, sourceCode.length, 0, configuration.regions.addMemberCountInRegionName, false, false, indentation, configuration.regions.addRegionCaptionToRegionEnd, configuration.members.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods);
         }

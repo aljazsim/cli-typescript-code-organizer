@@ -6,9 +6,9 @@ export class MethodNode extends ElementNode
 {
   // #region Properties (3)
 
-  public isAbstract: boolean;
-  public isAsync: boolean;
-  public isStatic: boolean;
+  public readonly isAbstract: boolean;
+  public readonly isAsync: boolean;
+  public readonly isStatic: boolean;
 
   // #endregion Properties (3)
 
@@ -18,23 +18,19 @@ export class MethodNode extends ElementNode
   {
     super(methodDeclaration);
 
-    this.name = (<ts.Identifier>methodDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(methodDeclaration.name.pos, methodDeclaration.name.end).trim();
+    this._name = (<ts.Identifier>methodDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(methodDeclaration.name.pos, methodDeclaration.name.end).trim();
 
-    this.fullStart = methodDeclaration.getFullStart();
-    this.end = methodDeclaration.getEnd();
-    this.start = methodDeclaration.getStart(sourceFile, false);
+    this._fullStart = methodDeclaration.getFullStart();
+    this._end = methodDeclaration.getEnd();
+    this._start = methodDeclaration.getStart(sourceFile, false);
 
-    this.accessModifier = this.getAccessModifier(methodDeclaration);
+    // methods starting with # are private by default!
+    this._accessModifier = this.name.startsWith("#") ? AccessModifier.private : this.getAccessModifier(methodDeclaration);
+    this._decorators = this.getDecorators(methodDeclaration, sourceFile);
+
     this.isAbstract = this.getIsAbstract(methodDeclaration);
     this.isStatic = this.getIsStatic(methodDeclaration);
     this.isAsync = this.getIsAsync(methodDeclaration);
-    this.decorators = this.getDecorators(methodDeclaration, sourceFile);
-
-    if (this.name.startsWith("#"))
-    {
-      // methods starting with # are private by default!
-      this.accessModifier = AccessModifier.private;
-    }
   }
 
   // #endregion Constructors (1)

@@ -14,33 +14,42 @@ import { sortBy } from "./sorting-helper";
 
 export function getClasses(nodes: ElementNode[], groupWithDecorators: boolean)
 {
-    return nodes.filter(x => x instanceof ClassNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+    return nodes.filter(n => n instanceof ClassNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
 }
 
 export function getEnums(nodes: ElementNode[])
 {
-    return nodes.filter(x => x instanceof EnumNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
+    return nodes.filter(n => n instanceof EnumNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
 export function getExpressions(nodes: ElementNode[])
 {
     // expressions are just executable code and can be interdependent
-    return nodes.filter(x => x instanceof ExpressionNode);
+    return nodes.filter(n => n instanceof ExpressionNode);
 }
 
-export function getFunctions(nodes: ElementNode[], groupWithDecorators: boolean)
+export function getFunctions(nodes: ElementNode[], groupWithDecorators: boolean, treatArrowFunctionPropertiesAsMethods: boolean, exported: boolean)
 {
-    return nodes.filter(x => x instanceof FunctionNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+    const functions = nodes.filter(n => n instanceof FunctionNode)
+        .map(f => f as FunctionNode)
+        .filter(f => f.isExport === exported)
+        .map(f => f as ElementNode);
+    const arrowFunctionProperties = nodes.filter(n => n instanceof VariableNode)
+        .map(v => v as VariableNode)
+        .filter(v => v.isArrowFunction === exported)
+        .map(f => f as ElementNode);
+
+    return functions.concat(arrowFunctionProperties).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
 }
 
 export function getImports(nodes: ElementNode[])
 {
-    return nodes.filter(x => x instanceof ImportNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
+    return nodes.filter(n => n instanceof ImportNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
 export function getInterfaces(nodes: ElementNode[], groupWithDecorators: boolean)
 {
-    return nodes.filter(x => x instanceof InterfaceNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+    return nodes.filter(n => n instanceof InterfaceNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
 }
 
 export function getName(node: ElementNode, groupWithDecorators: boolean): string
@@ -53,13 +62,17 @@ export function getName(node: ElementNode, groupWithDecorators: boolean): string
 
 export function getTypeAliases(nodes: ElementNode[])
 {
-    return nodes.filter(x => x instanceof TypeAliasNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
+    return nodes.filter(n => n instanceof TypeAliasNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
-export function getVariables(nodes: ElementNode[])
+export function getVariables(nodes: ElementNode[], treatArrowFunctionPropertiesAsMethods: boolean)
 {
     // variable declaration can be dependant on order variables, so it is best to not sort them
-    return nodes.filter(x => x instanceof VariableNode);
+    return nodes.filter(n => n instanceof VariableNode)
+        .map(v => v as VariableNode)
+        .filter(v => !treatArrowFunctionPropertiesAsMethods || !v.isArrowFunction)
+        .map(v => v as ElementNode)
+        ;
 }
 
 export function groupByPlaceAboveBelow(nodes: ElementNode[], placeAbove: string[], placeBelow: string[], groupWithDecorators: boolean)

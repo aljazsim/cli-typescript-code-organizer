@@ -1,12 +1,13 @@
+import * as ts from "typescript";
+
 import { ElementNode } from "./element-node";
 import { WriteModifier } from "./write-modifier";
-import * as ts from "typescript";
 
 export class IndexSignatureNode extends ElementNode
 {
   // #region Properties (1)
 
-  public writeMode: WriteModifier = WriteModifier.writable;
+  public readonly writeMode: WriteModifier;
 
   // #endregion Properties (1)
 
@@ -16,15 +17,16 @@ export class IndexSignatureNode extends ElementNode
   {
     super(indexSignatureDeclaration);
 
-    this.name = "index";
+    this._name = "index";
 
-    this.fullStart = indexSignatureDeclaration.getFullStart();
-    this.end = indexSignatureDeclaration.getEnd();
-    this.start = indexSignatureDeclaration.getStart(sourceFile, false);
+    this._fullStart = indexSignatureDeclaration.getFullStart();
+    this._end = indexSignatureDeclaration.getEnd();
+    this._start = indexSignatureDeclaration.getStart(sourceFile, false);
 
-    this.accessModifier = this.getAccessModifier(indexSignatureDeclaration);
+    this._accessModifier = this.getAccessModifier(indexSignatureDeclaration);
+
     this.writeMode = this.getWriteMode(indexSignatureDeclaration);
-    this.decorators = this.getDecorators(indexSignatureDeclaration, sourceFile);
+    this._decorators = this.getDecorators(indexSignatureDeclaration, sourceFile);
   }
 
   // #endregion Constructors (1)

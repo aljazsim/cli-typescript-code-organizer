@@ -9,12 +9,12 @@ export class TypeAliasNode extends ElementNode
   {
     super(typeAliasDeclaration);
 
-    this.name = (<ts.Identifier>typeAliasDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(typeAliasDeclaration.name.pos, typeAliasDeclaration.name.end).trim();
+    this._name = (<ts.Identifier>typeAliasDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(typeAliasDeclaration.name.pos, typeAliasDeclaration.name.end).trim();
 
-    this.fullStart = typeAliasDeclaration.getFullStart();
-    this.end = typeAliasDeclaration.getEnd();
-    this.start = typeAliasDeclaration.getStart(sourceFile, false);
-    this.decorators = this.getDecorators(typeAliasDeclaration, sourceFile);
+    this._fullStart = typeAliasDeclaration.getFullStart();
+    this._end = typeAliasDeclaration.getEnd();
+    this._start = typeAliasDeclaration.getStart(sourceFile, false);
+    this._decorators = this.getDecorators(typeAliasDeclaration, sourceFile);
   }
 
   // #endregion Constructors (1)

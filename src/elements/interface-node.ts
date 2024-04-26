@@ -11,14 +11,14 @@ export class InterfaceNode extends ElementNode
 {
     // #region Properties (8)
 
-    public accessors: AccessorNode[] = [];
-    public getters: GetterNode[] = [];
-    public indexes: IndexSignatureNode[] = [];
-    public membersEnd: number = 0;
-    public membersStart: number = 0;
-    public methods: MethodSignatureNode[] = [];
-    public properties: PropertySignatureNode[] = [];
-    public setters: SetterNode[] = [];
+    public readonly accessors: AccessorNode[] = [];
+    public readonly getters: GetterNode[] = [];
+    public readonly indexes: IndexSignatureNode[] = [];
+    public readonly membersEnd: number = 0;
+    public readonly membersStart: number = 0;
+    public readonly methods: MethodSignatureNode[] = [];
+    public readonly properties: PropertySignatureNode[] = [];
+    public readonly setters: SetterNode[] = [];
 
     // #endregion Properties (8)
 
@@ -28,11 +28,11 @@ export class InterfaceNode extends ElementNode
     {
         super(interfaceDeclaration);
 
-        this.name = (<ts.Identifier>interfaceDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(interfaceDeclaration.name.pos, interfaceDeclaration.name.end).trim();
+        this._name = (<ts.Identifier>interfaceDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(interfaceDeclaration.name.pos, interfaceDeclaration.name.end).trim();
 
-        this.fullStart = interfaceDeclaration.getFullStart();
-        this.end = interfaceDeclaration.getEnd();
-        this.start = interfaceDeclaration.getStart(sourceFile, false);
+        this._fullStart = interfaceDeclaration.getFullStart();
+        this._end = interfaceDeclaration.getEnd();
+        this._start = interfaceDeclaration.getStart(sourceFile, false);
 
         if (interfaceDeclaration.members && interfaceDeclaration.members.length > 0)
         {

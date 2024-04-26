@@ -5,7 +5,7 @@ export class FunctionNode extends ElementNode
 {
   // #region Properties (1)
 
-  public isExport: boolean;
+  public readonly isExport: boolean;
 
   // #endregion Properties (1)
 
@@ -15,14 +15,14 @@ export class FunctionNode extends ElementNode
   {
     super(functionDeclaration);
 
-    this.name = (<ts.Identifier>functionDeclaration.name).escapedText.toString();
+    this._name = (<ts.Identifier>functionDeclaration.name).escapedText.toString();
 
-    this.fullStart = functionDeclaration.getFullStart();
-    this.end = functionDeclaration.getEnd();
-    this.start = functionDeclaration.getStart(sourceFile, false);
+    this._fullStart = functionDeclaration.getFullStart();
+    this._end = functionDeclaration.getEnd();
+    this._start = functionDeclaration.getStart(sourceFile, false);
 
     this.isExport = this.getIsExport(functionDeclaration);
-    this.decorators = this.getDecorators(functionDeclaration, sourceFile);
+    this._decorators = this.getDecorators(functionDeclaration, sourceFile);
   }
 
   // #endregion Constructors (1)

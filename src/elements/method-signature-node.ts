@@ -9,12 +9,12 @@ export class MethodSignatureNode extends ElementNode
   {
     super(methodSignatureDeclaration);
 
-    this.name = (<ts.Identifier>methodSignatureDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(methodSignatureDeclaration.name.pos, methodSignatureDeclaration.name.end).trim();
+    this._name = (<ts.Identifier>methodSignatureDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(methodSignatureDeclaration.name.pos, methodSignatureDeclaration.name.end).trim();
 
-    this.fullStart = methodSignatureDeclaration.getFullStart();
-    this.end = methodSignatureDeclaration.getEnd();
-    this.start = methodSignatureDeclaration.getStart(sourceFile, false);
-    this.decorators = this.getDecorators(methodSignatureDeclaration, sourceFile);
+    this._fullStart = methodSignatureDeclaration.getFullStart();
+    this._end = methodSignatureDeclaration.getEnd();
+    this._start = methodSignatureDeclaration.getStart(sourceFile, false);
+    this._decorators = this.getDecorators(methodSignatureDeclaration, sourceFile);
   }
 
   // #endregion Constructors (1)

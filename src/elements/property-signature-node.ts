@@ -6,7 +6,7 @@ export class PropertySignatureNode extends ElementNode
 {
   // #region Properties (1)
 
-  public writeMode: WriteModifier = WriteModifier.writable;
+  public readonly writeMode: WriteModifier;
 
   // #endregion Properties (1)
 
@@ -16,15 +16,16 @@ export class PropertySignatureNode extends ElementNode
   {
     super(propertySignatureDeclaration);
 
-    this.name = (<ts.Identifier>propertySignatureDeclaration.name).escapedText.toString();
+    this._name = (<ts.Identifier>propertySignatureDeclaration.name).escapedText.toString();
 
-    this.fullStart = propertySignatureDeclaration.getFullStart();
-    this.end = propertySignatureDeclaration.getEnd();
-    this.start = propertySignatureDeclaration.getStart(sourceFile, false);
+    this._fullStart = propertySignatureDeclaration.getFullStart();
+    this._end = propertySignatureDeclaration.getEnd();
+    this._start = propertySignatureDeclaration.getStart(sourceFile, false);
 
-    this.accessModifier = this.getAccessModifier(propertySignatureDeclaration);
+    this._accessModifier = this.getAccessModifier(propertySignatureDeclaration);
+    this._decorators = this.getDecorators(propertySignatureDeclaration, sourceFile);
+
     this.writeMode = this.getWriteMode(propertySignatureDeclaration);
-    this.decorators = this.getDecorators(propertySignatureDeclaration, sourceFile);
   }
 
   // #endregion Constructors (1)

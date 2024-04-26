@@ -1,4 +1,5 @@
 import * as ts from "typescript";
+
 import { ElementNode } from "./element-node";
 
 export class StaticBlockDeclarationNode extends ElementNode
@@ -9,11 +10,11 @@ export class StaticBlockDeclarationNode extends ElementNode
     {
         super(staticBlockDeclaration);
 
-        this.name = "";
+        this._name = "";
 
-        this.fullStart = staticBlockDeclaration.getFullStart();
-        this.end = staticBlockDeclaration.getEnd();
-        this.start = staticBlockDeclaration.getStart(sourceFile, false);
+        this._fullStart = staticBlockDeclaration.getFullStart();
+        this._end = staticBlockDeclaration.getEnd();
+        this._start = staticBlockDeclaration.getStart(sourceFile, false);
     }
 
     // #endregion Constructors (1)

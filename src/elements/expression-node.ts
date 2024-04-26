@@ -1,4 +1,5 @@
 import * as ts from "typescript";
+
 import { ElementNode } from "./element-node";
 
 export class ExpressionNode extends ElementNode
@@ -9,11 +10,11 @@ export class ExpressionNode extends ElementNode
     {
         super(expression);
 
-        this.name = "";
+        this._name = "";
 
-        this.fullStart = expression.getFullStart();
-        this.end = expression.getEnd();
-        this.start = expression.getStart(sourceFile, false);
+        this._fullStart = expression.getFullStart();
+        this._end = expression.getEnd();
+        this._start = expression.getStart(sourceFile, false);
     }
 
     // #endregion Constructors (1)

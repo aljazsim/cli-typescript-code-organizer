@@ -13,18 +13,18 @@ export class ClassNode extends ElementNode
 {
   // #region Properties (12)
 
-  public accessors: AccessorNode[] = [];
-  public constructors: ConstructorNode[] = [];
-  public getters: GetterNode[] = [];
-  public indexes: IndexNode[] = [];
-  public isAbstract: boolean;
-  public isStatic: boolean;
-  public membersEnd: number = 0;
-  public membersStart: number = 0;
-  public methods: (MethodNode | PropertyNode)[] = [];
-  public properties: PropertyNode[] = [];
-  public setters: SetterNode[] = [];
-  public staticBlockDeclarations: StaticBlockDeclarationNode[] = [];
+  public readonly accessors: AccessorNode[] = [];
+  public readonly constructors: ConstructorNode[] = [];
+  public readonly getters: GetterNode[] = [];
+  public readonly indexes: IndexNode[] = [];
+  public readonly isAbstract: boolean;
+  public readonly isStatic: boolean;
+  public readonly membersEnd: number = 0;
+  public readonly membersStart: number = 0;
+  public readonly methods: (MethodNode | PropertyNode)[] = [];
+  public readonly properties: PropertyNode[] = [];
+  public readonly setters: SetterNode[] = [];
+  public readonly staticBlockDeclarations: StaticBlockDeclarationNode[] = [];
 
   // #endregion Properties (12)
 
@@ -34,11 +34,11 @@ export class ClassNode extends ElementNode
   {
     super(classDeclaration);
 
-    this.name = (<ts.Identifier>classDeclaration.name).escapedText.toString();
+    this._name = (<ts.Identifier>classDeclaration.name).escapedText.toString();
 
-    this.fullStart = classDeclaration.getFullStart();
-    this.end = classDeclaration.getEnd();
-    this.start = classDeclaration.getStart(sourceFile, false);
+    this._fullStart = classDeclaration.getFullStart();
+    this._end = classDeclaration.getEnd();
+    this._start = classDeclaration.getStart(sourceFile, false);
 
     if (classDeclaration.members && classDeclaration.members.length > 0)
     {
@@ -46,14 +46,15 @@ export class ClassNode extends ElementNode
       this.membersEnd = classDeclaration.members[classDeclaration.members.length - 1].getEnd();
     }
 
+    this._decorators = this.getDecorators(classDeclaration, sourceFile);
+
     this.isAbstract = this.getIsAbstract(classDeclaration);
     this.isStatic = this.getIsStatic(classDeclaration);
-    this.decorators = this.getDecorators(classDeclaration, sourceFile);
   }
 
   // #endregion Constructors (1)
 
-  // #region Public Methods (55)
+  // #region Public Methods (45)
 
   public getConstructors()
   {
@@ -280,5 +281,5 @@ export class ClassNode extends ElementNode
     return this.properties.filter(x => this.isPublic(x) && this.isReadOnly(x) && x.isStatic);
   }
 
-  // #endregion Public Methods (55)
+  // #endregion Public Methods (45)
 }

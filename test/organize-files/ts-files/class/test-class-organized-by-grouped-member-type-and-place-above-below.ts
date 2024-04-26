@@ -2,7 +2,7 @@ import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../t
 
 export abstract class TestClass
 {
-    // #region Properties (42)
+    // #region Properties (44)
 
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
     private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
@@ -31,11 +31,15 @@ export abstract class TestClass
     private privateProperty1 = "1jznbqo1ck";
     #privateProperty1 = (ltgeubyxvt: string) => { };
     #privateProperty2: string;
+    @decoratorC(9860836855)
+
+
 
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
     @decoratorB()
     protected static readonly protectedStaticReadonlyProperty2 = "oyasnkxrza";
 
+    protected readonly protectedReadonlyProperty1 = "tbgokvjelv";
     protected readonly protectedReadonlyProperty2 = "txpobjdpsj";
     @decoratorA("dozslltkqe")
     @decoratorC(2939536033)
@@ -44,14 +48,13 @@ export abstract class TestClass
     @decoratorB()
     protected readonly protectedReadonlyProperty5 = 4089519931;
     protected readonly protectedReadonlyProperty6 = 4099945367;
-    protected readonly protectedReadonlyProperty1 = "tbgokvjelv";
 
     @decoratorC(9860836855)
     protected static protectedStaticProperty1 = 8522782648;
     protected static protectedStaticProperty2 = "hyc8khk2oj";
 
-    protected protectedProperty1 = "jwm4jkf16m";
     protected protectedProperty2: Number = 9777108868;
+    protected protectedProperty1 = "jwm4jkf16m";
 
     @decoratorB()
     public static readonly publicStaticReadonlyProperty1: Number = 8345836946;
@@ -69,12 +72,12 @@ export abstract class TestClass
     };
     public static publicStaticProperty2: Number;
 
-    public publicProperty1: string | null;
     @decoratorA("qeyfjngywl")
     public publicProperty2 = "pe2bmn4hgi";
     public publicProperty3: Number = 5502271448;
+    public publicProperty1: string | null;
 
-    // #endregion Properties (42)
+    // #endregion Properties (44)
 
     // #region Static Block Declarations (1)
 

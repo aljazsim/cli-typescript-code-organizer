@@ -1,5 +1,6 @@
-import { ElementNode } from "./element-node";
 import * as ts from "typescript";
+
+import { ElementNode } from "./element-node";
 
 export class ImportNode extends ElementNode
 {
@@ -9,11 +10,11 @@ export class ImportNode extends ElementNode
     {
         super(importDeclaration);
 
-        this.name = "import";
+        this._name = "import";
 
-        this.fullStart = importDeclaration.getFullStart();
-        this.end = importDeclaration.getEnd();
-        this.start = importDeclaration.getStart(sourceFile, false);
+        this._fullStart = importDeclaration.getFullStart();
+        this._end = importDeclaration.getEnd();
+        this._start = importDeclaration.getStart(sourceFile, false);
     }
 
     // #endregion Constructors (1)

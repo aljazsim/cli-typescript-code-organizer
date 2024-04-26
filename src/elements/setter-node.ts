@@ -5,8 +5,8 @@ export class SetterNode extends ElementNode
 {
   // #region Properties (2)
 
-  public isAbstract: boolean;
-  public isStatic: boolean;
+  public readonly isAbstract: boolean;
+  public readonly isStatic: boolean;
 
   // #endregion Properties (2)
 
@@ -16,16 +16,17 @@ export class SetterNode extends ElementNode
   {
     super(setterDeclaration);
 
-    this.name = (<ts.Identifier>setterDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(setterDeclaration.name.pos, setterDeclaration.name.end);
+    this._name = (<ts.Identifier>setterDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(setterDeclaration.name.pos, setterDeclaration.name.end);
 
-    this.fullStart = setterDeclaration.getFullStart();
-    this.end = setterDeclaration.getEnd();
-    this.start = setterDeclaration.getStart(sourceFile, false);
+    this._fullStart = setterDeclaration.getFullStart();
+    this._end = setterDeclaration.getEnd();
+    this._start = setterDeclaration.getStart(sourceFile, false);
 
-    this.accessModifier = this.getAccessModifier(setterDeclaration);
+    this._accessModifier = this.getAccessModifier(setterDeclaration);
+    this._decorators = this.getDecorators(setterDeclaration, sourceFile);
+
     this.isAbstract = this.getIsAbstract(setterDeclaration);
     this.isStatic = this.getIsStatic(setterDeclaration);
-    this.decorators = this.getDecorators(setterDeclaration, sourceFile);
   }
 
   // #endregion Constructors (1)
