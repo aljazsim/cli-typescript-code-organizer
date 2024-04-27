@@ -32,8 +32,7 @@ export abstract class TestClass
     #privateProperty1 = (ltgeubyxvt: string) => { };
     #privateProperty2: string;
     @decoratorC(9860836855)
-
-
+    private privateProperty2 = () => 3357116507;
 
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
     @decoratorB()
@@ -55,6 +54,7 @@ export abstract class TestClass
 
     protected protectedProperty2: Number = 9777108868;
     protected protectedProperty1 = "jwm4jkf16m";
+    protected protectedProperty2: Number = 9777108868;
 
     @decoratorB()
     public static readonly publicStaticReadonlyProperty1: Number = 8345836946;
