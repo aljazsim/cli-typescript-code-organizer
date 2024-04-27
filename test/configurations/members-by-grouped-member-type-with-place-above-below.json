@@ -28,8 +28,8 @@
       "unknownProperty"
     ],
     "placeBelow": [
-      "privateProperty2",
-      "protectedProperty2",
+      "privateProperty1",
+      "protectedProperty1",
       "publicProperty1",
       "missingProperty"
     ]

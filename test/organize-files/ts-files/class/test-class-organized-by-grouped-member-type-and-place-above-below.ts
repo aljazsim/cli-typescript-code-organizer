@@ -2,7 +2,7 @@ import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../t
 
 export abstract class TestClass
 {
-    // #region Properties (44)
+    // #region Properties (42)
 
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
     private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
@@ -27,12 +27,10 @@ export abstract class TestClass
     private _privateGetterSetter1: string = "";
     private _protectedGetterSetter1: string = "";
     private _publicGetterSetter1: string = "";
-    @decoratorB()
-    private privateProperty1 = "1jznbqo1ck";
     #privateProperty1 = (ltgeubyxvt: string) => { };
     #privateProperty2: string;
-    @decoratorC(9860836855)
-    private privateProperty2 = () => 3357116507;
+    @decoratorB()
+    private privateProperty1 = "1jznbqo1ck";
 
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
     @decoratorB()
@@ -54,7 +52,6 @@ export abstract class TestClass
 
     protected protectedProperty2: Number = 9777108868;
     protected protectedProperty1 = "jwm4jkf16m";
-    protected protectedProperty2: Number = 9777108868;
 
     @decoratorB()
     public static readonly publicStaticReadonlyProperty1: Number = 8345836946;
@@ -77,7 +74,7 @@ export abstract class TestClass
     public publicProperty3: Number = 5502271448;
     public publicProperty1: string | null;
 
-    // #endregion Properties (44)
+    // #endregion Properties (42)
 
     // #region Static Block Declarations (1)
 

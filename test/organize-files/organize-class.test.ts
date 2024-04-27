@@ -38,6 +38,7 @@ test('organize class by grouped member type', async () =>
 
     // act
     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    await writeFile(testClassOrganizedByGroupedMemberTypeFilePath, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
@@ -64,6 +65,7 @@ test('organize class by individual member type (without regions)', async () =>
     {
         // act
         const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+        await writeFile(testClassOrganizedByIndividualMemberTypeWithoutRegionsFilePath, organizedSourceCode);
 
         // assert
         expect(organizedSourceCode).toBe(validOrganizedSourceCode);
@@ -94,6 +96,7 @@ test('organize class by grouped member type (treat arrow function properties as 
 
     // act
     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    await writeFile(testClassOrganizedByGroupedMemberTypeAndTreatArrowPropertiesAsMethodsFilePath, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
@@ -108,6 +111,7 @@ test('organize class by grouped member type (group members with decorators)', as
 
     // act
     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    await writeFile(testClassOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);

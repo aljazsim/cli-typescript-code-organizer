@@ -24,6 +24,7 @@ test('organize interface by individual member type', async () =>
 
     // act
     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    await writeFile(testInterfaceOrganizedByIndividualMemberTypeFilePath, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
@@ -65,6 +66,7 @@ test('organize interface by individual member type (without regions)', async () 
     {
         // act
         const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+        await writeFile(testInterfaceOrganizedByIndividualMemberTypeWithoutRegionsFilePath, organizedSourceCode);
 
         // assert
         expect(organizedSourceCode).toBe(validOrganizedSourceCode);
@@ -80,6 +82,7 @@ test('organize interface by grouped member type (place above below)', async () =
 
     // act
     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    await writeFile(testInterfaceOrganizedByGroupedMemberTypeAndPlaceAboveBelowFilePath, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
@@ -94,6 +97,7 @@ test('organize interface by grouped member type (treat arrow function properties
 
     // act
     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    await writeFile(testInterfaceOrganizedByGroupedMemberTypeAndTreatArrowPropertiesAsMethodsFilePath, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
@@ -108,6 +112,7 @@ test('organize interface by grouped member type (group members with decorators)'
 
     // act
     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    await writeFile(testInterfaceOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);

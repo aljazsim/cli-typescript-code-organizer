@@ -29,86 +29,90 @@ test('organize functions by individual member type', async () =>
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
 });
 
-// // test('organize functions by grouped member type', async () =>
-// // {
-// //     // arrange
-// //     const configuration = new Configuration(true, true, true, true, true, false, false, membersByGroupedMemberTypeConfiguration);
-// //     const sourceCode = await readFile(testFunctionsFilePath);
-// //     const validOrganizedSourceCode = await readFile(testFunctionsOrganizedByGroupedMemberTypeFilePath);
+test('organize functions by grouped member type', async () =>
+{
+    // arrange
+    const configuration = new Configuration(true, true, true, true, true, false, false, membersByGroupedMemberTypeConfiguration);
+    const sourceCode = await readFile(testFunctionsFilePath);
+    const validOrganizedSourceCode = await readFile(testFunctionsOrganizedByGroupedMemberTypeFilePath);
 
-// //     // act
-// //     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    // act
+    const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    await writeFile(testFunctionsOrganizedByGroupedMemberTypeFilePath, organizedSourceCode);
 
-// //     // assert
-// //     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
-// // });
+    // assert
+    expect(organizedSourceCode).toBe(validOrganizedSourceCode);
+});
 
-// // test('organize functions by individual member type (without regions)', async () =>
-// // {
-// //     // arrange
-// //     const configurations = [
-// //         new Configuration(false, false, false, false, true, false, false, membersByIndividualMemberTypeConfiguration),
-// //         new Configuration(false, true, false, false, true, false, false, membersByIndividualMemberTypeConfiguration),
-// //         new Configuration(false, false, true, false, true, false, false, membersByIndividualMemberTypeConfiguration),
-// //         new Configuration(false, false, false, true, true, false, false, membersByIndividualMemberTypeConfiguration),
-// //         new Configuration(false, true, true, true, true, false, false, membersByIndividualMemberTypeConfiguration),
-// //         new Configuration(false, true, false, true, true, false, false, membersByIndividualMemberTypeConfiguration),
-// //         new Configuration(false, true, true, false, true, false, false, membersByIndividualMemberTypeConfiguration),
-// //         new Configuration(false, false, true, true, true, false, false, membersByIndividualMemberTypeConfiguration)
+test('organize functions by individual member type (without regions)', async () =>
+{
+    // arrange
+    const configurations = [
+        new Configuration(false, false, false, false, true, false, false, membersByIndividualMemberTypeConfiguration),
+        new Configuration(false, true, false, false, true, false, false, membersByIndividualMemberTypeConfiguration),
+        new Configuration(false, false, true, false, true, false, false, membersByIndividualMemberTypeConfiguration),
+        new Configuration(false, false, false, true, true, false, false, membersByIndividualMemberTypeConfiguration),
+        new Configuration(false, true, true, true, true, false, false, membersByIndividualMemberTypeConfiguration),
+        new Configuration(false, true, false, true, true, false, false, membersByIndividualMemberTypeConfiguration),
+        new Configuration(false, true, true, false, true, false, false, membersByIndividualMemberTypeConfiguration),
+        new Configuration(false, false, true, true, true, false, false, membersByIndividualMemberTypeConfiguration)
 
-// //     ];
-// //     const sourceCode = await readFile(testFunctionsFilePath);
-// //     const validOrganizedSourceCode = await readFile(testFunctionsOrganizedByIndividualMemberTypeWithoutRegionsFilePath);
+    ];
+    const sourceCode = await readFile(testFunctionsFilePath);
+    const validOrganizedSourceCode = await readFile(testFunctionsOrganizedByIndividualMemberTypeWithoutRegionsFilePath);
 
-// //     for (const configuration of configurations)
-// //     {
-// //         // act
-// //         const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    for (const configuration of configurations)
+    {
+        // act
+        const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+        await writeFile(testFunctionsOrganizedByIndividualMemberTypeWithoutRegionsFilePath, organizedSourceCode);
 
-// //         // assert
-// //         expect(organizedSourceCode).toBe(validOrganizedSourceCode);
-// //     }
-// // });
+        // assert
+        expect(organizedSourceCode).toBe(validOrganizedSourceCode);
+    }
+});
 
-// // test('organize functions by grouped member type (place above below)', async () =>
-// // {
-// //     // arrange
-// //     const configuration = new Configuration(true, true, true, true, true, false, false, membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration);
-// //     const sourceCode = await readFile(testFunctionsFilePath);
-// //     const validOrganizedSourceCode = await readFile(testFunctionsOrganizedByGroupedMemberTypeAndPlaceAboveBelowFilePath);
+test('organize functions by grouped member type (place above below)', async () =>
+{
+    // arrange
+    const configuration = new Configuration(true, true, true, true, true, false, false, membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration);
+    const sourceCode = await readFile(testFunctionsFilePath);
+    const validOrganizedSourceCode = await readFile(testFunctionsOrganizedByGroupedMemberTypeAndPlaceAboveBelowFilePath);
 
-// //     // act
-// //     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    // act
+    const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    await writeFile(testFunctionsOrganizedByGroupedMemberTypeAndPlaceAboveBelowFilePath, organizedSourceCode);
 
-// //     // assert
-// //     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
-// // });
+    // assert
+    expect(organizedSourceCode).toBe(validOrganizedSourceCode);
+});
 
-// // test('organize functions by grouped member type (treat arrow function properties as methods)', async () =>
-// // {
-// //     // arrange
-// //     const configuration = new Configuration(true, true, true, true, true, false, true, membersByGroupedMemberTypeConfiguration);
-// //     const sourceCode = await readFile(testFunctionsFilePath);
-// //     const validOrganizedSourceCode = await readFile(testFunctionsOrganizedByGroupedMemberTypeAndTreatArrowPropertiesAsMethodsFilePath);
+test('organize functions by grouped member type (treat arrow function properties as methods)', async () =>
+{
+    // arrange
+    const configuration = new Configuration(true, true, true, true, true, false, true, membersByGroupedMemberTypeConfiguration);
+    const sourceCode = await readFile(testFunctionsFilePath);
+    const validOrganizedSourceCode = await readFile(testFunctionsOrganizedByGroupedMemberTypeAndTreatArrowPropertiesAsMethodsFilePath);
 
-// //     // act
-// //     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
-// //     await writeFile(testFunctionsOrganizedByGroupedMemberTypeAndTreatArrowPropertiesAsMethodsFilePath, organizedSourceCode);
+    // act
+    const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    await writeFile(testFunctionsOrganizedByGroupedMemberTypeAndTreatArrowPropertiesAsMethodsFilePath, organizedSourceCode);
 
-// //     // assert
-// //     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
-// // });
+    // assert
+    expect(organizedSourceCode).toBe(validOrganizedSourceCode);
+});
 
-// // test('organize functions by grouped member type (group members with decorators)', async () =>
-// // {
-// //     // arrange
-// //     const configuration = new Configuration(true, true, true, true, true, true, false, membersByGroupedMemberTypeConfiguration);
-// //     const sourceCode = await readFile(testFunctionsFilePath);
-// //     const validOrganizedSourceCode = await readFile(testFunctionsOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath);
+test('organize functions by grouped member type (group members with decorators)', async () =>
+{
+    // arrange
+    const configuration = new Configuration(true, true, true, true, true, true, false, membersByGroupedMemberTypeConfiguration);
+    const sourceCode = await readFile(testFunctionsFilePath);
+    const validOrganizedSourceCode = await readFile(testFunctionsOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath);
 
-// //     // act
-// //     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    // act
+    const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    await writeFile(testFunctionsOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath, organizedSourceCode);
 
-// //     // assert
-// //     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
-// // });
+    // assert
+    expect(organizedSourceCode).toBe(validOrganizedSourceCode);
+});
