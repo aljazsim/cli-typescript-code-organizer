@@ -45,15 +45,20 @@ export function function9()
 
 // #endregion Exported Functions (5)
 
-// #region Variables (8)
+// #region Variables (5)
 
-export const const1 = 4886536564;
 const const2 = 1981188020, const5 = 2963139131;
-export const const3 = const2;
 const const4 = const2;
-export const function8 = () => { function9(); };
 let variable1 = 6751147137;
 let variable2 = () => 4978875552;
 let variable3;
 
-// #endregion Variables (8)
+// #endregion Variables (5)
+
+// #region ExportedVariables (3)
+
+export const const1 = 4886536564;
+export const const3 = const2;
+export const function8 = () => { function9(); };
+
+// #endregion ExportedVariables (3)

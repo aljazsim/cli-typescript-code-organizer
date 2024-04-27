@@ -28,15 +28,15 @@ export function getExpressions(nodes: ElementNode[])
     return nodes.filter(n => n instanceof ExpressionNode);
 }
 
-export function getFunctions(nodes: ElementNode[], groupWithDecorators: boolean, treatArrowFunctionPropertiesAsMethods: boolean, exported: boolean)
+export function getFunctions(nodes: ElementNode[], treatArrowFunctionPropertiesAsMethods: boolean, exported: boolean)
 {
     const functions = nodes.filter(n => n instanceof FunctionNode)
         .map(f => f as FunctionNode)
         .filter(f => f.isExport === exported)
         .map(f => f as ElementNode);
-    const arrowFunctionVariables = treatArrowFunctionPropertiesAsMethods ? getVariables(nodes, groupWithDecorators, true) : [];
+    const arrowFunctionVariables = treatArrowFunctionPropertiesAsMethods ? getVariables(nodes, true, exported, true) : [];
 
-    return functions.concat(arrowFunctionVariables).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+    return functions.concat(arrowFunctionVariables).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
 export function getImports(nodes: ElementNode[])
@@ -62,9 +62,8 @@ export function getTypeAliases(nodes: ElementNode[])
     return nodes.filter(n => n instanceof TypeAliasNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
-export function getVariables(nodes: ElementNode[], groupWithDecorators: boolean, arrowFunctionVariables: boolean | null)
+export function getVariables(nodes: ElementNode[], constant: boolean, exported: boolean, arrowFunctionVariables: boolean | null)
 {
-    // variable declaration can be dependant on order variables, so it is best to not sort them
     let variables = nodes.filter(n => n instanceof VariableNode).map(v => v as VariableNode);
 
     if (arrowFunctionVariables != null)
@@ -72,7 +71,9 @@ export function getVariables(nodes: ElementNode[], groupWithDecorators: boolean,
         variables = variables.filter(v => v.isArrowFunction === arrowFunctionVariables);
     }
 
-    return variables.map(v => v as ElementNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+    return variables.filter(v => v.isExport === exported && v.isConst === constant)
+        .map(v => v as ElementNode)
+        .sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
 export function groupByPlaceAboveBelow(nodes: ElementNode[], placeAbove: string[], placeBelow: string[], groupWithDecorators: boolean)

@@ -1,14 +1,17 @@
 import * as ts from "typescript";
 
 import { ElementNode } from "./element-node";
+import { WriteModifier } from "./write-modifier";
 
 export class VariableNode extends ElementNode
 {
-    // #region Properties (1)
+    // #region Properties (3)
 
     public readonly isArrowFunction: boolean;
+    public readonly isConst: boolean;
+    public readonly isExport: boolean;
 
-    // #endregion Properties (1)
+    // #endregion Properties (3)
 
     // #region Constructors (1)
 
@@ -22,6 +25,8 @@ export class VariableNode extends ElementNode
         this._end = variableStatement.getEnd();
         this._start = variableStatement.getStart(sourceFile, false);
 
+        this.isExport = this.getIsExport(variableStatement);
+        this.isConst = this.getWriteMode(variableStatement) === WriteModifier.const;
         this.isArrowFunction = this.getIsArrowFunction(variableStatement);
     }
 

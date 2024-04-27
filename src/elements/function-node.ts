@@ -21,8 +21,9 @@ export class FunctionNode extends ElementNode
     this._end = functionDeclaration.getEnd();
     this._start = functionDeclaration.getStart(sourceFile, false);
 
-    this.isExport = this.getIsExport(functionDeclaration);
     this._decorators = this.getDecorators(functionDeclaration, sourceFile);
+
+    this.isExport = this.getIsExport(functionDeclaration);
   }
 
   // #endregion Constructors (1)

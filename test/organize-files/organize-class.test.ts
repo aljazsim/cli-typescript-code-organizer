@@ -23,6 +23,7 @@ test('organize class by individual member type', async () =>
 
     // act
     const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
+    await writeFile(testClassOrganizedByIndividualMemberTypeFilePath, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);

@@ -87,14 +87,12 @@ export function getIndentation(sourceCode: string): string
 export function organizeClassMembers(classNode: ClassNode, memberTypeOrder: ElementNodeGroupConfiguration[], groupElementsWithDecorators: boolean): ElementNodeGroup[]
 {
     let regions: ElementNodeGroup[] = [];
-    let memberGroups: ElementNodeGroup[];
 
     for (const memberTypeGroup of memberTypeOrder)
     {
         const placeAbove = memberTypeGroup.placeAbove;
         const placeBelow = memberTypeGroup.placeBelow;
-
-        memberGroups = [];
+        const memberGroups: ElementNodeGroup[] = [];
 
         for (const memberType of memberTypeGroup.memberTypes)
         {
@@ -293,14 +291,12 @@ export function organizeClassMembers(classNode: ClassNode, memberTypeOrder: Elem
 export function organizeInterfaceMembers(interfaceNode: InterfaceNode, memberTypeOrder: ElementNodeGroupConfiguration[], groupElementsWithDecorators: boolean)
 {
     let regions: ElementNodeGroup[] = [];
-    let memberGroups: ElementNodeGroup[];
 
     for (const memberTypeGroup of memberTypeOrder)
     {
         const placeAbove = memberTypeGroup.placeAbove;
         const placeBelow = memberTypeGroup.placeBelow;
-
-        memberGroups = [];
+        const memberGroups: ElementNodeGroup[] = [];
 
         for (const memberType of memberTypeGroup.memberTypes)
         {
@@ -344,43 +340,50 @@ export function organizeTypes(sourceCode: string, fileName: string, configuratio
 {
     sourceCode = removeRegions(sourceCode);
 
-    let indentation = getIndentation(sourceCode);
-
-    // organize type aliases, interfaces, classes, enums, functions and variables
     let sourceFile = ts.createSourceFile(fileName, sourceCode, ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
     let elements = new Transformer().analyzeSyntaxTree(sourceFile, configuration.members.treatArrowFunctionPropertiesAsMethods);
-    let imports = getImports(elements);
-    let typeAliases = getTypeAliases(elements);
-    let interfaces = getInterfaces(elements, configuration.members.groupMembersWithDecorators);
-    let classes = getClasses(elements, configuration.members.groupMembersWithDecorators);
-    let enums = getEnums(elements);
-    let nonExportedFunctions = getFunctions(elements, configuration.members.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods, false);
-    let exportedFunctions = getFunctions(elements, configuration.members.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods, true);
-    let variables = getVariables(elements, configuration.members.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods ? false : null);
     let expressions = getExpressions(elements);
 
+    // get top level elements
+    const indentation = getIndentation(sourceCode);
+    const imports = getImports(elements);
+    const interfaces = getInterfaces(elements, configuration.members.groupMembersWithDecorators);
+    const classes = getClasses(elements, configuration.members.groupMembersWithDecorators);
+
+    // having expressions could reorganize code in incorrect way because of code dependencies and declaration order
     if (expressions.length === 0)
     {
-        // having expressions could reorganize code in incorrect way
+        const typeAliases = getTypeAliases(elements);
+        const enums = getEnums(elements);
+        const functions = getFunctions(elements, configuration.members.treatArrowFunctionPropertiesAsMethods, false);
+        const exportedFunctions = getFunctions(elements, configuration.members.treatArrowFunctionPropertiesAsMethods, true);
+        const constants = getVariables(elements, true, false, configuration.members.treatArrowFunctionPropertiesAsMethods ? false : null);
+        const exportedConstants = getVariables(elements, true, true, configuration.members.treatArrowFunctionPropertiesAsMethods ? false : null);
+        const variables = getVariables(elements, false, false, null);
+        const exportedVariables = getVariables(elements, false, true, null);
+
         let groups = [
             new ElementNodeGroup("Imports", [], imports, false),
+            new ElementNodeGroup("Enums", [], enums, true),
             new ElementNodeGroup("Type aliases", [], typeAliases, true),
             new ElementNodeGroup("Interfaces", [], interfaces, true),
             new ElementNodeGroup("Classes", [], classes, true),
-            new ElementNodeGroup("Enums", [], enums, true),
-            new ElementNodeGroup("Functions", [], nonExportedFunctions, true),
+            new ElementNodeGroup("Functions", [], functions, true),
             new ElementNodeGroup("Exported Functions", [], exportedFunctions, true),
-            new ElementNodeGroup("Variables", [], variables, true)
+            new ElementNodeGroup("Constants", [], constants, true),
+            new ElementNodeGroup("Exported Constants", [], exportedConstants, true),
+            new ElementNodeGroup("Variables", [], variables, true),
+            new ElementNodeGroup("ExportedVariables", [], exportedVariables, true),
         ];
 
-        if (typeAliases.length + interfaces.length + classes.length + enums.length + nonExportedFunctions.length + exportedFunctions.length > 1 ||
-            typeAliases.length + interfaces.length + classes.length + enums.length == 0 && nonExportedFunctions.length + exportedFunctions.length >= 1)
+        if (groups.slice(1).some(g => g.nodes.length > 1))
         {
-            sourceCode = print(groups, sourceCode, 0, sourceCode.length, 0, configuration.regions.addMemberCountInRegionName, false, false, indentation, configuration.regions.addRegionCaptionToRegionEnd, configuration.members.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods);
+            // organize top level elements (ignore imports)
+            sourceCode = print(groups, sourceCode, 0, sourceCode.length, "", configuration);
         }
     }
 
-    // organize members of interfaces and classes
+    // organize members within top level elements (interfaces, classes)
     sourceFile = ts.createSourceFile(fileName, sourceCode, ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
 
     elements = new Transformer().analyzeSyntaxTree(sourceFile, configuration.members.treatArrowFunctionPropertiesAsMethods);
@@ -389,32 +392,45 @@ export function organizeTypes(sourceCode: string, fileName: string, configuratio
     {
         if (element instanceof InterfaceNode)
         {
-            let interfaceNode = <InterfaceNode>element;
-            let groups = organizeInterfaceMembers(interfaceNode, configuration.members.memberOrder, configuration.members.groupMembersWithDecorators);
+            const interfaceNode = <InterfaceNode>element;
+            const memberGroups = organizeInterfaceMembers(interfaceNode, configuration.members.memberOrder, configuration.members.groupMembersWithDecorators);
+            const start = interfaceNode.membersStart;
+            const end = interfaceNode.membersEnd;
 
-            sourceCode = print(groups, sourceCode, interfaceNode.membersStart, interfaceNode.membersEnd, 1, configuration.regions.addMemberCountInRegionName, false, configuration.regions.addRegionIndentation, indentation, configuration.regions.addRegionCaptionToRegionEnd, configuration.members.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods);
+            sourceCode = print(memberGroups, sourceCode, start, end, indentation, configuration).replaceAll("public ", "");
         }
         else if (element instanceof ClassNode)
         {
-            let classNode = <ClassNode>element;
-            let groups = organizeClassMembers(classNode, configuration.members.memberOrder, configuration.members.groupMembersWithDecorators);
+            const classNode = <ClassNode>element;
+            const memberGroups = organizeClassMembers(classNode, configuration.members.memberOrder, configuration.members.groupMembersWithDecorators);
+            const start = classNode.membersStart;
+            const end = classNode.membersEnd;
 
-            sourceCode = print(groups, sourceCode, classNode.membersStart, classNode.membersEnd, 1, configuration.regions.addMemberCountInRegionName, configuration.accessModifiers.addPublicModifierIfMissing, configuration.regions.addRegionIndentation, indentation, configuration.regions.addRegionCaptionToRegionEnd, configuration.members.groupMembersWithDecorators, configuration.members.treatArrowFunctionPropertiesAsMethods);
+            sourceCode = print(memberGroups, sourceCode, start, end, indentation, configuration);
         }
     }
 
+    // remove regions from output
     if (!configuration.regions.useRegions)
     {
         sourceCode = removeRegions(sourceCode);
     }
 
+    // remove multiple empty lines
     sourceCode = formatLines(sourceCode);
 
     return sourceCode;
 }
 
-export function print(groups: ElementNodeGroup[], sourceCode: string, start: number, end: number, IndentationLevel: number, addMemberCountInRegionName: boolean, addPublicModifierIfMissing: boolean, addRegionIndentation: boolean, indentation: string, addRegionCaptionToRegionEnd: boolean, groupElementsWithDecorators: boolean, treatArrowFunctionPropertiesAsMethods: boolean)
+export function print(groups: ElementNodeGroup[], sourceCode: string, start: number, end: number, indentation: string, configuration: Configuration)
 {
+    // configuration
+    const addMemberCountInRegionName = configuration.regions.addMemberCountInRegionName;
+    const addRegionCaptionToRegionEnd = configuration.regions.addRegionCaptionToRegionEnd;
+    const addRegionIndentation = configuration.regions.addRegionIndentation;
+    const treatArrowFunctionPropertiesAsMethod = configuration.members.treatArrowFunctionPropertiesAsMethods;
+    const addPublicModifierIfMissing = configuration.accessModifiers.addPublicModifierIfMissing;
+
     let sourceCode2: string;
     let count = 0;
     let members = "";
@@ -519,10 +535,10 @@ export function print(groups: ElementNodeGroup[], sourceCode: string, start: num
 
                     if (comment !== "")
                     {
-                        members += `${IndentationLevel === 1 ? indentation : ""}${comment}${newLine}`;
+                        members += `${indentation}${comment}${newLine}`;
                     }
 
-                    members += `${IndentationLevel === 1 ? indentation : ""}${code}`;
+                    members += `${indentation}${code}`;
                     members += newLine;
 
                     if (code.endsWith("}"))
@@ -531,7 +547,7 @@ export function print(groups: ElementNodeGroup[], sourceCode: string, start: num
                     }
                     else if (node instanceof PropertyNode &&
                         node.isArrowFunction &&
-                        treatArrowFunctionPropertiesAsMethods)
+                        treatArrowFunctionPropertiesAsMethod)
                     {
                         // arrow function property -> add a new line
                         members += newLine;
