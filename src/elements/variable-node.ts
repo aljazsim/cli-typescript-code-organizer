@@ -26,8 +26,12 @@ export class VariableNode extends ElementNode
         this._start = variableStatement.getStart(sourceFile, false);
 
         this.isExport = this.getIsExport(variableStatement);
-        this.isConst = this.getWriteMode(variableStatement) === WriteModifier.const;
         this.isArrowFunction = this.getIsArrowFunction(variableStatement);
+
+        // HACK: can't find a way to do this with AST
+        const sourceCode = variableStatement.getText(sourceFile).trim();
+
+        this.isConst = sourceCode.startsWith("const ") || sourceCode.startsWith("export const ");
     }
 
     // #endregion Constructors (1)

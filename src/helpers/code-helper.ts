@@ -373,7 +373,7 @@ export function organizeTypes(sourceCode: string, fileName: string, configuratio
             new ElementNodeGroup("Constants", [], constants, true),
             new ElementNodeGroup("Exported Constants", [], exportedConstants, true),
             new ElementNodeGroup("Variables", [], variables, true),
-            new ElementNodeGroup("ExportedVariables", [], exportedVariables, true),
+            new ElementNodeGroup("Exported Variables", [], exportedVariables, true),
         ];
 
         if (groups.slice(1).some(g => g.nodes.length > 1))

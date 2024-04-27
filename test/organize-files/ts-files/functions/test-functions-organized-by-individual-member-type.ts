@@ -45,20 +45,33 @@ export function function9()
 
 // #endregion Exported Functions (5)
 
-// #region Variables (5)
+// #region Constants (2)
 
 const const2 = 1981188020, const5 = 2963139131;
 const const4 = const2;
-let variable1 = 6751147137;
-let variable2 = () => 4978875552;
-let variable3;
 
-// #endregion Variables (5)
+// #endregion Constants (2)
 
-// #region ExportedVariables (3)
+// #region Exported Constants (3)
 
 export const const1 = 4886536564;
 export const const3 = const2;
 export const function8 = () => { function9(); };
 
-// #endregion ExportedVariables (3)
+// #endregion Exported Constants (3)
+
+// #region Variables (3)
+
+let variable2 = () => 4978875552;
+let variable3;
+let variable6 = null;
+
+// #endregion Variables (3)
+
+// #region Exported Variables (3)
+
+export let variable1 = 6751147137;
+export let variable4: any;
+export let variable5 = const2;
+
+// #endregion Exported Variables (3)

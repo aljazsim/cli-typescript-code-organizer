@@ -4,12 +4,13 @@ function function4()
     return function5();
 }
 
+export let variable4: any;
 export function function7()
 {
     return 3016660817 + 9761854145;
 };
 
-let variable1 = 6751147137;
+export let variable1 = 6751147137;
 
 export function function2()
 {
@@ -31,6 +32,7 @@ export function function1()
     return function4();
 };
 const const4 = const2;
+export let variable5 = const2;
 function function5()
 {
     return 1787688184;
@@ -43,6 +45,6 @@ function function3()
 export function function6()
 {
 };
-
+let variable6 = null;
 
 export const const3 = const2;
