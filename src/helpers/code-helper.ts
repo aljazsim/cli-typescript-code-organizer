@@ -429,7 +429,7 @@ export function print(groups: ElementNodeGroup[], sourceCode: string, start: num
     const addRegionCaptionToRegionEnd = configuration.regions.addRegionCaptionToRegionEnd;
     const addRegionIndentation = configuration.regions.addRegionIndentation;
     const treatArrowFunctionPropertiesAsMethod = configuration.members.treatArrowFunctionPropertiesAsMethods;
-    const addPublicModifierIfMissing = configuration.accessModifiers.addPublicModifierIfMissing;
+    const addPublicModifierIfMissing = configuration.members.addPublicModifierIfMissing;
 
     let sourceCode2: string;
     let count = 0;

@@ -2,17 +2,16 @@ import { expect, test } from '@jest/globals';
 
 import { Configuration } from '../../src/configuration/configuration';
 import { organizeSourceCode } from '../../src/organizer';
-
-const fs = require('fs').promises;
+import { readFile } from "../../src/helpers/file-system-helper";
 
 test('ignore files', async () =>
 {
     // arrange
     const sourceCodes = [
-        await fs.readFile("./test/ignore-files/ts-files/test-ignore-auto-generated.ts", "utf8"),
-        await fs.readFile("./test/ignore-files/ts-files/test-ignore.ts", "utf8"),
-        await fs.readFile("./test/ignore-files/ts-files/test-ignore-enum.ts", "utf8"),
-        await fs.readFile("./test/ignore-files/ts-files/test-ignore-type.ts", "utf8"),
+        await readFile("./test/ignore-files/ts-files/test-ignore-auto-generated.ts"),
+        await readFile("./test/ignore-files/ts-files/test-ignore.ts"),
+        await readFile("./test/ignore-files/ts-files/test-ignore-enum.ts"),
+        await readFile("./test/ignore-files/ts-files/test-ignore-type.ts"),
     ];
 
     // act & assert

@@ -1,4 +1,3 @@
-import { AccessModifierConfiguration } from "./access-modifier-configuration";
 import { ElementNodeGroupConfiguration } from "./element-node-group-configuration";
 import { MemberConfigurationConfiguration } from "./member-configuration";
 import { MemberType } from "../member-type";
@@ -6,14 +5,12 @@ import { RegionConfiguration } from "./region-configuration";
 import { convertPascalCaseToTitleCase } from "../helpers/string-helper";
 import defaultConfiguration from './default-configuration.json';
 import { distinct } from "../helpers/array-helper";
-
-const fs = require('fs').promises;
+import { readFile } from "../helpers/file-system-helper";
 
 export class Configuration
 {
     // #region Properties (4)
 
-    public readonly accessModifiers: AccessModifierConfiguration;
     public readonly members: MemberConfigurationConfiguration;
     public readonly regions: RegionConfiguration;
 
@@ -34,8 +31,7 @@ export class Configuration
         )
     {
         this.regions = new RegionConfiguration(useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd);
-        this.accessModifiers = new AccessModifierConfiguration(addPublicModifierIfMissing);
-        this.members = new MemberConfigurationConfiguration(groupMembersWithDecorators, treatArrowFunctionPropertiesAsMethods, memberOrder);
+        this.members = new MemberConfigurationConfiguration(addPublicModifierIfMissing, groupMembersWithDecorators, treatArrowFunctionPropertiesAsMethods, memberOrder);
     }
 
     // #endregion Constructors (1)
@@ -49,7 +45,10 @@ export class Configuration
 
         try
         {
-            configuration = JSON.parse(await fs.readFile(configurationFilePath, "utf8"));
+            if (configurationFilePath)
+            {
+                configuration = JSON.parse(await readFile(configurationFilePath));
+            }
         }
         catch
         {
@@ -60,7 +59,7 @@ export class Configuration
             configuration.regions.addRegionIndentation,
             configuration.regions.addMemberCountInRegionName,
             configuration.regions.addRegionCaptionToRegionEnd,
-            configuration.accessModifiers.addPublicModifierIfMissing,
+            configuration.members.addPublicModifierIfMissing,
             configuration.members.groupMembersWithDecorators,
             configuration.members.treatArrowFunctionPropertiesAsMethods,
             this.fixMemberOrderConfig(defaultConfiguration.members.memberOrder, configuration.members.memberOrder)
