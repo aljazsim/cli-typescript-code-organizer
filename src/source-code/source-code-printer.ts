@@ -19,162 +19,7 @@ export class SourceCodePrinter
 {
     // #region Public Static Methods (1)
 
-    public static organizeModules(sourceCode: string, fileName: string, configuration: Configuration)
-    {
-        sourceCode = removeRegions(sourceCode);
-
-        let sourceFile = ts.createSourceFile(fileName, sourceCode, ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
-        let elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration.members.treatArrowFunctionPropertiesAsMethods);
-        let expressions = getExpressions(elements);
-
-        // get top level elements
-        const indentation = getIndentation(sourceCode);
-        const imports = getImports(elements);
-        const interfaces = getInterfaces(elements, configuration.members.groupMembersWithDecorators);
-        const classes = getClasses(elements, configuration.members.groupMembersWithDecorators);
-
-        // having expressions could reorganize code in incorrect way because of code dependencies and declaration order
-        if (expressions.length === 0)
-        {
-            const typeAliases = getTypeAliases(elements);
-            const enums = getEnums(elements);
-            const functions = getFunctions(elements, configuration.members.treatArrowFunctionPropertiesAsMethods, false);
-            const exportedFunctions = getFunctions(elements, configuration.members.treatArrowFunctionPropertiesAsMethods, true);
-            const constants = getVariables(elements, true, false, configuration.members.treatArrowFunctionPropertiesAsMethods ? false : null);
-            const exportedConstants = getVariables(elements, true, true, configuration.members.treatArrowFunctionPropertiesAsMethods ? false : null);
-            const variables = getVariables(elements, false, false, null);
-            const exportedVariables = getVariables(elements, false, true, null);
-
-            let groups = [
-                new ElementNodeGroup("Imports", [], imports, false),
-                new ElementNodeGroup("Enums", [], enums, true),
-                new ElementNodeGroup("Type aliases", [], typeAliases, true),
-                new ElementNodeGroup("Interfaces", [], interfaces, true),
-                new ElementNodeGroup("Classes", [], classes, true),
-                new ElementNodeGroup("Functions", [], functions, true),
-                new ElementNodeGroup("Exported Functions", [], exportedFunctions, true),
-                new ElementNodeGroup("Constants", [], constants, true),
-                new ElementNodeGroup("Exported Constants", [], exportedConstants, true),
-                new ElementNodeGroup("Variables", [], variables, true),
-                new ElementNodeGroup("Exported Variables", [], exportedVariables, true),
-            ];
-
-            if (groups.slice(1).some(g => g.nodes.length > 1))
-            {
-                // organize top level elements (ignore imports)
-                sourceCode = print(groups, sourceCode, 0, sourceCode.length, "", configuration);
-            }
-        }
-
-        // organize members within top level elements (interfaces, classes)
-        sourceFile = ts.createSourceFile(fileName, sourceCode, ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
-
-        elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration.members.treatArrowFunctionPropertiesAsMethods);
-
-        for (let element of elements.sort((a: any, b: any) => compareNumbers(a.fullStart, b.fullStart) * -1))
-        {
-            if (element instanceof InterfaceNode)
-            {
-                const interfaceNode = <InterfaceNode>element;
-                const memberGroups = organizeInterfaceMembers(interfaceNode, configuration.members.memberOrder, configuration.members.groupMembersWithDecorators);
-                const start = interfaceNode.membersStart;
-                const end = interfaceNode.membersEnd;
-
-                sourceCode = print(memberGroups, sourceCode, start, end, indentation, configuration).replaceAll("public ", "");
-            }
-            else if (element instanceof ClassNode)
-            {
-                const classNode = <ClassNode>element;
-                const memberGroups = organizeClassMembers(classNode, configuration.members.memberOrder, configuration.members.groupMembersWithDecorators);
-                const start = classNode.membersStart;
-                const end = classNode.membersEnd;
-
-                sourceCode = print(memberGroups, sourceCode, start, end, indentation, configuration);
-            }
-        }
-
-        // remove regions from output
-        if (!configuration.regions.useRegions)
-        {
-            sourceCode = removeRegions(sourceCode);
-        }
-
-        // remove multiple empty lines
-        sourceCode = formatLines(sourceCode);
-
-        return sourceCode;
-    }
-
-    // #endregion Public Static Methods (1)
-
-    // #region Private Static Methods (4)
-
-    private static formatLines(sourceCode: string)
-    {
-        const newLine = "\r\n";
-        let emptyLineRegex = new RegExp(`^\\s*$`);
-        let newLineRegex = new RegExp(`\r?\n|\r`);
-        let openingBraceRegex = new RegExp(`^.*\{\\s*$`);
-        let closingBraceRegex = new RegExp(`^\\s*\}\\s*$`);
-
-        let lines: string[] = sourceCode.split(newLineRegex);
-
-        for (let i = 0; i < lines.length - 1; i++)
-        {
-            if (openingBraceRegex.test(lines[i]) &&
-                emptyLineRegex.test(lines[i + 1]))
-            {
-                // remove empty line after {
-                lines.splice(i + 1, 1);
-
-                i--;
-            }
-            else if (emptyLineRegex.test(lines[i]) &&
-                closingBraceRegex.test(lines[i + 1]))
-            {
-                // remove empty line before }
-                lines.splice(i, 1);
-
-                i--;
-            }
-            else if (emptyLineRegex.test(lines[i]) &&
-                emptyLineRegex.test(lines[i + 1]))
-            {
-                lines.splice(i, 1);
-
-                i--;
-            }
-        }
-
-        return lines.join(newLine);
-    }
-
-    private static getIndentation(sourceCode: string): string
-    {
-        let tab = "\t";
-        let twoSpaces = "  ";
-        let fourSpaces = twoSpaces + twoSpaces;
-
-        for (const sourceCodeLine of sourceCode.split("\n"))
-        {
-            if (sourceCodeLine.startsWith(tab))
-            {
-                return tab;
-            }
-            else if (sourceCodeLine.startsWith(fourSpaces))
-            {
-                return fourSpaces;
-            }
-            else if (sourceCodeLine.startsWith(twoSpaces))
-            {
-                return twoSpaces;
-            }
-        }
-
-        return twoSpaces;
-    }
-
-    private static print(groups: ElementNodeGroup[], sourceCode: string, start: number, end: number, indentation: string, configuration: Configuration)
+    public static print(groups: ElementNodeGroup[], sourceCode: string, start: number, end: number, indentation: string, configuration: Configuration)
     {
         // configuration
         const addMemberCountInRegionName = configuration.regions.addMemberCountInRegionName;
@@ -280,7 +125,7 @@ export class SourceCodePrinter
 
                                 if (regex && replaceWith)
                                 {
-                                    code = replaceAfterDecorators(code, node.decorators, regex, replaceWith);
+                                    code = this.replaceAfterDecorators(code, node.decorators, regex, replaceWith);
                                 }
                             }
                         }
@@ -331,6 +176,75 @@ export class SourceCodePrinter
         return sourceCode2.trimStart();
     }
 
+    // #endregion Public Static Methods (1)
+
+    // #region Private Static Methods (3)
+
+    private static formatLines(sourceCode: string)
+    {
+        const newLine = "\r\n";
+        let emptyLineRegex = new RegExp(`^\\s*$`);
+        let newLineRegex = new RegExp(`\r?\n|\r`);
+        let openingBraceRegex = new RegExp(`^.*\{\\s*$`);
+        let closingBraceRegex = new RegExp(`^\\s*\}\\s*$`);
+
+        let lines: string[] = sourceCode.split(newLineRegex);
+
+        for (let i = 0; i < lines.length - 1; i++)
+        {
+            if (openingBraceRegex.test(lines[i]) &&
+                emptyLineRegex.test(lines[i + 1]))
+            {
+                // remove empty line after {
+                lines.splice(i + 1, 1);
+
+                i--;
+            }
+            else if (emptyLineRegex.test(lines[i]) &&
+                closingBraceRegex.test(lines[i + 1]))
+            {
+                // remove empty line before }
+                lines.splice(i, 1);
+
+                i--;
+            }
+            else if (emptyLineRegex.test(lines[i]) &&
+                emptyLineRegex.test(lines[i + 1]))
+            {
+                lines.splice(i, 1);
+
+                i--;
+            }
+        }
+
+        return lines.join(newLine);
+    }
+
+    private static getIndentation(sourceCode: string): string
+    {
+        let tab = "\t";
+        let twoSpaces = "  ";
+        let fourSpaces = twoSpaces + twoSpaces;
+
+        for (const sourceCodeLine of sourceCode.split("\n"))
+        {
+            if (sourceCodeLine.startsWith(tab))
+            {
+                return tab;
+            }
+            else if (sourceCodeLine.startsWith(fourSpaces))
+            {
+                return fourSpaces;
+            }
+            else if (sourceCodeLine.startsWith(twoSpaces))
+            {
+                return twoSpaces;
+            }
+        }
+
+        return twoSpaces;
+    }
+
     private static replaceAfterDecorators(code: string, decorators: string[], replaceWhat: RegExp, replaceWith: string)
     {
         const afterDecoratorsStart = decorators.length === 0 ? 0 : (code.lastIndexOf(decorators[decorators.length - 1]) + decorators[decorators.length - 1].length);
@@ -340,5 +254,5 @@ export class SourceCodePrinter
         return codeDecorators + codeAfterDecorators.replace(replaceWhat, replaceWith);
     }
 
-    // #endregion Private Static Methods (4)
+    // #endregion Private Static Methods (3)
 }

@@ -110,6 +110,10 @@ export class Configuration
                 (
                     defaultConfiguration.classes.order,
                     defaultConfiguration.classes.useRegions,
+                    defaultConfiguration.classes.addPublicModifierIfMissing,
+                    defaultConfiguration.classes.addPrivateModifierIfStartingWithHash,
+                    defaultConfiguration.classes.groupMembersWithDecorators,
+                    defaultConfiguration.classes.treatArrowFunctionPropertiesAsMethods,
                     defaultConfiguration.classes.groups.map(g => this.parseClassMemberGroupConfiguration(g))
 
                 ),
@@ -147,7 +151,7 @@ export class Configuration
         // add missing member types (one per group)
         for (const missingMemberType of missingMemberTypes) 
         {
-            fixedMemberTypeOrder.push(new ClassMemberGroupConfiguration(true, convertPascalCaseToTitleCase(ClassMemberType[missingMemberType]), [missingMemberType], [], [], true, false, false, false));
+            fixedMemberTypeOrder.push(new ClassMemberGroupConfiguration(true, convertPascalCaseToTitleCase(ClassMemberType[missingMemberType]), [missingMemberType], [], []));
         }
 
         return fixedMemberTypeOrder;
@@ -223,10 +227,6 @@ export class Configuration
         const memberTypes = distinct(mmgc.memberTypes as string[] ?? []).map(t => ClassMemberType[t as keyof typeof ClassMemberType]).filter(t => t != undefined);
         const placeAbove = distinct(mmgc.placeAbove as string[] ?? []);
         const placeBelow = distinct(mmgc.placeBelow as string[] ?? []);
-        const addPublicModifierIfMissing = mmgc.addPublicModifierIfMissing ?? true;
-        const addPrivateModifierIfStartingWithHash = mmgc.addPrivateModifierIfStartingWithHash ?? false;
-        const groupMembersWithDecorators = mmgc.groupMembersWithDecorators ?? false;
-        const treatArrowFunctionPropertiesAsMethods = mmgc.treatArrowFunctionPropertiesAsMethods ?? false;
 
         for (const pa of placeAbove)
         {
@@ -237,7 +237,7 @@ export class Configuration
             }
         }
 
-        return new ClassMemberGroupConfiguration(order, caption, memberTypes, placeAbove, placeBelow, addPublicModifierIfMissing, addPrivateModifierIfStartingWithHash, groupMembersWithDecorators, treatArrowFunctionPropertiesAsMethods);
+        return new ClassMemberGroupConfiguration(order, caption, memberTypes, placeAbove, placeBelow);
     }
 
     private static parseInterfaceMemberGroupConfiguration(mmgc: any)

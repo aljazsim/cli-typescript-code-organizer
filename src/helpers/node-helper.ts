@@ -44,9 +44,9 @@ export function getImports(nodes: ElementNode[])
     return nodes.filter(n => n instanceof ImportNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
-export function getInterfaces(nodes: ElementNode[], groupWithDecorators: boolean)
+export function getInterfaces(nodes: ElementNode[])
 {
-    return nodes.filter(n => n instanceof InterfaceNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+    return nodes.filter(n => n instanceof InterfaceNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
 export function getName(node: ElementNode, groupWithDecorators: boolean): string

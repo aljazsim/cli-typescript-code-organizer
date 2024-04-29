@@ -1,19 +1,21 @@
-import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, groupByPlaceAboveBelow } from "../helpers/node-helper";
 import { getFileName, readFile, writeFile } from "../helpers/file-system-helper";
-import { getIndentation, organizeTypes } from "./helpers/code-helper";
 
 import { ClassMemberGroupConfiguration } from "../configuration/class-member-group-configuration";
-import { ClassMemberType } from "../enums/class-member-type";
 import { ClassNode } from "../elements/class-node";
 import { Configuration } from "../configuration/configuration";
 import { ElementNodeGroup } from "../elements/element-node-group";
 import { InterfaceMemberGroupConfiguration } from "../configuration/interface-member-group-configuration";
-import { InterfaceMemberType } from "../enums/interface-member-type";
 import { InterfaceNode } from "../elements/interface-node";
-import { SourceCodeAnalyzer } from "./source-code-analyzer";
-import { compareNumbers } from "../helpers/comparing-helper";
-import { removeRegions } from "../helpers/region-helper";
+import { SourceCodePrinter } from "./source-code-printer";
 import ts from "typescript";
+import { SourceCodeAnalyzer } from "./source-code-analyzer";
+import { ModuleMemberGroupConfiguration } from "../configuration/module-member-group-configuration";
+import { InterfaceMemberType } from "../enums/interface-member-type";
+import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, groupByPlaceAboveBelow } from "../helpers/node-helper";
+import { ClassMemberType } from "../enums/class-member-type";
+import { compareNumbers } from "../helpers/comparing-helper";
+import { ModuleMemberType } from "../enums/module-member-type";
+import { ElementNode } from "../elements/element-node";
 
 export class SourceCodeOrganizer
 {
@@ -58,7 +60,46 @@ export class SourceCodeOrganizer
         {
             try 
             {
-                return organizeTypes(sourceCode, sourceCodeFileName, configuration);
+                let sourceFile = ts.createSourceFile(sourceCodeFileName, sourceCode, ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
+                let elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration.classes.treatArrowFunctionPropertiesAsMethods);
+
+                // get top level elements
+                const imports = getImports(elements);
+                const interfaces = getInterfaces(elements);
+                const classes = getClasses(elements, configuration.classes.groupMembersWithDecorators);
+                const types = getTypeAliases(elements);
+                const enums = getEnums(elements);
+                const functions = getFunctions(elements, configuration.modules.treatArrowFunctionPropertiesAsMethods, false);
+                const exportedFunctions = getFunctions(elements, configuration.modules.treatArrowFunctionPropertiesAsMethods, true);
+                const constants = getVariables(elements, true, false, configuration.modules.treatArrowFunctionPropertiesAsMethods ? false : null);
+                const exportedConstants = getVariables(elements, true, true, configuration.modules.treatArrowFunctionPropertiesAsMethods ? false : null);
+                const variables = getVariables(elements, false, false, null);
+                const exportedVariables = getVariables(elements, false, true, null);
+                let expressions = getExpressions(elements);
+
+
+                // organize module elements
+                let groups = [new ElementNodeGroup("Imports", [], imports, false)];
+
+                groups.concat(this.organizeModuleMembers(enums, types, interfaces, classes, functions, exportedFunctions, variables, configuration.modules.groups));
+
+
+                // organize module element children
+                for (let element of elements.sort((a: any, b: any) => compareNumbers(a.fullStart, b.fullStart) * -1))
+                {
+                    if (element instanceof InterfaceNode)
+                    {
+                        const interfaceNode = <InterfaceNode>element;
+                        const memberGroups = this.organizeInterfaceMembers(interfaceNode, configuration.interfaces.groups);
+                    }
+                    else if (element instanceof ClassNode)
+                    {
+                        const classNode = <ClassNode>element;
+                        const memberGroups = this.organizeClassMembers(classNode, configuration.classes.groups, configuration.classes.groupMembersWithDecorators);
+                    }
+                }
+
+                return SourceCodePrinter.print(groups, configuration);
             }
             catch
             {
@@ -68,7 +109,47 @@ export class SourceCodeOrganizer
         return sourceCode;
     }
 
-    private static organizeClassMembers(classNode: ClassNode, memberTypeOrder: ClassMemberGroupConfiguration[], groupElementsWithDecorators: boolean): ElementNodeGroup[]
+    public static refactorThisMethod(sourceCode: string, fileName: string, configuration: Configuration)
+    {
+        sourceCode = removeRegions(sourceCode);
+
+        let sourceFile = ts.createSourceFile(fileName, sourceCode, ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
+        let elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration.members.treatArrowFunctionPropertiesAsMethods);
+
+
+        // having expressions could reorganize code in incorrect way because of code dependencies and declaration order
+        if (expressions.length === 0)
+        {
+
+
+
+            if (groups.slice(1).some(g => g.nodes.length > 1))
+            {
+                // organize top level elements (ignore imports)
+                sourceCode = print(groups, sourceCode, 0, sourceCode.length, "", configuration);
+            }
+        }
+
+        // organize members within top level elements (interfaces, classes)
+        sourceFile = ts.createSourceFile(fileName, sourceCode, ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
+
+        elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration.members.treatArrowFunctionPropertiesAsMethods);
+
+
+
+        // remove regions from output
+        if (!configuration.regions.useRegions)
+        {
+            sourceCode = removeRegions(sourceCode);
+        }
+
+        // remove multiple empty lines
+        sourceCode = formatLines(sourceCode);
+
+        return sourceCode;
+    }
+
+    private static organizeClassMembers(classNode: ClassNode, memberTypeOrder: ClassMemberGroupConfiguration[], groupElementsWithDecorators: boolean)
     {
         let regions: ElementNodeGroup[] = [];
 
@@ -264,7 +345,7 @@ export class SourceCodeOrganizer
         return regions;
     }
 
-    private static organizeInterfaceMembers(interfaceNode: InterfaceNode, memberTypeOrder: InterfaceMemberGroupConfiguration[], groupElementsWithDecorators: boolean)
+    private static organizeInterfaceMembers(interfaceNode: InterfaceNode, memberTypeOrder: InterfaceMemberGroupConfiguration[])
     {
         let regions: ElementNodeGroup[] = [];
 
@@ -278,19 +359,19 @@ export class SourceCodeOrganizer
             {
                 if (memberType === InterfaceMemberType.properties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(interfaceNode.getProperties(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(interfaceNode.getProperties(), placeAbove, placeBelow, false), false));
                 }
                 else if (memberType === InterfaceMemberType.indexes)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(interfaceNode.getIndexes(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(interfaceNode.getIndexes(), placeAbove, placeBelow, false), false));
                 }
                 if (memberType === InterfaceMemberType.gettersAndSetters)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(interfaceNode.getGettersAndSetters(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(interfaceNode.getGettersAndSetters(), placeAbove, placeBelow, false), false));
                 }
                 else if (memberType === InterfaceMemberType.methods)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(interfaceNode.getMethods(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(interfaceNode.getMethods(), placeAbove, placeBelow, false), false));
                 }
             }
 
@@ -301,4 +382,53 @@ export class SourceCodeOrganizer
     }
 
 
+    private static organizeModuleMembers(enums: ElementNode[], types: ElementNode[], interfaces: ElementNode[], classes: ElementNode[], functions: ElementNode[], exportedFunctions: ElementNode[], variables: ElementNode[], memberTypeOrder: ModuleMemberGroupConfiguration[])
+    {
+        let regions: ElementNodeGroup[] = [];
+
+        for (const memberTypeGroup of memberTypeOrder)
+        {
+            const placeAbove = memberTypeGroup.placeAbove;
+            const placeBelow = memberTypeGroup.placeBelow;
+            const memberGroups: ElementNodeGroup[] = [];
+
+            for (const memberType of memberTypeGroup.memberTypes)
+            {
+                if (memberType === ModuleMemberType.enums)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(enums, placeAbove, placeBelow, false), false));
+                }
+                else if (memberType === ModuleMemberType.types)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(types, placeAbove, placeBelow, false), false));
+                }
+                else if (memberType === ModuleMemberType.interfaces)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(interfaces, placeAbove, placeBelow, false), false));
+                }
+                else if (memberType === ModuleMemberType.classes)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(classes, placeAbove, placeBelow, false), false));
+                }
+                else if (memberType === ModuleMemberType.functions)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(functions, placeAbove, placeBelow, false), false));
+                }
+                else if (memberType === ModuleMemberType.exportedFunctions)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(exportedFunctions, placeAbove, placeBelow, false), false));
+                }
+                else if (memberType === ModuleMemberType.variables)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(variables, placeAbove, placeBelow, false), false));
+                }
+
+            }
+
+            regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], true));
+        }
+
+
+        return regions;
+    }
 }
