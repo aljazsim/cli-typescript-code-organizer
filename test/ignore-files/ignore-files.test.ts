@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals';
 
 import { Configuration } from '../../src/configuration/configuration';
-import { organizeSourceCode } from '../../src/organizer';
+import { organizeSourceCode } from '../source-code/source-code-organizer';
 import { readFile } from "../../src/helpers/file-system-helper";
 
 test('ignore files', async () =>

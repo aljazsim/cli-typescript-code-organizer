@@ -22,6 +22,9 @@ export interface TestInterface
 
     [key: string]: any;
 
+    [key: string]: any;
+
+    get accessor1(): string;
     get publicGetterSetter1(): Number;
     set publicGetterSetter1(size: Number);
     get publicGetterSetter2(): Number;

@@ -24,21 +24,24 @@ export interface TestInterface
 
     // #endregion Properties (18)
 
-    // #region Indexers (1)
+    // #region Indexers (2)
 
     [key: string]: any;
 
-    // #endregion Indexers (1)
+    [key: string]: any;
 
-    // #region Getters And Setters (5)
+    // #endregion Indexers (2)
 
+    // #region Getters And Setters (6)
+
+    get accessor1(): string;
     get publicGetterSetter1(): Number;
     set publicGetterSetter1(size: Number);
     get publicGetterSetter2(): Number;
     set publicGetterSetter3(size: Number);
     get publicGetterSetter4(): any;
 
-    // #endregion Getters And Setters (5)
+    // #endregion Getters And Setters (6)
 
     // #region Methods (9)
 

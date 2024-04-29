@@ -1,4 +1,4 @@
-export enum MemberType
+export enum ClassMemberType
 {
     privateStaticConstProperties,
     privateConstProperties,
@@ -23,9 +23,6 @@ export enum MemberType
 
     staticBlockDeclarations,
     constructors,
-
-    publicStaticIndexes,
-    publicIndexes,
 
     publicStaticAccessors,
     publicAccessors,

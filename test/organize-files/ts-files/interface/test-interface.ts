@@ -24,7 +24,7 @@ export interface TestInterface
 
     set publicGetterSetter3(size: Number);
     readonly publicReadonlyProperty4: string;
-
+    get accessor1(): string;
     publicProperty3: string | undefined;
     publicMethod1(): number;
 

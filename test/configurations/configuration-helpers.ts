@@ -1,5 +1,5 @@
+import { ClassMemberType } from "../enums/class-member-type";
 import { ElementNodeGroupConfiguration } from "../../src/configuration/element-node-group-configuration";
-import { MemberType } from "../../src/member-type";
 import { distinct } from "../../src/helpers/array-helper";
 import membersByGroupedMemberType from '../configurations/members-by-grouped-member-type.json';
 import membersByGroupedMemberTypeWithPlaceAboveBelow from '../configurations/members-by-grouped-member-type-with-place-above-below.json';
@@ -10,7 +10,7 @@ function parseElementNodeGroupConfiguration(x: any)
     let elementNodeGroupConfiguration = new ElementNodeGroupConfiguration();
 
     elementNodeGroupConfiguration.caption = x.caption;
-    elementNodeGroupConfiguration.memberTypes = distinct(x.memberTypes as string[] ?? []).map(y => MemberType[y as keyof typeof MemberType]);
+    elementNodeGroupConfiguration.memberTypes = distinct(x.memberTypes as string[] ?? []).map(y => ClassMemberType[y as keyof typeof ClassMemberType]);
     elementNodeGroupConfiguration.placeAbove = distinct(x.placeAbove as string[] ?? []);
     elementNodeGroupConfiguration.placeBelow = distinct(x.placeBelow as string[] ?? []);
 

@@ -9,9 +9,8 @@ import { SetterNode } from "./setter-node";
 
 export class InterfaceNode extends ElementNode
 {
-    // #region Properties (8)
+    // #region Properties (7)
 
-    public readonly accessors: AccessorNode[] = [];
     public readonly getters: GetterNode[] = [];
     public readonly indexes: IndexSignatureNode[] = [];
     public readonly membersEnd: number = 0;
@@ -20,7 +19,7 @@ export class InterfaceNode extends ElementNode
     public readonly properties: PropertySignatureNode[] = [];
     public readonly setters: SetterNode[] = [];
 
-    // #endregion Properties (8)
+    // #endregion Properties (7)
 
     // #region Constructors (1)
 
@@ -39,16 +38,36 @@ export class InterfaceNode extends ElementNode
             this.membersStart = interfaceDeclaration.members[0].getFullStart();
             this.membersEnd = interfaceDeclaration.members[interfaceDeclaration.members.length - 1].getEnd();
         }
+
+        // members
+        for (let member of interfaceDeclaration.members)
+        {
+            if (ts.isPropertySignature(member))
+            {
+                this.properties.push(new PropertySignatureNode(sourceFile, member));
+            }
+            else if (ts.isGetAccessorDeclaration(member))
+            {
+                this.getters.push(new GetterNode(sourceFile, member));
+            }
+            else if (ts.isSetAccessorDeclaration(member))
+            {
+                this.setters.push(new SetterNode(sourceFile, member));
+            }
+            else if (ts.isIndexSignatureDeclaration(member))
+            {
+                this.indexes.push(new IndexSignatureNode(sourceFile, member));
+            }
+            else if (ts.isMethodSignature(member))
+            {
+                this.methods.push(new MethodSignatureNode(sourceFile, member));
+            }
+        }
     }
 
     // #endregion Constructors (1)
 
-    // #region Public Methods (7)
-
-    public getAccessors()
-    {
-        return this.accessors;
-    }
+    // #region Public Methods (6)
 
     public getConstProperties()
     {
@@ -80,5 +99,5 @@ export class InterfaceNode extends ElementNode
         return this.properties.filter((x) => this.isReadOnly(x));
     }
 
-    // #endregion Public Methods (7)
+    // #endregion Public Methods (6)
 }

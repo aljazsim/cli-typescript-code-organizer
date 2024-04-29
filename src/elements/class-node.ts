@@ -11,12 +11,11 @@ import { StaticBlockDeclarationNode } from "./static-block-declaration-node";
 
 export class ClassNode extends ElementNode
 {
-  // #region Properties (12)
+  // #region Properties (11)
 
   public readonly accessors: AccessorNode[] = [];
   public readonly constructors: ConstructorNode[] = [];
   public readonly getters: GetterNode[] = [];
-  public readonly indexes: IndexNode[] = [];
   public readonly isAbstract: boolean;
   public readonly isStatic: boolean;
   public readonly membersEnd: number = 0;
@@ -26,11 +25,11 @@ export class ClassNode extends ElementNode
   public readonly setters: SetterNode[] = [];
   public readonly staticBlockDeclarations: StaticBlockDeclarationNode[] = [];
 
-  // #endregion Properties (12)
+  // #endregion Properties (11)
 
   // #region Constructors (1)
 
-  constructor(sourceFile: ts.SourceFile, classDeclaration: ts.ClassDeclaration)
+  constructor(sourceFile: ts.SourceFile, classDeclaration: ts.ClassDeclaration, treatArrowFunctionPropertiesAsMethods: boolean)
   {
     super(classDeclaration);
 
@@ -50,11 +49,52 @@ export class ClassNode extends ElementNode
 
     this.isAbstract = this.getIsAbstract(classDeclaration);
     this.isStatic = this.getIsStatic(classDeclaration);
+
+    // members
+    for (let member of classDeclaration.members)
+    {
+      if (ts.isClassStaticBlockDeclaration(member))
+      {
+        this.staticBlockDeclarations.push(new StaticBlockDeclarationNode(sourceFile, member));
+      }
+      else if (ts.isConstructorDeclaration(member))
+      {
+        this.constructors.push(new ConstructorNode(sourceFile, member));
+      }
+      else if (ts.isAutoAccessorPropertyDeclaration(member))
+      {
+        this.accessors.push(new AccessorNode(sourceFile, member));
+      }
+      else if (ts.isPropertyDeclaration(member))
+      {
+        if (treatArrowFunctionPropertiesAsMethods && member.initializer?.kind === ts.SyntaxKind.ArrowFunction)
+        {
+          this.methods.push(new PropertyNode(sourceFile, member));
+        }
+
+        else
+        {
+          this.properties.push(new PropertyNode(sourceFile, member));
+        }
+      }
+      else if (ts.isGetAccessorDeclaration(member))
+      {
+        this.getters.push(new GetterNode(sourceFile, member));
+      }
+      else if (ts.isSetAccessorDeclaration(member))
+      {
+        this.setters.push(new SetterNode(sourceFile, member));
+      }
+      else if (ts.isMethodDeclaration(member))
+      {
+        this.methods.push(new MethodNode(sourceFile, member));
+      }
+    }
   }
 
   // #endregion Constructors (1)
 
-  // #region Public Methods (45)
+  // #region Public Methods (43)
 
   public getConstructors()
   {
@@ -226,11 +266,6 @@ export class ClassNode extends ElementNode
     return this.getters.concat(this.setters).filter(x => this.isPublic(x) && !x.isStatic && !x.isAbstract);
   }
 
-  public getPublicIndexes()
-  {
-    return this.indexes.filter(x => this.isPublic(x) && !x.isStatic && !x.isAbstract);
-  }
-
   public getPublicMethods()
   {
     return this.methods.filter(x => this.isPublic(x) && !x.isStatic && !x.isAbstract);
@@ -261,11 +296,6 @@ export class ClassNode extends ElementNode
     return this.getters.concat(this.setters).filter(x => this.isPublic(x) && x.isStatic && !x.isAbstract);
   }
 
-  public getPublicStaticIndexes()
-  {
-    return this.indexes.filter(x => this.isPublic(x) && x.isStatic && !x.isAbstract);
-  }
-
   public getPublicStaticMethods()
   {
     return this.methods.filter(x => this.isPublic(x) && x.isStatic && !x.isAbstract);
@@ -281,5 +311,5 @@ export class ClassNode extends ElementNode
     return this.properties.filter(x => this.isPublic(x) && this.isReadOnly(x) && x.isStatic);
   }
 
-  // #endregion Public Methods (45)
+  // #endregion Public Methods (43)
 }

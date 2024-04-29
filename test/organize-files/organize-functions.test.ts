@@ -3,7 +3,7 @@ import { membersByGroupedMemberTypeConfiguration, membersByGroupedMemberTypeWith
 import { readFile, writeFile } from '../../src/helpers/file-system-helper';
 
 import { Configuration } from "../../src/configuration/configuration";
-import { organizeSourceCode } from "../../src/organizer";
+import { organizeSourceCode } from "../source-code/source-code-organizer";
 
 const testFileDirectoryPath = "test/organize-files/ts-files/functions";
 const testFunctionsFilePath = `${testFileDirectoryPath}/test-functions.ts`;

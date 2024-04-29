@@ -4,9 +4,9 @@ import { Command, Option } from 'commander';
 import { deleteFile, fileExists, writeFile } from './helpers/file-system-helper';
 
 import { Configuration } from './configuration/configuration';
+import { SourceCodeOrganizer } from "./source-code/source-code-organizer";
 import Watcher from 'watcher';
 import { glob } from 'glob';
-import { organizeSourceCodeFile } from './organizer';
 
 const program = new Command();
 
@@ -42,14 +42,14 @@ if (watchFiles)
     // run on file changes
     const watcher = new Watcher(typeScriptSourceFileGlobPattern);
 
-    watcher.on('add', filePath => organizeSourceCodeFile(filePath, configuration));
-    watcher.on('change', filePath => organizeSourceCodeFile(filePath, configuration));
+    watcher.on('add', async filePath => await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration));
+    watcher.on('change', async filePath => await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration));
 }
 else
 {
     // run once
     for (const filePath of await glob([typeScriptSourceFileGlobPattern]))
     {
-        organizeSourceCodeFile(filePath, configuration);
+        await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
     }
 }

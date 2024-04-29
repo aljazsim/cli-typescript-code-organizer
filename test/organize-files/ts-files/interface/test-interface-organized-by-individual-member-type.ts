@@ -28,21 +28,28 @@ export interface TestInterface
 
     // #endregion Public Properties (9)
 
+    // #region Public Static Indexers (1)
+
+    [key: string]: any;
+
+    // #endregion Public Static Indexers (1)
+
     // #region Public Indexers (1)
 
     [key: string]: any;
 
     // #endregion Public Indexers (1)
 
-    // #region Public Getters And Setters (5)
+    // #region Public Getters And Setters (6)
 
+    get accessor1(): string;
     get publicGetterSetter1(): Number;
     set publicGetterSetter1(size: Number);
     get publicGetterSetter2(): Number;
     set publicGetterSetter3(size: Number);
     get publicGetterSetter4(): any;
 
-    // #endregion Public Getters And Setters (5)
+    // #endregion Public Getters And Setters (6)
 
     // #region Public Methods (9)
 

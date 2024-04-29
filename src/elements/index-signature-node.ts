@@ -24,9 +24,9 @@ export class IndexSignatureNode extends ElementNode
     this._start = indexSignatureDeclaration.getStart(sourceFile, false);
 
     this._accessModifier = this.getAccessModifier(indexSignatureDeclaration);
+    this._decorators = this.getDecorators(indexSignatureDeclaration, sourceFile);
 
     this.writeMode = this.getWriteMode(indexSignatureDeclaration);
-    this._decorators = this.getDecorators(indexSignatureDeclaration, sourceFile);
   }
 
   // #endregion Constructors (1)
