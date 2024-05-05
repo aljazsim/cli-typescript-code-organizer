@@ -1,8 +1,21 @@
+import { TypeMemberGroupConfiguration } from "../configuration/type-member-group-configuration";
 import { ElementNode } from "./element-node";
 import * as ts from "typescript";
+import { ElementNodeGroup } from "./element-node-group";
+import { TypeMemberType } from "../enums/type-member-type";
+import { groupByPlaceAboveBelow } from "../helpers/node-helper";
+import { MethodSignatureNode } from "./method-signature-node";
+import { PropertySignatureNode } from "./property-signature-node";
 
 export class TypeAliasNode extends ElementNode
 {
+  // #region Properties (2)
+
+  public readonly methods: MethodSignatureNode[] = [];
+  public readonly properties: PropertySignatureNode[] = [];
+
+  // #endregion Properties (2)
+
   // #region Constructors (1)
 
   constructor(sourceFile: ts.SourceFile, typeAliasDeclaration: ts.TypeAliasDeclaration)
@@ -18,4 +31,46 @@ export class TypeAliasNode extends ElementNode
   }
 
   // #endregion Constructors (1)
+
+  // #region Public Methods (3)
+
+  public getMethods()
+  {
+    return this.methods;
+  }
+
+  public getProperties()
+  {
+    return this.properties.filter((x) => this.isWritable(x));
+  }
+
+  public organizeMembers(memberTypeOrder: TypeMemberGroupConfiguration[])
+  {
+    let regions: ElementNodeGroup[] = [];
+
+    for (const memberTypeGroup of memberTypeOrder)
+    {
+      const placeAbove = memberTypeGroup.placeAbove;
+      const placeBelow = memberTypeGroup.placeBelow;
+      const memberGroups: ElementNodeGroup[] = [];
+
+      for (const memberType of memberTypeGroup.memberTypes)
+      {
+        if (memberType === TypeMemberType.properties)
+        {
+          memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProperties(), placeAbove, placeBelow, false), false));
+        }
+        if (memberType === TypeMemberType.methods)
+        {
+          memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getMethods(), placeAbove, placeBelow, false), false));
+        }
+      }
+
+      regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], true));
+    }
+
+    return regions;
+  }
+
+  // #endregion Public Methods (3)
 }
