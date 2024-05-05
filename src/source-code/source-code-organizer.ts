@@ -1,22 +1,12 @@
 import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, groupByPlaceAboveBelow } from "../helpers/node-helper";
-import { getFileName, readFile, writeFile } from "../helpers/file-system-helper";
+import { readFile, writeFile } from "../helpers/file-system-helper";
 
-import { ClassMemberGroupConfiguration } from "../configuration/class-member-group-configuration";
-import { ClassMemberType } from "../enums/class-member-type";
-import { ClassNode } from "../elements/class-node";
 import { Configuration } from "../configuration/configuration";
 import { ElementNode } from "../elements/element-node";
 import { ElementNodeGroup } from "../elements/element-node-group";
-import { InterfaceMemberGroupConfiguration } from "../configuration/interface-member-group-configuration";
-import { InterfaceMemberType } from "../enums/interface-member-type";
-import { InterfaceNode } from "../elements/interface-node";
-import { ModuleConfiguration } from "../configuration/module-configuration";
-import { ModuleMemberGroupConfiguration } from "../configuration/module-member-group-configuration";
 import { ModuleMemberType } from "../enums/module-member-type";
 import { SourceCodeAnalyzer } from "./source-code-analyzer";
 import { SourceCodePrinter } from "./source-code-printer";
-import { TypeAliasNode } from "../elements/type-alias-node";
-import { compareNumbers } from "../helpers/comparing-helper";
 import ts from "typescript";
 
 export class SourceCodeOrganizer
@@ -37,7 +27,7 @@ export class SourceCodeOrganizer
                 let sourceCodeWithoutRegions = SourceCodePrinter.removeRegions(sourceCode); // strip regions, they will get re-generated
                 let sourceFile = ts.createSourceFile("temp.ts", sourceCodeWithoutRegions, ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
                 let elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration.classes.treatArrowFunctionPropertiesAsMethods);
-                let topLevelGroups = this.organizeModuleMembers(elements, configuration);
+                let topLevelGroups = this.organizeModuleMembers(elements, configuration); // TODO: move this to module node
 
                 return SourceCodePrinter.print(sourceCode, topLevelGroups, configuration);
             }
@@ -96,7 +86,7 @@ export class SourceCodeOrganizer
         const exportedConstants = getVariables(elements, true, true, configuration.classes.treatArrowFunctionPropertiesAsMethods ? false : null);
         const variables = getVariables(elements, false, false, null);
         const exportedVariables = getVariables(elements, false, true, null);
-        let expressions = getExpressions(elements);
+        let expressions = getExpressions(elements); // TODO: will we allow sorting files with expressions?
 
         if (imports.length > 0)
         {

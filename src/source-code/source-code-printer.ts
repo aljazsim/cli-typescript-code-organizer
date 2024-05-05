@@ -1,5 +1,3 @@
-import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables } from "../helpers/node-helper";
-
 import { AccessorNode } from "../elements/accessor-node";
 import { ClassNode } from "../elements/class-node";
 import { Configuration } from "../configuration/configuration";
@@ -10,9 +8,7 @@ import { InterfaceNode } from "../elements/interface-node";
 import { MethodNode } from "../elements/method-node";
 import { PropertyNode } from "../elements/property-node";
 import { SetterNode } from "../elements/setter-node";
-import { SourceCodeAnalyzer } from "./source-code-analyzer";
 import { WriteModifier } from "../elements/write-modifier";
-import { compareNumbers } from "../helpers/comparing-helper";
 import ts from "typescript";
 import { TypeAliasNode } from "../elements/type-alias-node";
 
@@ -245,46 +241,6 @@ export class SourceCodePrinter
         return regionSourceCode;
     }
 
-    private static removeConsecutiveEmptyLines(sourceCode: string)
-    {
-        const newLine = "\r\n";
-        let emptyLineRegex = new RegExp(`^\\s*$`);
-        let newLineRegex = new RegExp(`\r?\n|\r`);
-        let openingBraceRegex = new RegExp(`^.*\{\\s*$`);
-        let closingBraceRegex = new RegExp(`^\\s*\}\\s*$`);
-
-        let lines: string[] = sourceCode.split(newLineRegex);
-
-        for (let i = 0; i < lines.length - 1; i++)
-        {
-            if (openingBraceRegex.test(lines[i]) &&
-                emptyLineRegex.test(lines[i + 1]))
-            {
-                // remove empty line after {
-                lines.splice(i + 1, 1);
-
-                i--;
-            }
-            else if (emptyLineRegex.test(lines[i]) &&
-                closingBraceRegex.test(lines[i + 1]))
-            {
-                // remove empty line before }
-                lines.splice(i, 1);
-
-                i--;
-            }
-            else if (emptyLineRegex.test(lines[i]) &&
-                emptyLineRegex.test(lines[i + 1]))
-            {
-                lines.splice(i, 1);
-
-                i--;
-            }
-        }
-
-        return lines.join(newLine);
-    }
-
     private static getIndentation(sourceCode: string): string
     {
         let tab = "\t";
@@ -388,6 +344,46 @@ export class SourceCodePrinter
             nodeSourceCode = this.addNewLine(nodeSourceCode);
         }
         return nodeSourceCode;
+    }
+
+    private static removeConsecutiveEmptyLines(sourceCode: string)
+    {
+        const newLine = "\r\n";
+        let emptyLineRegex = new RegExp(`^\\s*$`);
+        let newLineRegex = new RegExp(`\r?\n|\r`);
+        let openingBraceRegex = new RegExp(`^.*\{\\s*$`);
+        let closingBraceRegex = new RegExp(`^\\s*\}\\s*$`);
+
+        let lines: string[] = sourceCode.split(newLineRegex);
+
+        for (let i = 0; i < lines.length - 1; i++)
+        {
+            if (openingBraceRegex.test(lines[i]) &&
+                emptyLineRegex.test(lines[i + 1]))
+            {
+                // remove empty line after {
+                lines.splice(i + 1, 1);
+
+                i--;
+            }
+            else if (emptyLineRegex.test(lines[i]) &&
+                closingBraceRegex.test(lines[i + 1]))
+            {
+                // remove empty line before }
+                lines.splice(i, 1);
+
+                i--;
+            }
+            else if (emptyLineRegex.test(lines[i]) &&
+                emptyLineRegex.test(lines[i + 1]))
+            {
+                lines.splice(i, 1);
+
+                i--;
+            }
+        }
+
+        return lines.join(newLine);
     }
 
     private static replaceAfterDecorators(code: string, decorators: string[], replaceWhat: RegExp, replaceWith: string)
