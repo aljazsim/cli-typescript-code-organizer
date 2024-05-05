@@ -19,7 +19,7 @@ export class SourceCodePrinter
 {
     // #region Public Static Methods (1)
 
-    public static print(groups: ElementNodeGroup[], sourceCode: string, start: number, end: number, indentation: string, configuration: Configuration)
+    public static print(groups: ElementNodeGroup[], sourceCode: string, configuration: Configuration)
     {
         // configuration
         const addMemberCountInRegionName = configuration.regions.addMemberCountInRegionName;

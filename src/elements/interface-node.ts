@@ -6,6 +6,10 @@ import { IndexSignatureNode } from "./index-signature-node";
 import { MethodSignatureNode } from "./method-signature-node";
 import { PropertySignatureNode } from "./property-signature-node";
 import { SetterNode } from "./setter-node";
+import { InterfaceMemberGroupConfiguration } from "../configuration/interface-member-group-configuration";
+import { ElementNodeGroup } from "./element-node-group";
+import { InterfaceMemberType } from "../enums/interface-member-type";
+import { groupByPlaceAboveBelow } from "../helpers/node-helper";
 
 export class InterfaceNode extends ElementNode
 {
@@ -67,7 +71,7 @@ export class InterfaceNode extends ElementNode
 
     // #endregion Constructors (1)
 
-    // #region Public Methods (6)
+    // #region Public Methods (7)
 
     public getConstProperties()
     {
@@ -99,5 +103,41 @@ export class InterfaceNode extends ElementNode
         return this.properties.filter((x) => this.isReadOnly(x));
     }
 
-    // #endregion Public Methods (6)
+    public organizeMembers(memberTypeOrder: InterfaceMemberGroupConfiguration[])
+    {
+        let regions: ElementNodeGroup[] = [];
+
+        for (const memberTypeGroup of memberTypeOrder)
+        {
+            const placeAbove = memberTypeGroup.placeAbove;
+            const placeBelow = memberTypeGroup.placeBelow;
+            const memberGroups: ElementNodeGroup[] = [];
+
+            for (const memberType of memberTypeGroup.memberTypes)
+            {
+                if (memberType === InterfaceMemberType.properties)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProperties(), placeAbove, placeBelow, false), false));
+                }
+                else if (memberType === InterfaceMemberType.indexes)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getIndexes(), placeAbove, placeBelow, false), false));
+                }
+                if (memberType === InterfaceMemberType.gettersAndSetters)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getGettersAndSetters(), placeAbove, placeBelow, false), false));
+                }
+                else if (memberType === InterfaceMemberType.methods)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getMethods(), placeAbove, placeBelow, false), false));
+                }
+            }
+
+            regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], true));
+        }
+
+        return regions;
+    }
+
+    // #endregion Public Methods (7)
 }
