@@ -91,7 +91,7 @@ export class SourceCodePrinter
 
                 nodeGroupSourceCode += this.newLine;
 
-                for (let nodeGroupSubGroup of nodeGroupSubGroups)
+                for (const nodeGroupSubGroup of nodeGroupSubGroups)
                 {
                     for (const node of nodeGroupSubGroup)
                     {
@@ -118,11 +118,7 @@ export class SourceCodePrinter
             printedSourceCode += nodeGroupSourceCode;
         }
 
-        printedSourceCode = this.addNewLine((addRegionIndentation ? indentation : "") + printedSourceCode.trim());
-        printedSourceCode += indentation + printedSourceCode.trimStart();
-        printedSourceCode = this.addNewLine(printedSourceCode.trimEnd());
-
-        return this.formatLines(printedSourceCode);
+        return this.removeConsecutiveEmptyLines(indentation + printedSourceCode.trim());
     }
 
     public static removeRegions(sourceCode: string)
@@ -249,7 +245,7 @@ export class SourceCodePrinter
         return regionSourceCode;
     }
 
-    private static formatLines(sourceCode: string)
+    private static removeConsecutiveEmptyLines(sourceCode: string)
     {
         const newLine = "\r\n";
         let emptyLineRegex = new RegExp(`^\\s*$`);

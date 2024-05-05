@@ -39,7 +39,7 @@ export class SourceCodeOrganizer
                 let elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration.classes.treatArrowFunctionPropertiesAsMethods);
                 let topLevelGroups = this.organizeModuleMembers(elements, configuration);
 
-                return SourceCodePrinter.print(topLevelGroups, sourceCode, configuration);
+                return SourceCodePrinter.print(sourceCode, topLevelGroups, configuration);
             }
             catch
             {
@@ -51,7 +51,6 @@ export class SourceCodeOrganizer
 
     public static async organizeSourceCodeFile(sourceCodeFilePath: string, configuration: Configuration)
     {
-        const sourceCodeFileName = getFileName(sourceCodeFilePath);
         let sourceCode = "";
         let organizedSourceCode = "";
 
@@ -77,40 +76,6 @@ export class SourceCodeOrganizer
         {
             await writeFile(sourceCodeFilePath, organizedSourceCode);
         }
-    }
-
-    public static refactorThisMethod(sourceCode: string, fileName: string, configuration: Configuration)
-    {
-        sourceCode = removeRegions(sourceCode);
-
-        let sourceFile = ts.createSourceFile(fileName, sourceCode, ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
-        let elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration.members.treatArrowFunctionPropertiesAsMethods);
-
-        // having expressions could reorganize code in incorrect way because of code dependencies and declaration order
-        if (expressions.length === 0)
-        {
-            if (groups.slice(1).some(g => g.nodes.length > 1))
-            {
-                // organize top level elements (ignore imports)
-                sourceCode = print(groups, sourceCode, 0, sourceCode.length, "", configuration);
-            }
-        }
-
-        // organize members within top level elements (interfaces, classes)
-        sourceFile = ts.createSourceFile(fileName, sourceCode, ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
-
-        elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration.members.treatArrowFunctionPropertiesAsMethods);
-
-        // remove regions from output
-        if (!configuration.regions.useRegions)
-        {
-            sourceCode = removeRegions(sourceCode);
-        }
-
-        // remove multiple empty lines
-        sourceCode = formatLines(sourceCode);
-
-        return sourceCode;
     }
 
     // #endregion Public Static Methods (3)
