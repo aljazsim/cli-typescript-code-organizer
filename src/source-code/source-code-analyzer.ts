@@ -33,7 +33,7 @@ export class SourceCodeAnalyzer
 
     private static traverseSyntaxTree(node: ts.Node, sourceFile: ts.SourceFile, treatArrowFunctionPropertiesAsMethods: boolean)
     {
-        const elements: ElementNode[] = [];
+        let elements: ElementNode[] = [];
 
         if (ts.isImportDeclaration(node))
         {
@@ -80,7 +80,7 @@ export class SourceCodeAnalyzer
             // traverse children ast nodes
             for (let childNode of node.getChildren(sourceFile))
             {
-                this.traverseSyntaxTree(childNode, sourceFile, treatArrowFunctionPropertiesAsMethods);
+                elements = elements.concat(this.traverseSyntaxTree(childNode, sourceFile, treatArrowFunctionPropertiesAsMethods));
             }
         }
 

@@ -220,13 +220,13 @@ export class Configuration
         return fixedMemberTypeOrder;
     }
 
-    private static parseClassMemberGroupConfiguration(mmgc: any)
+    private static parseClassMemberGroupConfiguration(classMemberGroupConfiguration: any)
     {
-        const order = mmgc.order ?? true;
-        const caption = mmgc.caption ?? "Region";
-        const memberTypes = distinct(mmgc.memberTypes as string[] ?? []).map(t => ClassMemberType[t as keyof typeof ClassMemberType]).filter(t => t != undefined);
-        const placeAbove = distinct(mmgc.placeAbove as string[] ?? []);
-        const placeBelow = distinct(mmgc.placeBelow as string[] ?? []);
+        const order = classMemberGroupConfiguration.order ?? true;
+        const caption = classMemberGroupConfiguration.caption ?? "Region";
+        const memberTypes = distinct(classMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => ClassMemberType[t as keyof typeof ClassMemberType]).filter(t => t != undefined);
+        const placeAbove = distinct(classMemberGroupConfiguration.placeAbove as string[] ?? []);
+        const placeBelow = distinct(classMemberGroupConfiguration.placeBelow as string[] ?? []);
 
         for (const pa of placeAbove)
         {
@@ -240,13 +240,13 @@ export class Configuration
         return new ClassMemberGroupConfiguration(order, caption, memberTypes, placeAbove, placeBelow);
     }
 
-    private static parseInterfaceMemberGroupConfiguration(mmgc: any)
+    private static parseInterfaceMemberGroupConfiguration(interfaceMemberGroupConfiguration: any)
     {
-        const order = mmgc.order ?? true;
-        const caption = mmgc.caption ?? "Region";
-        const memberTypes = distinct(mmgc.memberTypes as string[] ?? []).map(t => InterfaceMemberType[t as keyof typeof InterfaceMemberType]).filter(t => t != undefined);
-        const placeAbove = distinct(mmgc.placeAbove as string[] ?? []);
-        const placeBelow = distinct(mmgc.placeBelow as string[] ?? []);
+        const order = interfaceMemberGroupConfiguration.order ?? true;
+        const caption = interfaceMemberGroupConfiguration.caption ?? "Region";
+        const memberTypes = distinct(interfaceMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => InterfaceMemberType[t as keyof typeof InterfaceMemberType]).filter(t => t != undefined);
+        const placeAbove = distinct(interfaceMemberGroupConfiguration.placeAbove as string[] ?? []);
+        const placeBelow = distinct(interfaceMemberGroupConfiguration.placeBelow as string[] ?? []);
 
         for (const pa of placeAbove)
         {
@@ -260,13 +260,13 @@ export class Configuration
         return new InterfaceMemberGroupConfiguration(order, caption, memberTypes, placeAbove, placeBelow);
     }
 
-    private static parseModuleMemberGroupConfiguration(mmgc: any)
+    private static parseModuleMemberGroupConfiguration(typeMemberGroupConfiguration: any)
     {
-        const order = mmgc.order ?? true;
-        const caption = mmgc.caption ?? "Region";
-        const memberTypes = distinct(mmgc.memberTypes as string[] ?? []).map(t => ModuleMemberType[t as keyof typeof ModuleMemberType]).filter(t => t != undefined);
-        const placeAbove = distinct(mmgc.placeAbove as string[] ?? []);
-        const placeBelow = distinct(mmgc.placeBelow as string[] ?? []);
+        const order = typeMemberGroupConfiguration.order ?? true;
+        const caption = typeMemberGroupConfiguration.caption ?? "Region";
+        const memberTypes = distinct(typeMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => ModuleMemberType[t as keyof typeof ModuleMemberType]).filter(t => t != undefined);
+        const placeAbove = distinct(typeMemberGroupConfiguration.placeAbove as string[] ?? []);
+        const placeBelow = distinct(typeMemberGroupConfiguration.placeBelow as string[] ?? []);
 
         for (const pa of placeAbove)
         {

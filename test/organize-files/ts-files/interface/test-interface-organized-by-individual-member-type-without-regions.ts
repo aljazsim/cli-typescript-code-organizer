@@ -22,7 +22,7 @@ export interface TestInterface
 
     [key: string]: any;
 
-    [key: string]: any;
+    [key: number]: any;
 
     get accessor1(): string;
     get publicGetterSetter1(): Number;

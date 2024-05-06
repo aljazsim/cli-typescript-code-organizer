@@ -1,361 +1,361 @@
 {
-  "regions": {
-    "useRegions": false,
-    "addRegionIndentation": false,
-    "addMemberCountInRegionName": false,
-    "addRegionCaptionToRegionEnd": false
-  },
-  "modules": {
-    "order": true,
-    "useRegions": false,
-    "groups": [
-      {
+    "regions": {
+        "useRegions": false,
+        "addRegionIndentation": false,
+        "addMemberCountInRegionName": false,
+        "addRegionCaptionToRegionEnd": false
+    },
+    "modules": {
         "order": true,
-        "caption": "Enums",
-        "memberTypes": ["enums"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
+        "useRegions": false,
+        "groups": [
+            {
+                "order": true,
+                "caption": "Enums",
+                "memberTypes": ["enums"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Types",
+                "memberTypes": ["types"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Interfaces",
+                "memberTypes": ["interfaces"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Classes",
+                "memberTypes": ["classes"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Functions",
+                "memberTypes": ["functions"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Exported Functions",
+                "memberTypes": ["exportedFunctions"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Variables",
+                "memberTypes": [
+                    "constants",
+                    "variables",
+                    "exportedConstants",
+                    "exportedVariables"
+                ],
+                "placeAbove": [],
+                "placeBelow": []
+            }
+        ]
+    },
+    "classes": {
         "order": true,
-        "caption": "Types",
-        "memberTypes": ["types"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
+        "useRegions": false,
+        "addPublicModifierIfMissing": true,
+        "addPrivateModifierIfStartingWithHash": false,
+        "groupMembersWithDecorators": false,
+        "treatArrowFunctionPropertiesAsMethods": false,
+        "groups": [
+            {
+                "order": true,
+                "caption": "Properties",
+                "memberTypes": [
+                    "privateStaticConstProperties",
+                    "privateConstProperties",
+                    "privateStaticReadOnlyProperties",
+                    "privateReadOnlyProperties",
+                    "privateStaticProperties",
+                    "privateProperties",
+                    "protectedStaticConstProperties",
+                    "protectedConstProperties",
+                    "protectedStaticReadOnlyProperties",
+                    "protectedReadOnlyProperties",
+                    "protectedStaticProperties",
+                    "protectedProperties",
+                    "publicStaticConstProperties",
+                    "publicConstProperties",
+                    "publicStaticReadOnlyProperties",
+                    "publicReadOnlyProperties",
+                    "publicStaticProperties",
+                    "publicProperties"
+                ],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Static Block Declarations",
+                "memberTypes": ["staticBlockDeclarations"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Constructors",
+                "memberTypes": ["constructors"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Public Static Indexes",
+                "memberTypes": ["publicStaticIndexes"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Public Indexers",
+                "memberTypes": ["publicIndexes"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Public Static Accessors",
+                "memberTypes": ["publicStaticAccessors"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Public Accessors",
+                "memberTypes": ["publicAccessors"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Public Abstract Accessors",
+                "memberTypes": ["publicAbstractAccessors"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Protected Static Accessors",
+                "memberTypes": ["protectedStaticAccessors"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Protected Accessors",
+                "memberTypes": ["protectedAccessors"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Protected Abstract Accessors",
+                "memberTypes": ["protectedAbstractAccessors"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Private Static Accessors",
+                "memberTypes": ["privateStaticAccessors"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Private Accessors",
+                "memberTypes": ["privateAccessors"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Public Static Getters And Setters",
+                "memberTypes": ["publicStaticGettersAndSetters"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Public Getters And Setters",
+                "memberTypes": ["publicGettersAndSetters"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Public Abstract Getters And Setters",
+                "memberTypes": ["publicAbstractGettersAndSetters"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Protected Static Getters And Setters",
+                "memberTypes": ["protectedStaticGettersAndSetters"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Protected Getters And Setters",
+                "memberTypes": ["protectedGettersAndSetters"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Protected Abstract Getters And Setters",
+                "memberTypes": ["protectedAbstractGettersAndSetters"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Private Static Getters And Setters",
+                "memberTypes": ["privateStaticGettersAndSetters"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Private Getters And Setters",
+                "memberTypes": ["privateGettersAndSetters"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Public Static Methods",
+                "memberTypes": ["publicStaticMethods"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Public Methods",
+                "memberTypes": ["publicMethods"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Public Abstract Methods",
+                "memberTypes": ["publicAbstractMethods"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Protected Static Methods",
+                "memberTypes": ["protectedStaticMethods"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Protected Methods",
+                "memberTypes": ["protectedMethods"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Protected Abstract Methods",
+                "memberTypes": ["protectedAbstractMethods"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Private Static Methods",
+                "memberTypes": ["privateStaticMethods"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Private Methods",
+                "memberTypes": ["privateMethods"],
+                "placeAbove": [],
+                "placeBelow": []
+            }
+        ]
+    },
+    "interfaces": {
         "order": true,
-        "caption": "Interfaces",
-        "memberTypes": ["interfaces"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
+        "useRegions": false,
+        "groups": [
+            {
+                "order": true,
+                "caption": "Properties",
+                "memberTypes": ["readOnlyProperties", "properties"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Indexes",
+                "memberTypes": ["indexes"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Getters And Setters",
+                "memberTypes": ["gettersAndSetters"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Methods",
+                "memberTypes": ["methods"],
+                "placeAbove": [],
+                "placeBelow": []
+            }
+        ]
+    },
+    "types": {
         "order": true,
-        "caption": "Classes",
-        "memberTypes": ["classes"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Functions",
-        "memberTypes": ["functions"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Exported Functions",
-        "memberTypes": ["exportedFunctions"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Variables",
-        "memberTypes": [
-          "constants",
-          "variables",
-          "exportedConstants",
-          "exportedVariables"
-        ],
-        "placeAbove": [],
-        "placeBelow": []
-      }
-    ]
-  },
-  "classes": {
-    "order": true,
-    "useRegions": false,
-    "addPublicModifierIfMissing": true,
-    "addPrivateModifierIfStartingWithHash": false,
-    "groupMembersWithDecorators": false,
-    "treatArrowFunctionPropertiesAsMethods": false,
-    "groups": [
-      {
-        "order": true,
-        "caption": "Properties",
-        "memberTypes": [
-          "privateStaticConstProperties",
-          "privateConstProperties",
-          "privateStaticReadOnlyProperties",
-          "privateReadOnlyProperties",
-          "privateStaticProperties",
-          "privateProperties",
-          "protectedStaticConstProperties",
-          "protectedConstProperties",
-          "protectedStaticReadOnlyProperties",
-          "protectedReadOnlyProperties",
-          "protectedStaticProperties",
-          "protectedProperties",
-          "publicStaticConstProperties",
-          "publicConstProperties",
-          "publicStaticReadOnlyProperties",
-          "publicReadOnlyProperties",
-          "publicStaticProperties",
-          "publicProperties"
-        ],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Static Block Declarations",
-        "memberTypes": ["staticBlockDeclarations"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Constructors",
-        "memberTypes": ["constructors"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Public Static Indexes",
-        "memberTypes": ["publicStaticIndexes"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Public Indexers",
-        "memberTypes": ["publicIndexes"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Public Static Accessors",
-        "memberTypes": ["publicStaticAccessors"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Public Accessors",
-        "memberTypes": ["publicAccessors"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Public Abstract Accessors",
-        "memberTypes": ["publicAbstractAccessors"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Protected Static Accessors",
-        "memberTypes": ["protectedStaticAccessors"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Protected Accessors",
-        "memberTypes": ["protectedAccessors"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Protected Abstract Accessors",
-        "memberTypes": ["protectedAbstractAccessors"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Private Static Accessors",
-        "memberTypes": ["privateStaticAccessors"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Private Accessors",
-        "memberTypes": ["privateAccessors"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Public Static Getters And Setters",
-        "memberTypes": ["publicStaticGettersAndSetters"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Public Getters And Setters",
-        "memberTypes": ["publicGettersAndSetters"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Public Abstract Getters And Setters",
-        "memberTypes": ["publicAbstractGettersAndSetters"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Protected Static Getters And Setters",
-        "memberTypes": ["protectedStaticGettersAndSetters"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Protected Getters And Setters",
-        "memberTypes": ["protectedGettersAndSetters"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Protected Abstract Getters And Setters",
-        "memberTypes": ["protectedAbstractGettersAndSetters"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Private Static Getters And Setters",
-        "memberTypes": ["privateStaticGettersAndSetters"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Private Getters And Setters",
-        "memberTypes": ["privateGettersAndSetters"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Public Static Methods",
-        "memberTypes": ["publicStaticMethods"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Public Methods",
-        "memberTypes": ["publicMethods"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Public Abstract Methods",
-        "memberTypes": ["publicAbstractMethods"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Protected Static Methods",
-        "memberTypes": ["protectedStaticMethods"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Protected Methods",
-        "memberTypes": ["protectedMethods"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Protected Abstract Methods",
-        "memberTypes": ["protectedAbstractMethods"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Private Static Methods",
-        "memberTypes": ["privateStaticMethods"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Private Methods",
-        "memberTypes": ["privateMethods"],
-        "placeAbove": [],
-        "placeBelow": []
-      }
-    ]
-  },
-  "interfaces": {
-    "order": true,
-    "useRegions": false,
-    "groups": [
-      {
-        "order": true,
-        "caption": "Properties",
-        "memberTypes": ["readOnlyProperties", "properties"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Indexes",
-        "memberTypes": ["indexes"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Getters And Setters",
-        "memberTypes": ["gettersAndSetters"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Methods",
-        "memberTypes": ["methods"],
-        "placeAbove": [],
-        "placeBelow": []
-      }
-    ]
-  },
-  "types": {
-    "order": true,
-    "useRegions": false,
-    "groups": [
-      {
-        "order": true,
-        "caption": "Properties",
-        "memberTypes": ["properties"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Indexes",
-        "memberTypes": ["indexes"],
-        "placeAbove": [],
-        "placeBelow": []
-      },
-      {
-        "order": true,
-        "caption": "Methods",
-        "memberTypes": ["methods"],
-        "placeAbove": [],
-        "placeBelow": []
-      }
-    ]
-  }
+        "useRegions": false,
+        "groups": [
+            {
+                "order": true,
+                "caption": "Properties",
+                "memberTypes": ["properties"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Indexes",
+                "memberTypes": ["indexes"],
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "order": true,
+                "caption": "Methods",
+                "memberTypes": ["methods"],
+                "placeAbove": [],
+                "placeBelow": []
+            }
+        ]
+    }
 }

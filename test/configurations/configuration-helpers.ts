@@ -1,22 +1,30 @@
-import { ClassMemberType } from "../enums/class-member-type";
-import { ElementNodeGroupConfiguration } from "../../src/configuration/element-node-group-configuration";
-import { distinct } from "../../src/helpers/array-helper";
-import membersByGroupedMemberType from '../configurations/members-by-grouped-member-type.json';
-import membersByGroupedMemberTypeWithPlaceAboveBelow from '../configurations/members-by-grouped-member-type-with-place-above-below.json';
-import membersByIndividualMemberType from '../configurations/members-by-individual-member-type.json';
+import { Configuration } from "../../src/configuration/configuration";
+import { RegionConfiguration } from "../../src/configuration/region-configuration";
 
-function parseElementNodeGroupConfiguration(x: any)
+// #region Functions (1)
+
+export async function membersByIndividualMemberTypeConfiguration(useRegions = true, addRegionIndentation = true, addMemberCountInRegionName = true, addRegionCaptionToRegionEnd = true)
 {
-    let elementNodeGroupConfiguration = new ElementNodeGroupConfiguration();
+    const configuration = await Configuration.getConfiguration('./members-by-individual-member-type.json');
 
-    elementNodeGroupConfiguration.caption = x.caption;
-    elementNodeGroupConfiguration.memberTypes = distinct(x.memberTypes as string[] ?? []).map(y => ClassMemberType[y as keyof typeof ClassMemberType]);
-    elementNodeGroupConfiguration.placeAbove = distinct(x.placeAbove as string[] ?? []);
-    elementNodeGroupConfiguration.placeBelow = distinct(x.placeBelow as string[] ?? []);
-
-    return elementNodeGroupConfiguration;
+    return new Configuration(
+        new RegionConfiguration(
+            useRegions,
+            addRegionIndentation,
+            addMemberCountInRegionName,
+            addRegionCaptionToRegionEnd
+        ),
+        configuration.modules,
+        configuration.classes,
+        configuration.interfaces,
+        configuration.types);
 }
 
-export const membersByIndividualMemberTypeConfiguration = membersByIndividualMemberType.map((mt: any) => parseElementNodeGroupConfiguration(mt));
-export const membersByGroupedMemberTypeConfiguration = membersByGroupedMemberType.map((mt: any) => parseElementNodeGroupConfiguration(mt));
-export const membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration = membersByGroupedMemberTypeWithPlaceAboveBelow.map((mt: any) => parseElementNodeGroupConfiguration(mt));
+// #endregion Functions (1)
+
+// #region Variables (2)
+
+export const membersByGroupedMemberTypeConfiguration = async () => await Configuration.getConfiguration('./members-by-grouped-member-type.json');
+export const membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration = async () => await Configuration.getConfiguration('./members-by-grouped-member-type-with-place-above-below.json');
+
+// #endregion Variables (2)

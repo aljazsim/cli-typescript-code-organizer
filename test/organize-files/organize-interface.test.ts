@@ -3,8 +3,7 @@ import { membersByGroupedMemberTypeConfiguration, membersByGroupedMemberTypeWith
 import { readFile, writeFile } from '../../src/helpers/file-system-helper';
 
 import { Configuration } from '../../src/configuration/configuration';
-import { organizeSourceCode } from '../source-code/source-code-organizer';
-import { write } from "fs";
+import { SourceCodeOrganizer } from "../source-code/source-code-organizer";
 
 const testFileDirectoryPath = "test/organize-files/ts-files/interface";
 const testInterfaceFilePath = `${testFileDirectoryPath}/test-interface.ts`;
@@ -18,13 +17,13 @@ const testInterfaceOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFile
 test('organize interface by individual member type', async () =>
 {
     // arrange
-    const configuration = new Configuration(true, true, true, true, true, false, false, membersByIndividualMemberTypeConfiguration);
+    const configuration = membersByIndividualMemberTypeConfiguration;
     const sourceCode = await readFile(testInterfaceFilePath);
     const validOrganizedSourceCode = await readFile(testInterfaceOrganizedByIndividualMemberTypeFilePath);
 
     // act
-    const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
-    await writeFile(testInterfaceOrganizedByIndividualMemberTypeFilePath, organizedSourceCode);
+    const organizedSourceCode = SourceCodeOrganizer.organizeSourceCode(sourceCode, configuration);
+    // await writeFile(testInterfaceOrganizedByIndividualMemberTypeFilePath, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
@@ -33,13 +32,13 @@ test('organize interface by individual member type', async () =>
 test('organize interface by grouped member type', async () =>
 {
     // arrange
-    const configuration = new Configuration(true, true, true, true, true, false, false, membersByGroupedMemberTypeConfiguration);
+    const configuration = membersByGroupedMemberTypeConfiguration;
     const sourceCode = await readFile(testInterfaceFilePath);
     const validOrganizedSourceCode = await readFile(testInterfaceOrganizedByGroupedMemberTypeFilePath);
 
     // act
-    const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
-    await writeFile(testInterfaceOrganizedByGroupedMemberTypeFilePath, organizedSourceCode);
+    const organizedSourceCode = SourceCodeOrganizer.organizeSourceCode(sourceCode, configuration);
+    // await writeFile(testInterfaceOrganizedByGroupedMemberTypeFilePath, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
@@ -49,15 +48,14 @@ test('organize interface by individual member type (without regions)', async () 
 {
     // arrange
     const configurations = [
-        new Configuration(false, false, false, false, true, false, false, membersByIndividualMemberTypeConfiguration),
-        new Configuration(false, true, false, false, true, false, false, membersByIndividualMemberTypeConfiguration),
-        new Configuration(false, false, true, false, true, false, false, membersByIndividualMemberTypeConfiguration),
-        new Configuration(false, false, false, true, true, false, false, membersByIndividualMemberTypeConfiguration),
-        new Configuration(false, true, true, true, true, false, false, membersByIndividualMemberTypeConfiguration),
-        new Configuration(false, true, false, true, true, false, false, membersByIndividualMemberTypeConfiguration),
-        new Configuration(false, true, true, false, true, false, false, membersByIndividualMemberTypeConfiguration),
-        new Configuration(false, false, true, true, true, false, false, membersByIndividualMemberTypeConfiguration)
-
+        membersByIndividualMemberTypeConfiguration,
+        membersByIndividualMemberTypeConfiguration,
+        membersByIndividualMemberTypeConfiguration,
+        membersByIndividualMemberTypeConfiguration,
+        membersByIndividualMemberTypeConfiguration,
+        membersByIndividualMemberTypeConfiguration,
+        membersByIndividualMemberTypeConfiguration,
+        membersByIndividualMemberTypeConfiguration
     ];
     const sourceCode = await readFile(testInterfaceFilePath);
     const validOrganizedSourceCode = await readFile(testInterfaceOrganizedByIndividualMemberTypeWithoutRegionsFilePath);
@@ -65,8 +63,8 @@ test('organize interface by individual member type (without regions)', async () 
     for (const configuration of configurations)
     {
         // act
-        const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
-        await writeFile(testInterfaceOrganizedByIndividualMemberTypeWithoutRegionsFilePath, organizedSourceCode);
+        const organizedSourceCode = SourceCodeOrganizer.organizeSourceCode(sourceCode, configuration);
+        // await writeFile(testInterfaceOrganizedByIndividualMemberTypeWithoutRegionsFilePath, organizedSourceCode);
 
         // assert
         expect(organizedSourceCode).toBe(validOrganizedSourceCode);
@@ -76,13 +74,13 @@ test('organize interface by individual member type (without regions)', async () 
 test('organize interface by grouped member type (place above below)', async () =>
 {
     // arrange
-    const configuration = new Configuration(true, true, true, true, true, false, false, membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration);
+    const configuration = membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration;
     const sourceCode = await readFile(testInterfaceFilePath);
     const validOrganizedSourceCode = await readFile(testInterfaceOrganizedByGroupedMemberTypeAndPlaceAboveBelowFilePath);
 
     // act
-    const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
-    await writeFile(testInterfaceOrganizedByGroupedMemberTypeAndPlaceAboveBelowFilePath, organizedSourceCode);
+    const organizedSourceCode = SourceCodeOrganizer.organizeSourceCode(sourceCode, configuration);
+    // await writeFile(testInterfaceOrganizedByGroupedMemberTypeAndPlaceAboveBelowFilePath, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
@@ -91,13 +89,13 @@ test('organize interface by grouped member type (place above below)', async () =
 test('organize interface by grouped member type (treat arrow function properties as methods)', async () =>
 {
     // arrange
-    const configuration = new Configuration(true, true, true, true, true, false, true, membersByGroupedMemberTypeConfiguration);
+    const configuration = membersByGroupedMemberTypeConfiguration;
     const sourceCode = await readFile(testInterfaceFilePath);
     const validOrganizedSourceCode = await readFile(testInterfaceOrganizedByGroupedMemberTypeAndTreatArrowPropertiesAsMethodsFilePath);
 
     // act
-    const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
-    await writeFile(testInterfaceOrganizedByGroupedMemberTypeAndTreatArrowPropertiesAsMethodsFilePath, organizedSourceCode);
+    const organizedSourceCode = SourceCodeOrganizer.organizeSourceCode(sourceCode, configuration);
+    // await writeFile(testInterfaceOrganizedByGroupedMemberTypeAndTreatArrowPropertiesAsMethodsFilePath, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);
@@ -106,13 +104,13 @@ test('organize interface by grouped member type (treat arrow function properties
 test('organize interface by grouped member type (group members with decorators)', async () =>
 {
     // arrange
-    const configuration = new Configuration(true, true, true, true, true, true, false, membersByGroupedMemberTypeConfiguration);
+    const configuration = membersByGroupedMemberTypeConfiguration;
     const sourceCode = await readFile(testInterfaceFilePath);
     const validOrganizedSourceCode = await readFile(testInterfaceOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath);
 
     // act
-    const organizedSourceCode = organizeSourceCode("test.ts", sourceCode, configuration);
-    await writeFile(testInterfaceOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath, organizedSourceCode);
+    const organizedSourceCode = SourceCodeOrganizer.organizeSourceCode(sourceCode, configuration);
+    // await writeFile(testInterfaceOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);

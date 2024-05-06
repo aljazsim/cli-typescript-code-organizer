@@ -97,8 +97,6 @@ export class SourceCodeOrganizer
         {
             for (const memberTypeGroup of configuration.modules.groups)
             {
-                const placeAbove = memberTypeGroup.placeAbove;
-                const placeBelow = memberTypeGroup.placeBelow;
                 const memberGroups: ElementNodeGroup[] = [];
 
                 for (const memberType of memberTypeGroup.memberTypes)
@@ -129,27 +127,41 @@ export class SourceCodeOrganizer
                     {
                         elementNodes = exportedFunctions;
                     }
-                    else if (memberType === ModuleMemberType.exportedConstants)
-                    {
-                        elementNodes = exportedConstants;
-                    }
                     else if (memberType === ModuleMemberType.constants)
                     {
                         elementNodes = constants;
                     }
-                    else if (memberType === ModuleMemberType.exportedVariables)
+                    else if (memberType === ModuleMemberType.exportedConstants)
                     {
-                        elementNodes = exportedVariables;
+                        elementNodes = exportedConstants;
                     }
                     else if (memberType === ModuleMemberType.variables)
                     {
                         elementNodes = variables;
                     }
+                    else if (memberType === ModuleMemberType.exportedVariables)
+                    {
+                        elementNodes = exportedVariables;
+                    }
 
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(elementNodes, placeAbove, placeBelow, false), false));
+                    if (elementNodes.length > 0)
+                    {
+                        memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(elementNodes, [], [], false), false));
+                    }
                 }
 
-                regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], true));
+                if (memberGroups.length > 0)
+                {
+                    const isRegion = enums.length + types.length + interfaces.length + classes.length > 1 ||
+                        functions.length > 0 ||
+                        exportedFunctions.length > 0 ||
+                        constants.length > 0 ||
+                        exportedConstants.length > 0 ||
+                        variables.length > 0 ||
+                        exportedVariables.length > 0;
+
+                    regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], isRegion));
+                }
             }
         }
         else
