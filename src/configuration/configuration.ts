@@ -61,14 +61,10 @@ export class Configuration
                 ),
             new ModuleConfiguration
                 (
-                    configuration.modules?.order ?? defaultConfiguration.modules.order,
-                    configuration.modules?.useRegions ?? defaultConfiguration.modules.useRegions,
                     this.fixModuleMemberMemberGroup(defaultConfiguration.modules.groups, configuration.modules?.groups.map(g => this.parseModuleMemberGroupConfiguration(g) ?? []))
                 ),
             new ClassConfiguration
                 (
-                    configuration.classes?.order ?? defaultConfiguration.classes.order,
-                    configuration.classes?.useRegions ?? defaultConfiguration.classes.useRegions,
                     configuration.classes?.addPublicModifierIfMissing ?? defaultConfiguration.classes.addPublicModifierIfMissing,
                     configuration.classes?.addPrivateModifierIfStartingWithHash ?? defaultConfiguration.classes.addPrivateModifierIfStartingWithHash,
                     configuration.classes?.groupMembersWithDecorators ?? defaultConfiguration.classes.groupMembersWithDecorators,
@@ -77,14 +73,10 @@ export class Configuration
                 ),
             new InterfaceConfiguration
                 (
-                    configuration.interfaces?.order ?? defaultConfiguration.interfaces.order,
-                    configuration.interfaces?.useRegions ?? defaultConfiguration.interfaces.useRegions,
                     this.fixInterfaceMemberMemberGroup(defaultConfiguration.interfaces.groups, configuration.interfaces?.groups.map(g => this.parseInterfaceMemberGroupConfiguration(g) ?? []))
                 ),
             new TypeConfiguration
                 (
-                    configuration.types?.order ?? defaultConfiguration.types.order,
-                    configuration.types?.useRegions ?? defaultConfiguration.types.useRegions,
                     this.fixTypeMemberMemberGroup(defaultConfiguration.types.groups, configuration.types?.groups.map(g => this.parseTypeMemberGroupConfiguration(g) ?? []))
                 )
         );
@@ -102,14 +94,10 @@ export class Configuration
                 ),
             new ModuleConfiguration
                 (
-                    defaultConfiguration.modules.order,
-                    defaultConfiguration.modules.useRegions,
                     defaultConfiguration.modules.groups.map(g => this.parseModuleMemberGroupConfiguration(g))
                 ),
             new ClassConfiguration
                 (
-                    defaultConfiguration.classes.order,
-                    defaultConfiguration.classes.useRegions,
                     defaultConfiguration.classes.addPublicModifierIfMissing,
                     defaultConfiguration.classes.addPrivateModifierIfStartingWithHash,
                     defaultConfiguration.classes.groupMembersWithDecorators,
@@ -119,14 +107,10 @@ export class Configuration
                 ),
             new InterfaceConfiguration
                 (
-                    defaultConfiguration.interfaces.order,
-                    defaultConfiguration.interfaces.useRegions,
                     defaultConfiguration.interfaces.groups.map(g => this.parseInterfaceMemberGroupConfiguration(g))
                 ),
             new TypeConfiguration
                 (
-                    defaultConfiguration.types.order,
-                    defaultConfiguration.types.useRegions,
                     defaultConfiguration.types.groups.map(g => this.parseTypeMemberGroupConfiguration(g))
                 )
         );

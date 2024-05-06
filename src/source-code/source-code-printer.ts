@@ -192,8 +192,9 @@ export class SourceCodePrinter
     {
         if (oldSourceCode.length > 0)
         {
-            return this.addNewLine(oldSourceCode) + newSourceCode;
-        } else
+            return oldSourceCode + newSourceCode;
+        }
+        else
         {
             return newSourceCode;
         }
@@ -235,11 +236,11 @@ export class SourceCodePrinter
         let nodeComment = sourceCode.substring(node.fullStart, node.start).trim();
         let nodeSourceCode = sourceCode.substring(node.start, node.end).trim();
 
-        if (node instanceof InterfaceNode && configuration.interfaces.order)
+        if (node instanceof InterfaceNode)
         {
             nodeSourceCode = this.printNodeGroups(sourceCode, node.organizeMembers(configuration.interfaces.groups), configuration);
         }
-        else if (node instanceof ClassNode && configuration.classes.order)
+        else if (node instanceof ClassNode)
         {
             nodeSourceCode = this.printNodeGroups(sourceCode, node.organizeMembers(configuration.classes.groups, configuration.classes.groupMembersWithDecorators), configuration);
 
@@ -255,7 +256,7 @@ export class SourceCodePrinter
                 nodeSourceCode = this.addPrivateModifierIfStartingWithHash(node, nodeSourceCode);
             }
         }
-        else if (node instanceof TypeAliasNode && configuration.types.order)
+        else if (node instanceof TypeAliasNode)
         {
             nodeSourceCode = this.printNodeGroups(nodeSourceCode, node.organizeMembers(configuration.types.groups), configuration);
         }

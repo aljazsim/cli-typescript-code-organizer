@@ -3,8 +3,6 @@ import { ModuleMemberGroupConfiguration } from "./module-member-group-configurat
 export class ModuleConfiguration
 {
     constructor(
-        public readonly order: boolean,
-        public readonly useRegions: boolean,
         public readonly groups: ModuleMemberGroupConfiguration[]
     )
     {

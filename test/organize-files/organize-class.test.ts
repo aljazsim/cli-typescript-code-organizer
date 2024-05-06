@@ -32,7 +32,7 @@ test('organize class by individual member type', async () =>
 test('organize class by grouped member type', async () =>
 {
     // arrange
-    const configuration = membersByGroupedMemberTypeConfiguration;
+    const configuration = await membersByGroupedMemberTypeConfiguration();
     const sourceCode = await readFile(testClassFilePath);
     const validOrganizedSourceCode = await readFile(testClassOrganizedByGroupedMemberTypeFilePath);
 
@@ -48,14 +48,14 @@ test('organize class by individual member type (without regions)', async () =>
 {
     // arrange
     const configurations = [
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration()
     ];
     const sourceCode = await readFile(testClassFilePath);
     const validOrganizedSourceCode = await readFile(testClassOrganizedByIndividualMemberTypeWithoutRegionsFilePath);
@@ -74,7 +74,7 @@ test('organize class by individual member type (without regions)', async () =>
 test('organize class by grouped member type (place above below)', async () =>
 {
     // arrange
-    const configuration = membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration;
+    const configuration = await membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration();
     const sourceCode = await readFile(testClassFilePath);
     const validOrganizedSourceCode = await readFile(testClassOrganizedByGroupedMemberTypeAndPlaceAboveBelowFilePath);
 
@@ -89,7 +89,7 @@ test('organize class by grouped member type (place above below)', async () =>
 test('organize class by grouped member type (treat arrow function properties as methods)', async () =>
 {
     // arrange
-    const configuration = membersByGroupedMemberTypeConfiguration;
+    const configuration = await membersByGroupedMemberTypeConfiguration();
     const sourceCode = await readFile(testClassFilePath);
     const validOrganizedSourceCode = await readFile(testClassOrganizedByGroupedMemberTypeAndTreatArrowPropertiesAsMethodsFilePath);
 
@@ -104,7 +104,7 @@ test('organize class by grouped member type (treat arrow function properties as 
 test('organize class by grouped member type (group members with decorators)', async () =>
 {
     // arrange
-    const configuration = membersByGroupedMemberTypeConfiguration;
+    const configuration = await membersByGroupedMemberTypeConfiguration();
     const sourceCode = await readFile(testClassFilePath);
     const validOrganizedSourceCode = await readFile(testClassOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath);
 

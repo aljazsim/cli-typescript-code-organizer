@@ -31,8 +31,9 @@ export class SourceCodeOrganizer
 
                 return SourceCodePrinter.print(sourceCode, topLevelGroups, configuration);
             }
-            catch
+            catch (error)
             {
+                console.error(error);
             }
         }
 
@@ -93,80 +94,73 @@ export class SourceCodeOrganizer
             regions.push(new ElementNodeGroup("Imports", [], imports, false));
         }
 
-        if (configuration.modules.order)
+        for (const memberTypeGroup of configuration.modules.groups)
         {
-            for (const memberTypeGroup of configuration.modules.groups)
+            const memberGroups: ElementNodeGroup[] = [];
+
+            for (const memberType of memberTypeGroup.memberTypes)
             {
-                const memberGroups: ElementNodeGroup[] = [];
+                let elementNodes = Array<ElementNode>();
 
-                for (const memberType of memberTypeGroup.memberTypes)
+                if (memberType === ModuleMemberType.enums)
                 {
-                    let elementNodes = Array<ElementNode>();
-
-                    if (memberType === ModuleMemberType.enums)
-                    {
-                        elementNodes = enums;
-                    }
-                    else if (memberType === ModuleMemberType.types)
-                    {
-                        elementNodes = types;
-                    }
-                    else if (memberType === ModuleMemberType.interfaces)
-                    {
-                        elementNodes = interfaces;
-                    }
-                    else if (memberType === ModuleMemberType.classes)
-                    {
-                        elementNodes = classes;
-                    }
-                    else if (memberType === ModuleMemberType.functions)
-                    {
-                        elementNodes = functions;
-                    }
-                    else if (memberType === ModuleMemberType.exportedFunctions)
-                    {
-                        elementNodes = exportedFunctions;
-                    }
-                    else if (memberType === ModuleMemberType.constants)
-                    {
-                        elementNodes = constants;
-                    }
-                    else if (memberType === ModuleMemberType.exportedConstants)
-                    {
-                        elementNodes = exportedConstants;
-                    }
-                    else if (memberType === ModuleMemberType.variables)
-                    {
-                        elementNodes = variables;
-                    }
-                    else if (memberType === ModuleMemberType.exportedVariables)
-                    {
-                        elementNodes = exportedVariables;
-                    }
-
-                    if (elementNodes.length > 0)
-                    {
-                        memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(elementNodes, [], [], false), false));
-                    }
+                    elementNodes = enums;
+                }
+                else if (memberType === ModuleMemberType.types)
+                {
+                    elementNodes = types;
+                }
+                else if (memberType === ModuleMemberType.interfaces)
+                {
+                    elementNodes = interfaces;
+                }
+                else if (memberType === ModuleMemberType.classes)
+                {
+                    elementNodes = classes;
+                }
+                else if (memberType === ModuleMemberType.functions)
+                {
+                    elementNodes = functions;
+                }
+                else if (memberType === ModuleMemberType.exportedFunctions)
+                {
+                    elementNodes = exportedFunctions;
+                }
+                else if (memberType === ModuleMemberType.constants)
+                {
+                    elementNodes = constants;
+                }
+                else if (memberType === ModuleMemberType.exportedConstants)
+                {
+                    elementNodes = exportedConstants;
+                }
+                else if (memberType === ModuleMemberType.variables)
+                {
+                    elementNodes = variables;
+                }
+                else if (memberType === ModuleMemberType.exportedVariables)
+                {
+                    elementNodes = exportedVariables;
                 }
 
-                if (memberGroups.length > 0)
+                if (elementNodes.length > 0)
                 {
-                    const isRegion = enums.length + types.length + interfaces.length + classes.length > 1 ||
-                        functions.length > 0 ||
-                        exportedFunctions.length > 0 ||
-                        constants.length > 0 ||
-                        exportedConstants.length > 0 ||
-                        variables.length > 0 ||
-                        exportedVariables.length > 0;
-
-                    regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], isRegion));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(elementNodes, [], [], false), false));
                 }
             }
-        }
-        else
-        {
-            regions.push(new ElementNodeGroup(null, [], elements, false));
+
+            if (memberGroups.length > 0)
+            {
+                const isRegion = enums.length + types.length + interfaces.length + classes.length > 1 ||
+                    functions.length > 0 ||
+                    exportedFunctions.length > 0 ||
+                    constants.length > 0 ||
+                    exportedConstants.length > 0 ||
+                    variables.length > 0 ||
+                    exportedVariables.length > 0;
+
+                regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], isRegion));
+            }
         }
 
         return regions;

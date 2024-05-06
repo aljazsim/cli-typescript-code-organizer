@@ -3,8 +3,6 @@ import { InterfaceMemberGroupConfiguration } from "./interface-member-group-conf
 export class InterfaceConfiguration
 {
     constructor(
-        public readonly order: boolean,
-        public readonly useRegions: boolean,
         public readonly groups: InterfaceMemberGroupConfiguration[]
     )
     {

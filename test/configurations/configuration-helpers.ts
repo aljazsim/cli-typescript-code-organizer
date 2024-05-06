@@ -1,11 +1,11 @@
 import { Configuration } from "../../src/configuration/configuration";
 import { RegionConfiguration } from "../../src/configuration/region-configuration";
 
-// #region Functions (1)
+// #region Functions (4)
 
-export async function membersByIndividualMemberTypeConfiguration(useRegions = true, addRegionIndentation = true, addMemberCountInRegionName = true, addRegionCaptionToRegionEnd = true)
+async function getConfiguration(configurationFilePath: string, useRegions = true, addRegionIndentation = true, addMemberCountInRegionName = true, addRegionCaptionToRegionEnd = true)
 {
-    const configuration = await Configuration.getConfiguration('./members-by-individual-member-type.json');
+    const configuration = await Configuration.getConfiguration(configurationFilePath);
 
     return new Configuration(
         new RegionConfiguration(
@@ -20,11 +20,19 @@ export async function membersByIndividualMemberTypeConfiguration(useRegions = tr
         configuration.types);
 }
 
-// #endregion Functions (1)
+export async function membersByGroupedMemberTypeConfiguration(useRegions = true, addRegionIndentation = true, addMemberCountInRegionName = true, addRegionCaptionToRegionEnd = true)
+{
+    return getConfiguration('./members-by-grouped-member-type.json', useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd);
+}
 
-// #region Variables (2)
+export async function membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration(useRegions = true, addRegionIndentation = true, addMemberCountInRegionName = true, addRegionCaptionToRegionEnd = true)
+{
+    return getConfiguration('./members-by-grouped-member-type-with-place-above-below.json', useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd);
+}
 
-export const membersByGroupedMemberTypeConfiguration = async () => await Configuration.getConfiguration('./members-by-grouped-member-type.json');
-export const membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration = async () => await Configuration.getConfiguration('./members-by-grouped-member-type-with-place-above-below.json');
+export async function membersByIndividualMemberTypeConfiguration(useRegions = true, addRegionIndentation = true, addMemberCountInRegionName = true, addRegionCaptionToRegionEnd = true)
+{
+    return getConfiguration('./members-by-individual-member-type.json', useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd);
+}
 
-// #endregion Variables (2)
+// #endregion Functions (4)

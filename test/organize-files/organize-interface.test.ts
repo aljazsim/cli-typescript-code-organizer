@@ -17,7 +17,7 @@ const testInterfaceOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFile
 test('organize interface by individual member type', async () =>
 {
     // arrange
-    const configuration = membersByIndividualMemberTypeConfiguration;
+    const configuration = await membersByIndividualMemberTypeConfiguration();
     const sourceCode = await readFile(testInterfaceFilePath);
     const validOrganizedSourceCode = await readFile(testInterfaceOrganizedByIndividualMemberTypeFilePath);
 
@@ -32,7 +32,7 @@ test('organize interface by individual member type', async () =>
 test('organize interface by grouped member type', async () =>
 {
     // arrange
-    const configuration = membersByGroupedMemberTypeConfiguration;
+    const configuration = await membersByGroupedMemberTypeConfiguration();
     const sourceCode = await readFile(testInterfaceFilePath);
     const validOrganizedSourceCode = await readFile(testInterfaceOrganizedByGroupedMemberTypeFilePath);
 
@@ -48,14 +48,14 @@ test('organize interface by individual member type (without regions)', async () 
 {
     // arrange
     const configurations = [
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration,
-        membersByIndividualMemberTypeConfiguration
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration(),
+        await membersByIndividualMemberTypeConfiguration()
     ];
     const sourceCode = await readFile(testInterfaceFilePath);
     const validOrganizedSourceCode = await readFile(testInterfaceOrganizedByIndividualMemberTypeWithoutRegionsFilePath);
@@ -74,7 +74,7 @@ test('organize interface by individual member type (without regions)', async () 
 test('organize interface by grouped member type (place above below)', async () =>
 {
     // arrange
-    const configuration = membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration;
+    const configuration = await membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration();
     const sourceCode = await readFile(testInterfaceFilePath);
     const validOrganizedSourceCode = await readFile(testInterfaceOrganizedByGroupedMemberTypeAndPlaceAboveBelowFilePath);
 
@@ -89,7 +89,7 @@ test('organize interface by grouped member type (place above below)', async () =
 test('organize interface by grouped member type (treat arrow function properties as methods)', async () =>
 {
     // arrange
-    const configuration = membersByGroupedMemberTypeConfiguration;
+    const configuration = await membersByGroupedMemberTypeConfiguration();
     const sourceCode = await readFile(testInterfaceFilePath);
     const validOrganizedSourceCode = await readFile(testInterfaceOrganizedByGroupedMemberTypeAndTreatArrowPropertiesAsMethodsFilePath);
 
@@ -104,7 +104,7 @@ test('organize interface by grouped member type (treat arrow function properties
 test('organize interface by grouped member type (group members with decorators)', async () =>
 {
     // arrange
-    const configuration = membersByGroupedMemberTypeConfiguration;
+    const configuration = await membersByGroupedMemberTypeConfiguration();
     const sourceCode = await readFile(testInterfaceFilePath);
     const validOrganizedSourceCode = await readFile(testInterfaceOrganizedByGroupedMemberTypeAndGroupMembersWithDecoratorsFilePath);
 
