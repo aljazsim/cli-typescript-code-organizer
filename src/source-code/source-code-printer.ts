@@ -62,59 +62,65 @@ export class SourceCodePrinter
 
     public static print(sourceCode: string, nodeGroups: ElementNodeGroup[], configuration: Configuration)
     {
-        // configuration
-        const addMemberCountInRegionName = configuration.regions.addMemberCountInRegionName;
-        const addRegionCaptionToRegionEnd = configuration.regions.addRegionCaptionToRegionEnd;
-        const addRegionIndentation = configuration.regions.addRegionIndentation;
         const indentation = this.getIndentation(sourceCode);
 
         let printedSourceCode = "";
 
         for (let nodeGroup of nodeGroups)
         {
-            let nodeGroupSourceCode = "";
-
-            // get node sub-groups
-            const { nodeGroupNodeCount, nodeGroupSubGroups } = this.getNodeSubGroups(nodeGroup);
-
-            if (nodeGroupNodeCount > 0)
-            {
-                if (configuration.regions.useRegions && nodeGroup.isRegion)
-                {
-                    // add region start
-                    nodeGroupSourceCode += this.addRegionStart(indentation, { caption: nodeGroup.caption ?? "Region", nodeCount: nodeGroupNodeCount }, { addMemberCountInRegionName, addRegionIndentation });
-                }
-
-                nodeGroupSourceCode += this.newLine;
-
-                for (const nodeGroupSubGroup of nodeGroupSubGroups)
-                {
-                    for (const node of nodeGroupSubGroup)
-                    {
-                        nodeGroupSourceCode += this.printNode(nodeGroupSourceCode, node, configuration);
-                    }
-
-                    // add empty line after node group end
-                    nodeGroupSourceCode = this.addNewLine(nodeGroupSourceCode);
-                }
-
-                if (configuration.regions.useRegions && nodeGroup.isRegion)
-                {
-                    // add region end
-                    nodeGroupSourceCode += this.addRegionEnd(indentation, { caption: nodeGroup.caption ?? "Region", nodeCount: nodeGroupNodeCount }, { addRegionCaptionToRegionEnd, addMemberCountInRegionName, addRegionIndentation });
-                }
-
-                nodeGroupSourceCode = this.addNewLine(nodeGroupSourceCode);
-            }
-            else
-            {
-                // ignore empty node groups
-            }
-
-            printedSourceCode += nodeGroupSourceCode;
+            printedSourceCode += this.printNodeGroup(nodeGroup, configuration, indentation);
         }
 
         return this.removeConsecutiveEmptyLines(indentation + printedSourceCode.trim());
+    }
+
+    private static printNodeGroup(nodeGroup: ElementNodeGroup, configuration: Configuration, indentation: string)
+    {
+        const useRegions = configuration.regions.useRegions;
+        const addMemberCountInRegionName = configuration.regions.addMemberCountInRegionName;
+        const addRegionCaptionToRegionEnd = configuration.regions.addRegionCaptionToRegionEnd;
+        const addRegionIndentation = configuration.regions.addRegionIndentation;
+        let nodeGroupSourceCode = "";
+
+        // get node sub-groups
+        const { nodeGroupNodeCount, nodeGroupSubGroups } = this.getNodeSubGroups(nodeGroup);
+
+        if (nodeGroupNodeCount > 0)
+        {
+            if (useRegions && nodeGroup.isRegion)
+            {
+                // add region start
+                nodeGroupSourceCode += this.addRegionStart(indentation, { caption: nodeGroup.caption ?? "Region", nodeCount: nodeGroupNodeCount }, { addMemberCountInRegionName, addRegionIndentation });
+            }
+
+            nodeGroupSourceCode += this.newLine;
+
+            for (const nodeGroup of nodeGroupSubGroups)
+            {
+                for (const node of nodeGroup)
+                {
+                    nodeGroupSourceCode += this.printNode(nodeGroupSourceCode, node, configuration);
+                }
+
+                // add empty line after node group end
+                nodeGroupSourceCode = this.addNewLine(nodeGroupSourceCode);
+            }
+
+            if (useRegions && nodeGroup.isRegion)
+            {
+                // add region end
+                nodeGroupSourceCode += this.addRegionEnd(indentation, { caption: nodeGroup.caption ?? "Region", nodeCount: nodeGroupNodeCount }, { addRegionCaptionToRegionEnd, addMemberCountInRegionName, addRegionIndentation });
+            }
+
+            nodeGroupSourceCode = this.addNewLine(nodeGroupSourceCode);
+        }
+
+        else
+        {
+            // ignore empty node groups
+        }
+
+        return nodeGroupSourceCode;
     }
 
     public static removeRegions(sourceCode: string)
@@ -122,12 +128,12 @@ export class SourceCodePrinter
         const newLine = "\n";
         const emptyLine = "";
         let anythingRegex = ".";
-        let regionRegex = "#region";
-        let endregionRegex = "#endregion";
+        let startRegionRegex = "#region";
+        let endRegionRegex = "#endregion";
         let spaceRegex = "\\s";
 
-        let startRegionsRegex = new RegExp(`^//${spaceRegex}*${regionRegex}${spaceRegex}+${anythingRegex}+$`, "i");
-        let endRegionsRegex = new RegExp(`^//${spaceRegex}*${endregionRegex}(${spaceRegex}+${anythingRegex}+)?$`, "i");
+        let startRegionsRegex = new RegExp(`^//${spaceRegex}*${startRegionRegex}${spaceRegex}+${anythingRegex}+$`, "i");
+        let endRegionsRegex = new RegExp(`^//${spaceRegex}*${endRegionRegex}(${spaceRegex}+${anythingRegex}+)?$`, "i");
         let lines: string[] = sourceCode.split(newLine);
         let lines2: string[] = [];
 
@@ -163,8 +169,7 @@ export class SourceCodePrinter
 
     private static addNewLine(membersSourceCode: string)
     {
-        membersSourceCode += this.newLine;
-        return membersSourceCode;
+        return membersSourceCode += this.newLine;
     }
 
     private static addPrivateModifierIfStartingWithHash(node: ElementNode, sourceCode: string)
@@ -283,12 +288,12 @@ export class SourceCodePrinter
             nodeGroupNodeCount = nodeGroup.nodeSubGroups.reduce((sum, subGroup) => sum + subGroup.nodes.length, 0);
             nodeGroupSubGroups = nodeGroup.nodeSubGroups.map(subGroup => subGroup.nodes).filter(x => x.length > 0);
         }
-
         else
         {
             nodeGroupNodeCount = 0;
             nodeGroupSubGroups = [];
         }
+
         return { nodeGroupNodeCount, nodeGroupSubGroups };
     }
 

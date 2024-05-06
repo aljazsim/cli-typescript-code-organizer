@@ -33,5 +33,6 @@
     ".gitignore": false,
     ".tsconfig": false,
     "LICENSE": false
-  }
+  },
+  "cSpell.words": ["endregion"]
 }

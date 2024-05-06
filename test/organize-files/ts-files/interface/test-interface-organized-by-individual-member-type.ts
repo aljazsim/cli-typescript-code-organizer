@@ -28,17 +28,11 @@ export interface TestInterface
 
     // #endregion Public Properties (9)
 
-    // #region Public Static Indexers (1)
+    // #region Indexers (1)
 
     [key: string]: any;
 
-    // #endregion Public Static Indexers (1)
-
-    // #region Public Indexers (1)
-
-    [key: string]: any;
-
-    // #endregion Public Indexers (1)
+    // #endregion Indexers (1)
 
     // #region Public Getters And Setters (6)
 
