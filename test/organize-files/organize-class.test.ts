@@ -7,6 +7,7 @@ import { SourceCodeOrganizer } from '../../src/source-code/source-code-organizer
 const testFileDirectoryPath = "test/organize-files/ts-files/class";
 const testClassFilePath = `${testFileDirectoryPath}/test-class.ts`;
 const testClassOrganizedByIndividualMemberTypeFilePath = `${testFileDirectoryPath}/test-class-organized-by-individual-member-type.ts`;
+const testClassOrganizedByIndividualMemberTypeFilePath2 = `${testFileDirectoryPath}/test-class-organized-by-individual-member-type=xxx.ts`;
 const testClassOrganizedByGroupedMemberTypeFilePath = `${testFileDirectoryPath}/test-class-organized-by-grouped-member-type.ts`;
 const testClassOrganizedByIndividualMemberTypeWithoutRegionsFilePath = `${testFileDirectoryPath}/test-class-organized-by-individual-member-type-without-regions.ts`;
 const testClassOrganizedByGroupedMemberTypeAndPlaceAboveBelowFilePath = `${testFileDirectoryPath}/test-class-organized-by-grouped-member-type-and-place-above-below.ts`;
@@ -22,7 +23,7 @@ test('organize class by individual member type', async () =>
 
     // act
     const organizedSourceCode = SourceCodeOrganizer.organizeSourceCode(sourceCode, configuration);
-    // await writeFile(testClassOrganizedByIndividualMemberTypeFilePath, organizedSourceCode);
+    await writeFile(testClassOrganizedByIndividualMemberTypeFilePath2, organizedSourceCode);
 
     // assert
     expect(organizedSourceCode).toBe(validOrganizedSourceCode);

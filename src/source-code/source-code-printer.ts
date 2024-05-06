@@ -11,6 +11,7 @@ import { SetterNode } from "../elements/setter-node";
 import { WriteModifier } from "../elements/write-modifier";
 import ts from "typescript";
 import { TypeAliasNode } from "../elements/type-alias-node";
+import { config } from "process";
 
 export class SourceCodePrinter
 {
@@ -63,64 +64,9 @@ export class SourceCodePrinter
     public static print(sourceCode: string, nodeGroups: ElementNodeGroup[], configuration: Configuration)
     {
         const indentation = this.getIndentation(sourceCode);
+        const printedSourceCode = this.printNodeGroups(sourceCode, nodeGroups, configuration);
 
-        let printedSourceCode = "";
-
-        for (let nodeGroup of nodeGroups)
-        {
-            printedSourceCode += this.printNodeGroup(nodeGroup, configuration, indentation);
-        }
-
-        return this.removeConsecutiveEmptyLines(indentation + printedSourceCode.trim());
-    }
-
-    private static printNodeGroup(nodeGroup: ElementNodeGroup, configuration: Configuration, indentation: string)
-    {
-        const useRegions = configuration.regions.useRegions;
-        const addMemberCountInRegionName = configuration.regions.addMemberCountInRegionName;
-        const addRegionCaptionToRegionEnd = configuration.regions.addRegionCaptionToRegionEnd;
-        const addRegionIndentation = configuration.regions.addRegionIndentation;
-        let nodeGroupSourceCode = "";
-
-        // get node sub-groups
-        const { nodeGroupNodeCount, nodeGroupSubGroups } = this.getNodeSubGroups(nodeGroup);
-
-        if (nodeGroupNodeCount > 0)
-        {
-            if (useRegions && nodeGroup.isRegion)
-            {
-                // add region start
-                nodeGroupSourceCode += this.addRegionStart(indentation, { caption: nodeGroup.caption ?? "Region", nodeCount: nodeGroupNodeCount }, { addMemberCountInRegionName, addRegionIndentation });
-            }
-
-            nodeGroupSourceCode += this.newLine;
-
-            for (const nodeGroup of nodeGroupSubGroups)
-            {
-                for (const node of nodeGroup)
-                {
-                    nodeGroupSourceCode += this.printNode(nodeGroupSourceCode, node, configuration);
-                }
-
-                // add empty line after node group end
-                nodeGroupSourceCode = this.addNewLine(nodeGroupSourceCode);
-            }
-
-            if (useRegions && nodeGroup.isRegion)
-            {
-                // add region end
-                nodeGroupSourceCode += this.addRegionEnd(indentation, { caption: nodeGroup.caption ?? "Region", nodeCount: nodeGroupNodeCount }, { addRegionCaptionToRegionEnd, addMemberCountInRegionName, addRegionIndentation });
-            }
-
-            nodeGroupSourceCode = this.addNewLine(nodeGroupSourceCode);
-        }
-
-        else
-        {
-            // ignore empty node groups
-        }
-
-        return nodeGroupSourceCode;
+        return this.addNewLine(this.removeConsecutiveEmptyLines(indentation + printedSourceCode.trim()));
     }
 
     public static removeRegions(sourceCode: string)
@@ -165,11 +111,11 @@ export class SourceCodePrinter
 
     // #endregion Public Static Methods (2)
 
-    // #region Private Static Methods (10)
+    // #region Private Static Methods (13)
 
-    private static addNewLine(membersSourceCode: string)
+    private static addNewLine(sourceCode: string): string
     {
-        return membersSourceCode += this.newLine;
+        return this.append(sourceCode, this.newLine);
     }
 
     private static addPrivateModifierIfStartingWithHash(node: ElementNode, sourceCode: string)
@@ -222,28 +168,35 @@ export class SourceCodePrinter
 
     private static addRegionEnd(indentation: string, region: { caption: string, nodeCount: number; }, regionConfiguration: { addRegionCaptionToRegionEnd: boolean, addMemberCountInRegionName: boolean, addRegionIndentation: boolean; })
     {
-        let regionSourceCode = "";
+        let sourceCode = "";
 
-        regionSourceCode += this.addNewLine(regionSourceCode);
-        regionSourceCode += `${regionConfiguration.addRegionIndentation ? indentation : ""}// #endregion`;
-        regionSourceCode += regionConfiguration.addRegionCaptionToRegionEnd ? ` ${region.caption}` : "";
-        regionSourceCode += regionConfiguration.addMemberCountInRegionName ? ` (${region.nodeCount})` : "";
-        regionSourceCode += this.addNewLine(regionSourceCode);
+        sourceCode = this.addNewLine(sourceCode);
+        sourceCode = this.addNewLine(sourceCode);
+        sourceCode = this.append(sourceCode, `${regionConfiguration.addRegionIndentation ? indentation : ""}// #endregion` + (regionConfiguration.addRegionCaptionToRegionEnd ? ` ${region.caption}` : "") + (regionConfiguration.addMemberCountInRegionName ? ` (${region.nodeCount})` : ""));
 
-        return regionSourceCode;
+        return sourceCode;
     }
 
     private static addRegionStart(indentation: string, region: { caption: string, nodeCount: number; }, regionConfiguration: { addMemberCountInRegionName: boolean, addRegionIndentation: boolean; })
     {
-        let regionSourceCode = "";
+        let sourceCode = "";
 
-        regionSourceCode += this.addNewLine(regionSourceCode);
-        regionSourceCode += `${regionConfiguration.addRegionIndentation ? indentation : ""}// #region`;
-        regionSourceCode += region.caption ? ` ${region.caption}` : "";
-        regionSourceCode += regionConfiguration.addMemberCountInRegionName ? ` (${region.nodeCount})` : "";
-        regionSourceCode += this.addNewLine(regionSourceCode);
+        sourceCode = `${regionConfiguration.addRegionIndentation ? indentation : ""}// #region` + (region.caption ? ` ${region.caption}` : "") + (regionConfiguration.addMemberCountInRegionName ? ` (${region.nodeCount})` : "");
+        sourceCode = this.addNewLine(sourceCode);
+        sourceCode = this.addNewLine(sourceCode);
 
-        return regionSourceCode;
+        return sourceCode;
+    }
+
+    private static append(oldSourceCode: string, newSourceCode: string)
+    {
+        if (oldSourceCode.length > 0)
+        {
+            return this.addNewLine(oldSourceCode) + newSourceCode;
+        } else
+        {
+            return newSourceCode;
+        }
     }
 
     private static getIndentation(sourceCode: string): string
@@ -271,30 +224,9 @@ export class SourceCodePrinter
         return twoSpaces;
     }
 
-    private static getNodeSubGroups(nodeGroup: ElementNodeGroup)
+    private static getNodeCount(nodeGroup: ElementNodeGroup): number
     {
-        let nodeGroupNodeCount: number;
-        let nodeGroupSubGroups: ElementNode[][];
-
-        if (nodeGroup.nodes &&
-            nodeGroup.nodes.length > 0)
-        {
-            nodeGroupNodeCount = nodeGroup.nodes.length;
-            nodeGroupSubGroups = [nodeGroup.nodes];
-        }
-        else if (nodeGroup.nodeSubGroups &&
-            nodeGroup.nodeSubGroups.length > 0)
-        {
-            nodeGroupNodeCount = nodeGroup.nodeSubGroups.reduce((sum, subGroup) => sum + subGroup.nodes.length, 0);
-            nodeGroupSubGroups = nodeGroup.nodeSubGroups.map(subGroup => subGroup.nodes).filter(x => x.length > 0);
-        }
-        else
-        {
-            nodeGroupNodeCount = 0;
-            nodeGroupSubGroups = [];
-        }
-
-        return { nodeGroupNodeCount, nodeGroupSubGroups };
+        return nodeGroup.nodes.length + nodeGroup.nodeSubGroups.reduce((sum: number, ng: ElementNodeGroup) => sum + this.getNodeCount(ng), 0);
     }
 
     private static printNode(sourceCode: string, node: ElementNode, configuration: Configuration)
@@ -305,11 +237,11 @@ export class SourceCodePrinter
 
         if (node instanceof InterfaceNode && configuration.interfaces.order)
         {
-            nodeSourceCode = this.print(nodeSourceCode, node.organizeMembers(configuration.interfaces.groups), configuration);
+            nodeSourceCode = this.printNodeGroups(sourceCode, node.organizeMembers(configuration.interfaces.groups), configuration);
         }
         else if (node instanceof ClassNode && configuration.classes.order)
         {
-            nodeSourceCode = this.print(nodeSourceCode, node.organizeMembers(configuration.classes.groups, configuration.classes.groupMembersWithDecorators), configuration);
+            nodeSourceCode = this.printNodeGroups(sourceCode, node.organizeMembers(configuration.classes.groups, configuration.classes.groupMembersWithDecorators), configuration);
 
             if (configuration.classes.addPublicModifierIfMissing)
             {
@@ -325,7 +257,7 @@ export class SourceCodePrinter
         }
         else if (node instanceof TypeAliasNode && configuration.types.order)
         {
-            nodeSourceCode = this.print(nodeSourceCode, node.organizeMembers(configuration.types.groups), configuration);
+            nodeSourceCode = this.printNodeGroups(nodeSourceCode, node.organizeMembers(configuration.types.groups), configuration);
         }
         else if (node instanceof PropertyNode)
         {
@@ -339,16 +271,70 @@ export class SourceCodePrinter
         if (nodeComment !== "")
         {
             // add comment
-            nodeSourceCode += `${indentation}${nodeComment}${this.newLine}`;
+            nodeSourceCode = this.append(nodeSourceCode, `${indentation}${nodeComment}${this.newLine}`);
         }
 
-        nodeSourceCode += this.addNewLine(`${indentation}${nodeSourceCode}`);
+        nodeSourceCode = this.addNewLine(`${indentation}${nodeSourceCode}`);
 
         if (nodeSourceCode.endsWith("}"))
         {
             nodeSourceCode = this.addNewLine(nodeSourceCode);
         }
+
         return nodeSourceCode;
+    }
+
+    private static printNodeGroup(sourceCode: string, nodeGroup: ElementNodeGroup, configuration: Configuration)
+    {
+        const indentation = this.getIndentation(sourceCode);
+        const useRegions = configuration.regions.useRegions;
+        const addMemberCountInRegionName = configuration.regions.addMemberCountInRegionName;
+        const addRegionCaptionToRegionEnd = configuration.regions.addRegionCaptionToRegionEnd;
+        const addRegionIndentation = configuration.regions.addRegionIndentation;
+        let nodeGroupSourceCode = "";
+        let nodeGroupNodeCount = this.getNodeCount(nodeGroup);
+
+        if (useRegions && nodeGroup.isRegion)
+        {
+            // add region start
+            nodeGroupSourceCode = this.append(nodeGroupSourceCode, this.addRegionStart(indentation, { caption: nodeGroup.caption ?? "Region", nodeCount: nodeGroupNodeCount }, { addMemberCountInRegionName, addRegionIndentation }));
+        }
+
+        // print subgroups
+        nodeGroupSourceCode = this.append(nodeGroupSourceCode, this.printNodeGroups(sourceCode, nodeGroup.nodeSubGroups, configuration));
+
+        // print nodes within a group
+        for (const node of nodeGroup.nodes)
+        {
+            nodeGroupSourceCode = this.append(nodeGroupSourceCode, this.printNode(sourceCode, node, configuration));
+        }
+
+        if (useRegions && nodeGroup.isRegion)
+        {
+            // add region end
+            nodeGroupSourceCode = this.append(nodeGroupSourceCode, this.addRegionEnd(indentation, { caption: nodeGroup.caption ?? "Region", nodeCount: nodeGroupNodeCount }, { addRegionCaptionToRegionEnd, addMemberCountInRegionName, addRegionIndentation }));
+        }
+
+        return nodeGroupSourceCode;
+    }
+
+    private static printNodeGroups(sourceCode: string, nodeGroups: ElementNodeGroup[], configuration: Configuration)
+    {
+        let printedSourceCode = "";
+
+        for (let nodeGroup of nodeGroups)
+        {
+            printedSourceCode = this.append(printedSourceCode, this.printNodeGroup(sourceCode, nodeGroup, configuration));
+
+            if (nodeGroups.length > 1 &&
+                nodeGroups.indexOf(nodeGroup) < nodeGroups.length - 1)
+            {
+                // add empty line after non-last node group end
+                printedSourceCode = this.addNewLine(printedSourceCode);
+            }
+        }
+
+        return printedSourceCode;
     }
 
     private static removeConsecutiveEmptyLines(sourceCode: string)
@@ -400,5 +386,5 @@ export class SourceCodePrinter
         return codeDecorators + codeAfterDecorators.replace(replaceWhat, replaceWith);
     }
 
-    // #endregion Private Static Methods (10)
+    // #endregion Private Static Methods (13)
 }
