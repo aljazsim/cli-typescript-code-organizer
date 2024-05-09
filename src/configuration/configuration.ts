@@ -122,9 +122,10 @@ export class Configuration
 
     private static fixClassMemberMemberGroup(defaultMemberTypeOrder: ClassMemberGroupConfiguration[], memberTypeOrder: ClassMemberGroupConfiguration[]): ClassMemberGroupConfiguration[]
     {
+        const memberTypes = memberTypeOrder.flatMap(mto => mto.memberTypes);
+        const allMemberTypes = defaultMemberTypeOrder.flatMap(mt => mt.memberTypes);
+        const missingMemberTypes = allMemberTypes.filter(mt => !memberTypes.includes(mt));
         const fixedMemberTypeOrder: ClassMemberGroupConfiguration[] = [];
-        const defaultMemberTypes = defaultMemberTypeOrder.flatMap(mt => mt.memberTypes);
-        const missingMemberTypes = defaultMemberTypes.filter(def => !memberTypeOrder.some(mt => mt.memberTypes && mt.memberTypes.length > 0 && mt.memberTypes.some(z => z === def)));
 
         // add existing member types
         for (const memberGroupConfiguration of memberTypeOrder) 
@@ -143,9 +144,10 @@ export class Configuration
 
     private static fixInterfaceMemberMemberGroup(defaultMemberTypeOrder: InterfaceMemberGroupConfiguration[], memberTypeOrder: InterfaceMemberGroupConfiguration[]): InterfaceMemberGroupConfiguration[]
     {
+        const memberTypes = memberTypeOrder.flatMap(mto => mto.memberTypes);
+        const allMemberTypes = defaultMemberTypeOrder.flatMap(mt => mt.memberTypes);
+        const missingMemberTypes = allMemberTypes.filter(mt => !memberTypes.includes(mt));
         const fixedMemberTypeOrder: InterfaceMemberGroupConfiguration[] = [];
-        const defaultMemberTypes = defaultMemberTypeOrder.flatMap(mt => mt.memberTypes);
-        const missingMemberTypes = defaultMemberTypes.filter(def => !memberTypeOrder.some(mt => mt.memberTypes && mt.memberTypes.length > 0 && mt.memberTypes.some(z => z === def)));
 
         // add existing member types
         for (const memberGroupConfiguration of memberTypeOrder) 
@@ -164,9 +166,10 @@ export class Configuration
 
     private static fixModuleMemberMemberGroup(defaultMemberTypeOrder: ModuleMemberGroupConfiguration[], memberTypeOrder: ModuleMemberGroupConfiguration[]): ModuleMemberGroupConfiguration[]
     {
+        const memberTypes = memberTypeOrder.flatMap(mto => mto.memberTypes);
+        const allMemberTypes = defaultMemberTypeOrder.flatMap(mt => mt.memberTypes);
+        const missingMemberTypes = allMemberTypes.filter(mt => !memberTypes.includes(mt));
         const fixedMemberTypeOrder: ModuleMemberGroupConfiguration[] = [];
-        const defaultMemberTypes = defaultMemberTypeOrder.flatMap(mt => mt.memberTypes);
-        const missingMemberTypes = defaultMemberTypes.filter(def => !memberTypeOrder.some(mt => mt.memberTypes && mt.memberTypes.length > 0 && mt.memberTypes.some(z => z === def)));
 
         // add existing member types
         for (const memberGroupConfiguration of memberTypeOrder) 
@@ -185,9 +188,10 @@ export class Configuration
 
     private static fixTypeMemberMemberGroup(defaultMemberTypeOrder: TypeMemberGroupConfiguration[], memberTypeOrder: TypeMemberGroupConfiguration[]): TypeMemberGroupConfiguration[]
     {
+        const memberTypes = memberTypeOrder.flatMap(mto => mto.memberTypes);
+        const allMemberTypes = defaultMemberTypeOrder.flatMap(mt => mt.memberTypes);
+        const missingMemberTypes = allMemberTypes.filter(mt => !memberTypes.includes(mt));
         const fixedMemberTypeOrder: TypeMemberGroupConfiguration[] = [];
-        const defaultMemberTypes = defaultMemberTypeOrder.flatMap(mt => mt.memberTypes);
-        const missingMemberTypes = defaultMemberTypes.filter(def => !memberTypeOrder.some(mt => mt.memberTypes && mt.memberTypes.length > 0 && mt.memberTypes.some(z => z === def)));
 
         // add existing member types
         for (const memberGroupConfiguration of memberTypeOrder) 

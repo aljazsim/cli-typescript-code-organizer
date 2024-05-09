@@ -1,6 +1,6 @@
 export enum TypeMemberType
 {
-    properties,
-    indexes,
-    methods
+    properties = "properties",
+    indexes = "indexes",
+    methods = "methods"
 }

@@ -133,7 +133,10 @@ export class InterfaceNode extends ElementNode
                 }
             }
 
-            regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], true));
+            if (memberGroups.length > 0)
+            {
+                regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], true));
+            }
         }
 
         return regions;

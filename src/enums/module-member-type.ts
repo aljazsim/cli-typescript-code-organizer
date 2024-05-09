@@ -1,13 +1,13 @@
 export enum ModuleMemberType
 {
-    enums,
-    types,
-    interfaces,
-    classes,
-    functions,
-    exportedFunctions,
-    constants,
-    variables,
-    exportedConstants,
-    exportedVariables
+    enums = "enums",
+    types = "types",
+    interfaces = "interfaces",
+    classes = "classes",
+    functions = "functions",
+    exportedFunctions = "exportedFunctions",
+    constants = "constants",
+    variables = "variables",
+    exportedConstants = "exportedConstants",
+    exportedVariables = "exportedVariables"
 }

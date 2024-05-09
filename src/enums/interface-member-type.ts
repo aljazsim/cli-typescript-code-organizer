@@ -1,7 +1,7 @@
 export enum InterfaceMemberType
 {
-    properties,
-    indexes,
-    gettersAndSetters,
-    methods
+    properties = "properties",
+    indexes = "indexes",
+    gettersAndSetters = "gettersAndSetters",
+    methods = "methods"
 }
