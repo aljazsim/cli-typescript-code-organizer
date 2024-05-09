@@ -173,6 +173,7 @@ export class SourceCodePrinter
         sourceCode = this.addNewLine(sourceCode);
         sourceCode = this.addNewLine(sourceCode);
         sourceCode = this.append(sourceCode, `${regionConfiguration.addRegionIndentation ? indentation : ""}// #endregion` + (regionConfiguration.addRegionCaptionToRegionEnd ? ` ${region.caption}` : "") + (regionConfiguration.addMemberCountInRegionName ? ` (${region.nodeCount})` : ""));
+        sourceCode = this.addNewLine(sourceCode);
 
         return sourceCode;
     }
@@ -295,7 +296,7 @@ export class SourceCodePrinter
         let nodeGroupSourceCode = "";
         let nodeGroupNodeCount = this.getNodeCount(nodeGroup);
 
-        if (useRegions && nodeGroup.isRegion && nodeGroup.nodes.length > 0)
+        if (useRegions && nodeGroup.isRegion && nodeGroup.nodeSubGroups.length > 0)
         {
             // add region start
             nodeGroupSourceCode = this.append(nodeGroupSourceCode, this.addRegionStart(indentation, { caption: nodeGroup.caption ?? "Region", nodeCount: nodeGroupNodeCount }, { addMemberCountInRegionName, addRegionIndentation }));
@@ -310,7 +311,7 @@ export class SourceCodePrinter
             nodeGroupSourceCode = this.append(nodeGroupSourceCode, this.printNode(sourceCode, node, configuration));
         }
 
-        if (useRegions && nodeGroup.isRegion && nodeGroup.nodes.length > 0)
+        if (useRegions && nodeGroup.isRegion && nodeGroup.nodeSubGroups.length > 0)
         {
             // add region end
             nodeGroupSourceCode = this.append(nodeGroupSourceCode, this.addRegionEnd(indentation, { caption: nodeGroup.caption ?? "Region", nodeCount: nodeGroupNodeCount }, { addRegionCaptionToRegionEnd, addMemberCountInRegionName, addRegionIndentation }));

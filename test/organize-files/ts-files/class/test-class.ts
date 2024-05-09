@@ -16,6 +16,7 @@ export abstract class TestClass
     @decoratorD()
     public abstract accessor publicAbstractAccessor3: string;
     public static accessor publicStaticAccessor2: number;
+    private static const privateStaticConst1 = { key: 1 };
     protected static protectedStaticProperty2 = "hyc8khk2oj";
     @decoratorC(9860836855)
     private privateProperty2 = () => 3357116507;

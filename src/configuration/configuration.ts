@@ -47,8 +47,9 @@ export class Configuration
                 configuration = JSON.parse(await readFile(configurationFilePath));
             }
         }
-        catch
+        catch (error)
         {
+            console.error(error);
         }
 
         return new Configuration(

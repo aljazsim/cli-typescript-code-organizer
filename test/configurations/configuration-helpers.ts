@@ -22,17 +22,17 @@ async function getConfiguration(configurationFilePath: string, useRegions = true
 
 export async function membersByGroupedMemberTypeConfiguration(useRegions = true, addRegionIndentation = true, addMemberCountInRegionName = true, addRegionCaptionToRegionEnd = true)
 {
-    return getConfiguration('./members-by-grouped-member-type.json', useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd);
+    return getConfiguration('./test/configurations/members-by-grouped-member-type.json', useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd);
 }
 
 export async function membersByGroupedMemberTypeWithPlaceAboveBelowConfiguration(useRegions = true, addRegionIndentation = true, addMemberCountInRegionName = true, addRegionCaptionToRegionEnd = true)
 {
-    return getConfiguration('./members-by-grouped-member-type-with-place-above-below.json', useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd);
+    return getConfiguration('./test/configurations/members-by-grouped-member-type-with-place-above-below.json', useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd);
 }
 
 export async function membersByIndividualMemberTypeConfiguration(useRegions = true, addRegionIndentation = true, addMemberCountInRegionName = true, addRegionCaptionToRegionEnd = true)
 {
-    return getConfiguration('./members-by-individual-member-type.json', useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd);
+    return getConfiguration('./test/configurations/members-by-individual-member-type.json', useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd);
 }
 
 // #endregion Functions (4)

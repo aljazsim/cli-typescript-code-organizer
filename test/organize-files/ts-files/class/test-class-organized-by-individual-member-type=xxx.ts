@@ -1,12 +1,21 @@
     import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
 
-    // #region Region (2)
+        // #region Private Static Const Properties (0)
+
+    // #endregion Private Static Const Properties (0)
+
+    // #region Private Const Properties (0)
+
+    // #endregion Private Const Properties (0)
+
+    // #region Private Static ReadOnly Properties (2)
 
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
     private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
 
-    // #endregion Region (2)
-    // #region Region (3)
+    // #endregion Private Static ReadOnly Properties (2)
+
+    // #region Private ReadOnly Properties (3)
 
     @decoratorC(7960805480)
     private readonly privateReadonlyProperty1: string | undefined = "ohqx31vc3a";
@@ -14,8 +23,9 @@
     @decoratorC(7573192855)
     private readonly privateReadonlyProperty3: String = "709w42symh";
 
-    // #endregion Region (3)
-    // #region Region (8)
+    // #endregion Private ReadOnly Properties (3)
+
+    // #region Private Static Properties (8)
 
     private static _privateStaticGetterSetter1: string;
     private static _privateStaticGetterSetter2: string;
@@ -26,8 +36,9 @@
     private static privateStaticProperty1: boolean;
     private static privateStaticProperty2 = new Date();
 
-    // #endregion Region (8)
-    // #region Region (7)
+    // #endregion Private Static Properties (8)
+
+    // #region Private Properties (7)
 
     private _privateGetterSetter1: string = "";
     private _protectedGetterSetter1: string = "";
@@ -39,16 +50,25 @@
     private privateProperty2 = () => 3357116507;
     #privateProperty2: string;
 
-    // #endregion Region (7)
+    // #endregion Private Properties (7)
 
-    // #region Region (2)
+    // #region Protected Static Const Properties (0)
+
+    // #endregion Protected Static Const Properties (0)
+
+    // #region Protected Const Properties (0)
+
+    // #endregion Protected Const Properties (0)
+
+    // #region Protected Static ReadOnly Properties (2)
 
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
     @decoratorB()
     protected static readonly protectedStaticReadonlyProperty2 = "oyasnkxrza";
 
-    // #endregion Region (2)
-    // #region Region (6)
+    // #endregion Protected Static ReadOnly Properties (2)
+
+    // #region Protected ReadOnly Properties (6)
 
     protected readonly protectedReadonlyProperty1 = "tbgokvjelv";
     protected readonly protectedReadonlyProperty2 = "txpobjdpsj";
@@ -60,22 +80,32 @@
     protected readonly protectedReadonlyProperty5 = 4089519931;
     protected readonly protectedReadonlyProperty6 = 4099945367;
 
-    // #endregion Region (6)
-    // #region Region (2)
+    // #endregion Protected ReadOnly Properties (6)
+
+    // #region Protected Static Properties (2)
 
     @decoratorC(9860836855)
     protected static protectedStaticProperty1 = 8522782648;
     protected static protectedStaticProperty2 = "hyc8khk2oj";
 
-    // #endregion Region (2)
-    // #region Region (2)
+    // #endregion Protected Static Properties (2)
+
+    // #region Protected Properties (2)
 
     protected protectedProperty1 = "jwm4jkf16m";
     protected protectedProperty2: Number = 9777108868;
 
-    // #endregion Region (2)
+    // #endregion Protected Properties (2)
 
-    // #region Region (3)
+    // #region Public Static Const Properties (0)
+
+    // #endregion Public Static Const Properties (0)
+
+    // #region Public Const Properties (0)
+
+    // #endregion Public Const Properties (0)
+
+    // #region Public Static ReadOnly Properties (3)
 
     @decoratorB()
     static readonly publicStaticReadonlyProperty1: Number = 8345836946;
@@ -83,15 +113,17 @@
     @decoratorB()
     static readonly publicStaticReadonlyProperty3: Number;
 
-    // #endregion Region (3)
-    // #region Region (2)
+    // #endregion Public Static ReadOnly Properties (3)
+
+    // #region Public ReadOnly Properties (2)
 
     @decoratorB()
     public readonly publicReadonlyProperty1 = "ztrfjcvmrm";
     readonly publicReadonlyProperty2 = "uialqi4dkc";
 
-    // #endregion Region (2)
-    // #region Region (2)
+    // #endregion Public ReadOnly Properties (2)
+
+    // #region Public Static Properties (2)
 
     static publicStaticProperty1 = () =>
     {
@@ -99,24 +131,27 @@
     };
     public static publicStaticProperty2: Number;
 
-    // #endregion Region (2)
-    // #region Region (3)
+    // #endregion Public Static Properties (2)
+
+    // #region Public Properties (3)
 
     publicProperty1: string | null;
     @decoratorA("qeyfjngywl")
     public publicProperty2 = "pe2bmn4hgi";
     publicProperty3: Number = 5502271448;
 
-    // #endregion Region (3)
-    // #region Region (1)
+    // #endregion Public Properties (3)
+
+    // #region Static Block Declarations (1)
 
     static {
         this.protectedStaticProperty1 = 4286562276;
         this.privateStaticProperty1 = true;
     }
 
-    // #endregion Region (1)
-    // #region Region (1)
+    // #endregion Static Block Declarations (1)
+
+    // #region Constructors (1)
 
     constructor(private readonly name: string)
     {
@@ -124,8 +159,9 @@
         this.publicProperty1 = name;
     }
 
-    // #endregion Region (1)
-    // #region Region (3)
+    // #endregion Constructors (1)
+
+    // #region Public Static Accessors (3)
 
     @decoratorD()
     public static accessor publicStaticAccessor1: boolean | undefined;
@@ -134,15 +170,17 @@
     @decoratorE()
     public static accessor publicStaticAccessor3: boolean | undefined;
 
-    // #endregion Region (3)
-    // #region Region (3)
+    // #endregion Public Static Accessors (3)
+
+    // #region Public Accessors (3)
 
     public accessor publicAccessor1: boolean | undefined;
     public accessor publicAccessor2: number = 8647818341;
     public accessor publicAccessor3 = 4184534899;
 
-    // #endregion Region (3)
-    // #region Region (4)
+    // #endregion Public Accessors (3)
+
+    // #region Public Abstract Accessors (4)
 
     @decoratorD()
     public abstract accessor publicAbstractAccessor1: string;
@@ -152,14 +190,16 @@
     public abstract accessor publicAbstractAccessor3: string;
     public abstract accessor publicAbstractAccessor4: boolean | undefined;
 
-    // #endregion Region (4)
-    // #region Region (2)
+    // #endregion Public Abstract Accessors (4)
+
+    // #region Protected Static Accessors (2)
 
     protected static accessor protectedStaticAccessor1: boolean | undefined;
     protected static accessor protectedStaticAccessor2: boolean | undefined;
 
-    // #endregion Region (2)
-    // #region Region (2)
+    // #endregion Protected Static Accessors (2)
+
+    // #region Protected Accessors (2)
 
     @decoratorD()
     protected accessor protectedAccessor1: boolean | undefined;
@@ -167,30 +207,34 @@
     @decoratorE()
     protected accessor protectedAccessor2: boolean | undefined;
 
-    // #endregion Region (2)
-    // #region Region (3)
+    // #endregion Protected Accessors (2)
+
+    // #region Protected Abstract Accessors (3)
 
     protected abstract accessor protectedAbstractAccessor1: boolean | undefined;
     protected abstract accessor protectedAbstractAccessor2: string;
     @decoratorD()
     protected abstract accessor protectedAbstractAccessor3: boolean | undefined;
 
-    // #endregion Region (3)
-    // #region Region (2)
+    // #endregion Protected Abstract Accessors (3)
+
+    // #region Private Static Accessors (2)
 
     private static accessor privateStaticAccessor1: boolean | undefined;
     @decoratorD()
     private static accessor privateStaticAccessor2: string;
 
-    // #endregion Region (2)
-    // #region Region (2)
+    // #endregion Private Static Accessors (2)
+
+    // #region Private Accessors (2)
 
     @decoratorD()
     private accessor privateAccessor1: boolean | undefined;
     private accessor privateAccessor2: boolean | undefined;
 
-    // #endregion Region (2)
-    // #region Region (6)
+    // #endregion Private Accessors (2)
+
+    // #region Public Static Getters And Setters (6)
 
     public static get publicStaticGetterSetter1(): string
     {
@@ -216,8 +260,9 @@
     {
     }
 
-    // #endregion Region (6)
-    // #region Region (2)
+    // #endregion Public Static Getters And Setters (6)
+
+    // #region Public Getters And Setters (2)
 
     @decoratorE()
     get publicGetterSetter1(): string
@@ -229,8 +274,9 @@
         this._publicGetterSetter1 = value;
     }
 
-    // #endregion Region (2)
-    // #region Region (6)
+    // #endregion Public Getters And Setters (2)
+
+    // #region Public Abstract Getters And Setters (6)
 
     public abstract get publicAbstractGetterSetter1(): string;
     abstract set publicAbstractGetterSetter1(value: string);
@@ -239,8 +285,9 @@
     abstract set publicAbstractGetterSetter3(value: string);
     public abstract get publicAbstractGetterSetter4(): string;
 
-    // #endregion Region (6)
-    // #region Region (6)
+    // #endregion Public Abstract Getters And Setters (6)
+
+    // #region Protected Static Getters And Setters (6)
 
     protected static get protectedStaticGetterSetter1(): string
     {
@@ -266,8 +313,9 @@
     {
     }
 
-    // #endregion Region (6)
-    // #region Region (2)
+    // #endregion Protected Static Getters And Setters (6)
+
+    // #region Protected Getters And Setters (2)
 
     @decoratorE()
     protected get protectedGetterSetter1(): string
@@ -279,8 +327,9 @@
         this._protectedGetterSetter1 = value;
     }
 
-    // #endregion Region (2)
-    // #region Region (6)
+    // #endregion Protected Getters And Setters (2)
+
+    // #region Protected Abstract Getters And Setters (6)
 
     protected abstract get protectedAbstractGetterSetter1(): string;
     protected abstract set protectedAbstractGetterSetter1(value: string);
@@ -289,8 +338,9 @@
     protected abstract set protectedAbstractGetterSetter3(value: string);
     protected abstract get protectedAbstractGetterSetter4(): string;
 
-    // #endregion Region (6)
-    // #region Region (6)
+    // #endregion Protected Abstract Getters And Setters (6)
+
+    // #region Private Static Getters And Setters (6)
 
     private static get privateStaticGetterSetter1(): string
     {
@@ -316,8 +366,9 @@
     {
     }
 
-    // #endregion Region (6)
-    // #region Region (2)
+    // #endregion Private Static Getters And Setters (6)
+
+    // #region Private Getters And Setters (2)
 
     @decoratorE()
     private get privateGetterSetter1(): string
@@ -329,8 +380,9 @@
         this._privateGetterSetter1 = value;
     }
 
-    // #endregion Region (2)
-    // #region Region (3)
+    // #endregion Private Getters And Setters (2)
+
+    // #region Public Static Methods (3)
 
     public static publicStaticMethod1()
     {
@@ -344,8 +396,9 @@
     {
     }
 
-    // #endregion Region (3)
-    // #region Region (3)
+    // #endregion Public Static Methods (3)
+
+    // #region Public Methods (3)
 
     publicMethod1()
     {
@@ -359,15 +412,17 @@
     {
     }
 
-    // #endregion Region (3)
-    // #region Region (3)
+    // #endregion Public Methods (3)
+
+    // #region Public Abstract Methods (3)
 
     abstract publicAbstractMethod1(): void;
     abstract publicAbstractMethod2(): number;
     abstract publicAbstractMethod3(): string;
 
-    // #endregion Region (3)
-    // #region Region (3)
+    // #endregion Public Abstract Methods (3)
+
+    // #region Protected Static Methods (3)
 
     @decoratorE()
     protected static protectedStaticMethod1()
@@ -382,8 +437,9 @@
     {
     }
 
-    // #endregion Region (3)
-    // #region Region (3)
+    // #endregion Protected Static Methods (3)
+
+    // #region Protected Methods (3)
 
     @decoratorD()
     protected protectedMethod1()
@@ -398,15 +454,17 @@
     {
     }
 
-    // #endregion Region (3)
-    // #region Region (3)
+    // #endregion Protected Methods (3)
+
+    // #region Protected Abstract Methods (3)
 
     protected abstract protectedAbstractMethod1(): void;
     protected abstract protectedAbstractMethod2(): number;
     protected abstract protectedAbstractMethod3(): string;
 
-    // #endregion Region (3)
-    // #region Region (3)
+    // #endregion Protected Abstract Methods (3)
+
+    // #region Private Static Methods (3)
 
     private static privateStaticMethod1()
     {
@@ -420,8 +478,9 @@
     {
     }
 
-    // #endregion Region (3)
-    // #region Region (3)
+    // #endregion Private Static Methods (3)
+
+    // #region Private Methods (3)
 
     private privateMethod1()
     {
@@ -437,4 +496,4 @@
     {
     }
 
-    // #endregion Region (3)
+    // #endregion Private Methods (3)
