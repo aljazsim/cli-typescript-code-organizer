@@ -1,13 +1,14 @@
 import * as ts from "typescript";
 
-import { AccessModifier } from "./access-modifier";
+import { AccessModifier } from "../enums/access-modifier";
 import { PropertyNode } from "./property-node";
 import { PropertySignatureNode } from "./property-signature-node";
-import { WriteModifier } from "./write-modifier";
+import { SourceCode } from "../source-code/source-code";
+import { WriteModifier } from "../enums/write-modifier";
 
 export abstract class ElementNode
 {
-    // #region Properties (6)
+    // #region Properties (7)
 
     protected _accessModifier: AccessModifier | null = null;
     protected _decorators: string[] = [];
@@ -16,12 +17,15 @@ export abstract class ElementNode
     protected _name: string = "";
     protected _start: number = 0;
 
-    // #endregion Properties (6)
+    public readonly sourceCode: string;
+
+    // #endregion Properties (7)
 
     // #region Constructors (1)
 
-    constructor(public readonly node: ts.Node)
+    constructor(private readonly sourceFile: ts.SourceFile, public readonly node: ts.Node)
     {
+        this.sourceCode = ElementNode.getSourceCode(sourceFile, node.getFullStart(), node.getEnd());
     }
 
     // #endregion Constructors (1)
@@ -266,4 +270,20 @@ export abstract class ElementNode
     }
 
     // #endregion Protected Methods (15)
+
+    // #region Private Methods (1)
+
+    private static getSourceCode(sourceFile: ts.SourceFile, start: number, end: number)
+    {
+        let text = sourceFile.getFullText().substring(start, end);
+
+        while (text.startsWith("\r") || text.startsWith("\n"))
+        {
+            text = text.substring(1);
+        }
+
+        return text.trimEnd();
+    }
+
+    // #endregion Private Methods (1)
 }

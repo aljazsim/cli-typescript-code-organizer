@@ -9,4 +9,13 @@ export class ElementNodeGroup
     }
 
     // #endregion Constructors (1)
+
+    // #region Public Methods (1)
+
+    public getNodeCount(): number
+    {
+        return this.nodes.length + this.nodeSubGroups.reduce((sum: number, ng: ElementNodeGroup) => sum + ng.getNodeCount(), 0);
+    }
+
+    // #endregion Public Methods (1)
 } 

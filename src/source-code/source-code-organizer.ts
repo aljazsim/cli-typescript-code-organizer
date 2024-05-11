@@ -5,6 +5,7 @@ import { Configuration } from "../configuration/configuration";
 import { ElementNode } from "../elements/element-node";
 import { ElementNodeGroup } from "../elements/element-node-group";
 import { ModuleMemberType } from "../enums/module-member-type";
+import { SourceCode } from "./source-code";
 import { SourceCodeAnalyzer } from "./source-code-analyzer";
 import { SourceCodePrinter } from "./source-code-printer";
 import ts from "typescript";
@@ -24,12 +25,14 @@ export class SourceCodeOrganizer
         {
             try 
             {
-                let sourceCodeWithoutRegions = SourceCodePrinter.removeRegions(sourceCode); // strip regions, they will get re-generated
-                let sourceFile = ts.createSourceFile("temp.ts", sourceCodeWithoutRegions, ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
+                let sourceCodeWithoutRegions = new SourceCode(sourceCode);
+                sourceCodeWithoutRegions.removeRegions(); // strip regions, they will get re-generated
+
+                let sourceFile = ts.createSourceFile("temp.ts", sourceCodeWithoutRegions.toString(), ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
                 let elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration.classes.treatArrowFunctionPropertiesAsMethods);
                 let topLevelGroups = this.organizeModuleMembers(elements, configuration); // TODO: move this to module node
 
-                return SourceCodePrinter.print(sourceCode, topLevelGroups, configuration);
+                return SourceCodePrinter.print(topLevelGroups, configuration).toString();
             }
             catch (error)
             {

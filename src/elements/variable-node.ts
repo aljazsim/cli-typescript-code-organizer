@@ -1,7 +1,7 @@
 import * as ts from "typescript";
 
 import { ElementNode } from "./element-node";
-import { WriteModifier } from "./write-modifier";
+import { WriteModifier } from "../enums/write-modifier";
 
 export class VariableNode extends ElementNode
 {
@@ -17,7 +17,7 @@ export class VariableNode extends ElementNode
 
     constructor(sourceFile: ts.SourceFile, variableStatement: ts.VariableStatement)
     {
-        super(variableStatement);
+        super(sourceFile, variableStatement);
 
         this._name = variableStatement.declarationList.declarations.map(d => (<ts.Identifier>d.name).escapedText.toString()).join(",");
 

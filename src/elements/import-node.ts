@@ -8,7 +8,7 @@ export class ImportNode extends ElementNode
 
     constructor(sourceFile: ts.SourceFile, importDeclaration: ts.ImportDeclaration)
     {
-        super(importDeclaration);
+        super(sourceFile, importDeclaration);
 
         this._name = "import";
 

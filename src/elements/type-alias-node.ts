@@ -20,7 +20,7 @@ export class TypeAliasNode extends ElementNode
 
     constructor(sourceFile: ts.SourceFile, typeAliasDeclaration: ts.TypeAliasDeclaration)
     {
-        super(typeAliasDeclaration);
+        super(sourceFile, typeAliasDeclaration);
 
         this._name = (<ts.Identifier>typeAliasDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(typeAliasDeclaration.name.pos, typeAliasDeclaration.name.end).trim();
 

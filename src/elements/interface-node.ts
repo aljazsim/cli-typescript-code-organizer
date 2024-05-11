@@ -29,7 +29,7 @@ export class InterfaceNode extends ElementNode
 
     constructor(sourceFile: ts.SourceFile, interfaceDeclaration: ts.InterfaceDeclaration)
     {
-        super(interfaceDeclaration);
+        super(sourceFile, interfaceDeclaration);
 
         this._name = (<ts.Identifier>interfaceDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(interfaceDeclaration.name.pos, interfaceDeclaration.name.end).trim();
 
@@ -72,11 +72,6 @@ export class InterfaceNode extends ElementNode
     // #endregion Constructors (1)
 
     // #region Public Methods (7)
-
-    public getConstProperties()
-    {
-        return this.properties.filter((x) => this.isConstant(x));
-    }
 
     public getGettersAndSetters()
     {

@@ -1,22 +1,8 @@
-    import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
-
-        // #region Private Static Const Properties (0)
-
-    // #endregion Private Static Const Properties (0)
-
-    // #region Private Const Properties (0)
-
-    // #endregion Private Const Properties (0)
-
-    // #region Private Static ReadOnly Properties (2)
-
-    private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
-    private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
-
-    // #endregion Private Static ReadOnly Properties (2)
+import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
 
     // #region Private ReadOnly Properties (3)
 
+    // private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
     @decoratorC(7960805480)
     private readonly privateReadonlyProperty1: string | undefined = "ohqx31vc3a";
     private readonly privateReadonlyProperty2 = "jwm4jkf16m";
@@ -51,14 +37,6 @@
     #privateProperty2: string;
 
     // #endregion Private Properties (7)
-
-    // #region Protected Static Const Properties (0)
-
-    // #endregion Protected Static Const Properties (0)
-
-    // #region Protected Const Properties (0)
-
-    // #endregion Protected Const Properties (0)
 
     // #region Protected Static ReadOnly Properties (2)
 
@@ -97,18 +75,11 @@
 
     // #endregion Protected Properties (2)
 
-    // #region Public Static Const Properties (0)
-
-    // #endregion Public Static Const Properties (0)
-
-    // #region Public Const Properties (0)
-
-    // #endregion Public Const Properties (0)
-
     // #region Public Static ReadOnly Properties (3)
 
     @decoratorB()
     static readonly publicStaticReadonlyProperty1: Number = 8345836946;
+    // private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
     public static readonly publicStaticReadonlyProperty2: string;
     @decoratorB()
     static readonly publicStaticReadonlyProperty3: Number;
@@ -240,22 +211,27 @@
     {
         return this._publicStaticGetterSetter1;
     }
+
     public static set publicStaticGetterSetter1(value: string)
     {
         this._publicStaticGetterSetter1 = value;
     }
+
     public static get publicStaticGetterSetter2(): string
     {
         return this._publicStaticGetterSetter2;
     }
+
     public static set publicStaticGetterSetter2(value: string)
     {
         this._publicStaticGetterSetter2 = value;
     }
+
     public static get publicStaticGetterSetter3()
     {
         return "zkugxgqjen";
     }
+
     public static set publicStaticGetterSetter4(value: string)
     {
     }
@@ -269,6 +245,7 @@
     {
         return this._publicGetterSetter1;
     }
+
     set publicGetterSetter1(value: string)
     {
         this._publicGetterSetter1 = value;
@@ -279,10 +256,15 @@
     // #region Public Abstract Getters And Setters (6)
 
     public abstract get publicAbstractGetterSetter1(): string;
+
     abstract set publicAbstractGetterSetter1(value: string);
+
     abstract get publicAbstractGetterSetter2(): string;
+
     public abstract set publicAbstractGetterSetter2(value: string);
+
     abstract set publicAbstractGetterSetter3(value: string);
+
     public abstract get publicAbstractGetterSetter4(): string;
 
     // #endregion Public Abstract Getters And Setters (6)
@@ -293,22 +275,27 @@
     {
         return this._protectedStaticGetterSetter1;
     }
+
     protected static set protectedStaticGetterSetter1(value: string)
     {
         this._protectedStaticGetterSetter1 = value;
     }
+
     protected static get protectedStaticGetterSetter2(): string
     {
         return this._protectedStaticGetterSetter2;
     }
+
     protected static set protectedStaticGetterSetter2(value: string)
     {
         this._protectedStaticGetterSetter2 = value;
     }
+
     protected static get protectedStaticGetterSetter3()
     {
         return "zkugxgqjen";
     }
+
     protected static set protectedStaticGetterSetter4(value: string)
     {
     }
@@ -322,6 +309,7 @@
     {
         return this._protectedGetterSetter1;
     }
+
     protected set protectedGetterSetter1(value: string)
     {
         this._protectedGetterSetter1 = value;
@@ -332,10 +320,15 @@
     // #region Protected Abstract Getters And Setters (6)
 
     protected abstract get protectedAbstractGetterSetter1(): string;
+
     protected abstract set protectedAbstractGetterSetter1(value: string);
+
     protected abstract get protectedAbstractGetterSetter2(): string;
+
     protected abstract set protectedAbstractGetterSetter2(value: string);
+
     protected abstract set protectedAbstractGetterSetter3(value: string);
+
     protected abstract get protectedAbstractGetterSetter4(): string;
 
     // #endregion Protected Abstract Getters And Setters (6)
@@ -346,22 +339,27 @@
     {
         return this._privateStaticGetterSetter1;
     }
+
     private static set privateStaticGetterSetter1(value: string)
     {
         this._privateStaticGetterSetter1 = value;
     }
+
     private static get privateStaticGetterSetter2(): string
     {
         return this._privateStaticGetterSetter2;
     }
+
     private static set privateStaticGetterSetter2(value: string)
     {
         this._privateStaticGetterSetter2 = value;
     }
+
     private static get privateStaticGetterSetter3()
     {
         return "6006786878";
     }
+
     private static set privateStaticGetterSetter4(value: string)
     {
     }
@@ -375,6 +373,7 @@
     {
         return this._privateGetterSetter1;
     }
+
     private set privateGetterSetter1(value: string)
     {
         this._privateGetterSetter1 = value;
@@ -388,10 +387,12 @@
     {
         console.log("ohnpmwinia");
     }
+
     static publicStaticMethod2()
     {
         return 330340934 - 9;
     }
+
     static publicStaticMethod3()
     {
     }
@@ -404,10 +405,12 @@
     {
         console.log("wduyuaeemi");
     }
+
     public publicMethod2()
     {
         return 5101618743 + 4177360955;
     }
+
     public publicMethod3()
     {
     }
@@ -417,7 +420,9 @@
     // #region Public Abstract Methods (3)
 
     abstract publicAbstractMethod1(): void;
+
     abstract publicAbstractMethod2(): number;
+
     abstract publicAbstractMethod3(): string;
 
     // #endregion Public Abstract Methods (3)
@@ -429,10 +434,12 @@
     {
         console.log("ohnpmwinia");
     }
+
     protected static protectedStaticMethod2()
     {
         return 330340934 - 9;
     }
+
     protected static protectedStaticMethod3()
     {
     }
@@ -446,10 +453,12 @@
     {
         console.log("wduyuaeemi");
     }
+
     protected protectedMethod2()
     {
         return 5101618743 + 4177360955;
     }
+
     protected protectedMethod3()
     {
     }
@@ -459,7 +468,9 @@
     // #region Protected Abstract Methods (3)
 
     protected abstract protectedAbstractMethod1(): void;
+
     protected abstract protectedAbstractMethod2(): number;
+
     protected abstract protectedAbstractMethod3(): string;
 
     // #endregion Protected Abstract Methods (3)
@@ -470,10 +481,12 @@
     {
         console.log("ohnpmwinia");
     }
+
     private static privateStaticMethod2()
     {
         return 330340934 - 9;
     }
+
     private static privateStaticMethod3()
     {
     }
@@ -486,14 +499,18 @@
     {
         console.log("wduyuaeemi");
     }
+
     @decoratorE()
     private privateMethod2()
     {
         return 5101618743 + 4177360955;
     }
+
     @decoratorE()
     private privateMethod3()
     {
     }
 
     // #endregion Private Methods (3)
+
+

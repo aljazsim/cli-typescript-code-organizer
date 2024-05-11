@@ -91,20 +91,6 @@
         "groups": [
             {
                 "order": true,
-                "caption": "Private Static Const Properties",
-                "memberTypes": ["privateStaticConstProperties"],
-                "placeAbove": [],
-                "placeBelow": []
-            },
-            {
-                "order": true,
-                "caption": "Private Const Properties",
-                "memberTypes": ["privateConstProperties"],
-                "placeAbove": [],
-                "placeBelow": []
-            },
-            {
-                "order": true,
                 "caption": "Private Static ReadOnly Properties",
                 "memberTypes": ["privateStaticReadOnlyProperties"],
                 "placeAbove": [],
@@ -133,20 +119,6 @@
             },
             {
                 "order": true,
-                "caption": "Protected Static Const Properties",
-                "memberTypes": ["protectedStaticConstProperties"],
-                "placeAbove": [],
-                "placeBelow": []
-            },
-            {
-                "order": true,
-                "caption": "Protected Const Properties",
-                "memberTypes": ["protectedConstProperties"],
-                "placeAbove": [],
-                "placeBelow": []
-            },
-            {
-                "order": true,
                 "caption": "Protected Static ReadOnly Properties",
                 "memberTypes": ["protectedStaticReadOnlyProperties"],
                 "placeAbove": [],
@@ -170,21 +142,6 @@
                 "order": true,
                 "caption": "Protected Properties",
                 "memberTypes": ["protectedProperties"],
-                "placeAbove": [],
-                "placeBelow": []
-            },
-
-            {
-                "order": true,
-                "caption": "Public Static Const Properties",
-                "memberTypes": ["publicStaticConstProperties"],
-                "placeAbove": [],
-                "placeBelow": []
-            },
-            {
-                "order": true,
-                "caption": "Public Const Properties",
-                "memberTypes": ["publicConstProperties"],
                 "placeAbove": [],
                 "placeBelow": []
             },

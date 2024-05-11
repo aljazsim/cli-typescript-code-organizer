@@ -8,10 +8,9 @@ import { InterfaceNode } from "../elements/interface-node";
 import { MethodNode } from "../elements/method-node";
 import { PropertyNode } from "../elements/property-node";
 import { SetterNode } from "../elements/setter-node";
-import { WriteModifier } from "../elements/write-modifier";
-import ts from "typescript";
+import { WriteModifier } from "../enums/write-modifier";
 import { TypeAliasNode } from "../elements/type-alias-node";
-import { config } from "process";
+import { SourceCode } from "./source-code";
 
 export class SourceCodePrinter
 {
@@ -59,72 +58,30 @@ export class SourceCodePrinter
 
     // #endregion Static Block Declarations (1)
 
-    // #region Public Static Methods (2)
+    // #region Public Static Methods (1)
 
-    public static print(sourceCode: string, nodeGroups: ElementNodeGroup[], configuration: Configuration)
+    public static print(nodeGroups: ElementNodeGroup[], configuration: Configuration)
     {
-        const indentation = this.getIndentation(sourceCode);
-        const printedSourceCode = this.printNodeGroups(sourceCode, nodeGroups, configuration);
+        const printedSourceCode = this.printNodeGroups(nodeGroups, configuration);
 
-        return this.addNewLine(this.removeConsecutiveEmptyLines(indentation + printedSourceCode.trim()));
+        printedSourceCode.removeConsecutiveEmptyLines();
+        printedSourceCode.trim();
+        printedSourceCode.addNewLine();
+
+        return printedSourceCode;
     }
 
-    public static removeRegions(sourceCode: string)
-    {
-        const newLine = "\n";
-        const emptyLine = "";
-        let anythingRegex = ".";
-        let startRegionRegex = "#region";
-        let endRegionRegex = "#endregion";
-        let spaceRegex = "\\s";
+    // #endregion Public Static Methods (1)
 
-        let startRegionsRegex = new RegExp(`^//${spaceRegex}*${startRegionRegex}${spaceRegex}+${anythingRegex}+$`, "i");
-        let endRegionsRegex = new RegExp(`^//${spaceRegex}*${endRegionRegex}(${spaceRegex}+${anythingRegex}+)?$`, "i");
-        let lines: string[] = sourceCode.split(newLine);
-        let lines2: string[] = [];
+    // #region Private Static Methods (6)
 
-        for (let i = 0; i < lines.length; i++)
-        {
-            if (!startRegionsRegex.test(lines[i].trim()) &&
-                !endRegionsRegex.test(lines[i].trim()))
-            {
-                lines2.push(lines[i]);
-            }
-            else
-            {
-                while (lines.length > i &&
-                    lines[i] === emptyLine)
-                {
-                    i++;
-                }
-
-                while (lines2.length > 0 &&
-                    lines2[lines2.length - 1] === emptyLine)
-                {
-                    lines2.pop();
-                }
-            }
-        }
-
-        return lines2.join(newLine);
-    }
-
-    // #endregion Public Static Methods (2)
-
-    // #region Private Static Methods (13)
-
-    private static addNewLine(sourceCode: string): string
-    {
-        return this.append(sourceCode, this.newLine);
-    }
-
-    private static addPrivateModifierIfStartingWithHash(node: ElementNode, sourceCode: string)
+    private static addPrivateModifierIfStartingWithHash(node: ElementNode, sourceCode: SourceCode)
     {
         // TODO: implement
         return sourceCode;
     }
 
-    private static addPublicModifierIfMissing(node: ElementNode, sourceCode: string)
+    private static addPublicModifierIfMissing(node: ElementNode, sourceCode: SourceCode)
     {
         if (node.accessModifier === null)
         {
@@ -166,227 +123,112 @@ export class SourceCodePrinter
         return sourceCode;
     }
 
-    private static addRegionEnd(indentation: string, region: { caption: string, nodeCount: number; }, regionConfiguration: { addRegionCaptionToRegionEnd: boolean, addMemberCountInRegionName: boolean, addRegionIndentation: boolean; })
+    private static printNode(node: ElementNode, configuration: Configuration)
     {
-        let sourceCode = "";
-
-        sourceCode = this.addNewLine(sourceCode);
-        sourceCode = this.addNewLine(sourceCode);
-        sourceCode = this.append(sourceCode, `${regionConfiguration.addRegionIndentation ? indentation : ""}// #endregion` + (regionConfiguration.addRegionCaptionToRegionEnd ? ` ${region.caption}` : "") + (regionConfiguration.addMemberCountInRegionName ? ` (${region.nodeCount})` : ""));
-        sourceCode = this.addNewLine(sourceCode);
-
-        return sourceCode;
-    }
-
-    private static addRegionStart(indentation: string, region: { caption: string, nodeCount: number; }, regionConfiguration: { addMemberCountInRegionName: boolean, addRegionIndentation: boolean; })
-    {
-        let sourceCode = "";
-
-        sourceCode = `${regionConfiguration.addRegionIndentation ? indentation : ""}// #region` + (region.caption ? ` ${region.caption}` : "") + (regionConfiguration.addMemberCountInRegionName ? ` (${region.nodeCount})` : "");
-        sourceCode = this.addNewLine(sourceCode);
-        sourceCode = this.addNewLine(sourceCode);
-
-        return sourceCode;
-    }
-
-    private static append(oldSourceCode: string, newSourceCode: string)
-    {
-        if (oldSourceCode.length > 0)
-        {
-            return oldSourceCode + newSourceCode;
-        }
-        else
-        {
-            return newSourceCode;
-        }
-    }
-
-    private static getIndentation(sourceCode: string): string
-    {
-        let tab = "\t";
-        let twoSpaces = "  ";
-        let fourSpaces = twoSpaces + twoSpaces;
-
-        for (const sourceCodeLine of sourceCode.split("\n"))
-        {
-            if (sourceCodeLine.startsWith(tab))
-            {
-                return tab;
-            }
-            else if (sourceCodeLine.startsWith(fourSpaces))
-            {
-                return fourSpaces;
-            }
-            else if (sourceCodeLine.startsWith(twoSpaces))
-            {
-                return twoSpaces;
-            }
-        }
-
-        return twoSpaces;
-    }
-
-    private static getNodeCount(nodeGroup: ElementNodeGroup): number
-    {
-        return nodeGroup.nodes.length + nodeGroup.nodeSubGroups.reduce((sum: number, ng: ElementNodeGroup) => sum + this.getNodeCount(ng), 0);
-    }
-
-    private static printNode(sourceCode: string, node: ElementNode, configuration: Configuration)
-    {
-        const indentation = this.getIndentation(sourceCode);
-        let nodeComment = sourceCode.substring(node.fullStart, node.start).trim();
-        let nodeSourceCode = sourceCode.substring(node.start, node.end).trim();
+        let nodeSourceCode = new SourceCode(node.sourceCode);
 
         if (node instanceof InterfaceNode)
         {
-            nodeSourceCode = this.printNodeGroups(sourceCode, node.organizeMembers(configuration.interfaces.groups), configuration);
+            nodeSourceCode = this.printNodeGroups(node.organizeMembers(configuration.interfaces.groups), configuration);
         }
         else if (node instanceof ClassNode)
         {
-            nodeSourceCode = this.printNodeGroups(sourceCode, node.organizeMembers(configuration.classes.groups, configuration.classes.groupMembersWithDecorators), configuration);
+            nodeSourceCode = this.printNodeGroups(node.organizeMembers(configuration.classes.groups, configuration.classes.groupMembersWithDecorators), configuration);
 
-            if (configuration.classes.addPublicModifierIfMissing)
-            {
-                // add public modifier if missing
-                nodeSourceCode = this.addPublicModifierIfMissing(node, nodeSourceCode);
-            }
+            // // if (configuration.classes.addPublicModifierIfMissing)
+            // // {
+            // //     // add public modifier if missing
+            // //     nodeSourceCode = this.addPublicModifierIfMissing(node, nodeSourceCode);
+            // // }
 
-            if (configuration.classes.addPrivateModifierIfStartingWithHash)
-            {
-                // add private modifier if starting with hash
-                nodeSourceCode = this.addPrivateModifierIfStartingWithHash(node, nodeSourceCode);
-            }
+            // // if (configuration.classes.addPrivateModifierIfStartingWithHash)
+            // // {
+            // //     // add private modifier if starting with hash
+            // //     nodeSourceCode = this.addPrivateModifierIfStartingWithHash(node, nodeSourceCode);
+            // // }
         }
         else if (node instanceof TypeAliasNode)
         {
-            nodeSourceCode = this.printNodeGroups(nodeSourceCode, node.organizeMembers(configuration.types.groups), configuration);
-        }
-        else if (node instanceof PropertyNode)
-        {
-            if (node.isArrowFunction && configuration.classes.treatArrowFunctionPropertiesAsMethods)
-            {
-                // arrow function property -> add a new line
-                nodeSourceCode = this.addNewLine(nodeSourceCode);
-            }
+            nodeSourceCode = this.printNodeGroups(node.organizeMembers(configuration.types.groups), configuration);
         }
 
-        if (nodeComment !== "")
+        if (node instanceof PropertyNode)
         {
-            // add comment
-            nodeSourceCode = this.append(nodeSourceCode, `${indentation}${nodeComment}${this.newLine}`);
+            // arrow function property -> add a new line
+            nodeSourceCode.addNewLineIf(node.isArrowFunction && configuration.classes.treatArrowFunctionPropertiesAsMethods);
         }
 
-        nodeSourceCode = this.addNewLine(`${indentation}${nodeSourceCode}`);
-
-        if (nodeSourceCode.endsWith("}"))
-        {
-            nodeSourceCode = this.addNewLine(nodeSourceCode);
-        }
+        nodeSourceCode.addNewLine();
 
         return nodeSourceCode;
     }
 
-    private static printNodeGroup(sourceCode: string, nodeGroup: ElementNodeGroup, configuration: Configuration)
+    private static printNodeGroup(nodeGroup: ElementNodeGroup, configuration: Configuration)
     {
-        const indentation = this.getIndentation(sourceCode);
-        const useRegions = configuration.regions.useRegions;
-        const addMemberCountInRegionName = configuration.regions.addMemberCountInRegionName;
-        const addRegionCaptionToRegionEnd = configuration.regions.addRegionCaptionToRegionEnd;
-        const addRegionIndentation = configuration.regions.addRegionIndentation;
-        let nodeGroupSourceCode = "";
-        let nodeGroupNodeCount = this.getNodeCount(nodeGroup);
-
-        if (useRegions && nodeGroup.isRegion && nodeGroup.nodeSubGroups.length > 0)
-        {
-            // add region start
-            nodeGroupSourceCode = this.append(nodeGroupSourceCode, this.addRegionStart(indentation, { caption: nodeGroup.caption ?? "Region", nodeCount: nodeGroupNodeCount }, { addMemberCountInRegionName, addRegionIndentation }));
-        }
+        const nodeGroupSourceCode = new SourceCode();
+        const nodeGroupNodeCount = nodeGroup.getNodeCount();
 
         // print subgroups
-        nodeGroupSourceCode = this.append(nodeGroupSourceCode, this.printNodeGroups(sourceCode, nodeGroup.nodeSubGroups, configuration));
+        nodeGroupSourceCode.add(this.printNodeGroups(nodeGroup.nodeSubGroups, configuration));
 
         // print nodes within a group
         for (const node of nodeGroup.nodes)
         {
-            nodeGroupSourceCode = this.append(nodeGroupSourceCode, this.printNode(sourceCode, node, configuration));
+            nodeGroupSourceCode.add(this.printNode(node, configuration));
+
+            if (node instanceof MethodNode ||
+                node instanceof GetterNode ||
+                node instanceof SetterNode)
+            {
+                if (nodeGroup.nodes.indexOf(node) < nodeGroup.nodes.length - 1)
+                {
+                    // separate elements that end with '}' with an additional empty line
+                    nodeGroupSourceCode.addNewLine();
+                }
+            }
         }
 
-        if (useRegions && nodeGroup.isRegion && nodeGroup.nodeSubGroups.length > 0)
+        if (configuration.regions.useRegions && nodeGroup.isRegion)
         {
-            // add region end
-            nodeGroupSourceCode = this.append(nodeGroupSourceCode, this.addRegionEnd(indentation, { caption: nodeGroup.caption ?? "Region", nodeCount: nodeGroupNodeCount }, { addRegionCaptionToRegionEnd, addMemberCountInRegionName, addRegionIndentation }));
+            // wrap with region
+            nodeGroupSourceCode.addRegion(nodeGroup.caption ?? "Region", nodeGroupNodeCount, configuration.regions);
         }
 
         return nodeGroupSourceCode;
     }
 
-    private static printNodeGroups(sourceCode: string, nodeGroups: ElementNodeGroup[], configuration: Configuration)
+    private static printNodeGroups(nodeGroups: ElementNodeGroup[], configuration: Configuration)
     {
-        let printedSourceCode = "";
+        const nodeGroupsSourceCode = new SourceCode();
+        const nodeGroupsWithNodes = nodeGroups.filter(ng => ng.getNodeCount() > 0);
 
-        for (let nodeGroup of nodeGroups)
+        for (let nodeGroup of nodeGroupsWithNodes)
         {
-            printedSourceCode = this.append(printedSourceCode, this.printNodeGroup(sourceCode, nodeGroup, configuration));
-
-            if (nodeGroups.length > 1 &&
-                nodeGroups.indexOf(nodeGroup) < nodeGroups.length - 1)
+            if (nodeGroup.getNodeCount() > 0)
             {
-                // add empty line after non-last node group end
-                printedSourceCode = this.addNewLine(printedSourceCode);
+                nodeGroupsSourceCode.add(this.printNodeGroup(nodeGroup, configuration));
+
+                if (nodeGroupsWithNodes.length > 1 &&
+                    nodeGroupsWithNodes.indexOf(nodeGroup) < nodeGroupsWithNodes.length - 1)
+                {
+                    // add empty line after non-last node group end
+                    nodeGroupsSourceCode.addNewLine();
+                }
             }
         }
 
-        return printedSourceCode;
+        return nodeGroupsSourceCode;
     }
 
-    private static removeConsecutiveEmptyLines(sourceCode: string)
+    private static replaceAfterDecorators(sourceCode: SourceCode, decorators: string[], replaceWhat: RegExp, replaceWith: string)
     {
-        const newLine = "\r\n";
-        let emptyLineRegex = new RegExp(`^\\s*$`);
-        let newLineRegex = new RegExp(`\r?\n|\r`);
-        let openingBraceRegex = new RegExp(`^.*\{\\s*$`);
-        let closingBraceRegex = new RegExp(`^\\s*\}\\s*$`);
-
-        let lines: string[] = sourceCode.split(newLineRegex);
-
-        for (let i = 0; i < lines.length - 1; i++)
-        {
-            if (openingBraceRegex.test(lines[i]) &&
-                emptyLineRegex.test(lines[i + 1]))
-            {
-                // remove empty line after {
-                lines.splice(i + 1, 1);
-
-                i--;
-            }
-            else if (emptyLineRegex.test(lines[i]) &&
-                closingBraceRegex.test(lines[i + 1]))
-            {
-                // remove empty line before }
-                lines.splice(i, 1);
-
-                i--;
-            }
-            else if (emptyLineRegex.test(lines[i]) &&
-                emptyLineRegex.test(lines[i + 1]))
-            {
-                lines.splice(i, 1);
-
-                i--;
-            }
-        }
-
-        return lines.join(newLine);
-    }
-
-    private static replaceAfterDecorators(code: string, decorators: string[], replaceWhat: RegExp, replaceWith: string)
-    {
+        const code = sourceCode.toString();
         const afterDecoratorsStart = decorators.length === 0 ? 0 : (code.lastIndexOf(decorators[decorators.length - 1]) + decorators[decorators.length - 1].length);
         const codeDecorators = code.substring(0, afterDecoratorsStart);
         const codeAfterDecorators = code.substring(afterDecoratorsStart);
 
-        return codeDecorators + codeAfterDecorators.replace(replaceWhat, replaceWith);
+        return new SourceCode(codeDecorators + codeAfterDecorators.replace(replaceWhat, replaceWith));
     }
 
-    // #endregion Private Static Methods (13)
+    // #endregion Private Static Methods (6)
 }

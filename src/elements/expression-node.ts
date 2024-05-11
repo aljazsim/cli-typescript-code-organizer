@@ -8,7 +8,7 @@ export class ExpressionNode extends ElementNode
 
     constructor(sourceFile: ts.SourceFile, expression: ts.Expression)
     {
-        super(expression);
+        super(sourceFile, expression);
 
         this._name = "";
 

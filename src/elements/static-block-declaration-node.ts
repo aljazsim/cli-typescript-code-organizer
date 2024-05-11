@@ -8,7 +8,7 @@ export class StaticBlockDeclarationNode extends ElementNode
 
     constructor(sourceFile: ts.SourceFile, staticBlockDeclaration: ts.ClassStaticBlockDeclaration)
     {
-        super(staticBlockDeclaration);
+        super(sourceFile, staticBlockDeclaration);
 
         this._name = "";
 
