@@ -69,6 +69,15 @@ export abstract class ElementNode
 
     // #endregion Public Getters And Setters (7)
 
+    // #region Public Methods (1)
+
+    public getSubString(start: number, end: number)
+    {
+        return this.sourceFile.getFullText().substring(start, end);
+    }
+
+    // #endregion Public Methods (1)
+
     // #region Protected Methods (15)
 
     protected getAccessModifier(node: ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.MethodDeclaration | ts.PropertySignature | ts.IndexSignatureDeclaration)
@@ -271,7 +280,7 @@ export abstract class ElementNode
 
     // #endregion Protected Methods (15)
 
-    // #region Private Methods (1)
+    // #region Private Static Methods (1)
 
     private static getSourceCode(sourceFile: ts.SourceFile, start: number, end: number)
     {
@@ -285,5 +294,5 @@ export abstract class ElementNode
         return text.trimEnd();
     }
 
-    // #endregion Private Methods (1)
+    // #endregion Private Static Methods (1)
 }

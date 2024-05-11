@@ -1,4 +1,11 @@
+import { AccessorNode } from "../elements/accessor-node";
+import { ElementNode } from "../elements/element-node";
+import { GetterNode } from "../elements/getter-node";
+import { MethodNode } from "../elements/method-node";
+import { PropertyNode } from "../elements/property-node";
 import { RegionConfiguration } from "../configuration/region-configuration";
+import { SetterNode } from "../elements/setter-node";
+import { WriteModifier } from "../enums/write-modifier";
 
 export class SourceCode
 {
@@ -16,7 +23,7 @@ export class SourceCode
 
     // #endregion Constructors (1)
 
-    // #region Public Methods (12)
+    // #region Public Methods (11)
 
     public add(newSourceCode: string | SourceCode)
     {
@@ -55,6 +62,67 @@ export class SourceCode
         }
     }
 
+    public addPrivateModifierIfStartingWithHash(node: ElementNode)
+    {
+        // TODO: implement
+    }
+
+    public addPublicModifierIfMissing(node: ElementNode)
+    {
+        const spacesRegex = "\\s*";
+        const staticRegex = `(static${spacesRegex})?`;
+        const readonlyRegex = `(readonly${spacesRegex})?`;
+        const constRegex = `(const${spacesRegex})?`;
+        const abstractRegex = `(abstract${spacesRegex})?`;
+        const asyncRegex = `(async${spacesRegex})?`;
+        const getterRegex = `get${spacesRegex}`;
+        const setterRegex = `set${spacesRegex}`;
+        const accessorRegex = `accessor${spacesRegex}`;
+        const getAsync = (isAsync: boolean) => isAsync ? "async " : "";
+        const getStatic = (isStatic: boolean) => isStatic ? "static " : "";
+        const getAbstract = (isAbstract: boolean) => isAbstract ? "abstract " : "";
+        const getReadOnly = (writeMode: WriteModifier) => writeMode === WriteModifier.readOnly ? "readonly " : "";
+        const getConst = (writeMode: WriteModifier) => writeMode === WriteModifier.const ? "const " : "";
+        const addPublic = (strings: string[]) => "public " + strings.filter(s => s !== "").map(s => s.trim()).join(" ");
+
+        if (node.accessModifier === null)
+        {
+            let regex: RegExp | null = null;
+            let replaceWith: string | null = null;
+
+            if (node instanceof MethodNode)
+            {
+                regex = new RegExp(`${staticRegex}${abstractRegex}${asyncRegex}${node.name}`);
+                replaceWith = addPublic([getStatic(node.isStatic), getAbstract(node.isAbstract), getAsync(node.isAsync), node.name]);
+            }
+            else if (node instanceof PropertyNode)
+            {
+                regex = new RegExp(`${staticRegex}${abstractRegex}${constRegex}${readonlyRegex}${node.name}`);
+                replaceWith = addPublic([getStatic(node.isStatic), getAbstract(node.isAbstract), getConst(node.writeMode), getReadOnly(node.writeMode), node.name]);
+            }
+            else if (node instanceof AccessorNode)
+            {
+                regex = RegExp(`${staticRegex}${abstractRegex}${accessorRegex}${node.name}`);
+                replaceWith = addPublic([getStatic(node.isStatic), getAbstract(node.isAbstract), "accessor", node.name]);
+            }
+            else if (node instanceof GetterNode)
+            {
+                regex = RegExp(`${staticRegex}${abstractRegex}${getterRegex}${node.name}`);
+                replaceWith = addPublic([getStatic(node.isStatic), getAbstract(node.isAbstract), "get", node.name]);
+            }
+            else if (node instanceof SetterNode)
+            {
+                regex = new RegExp(`${staticRegex}${abstractRegex}${setterRegex}${node.name}`);
+                replaceWith = addPublic([getStatic(node.isStatic), getAbstract(node.isAbstract), "set", node.name]);
+            }
+
+            if (regex && replaceWith)
+            {
+                this.sourceCode = SourceCode.replaceAfterDecorators(this.sourceCode, node.decorators, regex, replaceWith);
+            }
+        }
+    }
+
     public addRegion(regionCaption: string, regionMemberCount: number, regionConfiguration: RegionConfiguration)
     {
         const indentation = SourceCode.getIndentation(this.sourceCode);
@@ -82,22 +150,6 @@ export class SourceCode
         this.addNewLine();
         this.add(endregion);
         this.addNewLine();
-    }
-
-    private static getIndentation(sourceCode: string)
-    {
-        let tab = "\t";
-        let space = " ";
-
-        for (const sourceCodeLine of sourceCode.split("\n"))
-        {
-            if (sourceCodeLine.startsWith(tab) || sourceCodeLine.startsWith(space))
-            {
-                return sourceCodeLine.replace(sourceCodeLine.trimStart(), "");
-            }
-        }
-
-        return "";
     }
 
     public removeConsecutiveEmptyLines()
@@ -187,8 +239,37 @@ export class SourceCode
 
     public trim()
     {
-        return this.sourceCode.trim();
+        this.sourceCode = this.sourceCode.trim();
     }
 
-    // #endregion Public Methods (12)
+    // #endregion Public Methods (11)
+
+    // #region Private Static Methods (2)
+
+    private static getIndentation(sourceCode: string)
+    {
+        let tab = "\t";
+        let space = " ";
+
+        for (const sourceCodeLine of sourceCode.split("\n"))
+        {
+            if (sourceCodeLine.startsWith(tab) || sourceCodeLine.startsWith(space))
+            {
+                return sourceCodeLine.replace(sourceCodeLine.trimStart(), "");
+            }
+        }
+
+        return "";
+    }
+
+    private static replaceAfterDecorators(sourceCode: string, decorators: string[], replaceWhat: RegExp, replaceWith: string)
+    {
+        const afterDecoratorsStart = decorators.length === 0 ? 0 : (sourceCode.lastIndexOf(decorators[decorators.length - 1]) + decorators[decorators.length - 1].length);
+        const codeDecorators = sourceCode.substring(0, afterDecoratorsStart);
+        const codeAfterDecorators = sourceCode.substring(afterDecoratorsStart);
+
+        return codeDecorators + codeAfterDecorators.replace(replaceWhat, replaceWith);
+    }
+
+    // #endregion Private Static Methods (2)
 }

@@ -27,6 +27,14 @@ export class TypeAliasNode extends ElementNode
         this._fullStart = typeAliasDeclaration.getFullStart();
         this._end = typeAliasDeclaration.getEnd();
         this._start = typeAliasDeclaration.getStart(sourceFile, false);
+
+        // TODO
+        // // if (typeAliasDeclaration.getChildren() && typeAliasDeclaration.getChildAt().length > 0)
+        // // {
+        // //     this.membersStart = typeAliasDeclaration.members[0].getFullStart();
+        // //     this.membersEnd = typeAliasDeclaration.members[typeAliasDeclaration.members.length - 1].getEnd();
+        // // }
+
         this._decorators = this.getDecorators(typeAliasDeclaration, sourceFile);
     }
 

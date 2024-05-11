@@ -11,6 +11,7 @@ import { SetterNode } from "../elements/setter-node";
 import { WriteModifier } from "../enums/write-modifier";
 import { TypeAliasNode } from "../elements/type-alias-node";
 import { SourceCode } from "./source-code";
+import { TypeNode } from "typescript";
 
 export class SourceCodePrinter
 {
@@ -75,52 +76,46 @@ export class SourceCodePrinter
 
     // #region Private Static Methods (6)
 
-    private static addPrivateModifierIfStartingWithHash(node: ElementNode, sourceCode: SourceCode)
+    private static printClass(node: ClassNode, configuration: Configuration)
     {
-        // TODO: implement
-        return sourceCode;
-    }
+        const beforeMembers = node.getSubString(0, node.membersStart).trimStart();
+        const members = this.printNodeGroups(node.organizeMembers(configuration.classes.groups, configuration.classes.groupMembersWithDecorators), configuration);
+        const afterMembers = node.getSubString(node.membersEnd + 1, node.end).trimEnd();
+        let nodeSourceCode = new SourceCode();
 
-    private static addPublicModifierIfMissing(node: ElementNode, sourceCode: SourceCode)
-    {
-        if (node.accessModifier === null)
+        nodeSourceCode.add(beforeMembers);
+        nodeSourceCode.addNewLine();
+        nodeSourceCode.add(members);
+        nodeSourceCode.add(afterMembers);
+
+        if (configuration.classes.addPublicModifierIfMissing)
         {
-            let regex: RegExp | null = null;
-            let replaceWith: string | null = null;
-
-            if (node instanceof MethodNode)
-            {
-                regex = new RegExp(`${this.staticRegex}${this.abstractRegex}${this.asyncRegex}${node.name}`);
-                replaceWith = this.addPublic([this.getStatic(node.isStatic), this.getAbstract(node.isAbstract), this.getAsync(node.isAsync), node.name]);
-            }
-            else if (node instanceof PropertyNode)
-            {
-                regex = new RegExp(`${this.staticRegex}${this.abstractRegex}${this.constRegex}${this.readonlyRegex}${node.name}`);
-                replaceWith = this.addPublic([this.getStatic(node.isStatic), this.getAbstract(node.isAbstract), this.getConst(node.writeMode), this.getReadOnly(node.writeMode), node.name]);
-            }
-            else if (node instanceof AccessorNode)
-            {
-                regex = RegExp(`${this.staticRegex}${this.abstractRegex}${this.accessorRegex}${node.name}`);
-                replaceWith = this.addPublic([this.getStatic(node.isStatic), this.getAbstract(node.isAbstract), "accessor", node.name]);
-            }
-            else if (node instanceof GetterNode)
-            {
-                regex = RegExp(`${this.staticRegex}${this.abstractRegex}${this.getterRegex}${node.name}`);
-                replaceWith = this.addPublic([this.getStatic(node.isStatic), this.getAbstract(node.isAbstract), "get", node.name]);
-            }
-            else if (node instanceof SetterNode)
-            {
-                regex = new RegExp(`${this.staticRegex}${this.abstractRegex}${this.setterRegex}${node.name}`);
-                replaceWith = this.addPublic([this.getStatic(node.isStatic), this.getAbstract(node.isAbstract), "set", node.name]);
-            }
-
-            if (regex && replaceWith)
-            {
-                sourceCode = this.replaceAfterDecorators(sourceCode, node.decorators, regex, replaceWith);
-            }
+            // add public modifier if missing
+            nodeSourceCode.addPublicModifierIfMissing(node);
         }
 
-        return sourceCode;
+        if (configuration.classes.addPrivateModifierIfStartingWithHash)
+        {
+            // add private modifier if starting with hash
+            nodeSourceCode.addPrivateModifierIfStartingWithHash(node);
+        }
+
+        return nodeSourceCode;
+    }
+
+    private static printInterface(node: InterfaceNode, configuration: Configuration)
+    {
+        const beforeMembers = node.getSubString(0, node.membersStart).trimStart();
+        const members = this.printNodeGroups(node.organizeMembers(configuration.interfaces.groups), configuration);
+        const afterMembers = node.getSubString(node.membersEnd + 1, node.end).trimEnd();
+        const nodeSourceCode = new SourceCode();
+
+        nodeSourceCode.add(beforeMembers);
+        nodeSourceCode.addNewLine();
+        nodeSourceCode.add(members);
+        nodeSourceCode.add(afterMembers);
+
+        return nodeSourceCode;
     }
 
     private static printNode(node: ElementNode, configuration: Configuration)
@@ -129,27 +124,15 @@ export class SourceCodePrinter
 
         if (node instanceof InterfaceNode)
         {
-            nodeSourceCode = this.printNodeGroups(node.organizeMembers(configuration.interfaces.groups), configuration);
+            nodeSourceCode = this.printInterface(node, configuration);
         }
         else if (node instanceof ClassNode)
         {
-            nodeSourceCode = this.printNodeGroups(node.organizeMembers(configuration.classes.groups, configuration.classes.groupMembersWithDecorators), configuration);
-
-            // // if (configuration.classes.addPublicModifierIfMissing)
-            // // {
-            // //     // add public modifier if missing
-            // //     nodeSourceCode = this.addPublicModifierIfMissing(node, nodeSourceCode);
-            // // }
-
-            // // if (configuration.classes.addPrivateModifierIfStartingWithHash)
-            // // {
-            // //     // add private modifier if starting with hash
-            // //     nodeSourceCode = this.addPrivateModifierIfStartingWithHash(node, nodeSourceCode);
-            // // }
+            nodeSourceCode = this.printClass(node, configuration);
         }
         else if (node instanceof TypeAliasNode)
         {
-            nodeSourceCode = this.printNodeGroups(node.organizeMembers(configuration.types.groups), configuration);
+            nodeSourceCode = this.printNode(node, configuration);
         }
 
         if (node instanceof PropertyNode)
@@ -220,14 +203,19 @@ export class SourceCodePrinter
         return nodeGroupsSourceCode;
     }
 
-    private static replaceAfterDecorators(sourceCode: SourceCode, decorators: string[], replaceWhat: RegExp, replaceWith: string)
+    private static printType(nodeSourceCode: SourceCode, node: TypeAliasNode, configuration: Configuration)
     {
-        const code = sourceCode.toString();
-        const afterDecoratorsStart = decorators.length === 0 ? 0 : (code.lastIndexOf(decorators[decorators.length - 1]) + decorators[decorators.length - 1].length);
-        const codeDecorators = code.substring(0, afterDecoratorsStart);
-        const codeAfterDecorators = code.substring(afterDecoratorsStart);
+        // const beforeMembers = node.getSubString(0, node.membersStart).trimStart();
+        // const members = this.printNodeGroups(node.organizeMembers(configuration.types.groups), configuration);
+        // const afterMembers = node.getSubString(node.membersEnd + 1, node.end).trimEnd();
 
-        return new SourceCode(codeDecorators + codeAfterDecorators.replace(replaceWhat, replaceWith));
+        // nodeSourceCode = new SourceCode();
+        // nodeSourceCode.add(beforeMembers);
+        // nodeSourceCode.addNewLine();
+        // nodeSourceCode.add(members);
+        // nodeSourceCode.add(afterMembers);
+
+        return nodeSourceCode;
     }
 
     // #endregion Private Static Methods (6)

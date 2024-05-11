@@ -1,5 +1,9 @@
 import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
 
+import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
+
+export abstract class TestClass
+{
     // #region Private ReadOnly Properties (3)
 
     // private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
@@ -512,5 +516,4 @@ import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../t
     }
 
     // #endregion Private Methods (3)
-
-
+}
