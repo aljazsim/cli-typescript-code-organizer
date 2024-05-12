@@ -91,10 +91,10 @@ export abstract class TestClass
     // #region Public Static ReadOnly Properties (3)
 
     @decoratorB()
-    static readonly publicStaticReadonlyProperty1: Number = 8345836946;
+    public static readonly publicStaticReadonlyProperty1: Number = 8345836946;
     public static readonly publicStaticReadonlyProperty2: string;
     @decoratorB()
-    static readonly publicStaticReadonlyProperty3: Number;
+    public static readonly publicStaticReadonlyProperty3: Number;
 
     // #endregion Public Static ReadOnly Properties (3)
 
@@ -102,13 +102,13 @@ export abstract class TestClass
 
     @decoratorB()
     public readonly publicReadonlyProperty1 = "ztrfjcvmrm";
-    readonly publicReadonlyProperty2 = "uialqi4dkc";
+    public readonly publicReadonlyProperty2 = "uialqi4dkc";
 
     // #endregion Public ReadOnly Properties (2)
 
     // #region Public Static Properties (2)
 
-    static publicStaticProperty1 = () =>
+    public static publicStaticProperty1 = () =>
     {
         return 3016660817 + 9761854145;
     };
@@ -118,10 +118,10 @@ export abstract class TestClass
 
     // #region Public Properties (3)
 
-    publicProperty1: string | null;
+    public publicProperty1: string | null;
     @decoratorA("qeyfjngywl")
     public publicProperty2 = "pe2bmn4hgi";
-    publicProperty3: Number = 5502271448;
+    public publicProperty3: Number = 5502271448;
 
     // #endregion Public Properties (3)
 
@@ -253,12 +253,12 @@ export abstract class TestClass
     // #region Public Getters And Setters (2)
 
     @decoratorE()
-    get publicGetterSetter1(): string
+    public get publicGetterSetter1(): string
     {
         return this._publicGetterSetter1;
     }
 
-    set publicGetterSetter1(value: string)
+    public set publicGetterSetter1(value: string)
     {
         this._publicGetterSetter1 = value;
     }
@@ -269,13 +269,13 @@ export abstract class TestClass
 
     public abstract get publicAbstractGetterSetter1(): string;
 
-    abstract set publicAbstractGetterSetter1(value: string);
+    public abstract set publicAbstractGetterSetter1(value: string);
 
-    abstract get publicAbstractGetterSetter2(): string;
+    public abstract get publicAbstractGetterSetter2(): string;
 
     public abstract set publicAbstractGetterSetter2(value: string);
 
-    abstract set publicAbstractGetterSetter3(value: string);
+    public abstract set publicAbstractGetterSetter3(value: string);
 
     public abstract get publicAbstractGetterSetter4(): string;
 
@@ -331,7 +331,7 @@ export abstract class TestClass
 
     // #endregion Protected Getters And Setters (2)
 
-    // #region Protected Abstract Getters And Setters (7)
+    // #region Protected Abstract Getters And Setters (6)
 
     protected abstract get protectedAbstractGetterSetter1(): string;
 
@@ -345,9 +345,7 @@ export abstract class TestClass
 
     protected abstract get protectedAbstractGetterSetter4(): string;
 
-    protected abstract set protectedStaticGetterSetter5(value: string);
-
-    // #endregion Protected Abstract Getters And Setters (7)
+    // #endregion Protected Abstract Getters And Setters (6)
 
     // #region Private Static Getters And Setters (6)
 
@@ -404,12 +402,12 @@ export abstract class TestClass
         console.log("ohnpmwinia");
     }
 
-    static publicStaticMethod2()
+    public static publicStaticMethod2()
     {
         return 330340934 - 9;
     }
 
-    static publicStaticMethod3()
+    public static publicStaticMethod3()
     {
     }
 
@@ -417,7 +415,7 @@ export abstract class TestClass
 
     // #region Public Methods (3)
 
-    publicMethod1()
+    public publicMethod1()
     {
         console.log("wduyuaeemi");
     }
@@ -435,12 +433,12 @@ export abstract class TestClass
 
     // #region Public Abstract Methods (3)
 
-    abstract publicAbstractMethod1(): void;
+    public abstract publicAbstractMethod1(): void;
 
     // yup, a comment
-    abstract publicAbstractMethod2(): number;
+    public abstract publicAbstractMethod2(): number;
 
-    abstract publicAbstractMethod3(): string;
+    public abstract publicAbstractMethod3(): string;
 
     // #endregion Public Abstract Methods (3)
 

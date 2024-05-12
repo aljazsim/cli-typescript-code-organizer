@@ -6,8 +6,6 @@
         "addRegionCaptionToRegionEnd": false
     },
     "modules": {
-        "order": true,
-        "useRegions": false,
         "groups": [
             {
                 "order": true,
@@ -60,9 +58,7 @@
         ]
     },
     "classes": {
-        "order": true,
-        "useRegions": false,
-        "addPublicModifierIfMissing": true,
+        "addPublicModifierIfMissing": false,
         "addPrivateModifierIfStartingWithHash": false,
         "groupMembersWithDecorators": false,
         "treatArrowFunctionPropertiesAsMethods": false,
@@ -175,8 +171,6 @@
         ]
     },
     "interfaces": {
-        "order": true,
-        "useRegions": false,
         "groups": [
             {
                 "order": true,
@@ -209,8 +203,6 @@
         ]
     },
     "types": {
-        "order": true,
-        "useRegions": false,
         "groups": [
             {
                 "order": true,

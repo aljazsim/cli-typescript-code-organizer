@@ -196,8 +196,6 @@ export abstract class TestClass
         this._protectedStaticGetterSetter2 = value;
     }
 
-    protected abstract set protectedStaticGetterSetter5(value: string);
-
     protected static set protectedStaticGetterSetter4(value: string)
     {
     }
