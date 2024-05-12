@@ -6,16 +6,17 @@ import { getAccessModifier, getDecorators, getIsAbstract, getIsStatic, getWriteM
 
 export class PropertyNode extends ElementNode
 {
-    // #region Properties (6)
+    // #region Properties (7)
 
     public readonly accessModifier: AccessModifier | null;
     public readonly decorators: string[];
     public readonly isAbstract: boolean;
     public readonly isArrowFunction: boolean;
     public readonly isStatic: boolean;
+    public readonly name: string;
     public readonly writeMode: WriteModifier;
 
-    // #endregion Properties (6)
+    // #endregion Properties (7)
 
     // #region Constructors (1)
 
@@ -23,7 +24,7 @@ export class PropertyNode extends ElementNode
     {
         super(sourceFile, propertyDeclaration);
 
-        this._name = (<ts.Identifier>propertyDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(propertyDeclaration.name.pos, propertyDeclaration.name.end);
+        this.name = (<ts.Identifier>propertyDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(propertyDeclaration.name.pos, propertyDeclaration.name.end);
 
         this.accessModifier = getAccessModifier(propertyDeclaration);
         this.decorators = getDecorators(propertyDeclaration, sourceFile);
@@ -52,5 +53,3 @@ export class PropertyNode extends ElementNode
 
     // #endregion Private Methods (1)
 }
-
-

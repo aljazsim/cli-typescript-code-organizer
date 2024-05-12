@@ -266,11 +266,6 @@ export function groupByPlaceAboveBelow(nodes: ElementNode[], placeAbove: string[
     return nodesAbove.concat(nodesMiddle).concat(nodesBelow);
 }
 
-export function isConstant(x: PropertyNode | PropertySignatureNode)
-{
-    return x.writeMode === WriteModifier.const;
-}
-
 export function isPrivate(x: PropertyNode | MethodNode | GetterNode | SetterNode | AccessorNode)
 {
     return x.accessModifier === AccessModifier.private;

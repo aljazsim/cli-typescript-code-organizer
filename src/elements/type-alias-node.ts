@@ -9,12 +9,13 @@ import { PropertySignatureNode } from "./property-signature-node";
 
 export class TypeAliasNode extends ElementNode
 {
-    // #region Properties (2)
+    // #region Properties (3)
 
     public readonly methods: MethodSignatureNode[] = [];
+    public readonly name: string;
     public readonly properties: PropertySignatureNode[] = [];
 
-    // #endregion Properties (2)
+    // #endregion Properties (3)
 
     // #region Constructors (1)
 
@@ -22,7 +23,7 @@ export class TypeAliasNode extends ElementNode
     {
         super(sourceFile, typeAliasDeclaration);
 
-        this._name = (<ts.Identifier>typeAliasDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(typeAliasDeclaration.name.pos, typeAliasDeclaration.name.end).trim();
+        this.name = (<ts.Identifier>typeAliasDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(typeAliasDeclaration.name.pos, typeAliasDeclaration.name.end).trim();
 
         // TODO
         // // if (typeAliasDeclaration.getChildren() && typeAliasDeclaration.getChildAt().length > 0)

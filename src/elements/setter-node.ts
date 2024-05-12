@@ -5,14 +5,15 @@ import * as ts from "typescript";
 
 export class SetterNode extends ElementNode
 {
-    // #region Properties (4)
+    // #region Properties (5)
 
     public readonly accessModifier: AccessModifier | null;
     public readonly decorators: string[];
     public readonly isAbstract: boolean;
     public readonly isStatic: boolean;
+    public readonly name: string;
 
-    // #endregion Properties (4)
+    // #endregion Properties (5)
 
     // #region Constructors (1)
 
@@ -20,7 +21,7 @@ export class SetterNode extends ElementNode
     {
         super(sourceFile, setterDeclaration);
 
-        this._name = (<ts.Identifier>setterDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(setterDeclaration.name.pos, setterDeclaration.name.end);
+        this.name = (<ts.Identifier>setterDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(setterDeclaration.name.pos, setterDeclaration.name.end);
 
         this.accessModifier = getAccessModifier(setterDeclaration);
         this.decorators = getDecorators(setterDeclaration, sourceFile);

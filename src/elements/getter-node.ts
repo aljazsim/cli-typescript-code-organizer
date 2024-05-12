@@ -5,14 +5,15 @@ import * as ts from "typescript";
 
 export class GetterNode extends ElementNode
 {
-    // #region Properties (4)
+    // #region Properties (5)
 
     public readonly accessModifier: AccessModifier | null;
     public readonly decorators: string[];
     public readonly isAbstract: boolean;
     public readonly isStatic: boolean;
+    public readonly name: string;
 
-    // #endregion Properties (4)
+    // #endregion Properties (5)
 
     // #region Constructors (1)
 
@@ -20,7 +21,7 @@ export class GetterNode extends ElementNode
     {
         super(sourceFile, getterDeclaration);
 
-        this._name = (<ts.Identifier>getterDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(getterDeclaration.name.pos, getterDeclaration.name.end).trim();
+        this.name = (<ts.Identifier>getterDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(getterDeclaration.name.pos, getterDeclaration.name.end).trim();
 
         this.accessModifier = getAccessModifier(getterDeclaration);
         this.decorators = getDecorators(getterDeclaration, sourceFile);

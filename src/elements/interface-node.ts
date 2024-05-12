@@ -12,17 +12,18 @@ import { groupByPlaceAboveBelow, isReadOnly, isWritable } from "../helpers/node-
 
 export class InterfaceNode extends ElementNode
 {
-    // #region Properties (7)
+    // #region Properties (8)
 
     public readonly getters: GetterNode[] = [];
     public readonly indexes: IndexSignatureNode[] = [];
     public readonly membersEnd: number = 0;
     public readonly membersStart: number = 0;
     public readonly methods: MethodSignatureNode[] = [];
+    public readonly name: string;
     public readonly properties: PropertySignatureNode[] = [];
     public readonly setters: SetterNode[] = [];
 
-    // #endregion Properties (7)
+    // #endregion Properties (8)
 
     // #region Constructors (1)
 
@@ -30,7 +31,7 @@ export class InterfaceNode extends ElementNode
     {
         super(sourceFile, interfaceDeclaration);
 
-        this._name = (<ts.Identifier>interfaceDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(interfaceDeclaration.name.pos, interfaceDeclaration.name.end).trim();
+        this.name = (<ts.Identifier>interfaceDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(interfaceDeclaration.name.pos, interfaceDeclaration.name.end).trim();
 
         if (interfaceDeclaration.members && interfaceDeclaration.members.length > 0)
         {
@@ -66,7 +67,7 @@ export class InterfaceNode extends ElementNode
 
     // #endregion Constructors (1)
 
-    // #region Public Methods (7)
+    // #region Public Methods (6)
 
     public getGettersAndSetters()
     {
@@ -132,5 +133,5 @@ export class InterfaceNode extends ElementNode
         return regions;
     }
 
-    // #endregion Public Methods (7)
+    // #endregion Public Methods (6)
 }

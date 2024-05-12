@@ -4,11 +4,12 @@ import * as ts from "typescript";
 
 export class FunctionNode extends ElementNode
 {
-    // #region Properties (1)
+    // #region Properties (2)
 
     public readonly isExport: boolean;
+    public readonly name: string;
 
-    // #endregion Properties (1)
+    // #endregion Properties (2)
 
     // #region Constructors (1)
 
@@ -16,7 +17,7 @@ export class FunctionNode extends ElementNode
     {
         super(sourceFile, functionDeclaration);
 
-        this._name = (<ts.Identifier>functionDeclaration.name).escapedText.toString();
+        this.name = (<ts.Identifier>functionDeclaration.name).escapedText.toString();
 
         this.isExport = getIsExport(functionDeclaration);
     }

@@ -5,15 +5,16 @@ import * as ts from "typescript";
 
 export class MethodNode extends ElementNode
 {
-    // #region Properties (5)
+    // #region Properties (6)
 
     public readonly accessModifier: AccessModifier | null;
     public readonly decorators: string[];
     public readonly isAbstract: boolean;
     public readonly isAsync: boolean;
     public readonly isStatic: boolean;
+    public readonly name: string;
 
-    // #endregion Properties (5)
+    // #endregion Properties (6)
 
     // #region Constructors (1)
 
@@ -21,7 +22,7 @@ export class MethodNode extends ElementNode
     {
         super(sourceFile, methodDeclaration);
 
-        this._name = (<ts.Identifier>methodDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(methodDeclaration.name.pos, methodDeclaration.name.end).trim();
+        this.name = (<ts.Identifier>methodDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(methodDeclaration.name.pos, methodDeclaration.name.end).trim();
 
         // methods starting with # are private by default!
         this.accessModifier = this.name.startsWith("#") ? AccessModifier.private : getAccessModifier(methodDeclaration);

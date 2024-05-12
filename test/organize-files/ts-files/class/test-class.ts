@@ -5,7 +5,8 @@ export abstract class TestClass
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
 
     #privateProperty1 = (ltgeubyxvt: string) => { };
-    // private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
+    // this is a comment
+    private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
     @decoratorC(7960805480)
     private readonly privateReadonlyProperty1: string | undefined = "ohqx31vc3a";
     @decoratorB()
@@ -30,9 +31,13 @@ export abstract class TestClass
     public accessor publicAccessor1: boolean | undefined;
     @decoratorD()
     public static accessor publicStaticAccessor1: boolean | undefined;
+    /*
+     * This is documentation.
+     */
     @decoratorB()
     protected static readonly protectedStaticReadonlyProperty2 = "oyasnkxrza";
-    // private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
+    // also a comment
+    private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
     public static readonly publicStaticReadonlyProperty2: string;
     private static privateStaticProperty1: boolean;
     @decoratorB()
@@ -163,6 +168,7 @@ export abstract class TestClass
         return this._protectedStaticGetterSetter1;
     }
 
+    // a comment
     protected static set protectedStaticGetterSetter1(value: string)
     {
         this._protectedStaticGetterSetter1 = value;
@@ -173,6 +179,8 @@ export abstract class TestClass
     static publicStaticMethod3()
     {
     }
+
+    @decoratorB()
     protected static get protectedStaticGetterSetter2(): string
     {
         return this._protectedStaticGetterSetter2;
@@ -187,6 +195,8 @@ export abstract class TestClass
     {
         this._protectedStaticGetterSetter2 = value;
     }
+
+    protected abstract set protectedStaticGetterSetter5(value: string);
 
     protected static set protectedStaticGetterSetter4(value: string)
     {
@@ -233,6 +243,7 @@ export abstract class TestClass
         return this._privateStaticGetterSetter2;
     }
 
+    // also a comment
     private static privateStaticMethod1()
     {
         console.log("ohnpmwinia");
@@ -273,6 +284,9 @@ export abstract class TestClass
     {
     }
 
+    /*
+     * The privateStaticMethod3 description.
+     */
     private static privateStaticMethod3()
     {
     }
@@ -292,6 +306,7 @@ export abstract class TestClass
     protected protectedMethod3()
     {
     }
+    // yup, a comment
     abstract publicAbstractMethod2(): number;
     private static privateStaticMethod2()
     {

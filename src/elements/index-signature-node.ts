@@ -6,11 +6,12 @@ import { getWriteMode } from "../helpers/node-helper";
 
 export class IndexSignatureNode extends ElementNode
 {
-    // #region Properties (1)
+    // #region Properties (2)
 
+    public readonly name: string;
     public readonly writeMode: WriteModifier;
 
-    // #endregion Properties (1)
+    // #endregion Properties (2)
 
     // #region Constructors (1)
 
@@ -18,7 +19,7 @@ export class IndexSignatureNode extends ElementNode
     {
         super(sourceFile, indexSignatureDeclaration);
 
-        this._name = "index";
+        this.name = "index";
 
         this.writeMode = getWriteMode(indexSignatureDeclaration);
     }

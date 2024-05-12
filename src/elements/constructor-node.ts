@@ -5,11 +5,12 @@ import { getDecorators } from "../helpers/node-helper";
 
 export class ConstructorNode extends ElementNode
 {
-    // #region Properties (1)
+    // #region Properties (2)
 
     public readonly decorators: string[];
+    public readonly name: string;
 
-    // #endregion Properties (1)
+    // #endregion Properties (2)
 
     // #region Constructors (1)
 
@@ -17,7 +18,7 @@ export class ConstructorNode extends ElementNode
     {
         super(sourceFile, constructorDeclaration);
 
-        this._name = "constructor";
+        this.name = "constructor";
         this.decorators = getDecorators(constructorDeclaration, sourceFile);
     }
 

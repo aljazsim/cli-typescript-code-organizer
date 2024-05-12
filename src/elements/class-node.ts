@@ -14,7 +14,7 @@ import { ClassMemberType } from "../enums/class-member-type";
 
 export class ClassNode extends ElementNode
 {
-    // #region Properties (12)
+    // #region Properties (13)
 
     public readonly accessors: AccessorNode[] = [];
     public readonly constructors: ConstructorNode[] = [];
@@ -25,11 +25,12 @@ export class ClassNode extends ElementNode
     public readonly membersEnd: number = 0;
     public readonly membersStart: number = 0;
     public readonly methods: (MethodNode | PropertyNode)[] = [];
+    public readonly name: string;
     public readonly properties: PropertyNode[] = [];
     public readonly setters: SetterNode[] = [];
     public readonly staticBlockDeclarations: StaticBlockDeclarationNode[] = [];
 
-    // #endregion Properties (12)
+    // #endregion Properties (13)
 
     // #region Constructors (1)
 
@@ -37,7 +38,7 @@ export class ClassNode extends ElementNode
     {
         super(sourceFile, classDeclaration);
 
-        this._name = (<ts.Identifier>classDeclaration.name).escapedText.toString();
+        this.name = (<ts.Identifier>classDeclaration.name).escapedText.toString();
 
         if (classDeclaration.members && classDeclaration.members.length > 0)
         {

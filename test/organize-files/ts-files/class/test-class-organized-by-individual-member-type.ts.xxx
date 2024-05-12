@@ -2,9 +2,17 @@ import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../t
 
 export abstract class TestClass
 {
+    // #region Private Static ReadOnly Properties (2)
+
+    // this is a comment
+    private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
+    // also a comment
+    private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
+
+    // #endregion Private Static ReadOnly Properties (2)
+
     // #region Private ReadOnly Properties (3)
 
-    // private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
     @decoratorC(7960805480)
     private readonly privateReadonlyProperty1: string | undefined = "ohqx31vc3a";
     private readonly privateReadonlyProperty2 = "jwm4jkf16m";
@@ -43,6 +51,9 @@ export abstract class TestClass
     // #region Protected Static ReadOnly Properties (2)
 
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
+    /*
+     * This is documentation.
+     */
     @decoratorB()
     protected static readonly protectedStaticReadonlyProperty2 = "oyasnkxrza";
 
@@ -81,7 +92,6 @@ export abstract class TestClass
 
     @decoratorB()
     static readonly publicStaticReadonlyProperty1: Number = 8345836946;
-    // private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
     public static readonly publicStaticReadonlyProperty2: string;
     @decoratorB()
     static readonly publicStaticReadonlyProperty3: Number;
@@ -278,11 +288,13 @@ export abstract class TestClass
         return this._protectedStaticGetterSetter1;
     }
 
+    // a comment
     protected static set protectedStaticGetterSetter1(value: string)
     {
         this._protectedStaticGetterSetter1 = value;
     }
 
+    @decoratorB()
     protected static get protectedStaticGetterSetter2(): string
     {
         return this._protectedStaticGetterSetter2;
@@ -319,7 +331,7 @@ export abstract class TestClass
 
     // #endregion Protected Getters And Setters (2)
 
-    // #region Protected Abstract Getters And Setters (6)
+    // #region Protected Abstract Getters And Setters (7)
 
     protected abstract get protectedAbstractGetterSetter1(): string;
 
@@ -333,7 +345,9 @@ export abstract class TestClass
 
     protected abstract get protectedAbstractGetterSetter4(): string;
 
-    // #endregion Protected Abstract Getters And Setters (6)
+    protected abstract set protectedStaticGetterSetter5(value: string);
+
+    // #endregion Protected Abstract Getters And Setters (7)
 
     // #region Private Static Getters And Setters (6)
 
@@ -423,6 +437,7 @@ export abstract class TestClass
 
     abstract publicAbstractMethod1(): void;
 
+    // yup, a comment
     abstract publicAbstractMethod2(): number;
 
     abstract publicAbstractMethod3(): string;
@@ -479,6 +494,7 @@ export abstract class TestClass
 
     // #region Private Static Methods (3)
 
+    // also a comment
     private static privateStaticMethod1()
     {
         console.log("ohnpmwinia");
@@ -489,6 +505,9 @@ export abstract class TestClass
         return 330340934 - 9;
     }
 
+    /*
+     * The privateStaticMethod3 description.
+     */
     private static privateStaticMethod3()
     {
     }

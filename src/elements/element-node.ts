@@ -4,8 +4,7 @@ export abstract class ElementNode
 {
     // #region Properties (2)
 
-    protected _name: string = "";
-
+    public abstract readonly name: string;
     public readonly sourceCode: string;
 
     // #endregion Properties (2)
@@ -18,15 +17,6 @@ export abstract class ElementNode
     }
 
     // #endregion Constructors (1)
-
-    // #region Public Getters And Setters (1)
-
-    public get name()
-    {
-        return this._name;
-    }
-
-    // #endregion Public Getters And Setters (1)
 
     // #region Private Static Methods (1)
 

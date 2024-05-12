@@ -1,6 +1,6 @@
 export enum WriteModifier
 {
-    writable,
-    readOnly,
-    const
+    writable = "writable",
+    readOnly = "readOnly",
+    const = "const"
 } 

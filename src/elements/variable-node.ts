@@ -5,13 +5,14 @@ import { getIsExport } from "../helpers/node-helper";
 
 export class VariableNode extends ElementNode
 {
-    // #region Properties (3)
+    // #region Properties (4)
 
     public readonly isArrowFunction: boolean;
     public readonly isConst: boolean;
     public readonly isExport: boolean;
+    public readonly name: string;
 
-    // #endregion Properties (3)
+    // #endregion Properties (4)
 
     // #region Constructors (1)
 
@@ -19,7 +20,7 @@ export class VariableNode extends ElementNode
     {
         super(sourceFile, variableStatement);
 
-        this._name = variableStatement.declarationList.declarations.map(d => (<ts.Identifier>d.name).escapedText.toString()).join(",");
+        this.name = variableStatement.declarationList.declarations.map(d => (<ts.Identifier>d.name).escapedText.toString()).join(",");
 
         this.isExport = getIsExport(variableStatement);
         this.isArrowFunction = this.getIsArrowFunction(variableStatement);

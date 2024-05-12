@@ -5,11 +5,12 @@ import { getWriteMode } from "../helpers/node-helper";
 
 export class PropertySignatureNode extends ElementNode
 {
-    // #region Properties (1)
+    // #region Properties (2)
 
+    public readonly name: string;
     public readonly writeMode: WriteModifier;
 
-    // #endregion Properties (1)
+    // #endregion Properties (2)
 
     // #region Constructors (1)
 
@@ -17,7 +18,7 @@ export class PropertySignatureNode extends ElementNode
     {
         super(sourceFile, propertySignatureDeclaration);
 
-        this._name = (<ts.Identifier>propertySignatureDeclaration.name).escapedText.toString();
+        this.name = (<ts.Identifier>propertySignatureDeclaration.name).escapedText.toString();
 
         this.writeMode = getWriteMode(propertySignatureDeclaration);
     }
