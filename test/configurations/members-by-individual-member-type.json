@@ -80,7 +80,7 @@
         ]
     },
     "classes": {
-        "addPublicModifierIfMissing": true,
+        "addPublicModifierIfMissing": false,
         "addPrivateModifierIfStartingWithHash": false,
         "groupMembersWithDecorators": false,
         "treatArrowFunctionPropertiesAsMethods": false,

@@ -91,10 +91,10 @@ export abstract class TestClass
     // #region Public Static ReadOnly Properties (3)
 
     @decoratorB()
-    public static readonly publicStaticReadonlyProperty1: Number = 8345836946;
+    static readonly publicStaticReadonlyProperty1: Number = 8345836946;
     public static readonly publicStaticReadonlyProperty2: string;
     @decoratorB()
-    public static readonly publicStaticReadonlyProperty3: Number;
+    static readonly publicStaticReadonlyProperty3: Number;
 
     // #endregion Public Static ReadOnly Properties (3)
 
@@ -102,13 +102,13 @@ export abstract class TestClass
 
     @decoratorB()
     public readonly publicReadonlyProperty1 = "ztrfjcvmrm";
-    public readonly publicReadonlyProperty2 = "uialqi4dkc";
+    readonly publicReadonlyProperty2 = "uialqi4dkc";
 
     // #endregion Public ReadOnly Properties (2)
 
     // #region Public Static Properties (2)
 
-    public static publicStaticProperty1 = () =>
+    static publicStaticProperty1 = () =>
     {
         return 3016660817 + 9761854145;
     };
@@ -118,10 +118,10 @@ export abstract class TestClass
 
     // #region Public Properties (3)
 
-    public publicProperty1: string | null;
+    publicProperty1: string | null;
     @decoratorA("qeyfjngywl")
     public publicProperty2 = "pe2bmn4hgi";
-    public publicProperty3: Number = 5502271448;
+    publicProperty3: Number = 5502271448;
 
     // #endregion Public Properties (3)
 
@@ -253,12 +253,12 @@ export abstract class TestClass
     // #region Public Getters And Setters (2)
 
     @decoratorE()
-    public get publicGetterSetter1(): string
+    get publicGetterSetter1(): string
     {
         return this._publicGetterSetter1;
     }
 
-    public set publicGetterSetter1(value: string)
+    set publicGetterSetter1(value: string)
     {
         this._publicGetterSetter1 = value;
     }
@@ -269,13 +269,13 @@ export abstract class TestClass
 
     public abstract get publicAbstractGetterSetter1(): string;
 
-    public abstract set publicAbstractGetterSetter1(value: string);
+    abstract set publicAbstractGetterSetter1(value: string);
 
-    public abstract get publicAbstractGetterSetter2(): string;
+    abstract get publicAbstractGetterSetter2(): string;
 
     public abstract set publicAbstractGetterSetter2(value: string);
 
-    public abstract set publicAbstractGetterSetter3(value: string);
+    abstract set publicAbstractGetterSetter3(value: string);
 
     public abstract get publicAbstractGetterSetter4(): string;
 
@@ -402,12 +402,12 @@ export abstract class TestClass
         console.log("ohnpmwinia");
     }
 
-    public static publicStaticMethod2()
+    static publicStaticMethod2()
     {
         return 330340934 - 9;
     }
 
-    public static publicStaticMethod3()
+    static publicStaticMethod3()
     {
     }
 
@@ -415,7 +415,7 @@ export abstract class TestClass
 
     // #region Public Methods (3)
 
-    public publicMethod1()
+    publicMethod1()
     {
         console.log("wduyuaeemi");
     }
@@ -433,12 +433,12 @@ export abstract class TestClass
 
     // #region Public Abstract Methods (3)
 
-    public abstract publicAbstractMethod1(): void;
+    abstract publicAbstractMethod1(): void;
 
     // yup, a comment
-    public abstract publicAbstractMethod2(): number;
+    abstract publicAbstractMethod2(): number;
 
-    public abstract publicAbstractMethod3(): string;
+    abstract publicAbstractMethod3(): string;
 
     // #endregion Public Abstract Methods (3)
 

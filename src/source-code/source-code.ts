@@ -72,6 +72,7 @@ export class SourceCode
         const getReadOnly = (writeMode: WriteModifier) => writeMode === WriteModifier.readOnly ? "readonly " : "";
         const getString = (strings: string[]) => ["private"].concat(strings).filter(s => s !== "").map(s => s.trim()).join(" ");
         const getRegex = (strings: string[]) => new RegExp(strings.filter(s => s !== "").map(s => s.trim()).join(spacesRegex));
+        const removeHash = (name: string) => name.substring(1);
 
         if (node.name.startsWith("#") && node.accessModifier === AccessModifier.private)
         {
@@ -81,38 +82,38 @@ export class SourceCode
             if (node instanceof MethodNode)
             {
                 regex = getRegex([getStatic(node.isStatic), getAbstract(node.isAbstract), getAsync(node.isAsync), node.name]);
-                replaceWith = getString([getStatic(node.isStatic), getAbstract(node.isAbstract), getAsync(node.isAsync), node.name]);
+                replaceWith = getString([getStatic(node.isStatic), getAbstract(node.isAbstract), getAsync(node.isAsync), removeHash(node.name)]);
             }
             else if (node instanceof PropertyNode)
             {
                 regex = getRegex([getStatic(node.isStatic), getAbstract(node.isAbstract), getReadOnly(node.writeMode), node.name]);
-                replaceWith = getString([getStatic(node.isStatic), getAbstract(node.isAbstract), getReadOnly(node.writeMode), node.name]);
+                replaceWith = getString([getStatic(node.isStatic), getAbstract(node.isAbstract), getReadOnly(node.writeMode), removeHash(node.name)]);
             }
             else if (node instanceof AccessorNode)
             {
                 regex = getRegex([getStatic(node.isStatic), getAbstract(node.isAbstract), "accessor", node.name]);
-                replaceWith = getString([getStatic(node.isStatic), getAbstract(node.isAbstract), "accessor", node.name]);
+                replaceWith = getString([getStatic(node.isStatic), getAbstract(node.isAbstract), "accessor", removeHash(node.name)]);
             }
             else if (node instanceof GetterNode)
             {
                 regex = getRegex([getStatic(node.isStatic), getAbstract(node.isAbstract), "get", node.name]);
-                replaceWith = getString([getStatic(node.isStatic), getAbstract(node.isAbstract), "get", node.name]);
+                replaceWith = getString([getStatic(node.isStatic), getAbstract(node.isAbstract), "get", removeHash(node.name)]);
             }
             else if (node instanceof SetterNode)
             {
                 regex = getRegex([getStatic(node.isStatic), getAbstract(node.isAbstract), "set", node.name]);
-                replaceWith = getString([getStatic(node.isStatic), getAbstract(node.isAbstract), "set", node.name]);
+                replaceWith = getString([getStatic(node.isStatic), getAbstract(node.isAbstract), "set", removeHash(node.name)]);
             }
 
             if (regex && replaceWith)
             {
                 const codeDecoratorsEndIndex = node.decorators.length === 0 ? 0 : (node.sourceCode.lastIndexOf(node.decorators[node.decorators.length - 1]) + node.decorators[node.decorators.length - 1].length);
-                const codeDecorators = this.sourceCode.substring(0, codeDecoratorsEndIndex);
-                const codeAfterDecorators = this.sourceCode.substring(codeDecoratorsEndIndex);
+                const codeDecorators = node.sourceCode.substring(0, codeDecoratorsEndIndex);
+                const codeAfterDecorators = node.sourceCode.substring(codeDecoratorsEndIndex);
                 const newNodeSourceCode = codeDecorators + codeAfterDecorators.replace(regex, replaceWith);
 
                 this.sourceCode = this.sourceCode.replace(node.sourceCode, newNodeSourceCode); // replace node declaration
-                this.sourceCode.replaceAll(`this.${node.name}`, `this.${node.name.substring(1)}`); // replace all references
+                this.sourceCode.replaceAll(`this.${node.name}`, `this.${removeHash(node.name)}`); // replace all references
             }
         }
     }
