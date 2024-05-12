@@ -1,3 +1,4 @@
+import { getIsExport } from "../helpers/node-helper";
 import { ElementNode } from "./element-node";
 import * as ts from "typescript";
 
@@ -17,13 +18,7 @@ export class FunctionNode extends ElementNode
 
         this._name = (<ts.Identifier>functionDeclaration.name).escapedText.toString();
 
-        this._fullStart = functionDeclaration.getFullStart();
-        this._end = functionDeclaration.getEnd();
-        this._start = functionDeclaration.getStart(sourceFile, false);
-
-        this._decorators = this.getDecorators(functionDeclaration, sourceFile);
-
-        this.isExport = this.getIsExport(functionDeclaration);
+        this.isExport = getIsExport(functionDeclaration);
     }
 
     // #endregion Constructors (1)

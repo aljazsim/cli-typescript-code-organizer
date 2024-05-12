@@ -1,5 +1,7 @@
 // #region Functions (3)
 
+import { decoratorA } from "../test-decorators";
+
 function function3()
 {
     console.log("wduyuaeemi");

@@ -1,16 +1,19 @@
 import { AccessModifier } from "../enums/access-modifier";
+import { getAccessModifier, getDecorators, getIsAbstract, getIsAsync, getIsStatic } from "../helpers/node-helper";
 import { ElementNode } from "./element-node";
 import * as ts from "typescript";
 
 export class MethodNode extends ElementNode
 {
-    // #region Properties (3)
+    // #region Properties (5)
 
+    public readonly accessModifier: AccessModifier | null;
+    public readonly decorators: string[];
     public readonly isAbstract: boolean;
     public readonly isAsync: boolean;
     public readonly isStatic: boolean;
 
-    // #endregion Properties (3)
+    // #endregion Properties (5)
 
     // #region Constructors (1)
 
@@ -20,17 +23,13 @@ export class MethodNode extends ElementNode
 
         this._name = (<ts.Identifier>methodDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(methodDeclaration.name.pos, methodDeclaration.name.end).trim();
 
-        this._fullStart = methodDeclaration.getFullStart();
-        this._end = methodDeclaration.getEnd();
-        this._start = methodDeclaration.getStart(sourceFile, false);
-
         // methods starting with # are private by default!
-        this._accessModifier = this.name.startsWith("#") ? AccessModifier.private : this.getAccessModifier(methodDeclaration);
-        this._decorators = this.getDecorators(methodDeclaration, sourceFile);
+        this.accessModifier = this.name.startsWith("#") ? AccessModifier.private : getAccessModifier(methodDeclaration);
+        this.decorators = getDecorators(methodDeclaration, sourceFile);
 
-        this.isAbstract = this.getIsAbstract(methodDeclaration);
-        this.isStatic = this.getIsStatic(methodDeclaration);
-        this.isAsync = this.getIsAsync(methodDeclaration);
+        this.isAbstract = getIsAbstract(methodDeclaration);
+        this.isStatic = getIsStatic(methodDeclaration);
+        this.isAsync = getIsAsync(methodDeclaration);
     }
 
     // #endregion Constructors (1)

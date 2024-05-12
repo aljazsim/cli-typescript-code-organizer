@@ -3,22 +3,22 @@ import { AccessorNode } from "./accessor-node";
 import { ConstructorNode } from "./constructor-node";
 import { ElementNode } from "./element-node";
 import { GetterNode } from "./getter-node";
-import { IndexNode } from "./index-node";
 import { MethodNode } from "./method-node";
 import { PropertyNode } from "./property-node";
 import { SetterNode } from "./setter-node";
 import { StaticBlockDeclarationNode } from "./static-block-declaration-node";
-import { groupByPlaceAboveBelow } from "../helpers/node-helper";
+import { getDecorators, getIsAbstract, getIsStatic, groupByPlaceAboveBelow, isPrivate, isProtected, isPublic, isReadOnly, isWritable } from "../helpers/node-helper";
 import { ClassMemberGroupConfiguration } from "../configuration/class-member-group-configuration";
 import { ElementNodeGroup } from "./element-node-group";
 import { ClassMemberType } from "../enums/class-member-type";
 
 export class ClassNode extends ElementNode
 {
-    // #region Properties (11)
+    // #region Properties (12)
 
     public readonly accessors: AccessorNode[] = [];
     public readonly constructors: ConstructorNode[] = [];
+    public readonly decorators: string[];
     public readonly getters: GetterNode[] = [];
     public readonly isAbstract: boolean;
     public readonly isStatic: boolean;
@@ -29,7 +29,7 @@ export class ClassNode extends ElementNode
     public readonly setters: SetterNode[] = [];
     public readonly staticBlockDeclarations: StaticBlockDeclarationNode[] = [];
 
-    // #endregion Properties (11)
+    // #endregion Properties (12)
 
     // #region Constructors (1)
 
@@ -39,20 +39,16 @@ export class ClassNode extends ElementNode
 
         this._name = (<ts.Identifier>classDeclaration.name).escapedText.toString();
 
-        this._fullStart = classDeclaration.getFullStart();
-        this._end = classDeclaration.getEnd();
-        this._start = classDeclaration.getStart(sourceFile, false);
-
         if (classDeclaration.members && classDeclaration.members.length > 0)
         {
-            this.membersStart = classDeclaration.members[0].getFullStart();
-            this.membersEnd = classDeclaration.members[classDeclaration.members.length - 1].getEnd();
+            this.membersStart = classDeclaration.members[0].getFullStart() - classDeclaration.getFullStart() - 2;
+            this.membersEnd = classDeclaration.members[classDeclaration.members.length - 1].getEnd() - classDeclaration.getFullStart() + -2;
         }
 
-        this._decorators = this.getDecorators(classDeclaration, sourceFile);
+        this.decorators = getDecorators(classDeclaration, sourceFile);
 
-        this.isAbstract = this.getIsAbstract(classDeclaration);
-        this.isStatic = this.getIsStatic(classDeclaration);
+        this.isAbstract = getIsAbstract(classDeclaration);
+        this.isStatic = getIsStatic(classDeclaration);
 
         // members
         for (let member of classDeclaration.members)
@@ -98,7 +94,7 @@ export class ClassNode extends ElementNode
 
     // #endregion Constructors (1)
 
-    // #region Public Methods (44)
+    // #region Public Methods (38)
 
     public getConstructors()
     {
@@ -107,182 +103,182 @@ export class ClassNode extends ElementNode
 
     public getPrivateAccessors()
     {
-        return this.accessors.filter(x => this.isPrivate(x) && !x.isStatic && !x.isAbstract);
+        return this.accessors.filter(x => isPrivate(x) && !x.isStatic && !x.isAbstract);
     }
 
     public getPrivateGettersAndSetters()
     {
-        return this.getters.concat(this.setters).filter(x => this.isPrivate(x) && !x.isStatic && !x.isAbstract);
+        return this.getters.concat(this.setters).filter(x => isPrivate(x) && !x.isStatic && !x.isAbstract);
     }
 
     public getPrivateMethods()
     {
-        return this.methods.filter(x => this.isPrivate(x) && !x.isStatic && !x.isAbstract);
+        return this.methods.filter(x => isPrivate(x) && !x.isStatic && !x.isAbstract);
     }
 
     public getPrivateProperties()
     {
-        return this.properties.filter(x => this.isPrivate(x) && this.isWritable(x) && !x.isStatic);
+        return this.properties.filter(x => isPrivate(x) && isWritable(x) && !x.isStatic);
     }
 
     public getPrivateReadOnlyProperties()
     {
-        return this.properties.filter(x => this.isPrivate(x) && this.isReadOnly(x) && !x.isStatic);
+        return this.properties.filter(x => isPrivate(x) && isReadOnly(x) && !x.isStatic);
     }
 
     public getPrivateStaticAccessors()
     {
-        return this.accessors.filter(x => this.isPrivate(x) && x.isStatic && !x.isAbstract);
+        return this.accessors.filter(x => isPrivate(x) && x.isStatic && !x.isAbstract);
     }
 
     public getPrivateStaticGettersAndSetters()
     {
-        return this.getters.concat(this.setters).filter(x => this.isPrivate(x) && x.isStatic && !x.isAbstract);
+        return this.getters.concat(this.setters).filter(x => isPrivate(x) && x.isStatic && !x.isAbstract);
     }
 
     public getPrivateStaticMethods()
     {
-        return this.methods.filter(x => this.isPrivate(x) && x.isStatic && !x.isAbstract);
+        return this.methods.filter(x => isPrivate(x) && x.isStatic && !x.isAbstract);
     }
 
     public getPrivateStaticProperties()
     {
-        return this.properties.filter(x => this.isPrivate(x) && this.isWritable(x) && x.isStatic);
+        return this.properties.filter(x => isPrivate(x) && isWritable(x) && x.isStatic);
     }
 
     public getPrivateStaticReadOnlyProperties()
     {
-        return this.properties.filter(x => this.isPrivate(x) && this.isReadOnly(x) && x.isStatic);
+        return this.properties.filter(x => isPrivate(x) && isReadOnly(x) && x.isStatic);
     }
 
     public getProtectedAbstractAccessors()
     {
-        return this.accessors.filter(x => this.isProtected(x) && !x.isStatic && x.isAbstract);
+        return this.accessors.filter(x => isProtected(x) && !x.isStatic && x.isAbstract);
     }
 
     public getProtectedAbstractGettersAndSetters()
     {
-        return this.getters.concat(this.setters).filter(x => this.isProtected(x) && !x.isStatic && x.isAbstract);
+        return this.getters.concat(this.setters).filter(x => isProtected(x) && !x.isStatic && x.isAbstract);
     }
 
     public getProtectedAbstractMethods()
     {
-        return this.methods.filter(x => this.isProtected(x) && !x.isStatic && x.isAbstract);
+        return this.methods.filter(x => isProtected(x) && !x.isStatic && x.isAbstract);
     }
 
     public getProtectedAccessors()
     {
-        return this.accessors.filter(x => this.isProtected(x) && !x.isStatic && !x.isAbstract);
+        return this.accessors.filter(x => isProtected(x) && !x.isStatic && !x.isAbstract);
     }
 
     public getProtectedGettersAndSetters()
     {
-        return this.getters.concat(this.setters).filter(x => this.isProtected(x) && !x.isStatic && !x.isAbstract);
+        return this.getters.concat(this.setters).filter(x => isProtected(x) && !x.isStatic && !x.isAbstract);
     }
 
     public getProtectedMethods()
     {
-        return this.methods.filter(x => this.isProtected(x) && !x.isStatic && !x.isAbstract);
+        return this.methods.filter(x => isProtected(x) && !x.isStatic && !x.isAbstract);
     }
 
     public getProtectedProperties()
     {
-        return this.properties.filter(x => this.isProtected(x) && this.isWritable(x) && !x.isStatic);
+        return this.properties.filter(x => isProtected(x) && isWritable(x) && !x.isStatic);
     }
 
     public getProtectedReadOnlyProperties()
     {
-        return this.properties.filter(x => this.isProtected(x) && this.isReadOnly(x) && !x.isStatic);
+        return this.properties.filter(x => isProtected(x) && isReadOnly(x) && !x.isStatic);
     }
 
     public getProtectedStaticAccessors()
     {
-        return this.accessors.filter(x => this.isProtected(x) && x.isStatic && !x.isAbstract);
+        return this.accessors.filter(x => isProtected(x) && x.isStatic && !x.isAbstract);
     }
 
     public getProtectedStaticGettersAndSetters()
     {
-        return this.getters.concat(this.setters).filter(x => this.isProtected(x) && x.isStatic && !x.isAbstract);
+        return this.getters.concat(this.setters).filter(x => isProtected(x) && x.isStatic && !x.isAbstract);
     }
 
     public getProtectedStaticMethods()
     {
-        return this.methods.filter(x => this.isProtected(x) && x.isStatic && !x.isAbstract);
+        return this.methods.filter(x => isProtected(x) && x.isStatic && !x.isAbstract);
     }
 
     public getProtectedStaticProperties()
     {
-        return this.properties.filter(x => this.isProtected(x) && this.isWritable(x) && x.isStatic);
+        return this.properties.filter(x => isProtected(x) && isWritable(x) && x.isStatic);
     }
 
     public getProtectedStaticReadOnlyProperties()
     {
-        return this.properties.filter(x => this.isProtected(x) && this.isReadOnly(x) && x.isStatic);
+        return this.properties.filter(x => isProtected(x) && isReadOnly(x) && x.isStatic);
     }
 
     public getPublicAbstractAccessors()
     {
-        return this.accessors.filter(x => this.isPublic(x) && !x.isStatic && x.isAbstract);
+        return this.accessors.filter(x => isPublic(x) && !x.isStatic && x.isAbstract);
     }
 
     public getPublicAbstractGettersAndSetters()
     {
-        return this.getters.concat(this.setters).filter(x => this.isPublic(x) && !x.isStatic && x.isAbstract);
+        return this.getters.concat(this.setters).filter(x => isPublic(x) && !x.isStatic && x.isAbstract);
     }
 
     public getPublicAbstractMethods()
     {
-        return this.methods.filter(x => this.isPublic(x) && !x.isStatic && x.isAbstract);
+        return this.methods.filter(x => isPublic(x) && !x.isStatic && x.isAbstract);
     }
 
     public getPublicAccessors()
     {
-        return this.accessors.filter(x => this.isPublic(x) && !x.isStatic && !x.isAbstract);
+        return this.accessors.filter(x => isPublic(x) && !x.isStatic && !x.isAbstract);
     }
 
     public getPublicGettersAndSetters()
     {
-        return this.getters.concat(this.setters).filter(x => this.isPublic(x) && !x.isStatic && !x.isAbstract);
+        return this.getters.concat(this.setters).filter(x => isPublic(x) && !x.isStatic && !x.isAbstract);
     }
 
     public getPublicMethods()
     {
-        return this.methods.filter(x => this.isPublic(x) && !x.isStatic && !x.isAbstract);
+        return this.methods.filter(x => isPublic(x) && !x.isStatic && !x.isAbstract);
     }
 
     public getPublicProperties()
     {
-        return this.properties.filter(x => this.isPublic(x) && this.isWritable(x) && !x.isStatic);
+        return this.properties.filter(x => isPublic(x) && isWritable(x) && !x.isStatic);
     }
 
     public getPublicReadOnlyProperties()
     {
-        return this.properties.filter(x => this.isPublic(x) && this.isReadOnly(x) && !x.isStatic);
+        return this.properties.filter(x => isPublic(x) && isReadOnly(x) && !x.isStatic);
     }
 
     public getPublicStaticAccessors()
     {
-        return this.accessors.filter(x => this.isPublic(x) && x.isStatic && !x.isAbstract);
+        return this.accessors.filter(x => isPublic(x) && x.isStatic && !x.isAbstract);
     }
 
     public getPublicStaticGettersAndSetters()
     {
-        return this.getters.concat(this.setters).filter(x => this.isPublic(x) && x.isStatic && !x.isAbstract);
+        return this.getters.concat(this.setters).filter(x => isPublic(x) && x.isStatic && !x.isAbstract);
     }
 
     public getPublicStaticMethods()
     {
-        return this.methods.filter(x => this.isPublic(x) && x.isStatic && !x.isAbstract);
+        return this.methods.filter(x => isPublic(x) && x.isStatic && !x.isAbstract);
     }
 
     public getPublicStaticProperties()
     {
-        return this.properties.filter(x => this.isPublic(x) && this.isWritable(x) && x.isStatic);
+        return this.properties.filter(x => isPublic(x) && isWritable(x) && x.isStatic);
     }
 
     public getPublicStaticReadOnlyProperties()
     {
-        return this.properties.filter(x => this.isPublic(x) && this.isReadOnly(x) && x.isStatic);
+        return this.properties.filter(x => isPublic(x) && isReadOnly(x) && x.isStatic);
     }
 
     public organizeMembers(memberTypeOrder: ClassMemberGroupConfiguration[], groupElementsWithDecorators: boolean)
@@ -460,5 +456,5 @@ export class ClassNode extends ElementNode
         return regions;
     }
 
-    // #endregion Public Methods (44)
+    // #endregion Public Methods (38)
 }

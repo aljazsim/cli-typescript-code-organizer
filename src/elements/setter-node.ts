@@ -1,14 +1,18 @@
+import { AccessModifier } from "../enums/access-modifier";
+import { getAccessModifier, getDecorators, getIsAbstract, getIsStatic } from "../helpers/node-helper";
 import { ElementNode } from "./element-node";
 import * as ts from "typescript";
 
 export class SetterNode extends ElementNode
 {
-    // #region Properties (2)
+    // #region Properties (4)
 
+    public readonly accessModifier: AccessModifier | null;
+    public readonly decorators: string[];
     public readonly isAbstract: boolean;
     public readonly isStatic: boolean;
 
-    // #endregion Properties (2)
+    // #endregion Properties (4)
 
     // #region Constructors (1)
 
@@ -18,15 +22,11 @@ export class SetterNode extends ElementNode
 
         this._name = (<ts.Identifier>setterDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(setterDeclaration.name.pos, setterDeclaration.name.end);
 
-        this._fullStart = setterDeclaration.getFullStart();
-        this._end = setterDeclaration.getEnd();
-        this._start = setterDeclaration.getStart(sourceFile, false);
+        this.accessModifier = getAccessModifier(setterDeclaration);
+        this.decorators = getDecorators(setterDeclaration, sourceFile);
 
-        this._accessModifier = this.getAccessModifier(setterDeclaration);
-        this._decorators = this.getDecorators(setterDeclaration, sourceFile);
-
-        this.isAbstract = this.getIsAbstract(setterDeclaration);
-        this.isStatic = this.getIsStatic(setterDeclaration);
+        this.isAbstract = getIsAbstract(setterDeclaration);
+        this.isStatic = getIsStatic(setterDeclaration);
     }
 
     // #endregion Constructors (1)

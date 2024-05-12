@@ -1,5 +1,4 @@
 import * as ts from "typescript";
-import { AccessorNode } from "./accessor-node";
 import { ElementNode } from "./element-node";
 import { GetterNode } from "./getter-node";
 import { IndexSignatureNode } from "./index-signature-node";
@@ -9,7 +8,7 @@ import { SetterNode } from "./setter-node";
 import { InterfaceMemberGroupConfiguration } from "../configuration/interface-member-group-configuration";
 import { ElementNodeGroup } from "./element-node-group";
 import { InterfaceMemberType } from "../enums/interface-member-type";
-import { groupByPlaceAboveBelow } from "../helpers/node-helper";
+import { groupByPlaceAboveBelow, isReadOnly, isWritable } from "../helpers/node-helper";
 
 export class InterfaceNode extends ElementNode
 {
@@ -32,10 +31,6 @@ export class InterfaceNode extends ElementNode
         super(sourceFile, interfaceDeclaration);
 
         this._name = (<ts.Identifier>interfaceDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(interfaceDeclaration.name.pos, interfaceDeclaration.name.end).trim();
-
-        this._fullStart = interfaceDeclaration.getFullStart();
-        this._end = interfaceDeclaration.getEnd();
-        this._start = interfaceDeclaration.getStart(sourceFile, false);
 
         if (interfaceDeclaration.members && interfaceDeclaration.members.length > 0)
         {
@@ -90,12 +85,12 @@ export class InterfaceNode extends ElementNode
 
     public getProperties()
     {
-        return this.properties.filter((x) => this.isWritable(x));
+        return this.properties.filter((x) => isWritable(x));
     }
 
     public getReadOnlyProperties()
     {
-        return this.properties.filter((x) => this.isReadOnly(x));
+        return this.properties.filter((x) => isReadOnly(x));
     }
 
     public organizeMembers(memberTypeOrder: InterfaceMemberGroupConfiguration[])

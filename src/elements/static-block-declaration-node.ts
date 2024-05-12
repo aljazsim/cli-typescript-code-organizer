@@ -11,10 +11,6 @@ export class StaticBlockDeclarationNode extends ElementNode
         super(sourceFile, staticBlockDeclaration);
 
         this._name = "";
-
-        this._fullStart = staticBlockDeclaration.getFullStart();
-        this._end = staticBlockDeclaration.getEnd();
-        this._start = staticBlockDeclaration.getStart(sourceFile, false);
     }
 
     // #endregion Constructors (1)

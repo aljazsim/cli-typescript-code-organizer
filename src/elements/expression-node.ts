@@ -11,10 +11,6 @@ export class ExpressionNode extends ElementNode
         super(sourceFile, expression);
 
         this._name = "";
-
-        this._fullStart = expression.getFullStart();
-        this._end = expression.getEnd();
-        this._start = expression.getStart(sourceFile, false);
     }
 
     // #endregion Constructors (1)

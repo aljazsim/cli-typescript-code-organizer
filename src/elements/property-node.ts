@@ -2,17 +2,20 @@ import { AccessModifier } from "../enums/access-modifier";
 import { ElementNode } from "./element-node";
 import { WriteModifier } from "../enums/write-modifier";
 import * as ts from "typescript";
+import { getAccessModifier, getDecorators, getIsAbstract, getIsStatic, getWriteMode } from "../helpers/node-helper";
 
 export class PropertyNode extends ElementNode
 {
-    // #region Properties (4)
+    // #region Properties (6)
 
+    public readonly accessModifier: AccessModifier | null;
+    public readonly decorators: string[];
     public readonly isAbstract: boolean;
     public readonly isArrowFunction: boolean;
     public readonly isStatic: boolean;
     public readonly writeMode: WriteModifier;
 
-    // #endregion Properties (4)
+    // #endregion Properties (6)
 
     // #region Constructors (1)
 
@@ -22,22 +25,18 @@ export class PropertyNode extends ElementNode
 
         this._name = (<ts.Identifier>propertyDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(propertyDeclaration.name.pos, propertyDeclaration.name.end);
 
-        this._fullStart = propertyDeclaration.getFullStart();
-        this._end = propertyDeclaration.getEnd();
-        this._start = propertyDeclaration.getStart(sourceFile, false);
-
-        this._accessModifier = this.getAccessModifier(propertyDeclaration);
-        this._decorators = this.getDecorators(propertyDeclaration, sourceFile);
+        this.accessModifier = getAccessModifier(propertyDeclaration);
+        this.decorators = getDecorators(propertyDeclaration, sourceFile);
 
         if (this.name.startsWith("#"))
         {
             // properties starting with # are private by default!
-            this._accessModifier = AccessModifier.private;
+            this.accessModifier = AccessModifier.private;
         }
 
-        this.isAbstract = this.getIsAbstract(propertyDeclaration);
-        this.isStatic = this.getIsStatic(propertyDeclaration);
-        this.writeMode = this.getWriteMode(propertyDeclaration);
+        this.isAbstract = getIsAbstract(propertyDeclaration);
+        this.isStatic = getIsStatic(propertyDeclaration);
+        this.writeMode = getWriteMode(propertyDeclaration);
 
         this.isArrowFunction = this.getIsArrowFunction(propertyDeclaration);
     }
@@ -53,3 +52,5 @@ export class PropertyNode extends ElementNode
 
     // #endregion Private Methods (1)
 }
+
+

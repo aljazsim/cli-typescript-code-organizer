@@ -1,7 +1,5 @@
 import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
 
-import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
-
 export abstract class TestClass
 {
     // #region Private ReadOnly Properties (3)

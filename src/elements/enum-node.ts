@@ -10,13 +10,6 @@ export class EnumNode extends ElementNode
         super(sourceFile, enumDeclaration);
 
         this._name = (<ts.Identifier>enumDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(enumDeclaration.name.pos, enumDeclaration.name.end).trim();
-
-        this._fullStart = enumDeclaration.getFullStart();
-        this._fullStart = enumDeclaration.getFullStart();
-        this._end = enumDeclaration.getEnd();
-        this._start = enumDeclaration.getStart(sourceFile, false);
-
-        this._decorators = this.getDecorators(enumDeclaration, sourceFile);
     }
 
     // #endregion Constructors (1)

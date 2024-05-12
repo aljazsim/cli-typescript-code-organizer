@@ -1,7 +1,7 @@
 import * as ts from "typescript";
 
 import { ElementNode } from "./element-node";
-import { WriteModifier } from "../enums/write-modifier";
+import { getIsExport } from "../helpers/node-helper";
 
 export class VariableNode extends ElementNode
 {
@@ -21,11 +21,7 @@ export class VariableNode extends ElementNode
 
         this._name = variableStatement.declarationList.declarations.map(d => (<ts.Identifier>d.name).escapedText.toString()).join(",");
 
-        this._fullStart = variableStatement.getFullStart();
-        this._end = variableStatement.getEnd();
-        this._start = variableStatement.getStart(sourceFile, false);
-
-        this.isExport = this.getIsExport(variableStatement);
+        this.isExport = getIsExport(variableStatement);
         this.isArrowFunction = this.getIsArrowFunction(variableStatement);
 
         // HACK: can't find a way to do this with AST

@@ -3,7 +3,7 @@ import { ElementNode } from "./element-node";
 import * as ts from "typescript";
 import { ElementNodeGroup } from "./element-node-group";
 import { TypeMemberType } from "../enums/type-member-type";
-import { groupByPlaceAboveBelow } from "../helpers/node-helper";
+import { groupByPlaceAboveBelow, isWritable } from "../helpers/node-helper";
 import { MethodSignatureNode } from "./method-signature-node";
 import { PropertySignatureNode } from "./property-signature-node";
 
@@ -24,18 +24,12 @@ export class TypeAliasNode extends ElementNode
 
         this._name = (<ts.Identifier>typeAliasDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(typeAliasDeclaration.name.pos, typeAliasDeclaration.name.end).trim();
 
-        this._fullStart = typeAliasDeclaration.getFullStart();
-        this._end = typeAliasDeclaration.getEnd();
-        this._start = typeAliasDeclaration.getStart(sourceFile, false);
-
         // TODO
         // // if (typeAliasDeclaration.getChildren() && typeAliasDeclaration.getChildAt().length > 0)
         // // {
         // //     this.membersStart = typeAliasDeclaration.members[0].getFullStart();
         // //     this.membersEnd = typeAliasDeclaration.members[typeAliasDeclaration.members.length - 1].getEnd();
         // // }
-
-        this._decorators = this.getDecorators(typeAliasDeclaration, sourceFile);
     }
 
     // #endregion Constructors (1)
@@ -49,7 +43,7 @@ export class TypeAliasNode extends ElementNode
 
     public getProperties()
     {
-        return this.properties.filter((x) => this.isWritable(x));
+        return this.properties.filter((x) => isWritable(x));
     }
 
     public organizeMembers(memberTypeOrder: TypeMemberGroupConfiguration[])

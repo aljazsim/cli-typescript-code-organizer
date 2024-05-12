@@ -8,57 +8,13 @@ import { InterfaceNode } from "../elements/interface-node";
 import { MethodNode } from "../elements/method-node";
 import { PropertyNode } from "../elements/property-node";
 import { SetterNode } from "../elements/setter-node";
-import { WriteModifier } from "../enums/write-modifier";
-import { TypeAliasNode } from "../elements/type-alias-node";
 import { SourceCode } from "./source-code";
+import { TypeAliasNode } from "../elements/type-alias-node";
 import { TypeNode } from "typescript";
+import { WriteModifier } from "../enums/write-modifier";
 
 export class SourceCodePrinter
 {
-    // #region Properties (16)
-
-    private static abstractRegex;
-    private static accessorRegex;
-    private static addPublic;
-    private static asyncRegex;
-    private static constRegex;
-    private static getAbstract;
-    private static getAsync;
-    private static getConst;
-    private static getReadOnly;
-    private static getStatic;
-    private static getterRegex;
-    private static newLine;
-    private static readonlyRegex;
-    private static setterRegex;
-    private static spacesRegex;
-    private static staticRegex;
-
-    // #endregion Properties (16)
-
-    // #region Static Block Declarations (1)
-
-    static {
-        this.newLine = "\r\n";
-        this.spacesRegex = "\\s*";
-        this.staticRegex = `(static${this.spacesRegex})?`;
-        this.readonlyRegex = `(readonly${this.spacesRegex})?`;
-        this.constRegex = `(const${this.spacesRegex})?`;
-        this.abstractRegex = `(abstract${this.spacesRegex})?`;
-        this.asyncRegex = `(async${this.spacesRegex})?`;
-        this.getterRegex = `get${this.spacesRegex}`;
-        this.setterRegex = `set${this.spacesRegex}`;
-        this.accessorRegex = `accessor${this.spacesRegex}`;
-        this.getAsync = (isAsync: boolean) => isAsync ? "async " : "";
-        this.getStatic = (isStatic: boolean) => isStatic ? "static " : "";
-        this.getAbstract = (isAbstract: boolean) => isAbstract ? "abstract " : "";
-        this.getReadOnly = (writeMode: WriteModifier) => writeMode === WriteModifier.readOnly ? "readonly " : "";
-        this.getConst = (writeMode: WriteModifier) => writeMode === WriteModifier.const ? "const " : "";
-        this.addPublic = (strings: string[]) => "public " + strings.filter(s => s !== "").map(s => s.trim()).join(" ");
-    }
-
-    // #endregion Static Block Declarations (1)
-
     // #region Public Static Methods (1)
 
     public static print(nodeGroups: ElementNodeGroup[], configuration: Configuration)
@@ -78,36 +34,44 @@ export class SourceCodePrinter
 
     private static printClass(node: ClassNode, configuration: Configuration)
     {
-        const beforeMembers = node.getSubString(0, node.membersStart).trimStart();
+        const beforeMembers = node.sourceCode.substring(0, node.membersStart).trimStart();
         const members = this.printNodeGroups(node.organizeMembers(configuration.classes.groups, configuration.classes.groupMembersWithDecorators), configuration);
-        const afterMembers = node.getSubString(node.membersEnd + 1, node.end).trimEnd();
-        let nodeSourceCode = new SourceCode();
+        const afterMembers = node.sourceCode.substring(node.membersEnd + 1).trimEnd();
+        const nodeSourceCode = new SourceCode();
+
+        if (configuration.classes.addPublicModifierIfMissing)
+        {
+            // add public modifier if missing
+            node.properties.forEach(p => members.addPublicModifierIfMissing(p));
+            node.methods.forEach(m => members.addPublicModifierIfMissing(m));
+            node.getters.forEach(g => members.addPublicModifierIfMissing(g));
+            node.setters.forEach(s => members.addPublicModifierIfMissing(s));
+            node.accessors.forEach(a => members.addPublicModifierIfMissing(a));
+        }
+
+        if (configuration.classes.addPrivateModifierIfStartingWithHash)
+        {
+            // add private modifier if starting with hash
+            node.properties.forEach(p => members.addPrivateModifierIfStartingWithHash(p));
+            node.methods.forEach(m => members.addPrivateModifierIfStartingWithHash(m));
+            node.getters.forEach(g => members.addPrivateModifierIfStartingWithHash(g));
+            node.setters.forEach(s => members.addPrivateModifierIfStartingWithHash(s));
+            node.accessors.forEach(a => members.addPrivateModifierIfStartingWithHash(a));
+        }
 
         nodeSourceCode.add(beforeMembers);
         nodeSourceCode.addNewLine();
         nodeSourceCode.add(members);
         nodeSourceCode.add(afterMembers);
 
-        if (configuration.classes.addPublicModifierIfMissing)
-        {
-            // add public modifier if missing
-            nodeSourceCode.addPublicModifierIfMissing(node);
-        }
-
-        if (configuration.classes.addPrivateModifierIfStartingWithHash)
-        {
-            // add private modifier if starting with hash
-            nodeSourceCode.addPrivateModifierIfStartingWithHash(node);
-        }
-
         return nodeSourceCode;
     }
 
     private static printInterface(node: InterfaceNode, configuration: Configuration)
     {
-        const beforeMembers = node.getSubString(0, node.membersStart).trimStart();
+        const beforeMembers = node.sourceCode.substring(0, node.membersStart).trimStart();
         const members = this.printNodeGroups(node.organizeMembers(configuration.interfaces.groups), configuration);
-        const afterMembers = node.getSubString(node.membersEnd + 1, node.end).trimEnd();
+        const afterMembers = node.sourceCode.substring(node.membersEnd + 1).trimEnd();
         const nodeSourceCode = new SourceCode();
 
         nodeSourceCode.add(beforeMembers);

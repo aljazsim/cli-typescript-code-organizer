@@ -2,6 +2,7 @@ import * as ts from "typescript";
 
 import { ElementNode } from "./element-node";
 import { WriteModifier } from "../enums/write-modifier";
+import { getWriteMode } from "../helpers/node-helper";
 
 export class IndexSignatureNode extends ElementNode
 {
@@ -19,14 +20,7 @@ export class IndexSignatureNode extends ElementNode
 
         this._name = "index";
 
-        this._fullStart = indexSignatureDeclaration.getFullStart();
-        this._end = indexSignatureDeclaration.getEnd();
-        this._start = indexSignatureDeclaration.getStart(sourceFile, false);
-
-        this._accessModifier = this.getAccessModifier(indexSignatureDeclaration);
-        this._decorators = this.getDecorators(indexSignatureDeclaration, sourceFile);
-
-        this.writeMode = this.getWriteMode(indexSignatureDeclaration);
+        this.writeMode = getWriteMode(indexSignatureDeclaration);
     }
 
     // #endregion Constructors (1)

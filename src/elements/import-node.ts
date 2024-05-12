@@ -11,10 +11,6 @@ export class ImportNode extends ElementNode
         super(sourceFile, importDeclaration);
 
         this._name = "import";
-
-        this._fullStart = importDeclaration.getFullStart();
-        this._end = importDeclaration.getEnd();
-        this._start = importDeclaration.getStart(sourceFile, false);
     }
 
     // #endregion Constructors (1)
