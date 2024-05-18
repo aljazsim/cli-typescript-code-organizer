@@ -6,6 +6,7 @@
         "addRegionCaptionToRegionEnd": false
     },
     "modules": {
+        "treatArrowFunctionPropertiesAsMethods": false,
         "groups": [
             {
                 "order": true,
@@ -369,6 +370,7 @@
         ]
     },
     "interfaces": {
+        "treatArrowFunctionPropertiesAsMethods": false,
         "groups": [
             {
                 "order": true,
@@ -408,6 +410,7 @@
         ]
     },
     "types": {
+        "treatArrowFunctionPropertiesAsMethods": true,
         "groups": [
             {
                 "order": true,

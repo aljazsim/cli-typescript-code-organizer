@@ -62,6 +62,7 @@ export class Configuration
                 ),
             new ModuleConfiguration
                 (
+                    configuration.modules?.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.modules.treatArrowFunctionPropertiesAsMethods,
                     this.fixModuleMemberMemberGroup(defaultConfiguration.modules.groups, configuration.modules?.groups.map(g => this.parseModuleMemberGroupConfiguration(g) ?? []))
                 ),
             new ClassConfiguration
@@ -74,10 +75,12 @@ export class Configuration
                 ),
             new InterfaceConfiguration
                 (
+                    configuration.interfaces?.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.interfaces.treatArrowFunctionPropertiesAsMethods,
                     this.fixInterfaceMemberMemberGroup(defaultConfiguration.interfaces.groups, configuration.interfaces?.groups.map(g => this.parseInterfaceMemberGroupConfiguration(g) ?? []))
                 ),
             new TypeConfiguration
                 (
+                    configuration.types?.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.types.treatArrowFunctionPropertiesAsMethods,
                     this.fixTypeMemberMemberGroup(defaultConfiguration.types.groups, configuration.types?.groups.map(g => this.parseTypeMemberGroupConfiguration(g) ?? []))
                 )
         );
@@ -95,6 +98,7 @@ export class Configuration
                 ),
             new ModuleConfiguration
                 (
+                    defaultConfiguration.modules.treatArrowFunctionPropertiesAsMethods,
                     defaultConfiguration.modules.groups.map(g => this.parseModuleMemberGroupConfiguration(g))
                 ),
             new ClassConfiguration
@@ -108,10 +112,12 @@ export class Configuration
                 ),
             new InterfaceConfiguration
                 (
+                    defaultConfiguration.interfaces.treatArrowFunctionPropertiesAsMethods,
                     defaultConfiguration.interfaces.groups.map(g => this.parseInterfaceMemberGroupConfiguration(g))
                 ),
             new TypeConfiguration
                 (
+                    defaultConfiguration.types.treatArrowFunctionPropertiesAsMethods,
                     defaultConfiguration.types.groups.map(g => this.parseTypeMemberGroupConfiguration(g))
                 )
         );

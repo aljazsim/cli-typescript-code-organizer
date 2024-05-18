@@ -7,8 +7,7 @@ export class ClassConfiguration
         public readonly addPrivateModifierIfStartingWithHash: boolean,
         public readonly groupMembersWithDecorators: boolean,
         public readonly treatArrowFunctionPropertiesAsMethods: boolean,
-        public readonly groups: ClassMemberGroupConfiguration[]
-    )
+        public readonly groups: ClassMemberGroupConfiguration[])
     {
     }
 }

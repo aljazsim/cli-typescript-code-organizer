@@ -44,7 +44,7 @@ export interface TestInterface
 
     readonly publicReadonlyProperty8: Number;
 
-    publicProperty1: any;
+    publicProperty1: () => void;
 
     publicMethod2(): void;
 

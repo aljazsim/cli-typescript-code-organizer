@@ -3,8 +3,8 @@ import { InterfaceMemberGroupConfiguration } from "./interface-member-group-conf
 export class InterfaceConfiguration
 {
     constructor(
-        public readonly groups: InterfaceMemberGroupConfiguration[]
-    )
+        public readonly treatArrowFunctionPropertiesAsMethods: boolean,
+        public readonly groups: InterfaceMemberGroupConfiguration[])
     {
     }
 }

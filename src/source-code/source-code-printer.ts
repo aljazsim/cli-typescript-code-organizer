@@ -96,7 +96,7 @@ export class SourceCodePrinter
         }
         else if (node instanceof TypeAliasNode)
         {
-            nodeSourceCode = this.printNode(node, configuration);
+            nodeSourceCode = this.printType(node, configuration);
         }
 
         if (node instanceof PropertyNode)
@@ -167,17 +167,17 @@ export class SourceCodePrinter
         return nodeGroupsSourceCode;
     }
 
-    private static printType(nodeSourceCode: SourceCode, node: TypeAliasNode, configuration: Configuration)
+    private static printType(node: TypeAliasNode, configuration: Configuration)
     {
-        // const beforeMembers = node.getSubString(0, node.membersStart).trimStart();
-        // const members = this.printNodeGroups(node.organizeMembers(configuration.types.groups), configuration);
-        // const afterMembers = node.getSubString(node.membersEnd + 1, node.end).trimEnd();
+        const beforeMembers = node.sourceCode.substring(0, node.membersStart).trimStart();
+        const members = this.printNodeGroups(node.organizeMembers(configuration.types.groups), configuration);
+        const afterMembers = node.sourceCode.substring(node.membersEnd + 1).trimEnd();
+        const nodeSourceCode = new SourceCode();
 
-        // nodeSourceCode = new SourceCode();
-        // nodeSourceCode.add(beforeMembers);
-        // nodeSourceCode.addNewLine();
-        // nodeSourceCode.add(members);
-        // nodeSourceCode.add(afterMembers);
+        nodeSourceCode.add(beforeMembers);
+        nodeSourceCode.addNewLine();
+        nodeSourceCode.add(members);
+        nodeSourceCode.add(afterMembers);
 
         return nodeSourceCode;
     }

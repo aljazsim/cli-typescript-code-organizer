@@ -72,7 +72,6 @@ export class ClassNode extends ElementNode
                 {
                     this.methods.push(new PropertyNode(sourceFile, member));
                 }
-
                 else
                 {
                     this.properties.push(new PropertyNode(sourceFile, member));

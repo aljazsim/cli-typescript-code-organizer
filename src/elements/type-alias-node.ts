@@ -6,46 +6,66 @@ import { TypeMemberType } from "../enums/type-member-type";
 import { groupByPlaceAboveBelow, isWritable } from "../helpers/node-helper";
 import { MethodSignatureNode } from "./method-signature-node";
 import { PropertySignatureNode } from "./property-signature-node";
-
 export class TypeAliasNode extends ElementNode
 {
-    // #region Properties (3)
+    // #region Properties (5)
 
-    public readonly methods: MethodSignatureNode[] = [];
+    public readonly membersEnd: number = 0;
+    public readonly membersStart: number = 0;
+    public readonly methods: PropertySignatureNode[] = [];
     public readonly name: string;
     public readonly properties: PropertySignatureNode[] = [];
 
-    // #endregion Properties (3)
+    // #endregion Properties (5)
 
     // #region Constructors (1)
 
-    constructor(sourceFile: ts.SourceFile, typeAliasDeclaration: ts.TypeAliasDeclaration)
+    constructor(sourceFile: ts.SourceFile, typeAliasDeclaration: ts.TypeAliasDeclaration, treatArrowFunctionPropertiesAsMethods: boolean)
     {
         super(sourceFile, typeAliasDeclaration);
 
         this.name = (<ts.Identifier>typeAliasDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(typeAliasDeclaration.name.pos, typeAliasDeclaration.name.end).trim();
 
-        // TODO
-        // // if (typeAliasDeclaration.getChildren() && typeAliasDeclaration.getChildAt().length > 0)
-        // // {
-        // //     this.membersStart = typeAliasDeclaration.members[0].getFullStart();
-        // //     this.membersEnd = typeAliasDeclaration.members[typeAliasDeclaration.members.length - 1].getEnd();
-        // // }
+        for (const child of typeAliasDeclaration.getChildren(sourceFile))
+        {
+            if (child.kind === ts.SyntaxKind.TypeLiteral)
+            {
+                const typeLiteral = child as ts.TypeLiteralNode;
+
+                if (typeLiteral.members && typeLiteral.members.length > 0)
+                {
+                    this.membersStart = typeLiteral.members[0].getFullStart();
+                    this.membersEnd = typeLiteral.members[typeLiteral.members.length - 1].getEnd();
+
+                    // members
+                    for (let member of typeLiteral.members)
+                    {
+                        if (ts.isPropertySignature(member))
+                        {
+                            const propertySignature = member as ts.PropertySignature;
+
+                            if (treatArrowFunctionPropertiesAsMethods && propertySignature.type?.kind === ts.SyntaxKind.FunctionType)
+                            {
+                                this.methods.push(new PropertySignatureNode(sourceFile, member));
+                            }
+                            else
+                            {
+                                this.properties.push(new PropertySignatureNode(sourceFile, member));
+                            }
+                        }
+                        else
+                        {
+                            console.error("Unknow type member");
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // #endregion Constructors (1)
 
-    // #region Public Methods (3)
-
-    public getMethods()
-    {
-        return this.methods;
-    }
-
-    public getProperties()
-    {
-        return this.properties.filter((x) => isWritable(x));
-    }
+    // #region Public Methods (1)
 
     public organizeMembers(memberTypeOrder: TypeMemberGroupConfiguration[])
     {
@@ -61,11 +81,11 @@ export class TypeAliasNode extends ElementNode
             {
                 if (memberType === TypeMemberType.properties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProperties(), placeAbove, placeBelow, false), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.properties, placeAbove, placeBelow, false), false));
                 }
                 if (memberType === TypeMemberType.methods)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getMethods(), placeAbove, placeBelow, false), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.methods, placeAbove, placeBelow, false), false));
                 }
             }
 
@@ -78,5 +98,5 @@ export class TypeAliasNode extends ElementNode
         return regions;
     }
 
-    // #endregion Public Methods (3)
+    // #endregion Public Methods (1)
 }

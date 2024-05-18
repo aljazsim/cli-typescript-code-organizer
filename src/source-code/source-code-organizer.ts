@@ -29,7 +29,7 @@ export class SourceCodeOrganizer
                 sourceCodeWithoutRegions.removeRegions(); // strip regions, they will get re-generated
 
                 let sourceFile = ts.createSourceFile("temp.ts", sourceCodeWithoutRegions.toString(), ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
-                let elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration.classes.treatArrowFunctionPropertiesAsMethods);
+                let elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration);
                 let topLevelGroups = this.organizeModuleMembers(elements, configuration); // TODO: move this to module node
 
                 return SourceCodePrinter.print(topLevelGroups, configuration).toString();
@@ -84,13 +84,13 @@ export class SourceCodeOrganizer
         const classes = getClasses(elements, configuration.classes.groupMembersWithDecorators);
         const types = getTypeAliases(elements);
         const enums = getEnums(elements);
-        const functions = getFunctions(elements, configuration.classes.treatArrowFunctionPropertiesAsMethods, false);
-        const exportedFunctions = getFunctions(elements, configuration.classes.treatArrowFunctionPropertiesAsMethods, true);
-        const constants = getVariables(elements, true, false, configuration.classes.treatArrowFunctionPropertiesAsMethods ? false : null);
-        const exportedConstants = getVariables(elements, true, true, configuration.classes.treatArrowFunctionPropertiesAsMethods ? false : null);
+        const functions = getFunctions(elements, configuration.modules.treatArrowFunctionPropertiesAsMethods, false);
+        const exportedFunctions = getFunctions(elements, configuration.modules.treatArrowFunctionPropertiesAsMethods, true);
+        const constants = getVariables(elements, true, false, configuration.modules.treatArrowFunctionPropertiesAsMethods ? false : null);
+        const exportedConstants = getVariables(elements, true, true, configuration.modules.treatArrowFunctionPropertiesAsMethods ? false : null);
         const variables = getVariables(elements, false, false, null);
         const exportedVariables = getVariables(elements, false, true, null);
-        let expressions = getExpressions(elements); // TODO: will we allow sorting files with expressions?
+        let expressions = getExpressions(elements);
 
         if (imports.length > 0)
         {
@@ -164,6 +164,11 @@ export class SourceCodeOrganizer
 
                 regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], isRegion));
             }
+        }
+
+        if (expressions.length > 0)
+        {
+            regions.push(new ElementNodeGroup(null, [], expressions, false));
         }
 
         return regions;

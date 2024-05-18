@@ -18,7 +18,7 @@ export class InterfaceNode extends ElementNode
     public readonly indexes: IndexSignatureNode[] = [];
     public readonly membersEnd: number = 0;
     public readonly membersStart: number = 0;
-    public readonly methods: MethodSignatureNode[] = [];
+    public readonly methods: (MethodSignatureNode | PropertySignatureNode)[] = [];
     public readonly name: string;
     public readonly properties: PropertySignatureNode[] = [];
     public readonly setters: SetterNode[] = [];
@@ -27,7 +27,7 @@ export class InterfaceNode extends ElementNode
 
     // #region Constructors (1)
 
-    constructor(sourceFile: ts.SourceFile, interfaceDeclaration: ts.InterfaceDeclaration)
+    constructor(sourceFile: ts.SourceFile, interfaceDeclaration: ts.InterfaceDeclaration, treatArrowFunctionPropertiesAsMethods: boolean)
     {
         super(sourceFile, interfaceDeclaration);
 
@@ -44,7 +44,16 @@ export class InterfaceNode extends ElementNode
         {
             if (ts.isPropertySignature(member))
             {
-                this.properties.push(new PropertySignatureNode(sourceFile, member));
+                const propertySignature = member as ts.PropertySignature;
+
+                if (treatArrowFunctionPropertiesAsMethods && propertySignature.type?.kind === ts.SyntaxKind.FunctionType)
+                {
+                    this.methods.push(new PropertySignatureNode(sourceFile, member));
+                }
+                else
+                {
+                    this.properties.push(new PropertySignatureNode(sourceFile, member));
+                }
             }
             else if (ts.isGetAccessorDeclaration(member))
             {

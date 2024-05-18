@@ -8,6 +8,7 @@
     "modules": {
         "order": true,
         "useRegions": false,
+        "treatArrowFunctionPropertiesAsMethods": true,
         "groups": [
             {
                 "order": true,
@@ -294,6 +295,7 @@
     "interfaces": {
         "order": true,
         "useRegions": false,
+        "treatArrowFunctionPropertiesAsMethods": false,
         "groups": [
             {
                 "order": true,
@@ -328,6 +330,7 @@
     "types": {
         "order": true,
         "useRegions": false,
+        "treatArrowFunctionPropertiesAsMethods": true,
         "groups": [
             {
                 "order": true,

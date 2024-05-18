@@ -1,6 +1,7 @@
 import * as ts from "typescript";
 
 import { ClassNode } from "../elements/class-node";
+import { Configuration } from "../configuration/configuration";
 import { ElementNode } from "../elements/element-node";
 import { EnumNode } from "../elements/enum-node";
 import { ExpressionNode } from "../elements/expression-node";
@@ -14,14 +15,14 @@ export class SourceCodeAnalyzer
 {
     // #region Public Static Methods (1)
 
-    public static getNodes(sourceFile: ts.SourceFile, treatArrowFunctionPropertiesAsMethods: boolean)
+    public static getNodes(sourceFile: ts.SourceFile, configuration: Configuration)
     {
         let elements: ElementNode[] = [];
 
         // traverse top ast nodes
         for (let node of sourceFile.getChildren(sourceFile))
         {
-            elements = elements.concat(this.traverseSyntaxTree(node, sourceFile, treatArrowFunctionPropertiesAsMethods));
+            elements = elements.concat(this.traverseSyntaxTree(node, sourceFile, configuration));
         }
 
         return elements;
@@ -31,7 +32,7 @@ export class SourceCodeAnalyzer
 
     // #region Private Static Methods (1)
 
-    private static traverseSyntaxTree(node: ts.Node, sourceFile: ts.SourceFile, treatArrowFunctionPropertiesAsMethods: boolean)
+    private static traverseSyntaxTree(node: ts.Node, sourceFile: ts.SourceFile, configuration: Configuration)
     {
         let elements: ElementNode[] = [];
 
@@ -43,17 +44,17 @@ export class SourceCodeAnalyzer
         else if (ts.isTypeAliasDeclaration(node))
         {
             // type
-            elements.push(new TypeAliasNode(sourceFile, node));
+            elements.push(new TypeAliasNode(sourceFile, node, configuration.types.treatArrowFunctionPropertiesAsMethods));
         }
         else if (ts.isInterfaceDeclaration(node))
         {
             // interface
-            elements.push(new InterfaceNode(sourceFile, node));
+            elements.push(new InterfaceNode(sourceFile, node, configuration.interfaces.treatArrowFunctionPropertiesAsMethods));
         }
         else if (ts.isClassDeclaration(node))
         {
             // class
-            elements.push(new ClassNode(sourceFile, node, treatArrowFunctionPropertiesAsMethods));
+            elements.push(new ClassNode(sourceFile, node, configuration.classes.treatArrowFunctionPropertiesAsMethods));
         }
         else if (ts.isEnumDeclaration(node))
         {
@@ -80,7 +81,7 @@ export class SourceCodeAnalyzer
             // traverse children ast nodes
             for (let childNode of node.getChildren(sourceFile))
             {
-                elements = elements.concat(this.traverseSyntaxTree(childNode, sourceFile, treatArrowFunctionPropertiesAsMethods));
+                elements = elements.concat(this.traverseSyntaxTree(childNode, sourceFile, configuration));
             }
         }
 

@@ -3,8 +3,8 @@ import { ModuleMemberGroupConfiguration } from "./module-member-group-configurat
 export class ModuleConfiguration
 {
     constructor(
-        public readonly groups: ModuleMemberGroupConfiguration[]
-    )
+        public readonly treatArrowFunctionPropertiesAsMethods: boolean,
+        public readonly groups: ModuleMemberGroupConfiguration[])
     {
     }
 }
