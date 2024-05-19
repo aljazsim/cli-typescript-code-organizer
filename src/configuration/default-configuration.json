@@ -15,7 +15,7 @@
                 "sort": true,
                 "sortDirection": "asc",
                 "caption": "Enums",
-                "memberTypes": ["enms"],
+                "memberTypes": ["enums"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []

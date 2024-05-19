@@ -8,7 +8,7 @@
         },
         "members": {
             "treatArrowFunctionPropertiesAsMethods": false,
-            "treatArrowFunctionConstPropertiesAsMethods": false
+            "treatArrowFunctionConstPropertiesAsMethods": true
         },
         "memberGroups": [
             {
@@ -114,8 +114,8 @@
             "addPublicModifierIfMissing": true,
             "addPrivateModifierIfStartingWithHash": false,
             "groupMembersWithDecorators": false,
-            "treatArrowFunctionPropertiesAsMethods": false,
-            "treatArrowFunctionReadOnlyPropertiesAsMethods": false
+            "treatArrowFunctionPropertiesAsMethods": true,
+            "treatArrowFunctionReadOnlyPropertiesAsMethods": true
         },
         "memberGroups": [
             {
@@ -488,8 +488,8 @@
             "addRegionCaptionToRegionEnd": true
         },
         "members": {
-            "treatArrowFunctionPropertiesAsMethods": false,
-            "treatArrowFunctionReadOnlyPropertiesAsMethods": false
+            "treatArrowFunctionPropertiesAsMethods": true,
+            "treatArrowFunctionReadOnlyPropertiesAsMethods": true
         },
         "memberGroups": [
             {
@@ -538,7 +538,7 @@
             "addRegionCaptionToRegionEnd": false
         },
         "members": {
-            "treatArrowFunctionPropertiesAsMethods": false
+            "treatArrowFunctionPropertiesAsMethods": true
         },
         "memberGroups": [
             {

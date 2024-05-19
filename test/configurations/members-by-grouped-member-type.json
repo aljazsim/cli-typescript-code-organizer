@@ -8,14 +8,14 @@
         },
         "members": {
             "treatArrowFunctionPropertiesAsMethods": false,
-            "treatArrowFunctionConstPropertiesAsMethods": true
+            "treatArrowFunctionConstPropertiesAsMethods": false
         },
         "memberGroups": [
             {
                 "sort": true,
                 "sortDirection": "asc",
                 "caption": "Enums",
-                "memberTypes": ["enms"],
+                "memberTypes": ["enums"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -84,7 +84,7 @@
             "addPrivateModifierIfStartingWithHash": false,
             "groupMembersWithDecorators": false,
             "treatArrowFunctionPropertiesAsMethods": false,
-            "treatArrowFunctionReadOnlyPropertiesAsMethods": true
+            "treatArrowFunctionReadOnlyPropertiesAsMethods": false
         },
         "memberGroups": [
             {
@@ -201,7 +201,7 @@
         },
         "members": {
             "treatArrowFunctionPropertiesAsMethods": false,
-            "treatArrowFunctionReadOnlyPropertiesAsMethods": true
+            "treatArrowFunctionReadOnlyPropertiesAsMethods": false
         },
         "memberGroups": [
             {
@@ -250,7 +250,7 @@
             "addRegionCaptionToRegionEnd": false
         },
         "members": {
-            "treatArrowFunctionPropertiesAsMethods": true
+            "treatArrowFunctionPropertiesAsMethods": false
         },
         "memberGroups": [
             {
