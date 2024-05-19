@@ -3,10 +3,11 @@ import { ElementNode } from "./element-node";
 import * as ts from "typescript";
 import { ElementNodeGroup } from "./element-node-group";
 import { TypeMemberType } from "../enums/type-member-type";
-import { groupByPlaceAboveBelow, isWritable } from "../helpers/node-helper";
+import { order, isWritable } from "../helpers/node-helper";
 import { MethodSignatureNode } from "./method-signature-node";
 import { PropertySignatureNode } from "./property-signature-node";
 import { TypeConfiguration } from "../configuration/type-configuration";
+import { IndexSignatureNode } from "./index-signature-node";
 export class TypeAliasNode extends ElementNode
 {
     // #region Properties (5)
@@ -16,6 +17,7 @@ export class TypeAliasNode extends ElementNode
     public readonly methods: PropertySignatureNode[] = [];
     public readonly name: string;
     public readonly properties: PropertySignatureNode[] = [];
+    public readonly indexes: IndexSignatureNode[] = [];
 
     // #endregion Properties (5)
 
@@ -54,6 +56,10 @@ export class TypeAliasNode extends ElementNode
                                 this.properties.push(new PropertySignatureNode(sourceFile, member));
                             }
                         }
+                        else if (ts.isIndexSignatureDeclaration(member))
+                        {
+                            this.indexes.push(new IndexSignatureNode(sourceFile, member));
+                        }
                         else
                         {
                             console.error("Unknow type member");
@@ -74,29 +80,45 @@ export class TypeAliasNode extends ElementNode
 
         for (const memberGroup of configuration.memberGroups)
         {
+            const sort = memberGroup.sort;
+            const sortDirection = memberGroup.sortDirection;
             const placeAbove = memberGroup.placeAbove;
             const placeBelow = memberGroup.placeBelow;
             const memberGroups: ElementNodeGroup[] = [];
 
             for (const memberType of memberGroup.memberTypes)
             {
+                let elementNodes = Array<ElementNode>();
+
                 if (memberType === TypeMemberType.properties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.properties, placeAbove, placeBelow, false), false, null));
+                    elementNodes = this.properties;
                 }
                 else if (memberType === TypeMemberType.indexes)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.properties, placeAbove, placeBelow, false), false, null));
+                    elementNodes = this.indexes;
                 }
                 else if (memberType === TypeMemberType.methods)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.methods, placeAbove, placeBelow, false), false, null));
+                    elementNodes = this.methods;
+                }
+
+                if (elementNodes.length > 0)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], order(sort, sortDirection, elementNodes, [], [], false), false, null));
                 }
             }
 
             if (memberGroups.length > 0)
             {
-                regions.push(new ElementNodeGroup(memberGroup.caption, memberGroups, [], true, configuration.regions));
+                if (memberGroup.memberTypesGrouped)
+                {
+                    regions.push(new ElementNodeGroup(memberGroup.caption, memberGroups, [], true, configuration.regions));
+                }
+                else 
+                {
+                    regions.push(new ElementNodeGroup(memberGroup.caption, [], order(sort, sortDirection, memberGroups.flatMap(mg => mg.nodes), placeAbove, placeBelow, false), true, configuration.regions));
+                }
             }
         }
 

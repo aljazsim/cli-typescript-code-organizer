@@ -1,9 +1,10 @@
-import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, groupByPlaceAboveBelow } from "../helpers/node-helper";
+import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, order } from "../helpers/node-helper";
 import { readFile, writeFile } from "../helpers/file-system-helper";
 
 import { Configuration } from "../configuration/configuration";
 import { ElementNode } from "../elements/element-node";
 import { ElementNodeGroup } from "../elements/element-node-group";
+import { ModuleConfiguration } from "../configuration/module-configuration";
 import { ModuleMemberType } from "../enums/module-member-type";
 import { SourceCode } from "./source-code";
 import { SourceCodeAnalyzer } from "./source-code-analyzer";
@@ -12,7 +13,7 @@ import ts from "typescript";
 
 export class SourceCodeOrganizer
 {
-    // #region Public Static Methods (3)
+    // #region Public Static Methods (2)
 
     public static organizeSourceCode(sourceCode: string, configuration: Configuration)
     {
@@ -72,22 +73,22 @@ export class SourceCodeOrganizer
         }
     }
 
-    // #endregion Public Static Methods (3)
+    // #endregion Public Static Methods (2)
 
     // #region Private Static Methods (1)
 
-    private static organizeModuleMembers(elements: ElementNode[], configuration: Configuration)
+    private static organizeModuleMembers(elements: ElementNode[], configuration: ModuleConfiguration)
     {
         let regions: ElementNodeGroup[] = [];
         const imports = getImports(elements);
         const interfaces = getInterfaces(elements);
-        const classes = getClasses(elements, configuration.classes.members.groupMembersWithDecorators);
+        const classes = getClasses(elements, false);
         const types = getTypeAliases(elements);
         const enums = getEnums(elements);
-        const functions = getFunctions(elements, configuration.modules.members.treatArrowFunctionPropertiesAsMethods, false);
-        const exportedFunctions = getFunctions(elements, configuration.modules.members.treatArrowFunctionPropertiesAsMethods, true);
-        const constants = getVariables(elements, true, false, configuration.modules.members.treatArrowFunctionPropertiesAsMethods ? false : null);
-        const exportedConstants = getVariables(elements, true, true, configuration.modules.members.treatArrowFunctionPropertiesAsMethods ? false : null);
+        const functions = getFunctions(elements, configuration.members.treatArrowFunctionPropertiesAsMethods, false);
+        const exportedFunctions = getFunctions(elements, configuration.members.treatArrowFunctionPropertiesAsMethods, true);
+        const constants = getVariables(elements, true, false, configuration.members.treatArrowFunctionPropertiesAsMethods ? false : null);
+        const exportedConstants = getVariables(elements, true, true, configuration.members.treatArrowFunctionPropertiesAsMethods ? false : null);
         const variables = getVariables(elements, false, false, null);
         const exportedVariables = getVariables(elements, false, true, null);
         let expressions = getExpressions(elements);
@@ -97,11 +98,15 @@ export class SourceCodeOrganizer
             regions.push(new ElementNodeGroup("Imports", [], imports, false, null));
         }
 
-        for (const memberTypeGroup of configuration.modules.memberGroups)
+        for (const memberGroup of configuration.memberGroups)
         {
+            const sort = memberGroup.sort;
+            const sortDirection = memberGroup.sortDirection;
+            const placeAbove = memberGroup.placeAbove;
+            const placeBelow = memberGroup.placeBelow;
             const memberGroups: ElementNodeGroup[] = [];
 
-            for (const memberType of memberTypeGroup.memberTypes)
+            for (const memberType of memberGroup.memberTypes)
             {
                 let elementNodes = Array<ElementNode>();
 
@@ -148,7 +153,7 @@ export class SourceCodeOrganizer
 
                 if (elementNodes.length > 0)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(elementNodes, [], [], false), false, null));
+                    memberGroups.push(new ElementNodeGroup(null, [], order(sort, sortDirection, elementNodes, [], [], false), false, null));
                 }
             }
 
@@ -162,12 +167,20 @@ export class SourceCodeOrganizer
                     variables.length > 0 ||
                     exportedVariables.length > 0;
 
-                regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], isRegion, isRegion ? configuration.modules.regions : null));
+                if (memberGroup.memberTypesGrouped)
+                {
+                    regions.push(new ElementNodeGroup(memberGroup.caption, memberGroups, [], isRegion, configuration.regions));
+                }
+                else 
+                {
+                    regions.push(new ElementNodeGroup(memberGroup.caption, [], order(sort, sortDirection, memberGroups.flatMap(mg => mg.nodes), placeAbove, placeBelow, false), true, configuration.regions));
+                }
             }
         }
 
         if (expressions.length > 0)
         {
+            // expressions go to the end because of dependencies
             regions.push(new ElementNodeGroup(null, [], expressions, false, null));
         }
 

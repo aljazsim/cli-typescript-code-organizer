@@ -20,7 +20,7 @@ import { WriteModifier } from "../enums/write-modifier";
 import { compareStrings } from "./comparing-helper";
 import { sortBy } from "./sorting-helper";
 
-// #region Functions (26)
+// #region Functions (25)
 
 export function getAccessModifier(node: ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.MethodDeclaration | ts.PropertySignature | ts.IndexSignatureDeclaration)
 {
@@ -256,16 +256,6 @@ export function getWriteMode(node: ts.PropertyDeclaration | ts.VariableStatement
     return writeMode;
 }
 
-export function groupByPlaceAboveBelow(nodes: ElementNode[], placeAbove: string[], placeBelow: string[], groupWithDecorators: boolean)
-{
-    const nodesAboveMiddleBelow = splitByPlaceAboveBelow(nodes, placeAbove, placeBelow);
-    const nodesAbove = sortBy(nodesAboveMiddleBelow.nodesAbove, placeAbove);
-    const nodesMiddle = nodesAboveMiddleBelow.nodesMiddle.sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
-    const nodesBelow = sortBy(nodesAboveMiddleBelow.nodesBelow, placeBelow);
-
-    return nodesAbove.concat(nodesMiddle).concat(nodesBelow);
-}
-
 export function isPrivate(x: PropertyNode | MethodNode | GetterNode | SetterNode | AccessorNode)
 {
     return x.accessModifier === AccessModifier.private;
@@ -291,6 +281,26 @@ export function isWritable(x: PropertyNode | PropertySignatureNode)
     return x.writeMode === WriteModifier.writable;
 }
 
+export function order(sort: boolean, sortDirection: "asc" | "desc", nodes: ElementNode[], placeAbove: string[], placeBelow: string[], groupWithDecorators: boolean)
+{
+    const nodesAboveMiddleBelow = splitByPlaceAboveBelow(nodes, placeAbove, placeBelow);
+    const nodesAbove = sortBy(nodesAboveMiddleBelow.nodesAbove, placeAbove);
+    const nodesBelow = sortBy(nodesAboveMiddleBelow.nodesBelow, placeBelow);
+    let nodesMiddle = nodesAboveMiddleBelow.nodesMiddle;
+
+    if (sort)
+    {
+        nodesMiddle = nodesMiddle.sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+
+        if (sortDirection === "desc")
+        {
+            nodes = nodes.reverse();
+        }
+    }
+
+    return nodesAbove.concat(nodesMiddle).concat(nodesBelow);
+}
+
 export function splitByPlaceAboveBelow<T extends ElementNode>(nodes: T[], placeAbove: string[] | null, placeBelow: string[] | null)
 {
     const nodesAbove = placeAbove ? nodes.filter(n => placeAbove.indexOf(n.name) > -1) : [];
@@ -304,4 +314,4 @@ export function splitByPlaceAboveBelow<T extends ElementNode>(nodes: T[], placeA
     };
 }
 
-// #endregion Functions (26)
+// #endregion Functions (25)

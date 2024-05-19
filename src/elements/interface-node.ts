@@ -8,7 +8,7 @@ import { SetterNode } from "./setter-node";
 import { InterfaceMemberGroupConfiguration } from "../configuration/interface-member-group-configuration";
 import { ElementNodeGroup } from "./element-node-group";
 import { InterfaceMemberType } from "../enums/interface-member-type";
-import { groupByPlaceAboveBelow, isReadOnly, isWritable } from "../helpers/node-helper";
+import { order, isReadOnly, isWritable } from "../helpers/node-helper";
 import { InterfaceConfiguration } from "../configuration/interface-configuration";
 import { config } from "process";
 
@@ -78,21 +78,74 @@ export class InterfaceNode extends ElementNode
 
     // #endregion Constructors (1)
 
-    // #region Public Methods (6)
+    // #region Public Methods (1)
+
+    public organizeMembers(configuration: InterfaceConfiguration)
+    {
+        let regions: ElementNodeGroup[] = [];
+
+        for (const memberGroup of configuration.memberGroups)
+        {
+            const sort = memberGroup.sort;
+            const sortDirection = memberGroup.sortDirection;
+            const placeAbove = memberGroup.placeAbove;
+            const placeBelow = memberGroup.placeBelow;
+            const memberGroups: ElementNodeGroup[] = [];
+
+            for (const memberType of memberGroup.memberTypes)
+            {
+                let elementNodes = Array<ElementNode>();
+
+                if (memberType === InterfaceMemberType.properties)
+                {
+                    elementNodes = this.getProperties();
+                }
+                else if (memberType === InterfaceMemberType.readOnlyProperties)
+                {
+                    elementNodes = this.getReadOnlyProperties();
+                }
+                else if (memberType === InterfaceMemberType.indexes)
+                {
+                    elementNodes = this.indexes;
+                }
+                if (memberType === InterfaceMemberType.gettersAndSetters)
+                {
+                    elementNodes = this.getGettersAndSetters();
+                }
+                else if (memberType === InterfaceMemberType.methods)
+                {
+                    elementNodes = this.methods;
+                }
+
+                if (elementNodes.length > 0)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], order(sort, sortDirection, elementNodes, [], [], false), false, null));
+                }
+            }
+
+            if (memberGroups.length > 0)
+            {
+                if (memberGroup.memberTypesGrouped)
+                {
+                    regions.push(new ElementNodeGroup(memberGroup.caption, memberGroups, [], true, configuration.regions));
+                }
+                else 
+                {
+                    regions.push(new ElementNodeGroup(memberGroup.caption, [], order(sort, sortDirection, memberGroups.flatMap(mg => mg.nodes), placeAbove, placeBelow, false), true, configuration.regions));
+                }
+            }
+        }
+
+        return regions;
+    }
+
+    // #endregion Public Methods (1)
+
+    // #region Private Methods (3)
 
     private getGettersAndSetters()
     {
         return this.getters.concat(this.setters);
-    }
-
-    private getIndexes()
-    {
-        return this.indexes;
-    }
-
-    private getMethods()
-    {
-        return this.methods;
     }
 
     private getProperties()
@@ -105,48 +158,5 @@ export class InterfaceNode extends ElementNode
         return this.properties.filter((x) => isReadOnly(x));
     }
 
-    public organizeMembers(configuration: InterfaceConfiguration)
-    {
-        let regions: ElementNodeGroup[] = [];
-
-        for (const memberGroup of configuration.memberGroups)
-        {
-            const placeAbove = memberGroup.placeAbove;
-            const placeBelow = memberGroup.placeBelow;
-            const memberGroups: ElementNodeGroup[] = [];
-
-            for (const memberType of memberGroup.memberTypes)
-            {
-                if (memberType === InterfaceMemberType.properties)
-                {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProperties(), placeAbove, placeBelow, false), false, null));
-                }
-                else if (memberType === InterfaceMemberType.readOnlyProperties)
-                {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProperties(), placeAbove, placeBelow, false), false, null));
-                }
-                else if (memberType === InterfaceMemberType.indexes)
-                {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getIndexes(), placeAbove, placeBelow, false), false, null));
-                }
-                if (memberType === InterfaceMemberType.gettersAndSetters)
-                {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getGettersAndSetters(), placeAbove, placeBelow, false), false, null));
-                }
-                else if (memberType === InterfaceMemberType.methods)
-                {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getMethods(), placeAbove, placeBelow, false), false, null));
-                }
-            }
-
-            if (memberGroups.length > 0)
-            {
-                regions.push(new ElementNodeGroup(memberGroup.caption, memberGroups, [], true, configuration.regions));
-            }
-        }
-
-        return regions;
-    }
-
-    // #endregion Public Methods (6)
+    // #endregion Private Methods (3)
 }
