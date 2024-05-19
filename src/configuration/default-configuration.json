@@ -130,7 +130,7 @@
             {
                 "sort": true,
                 "sortDirection": "asc",
-                "caption": "Static Block Declarations",
+                "caption": "Constructors",
                 "memberTypes": ["constructors"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
@@ -139,8 +139,8 @@
             {
                 "sort": true,
                 "sortDirection": "asc",
-                "caption": "Public Static Indexes",
-                "memberTypes": ["publicStaticIndexes"],
+                "caption": "Indexes",
+                "memberTypes": ["publicStaticIndexes", "publicIndexes"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -148,65 +148,17 @@
             {
                 "sort": true,
                 "sortDirection": "asc",
-                "caption": "Public Indexes",
-                "memberTypes": ["publicIndexes"],
-                "memberTypesGrouped": true,
-                "placeAbove": [],
-                "placeBelow": []
-            },
-            {
-                "sort": true,
-                "sortDirection": "asc",
-                "caption": "Public Static Accessors",
-                "memberTypes": ["publicStaticAccessors"],
-                "memberTypesGrouped": true,
-                "placeAbove": [],
-                "placeBelow": []
-            },
-            {
-                "sort": true,
-                "sortDirection": "asc",
-                "caption": "Public Accessors",
-                "memberTypes": ["publicAccessors", "publicAbstractAccessors"],
-                "memberTypesGrouped": false,
-                "placeAbove": [],
-                "placeBelow": []
-            },
-            {
-                "sort": true,
-                "sortDirection": "asc",
-                "caption": "Protected Static Accessors",
-                "memberTypes": ["protectedStaticAccessors"],
-                "memberTypesGrouped": true,
-                "placeAbove": [],
-                "placeBelow": []
-            },
-            {
-                "sort": true,
-                "sortDirection": "asc",
-                "caption": "Protected Accessors",
+                "caption": "Accessors",
                 "memberTypes": [
+                    "publicStaticAccessors",
+                    "publicAccessors",
+                    "publicAbstractAccessors",
+                    "protectedStaticAccessors",
                     "protectedAccessors",
-                    "protectedAbstractAccessors"
+                    "protectedAbstractAccessors",
+                    "privateStaticAccessors",
+                    "privateAccessors"
                 ],
-                "memberTypesGrouped": false,
-                "placeAbove": [],
-                "placeBelow": []
-            },
-            {
-                "sort": true,
-                "sortDirection": "asc",
-                "caption": "Private Static Accessors",
-                "memberTypes": ["privateStaticAccessors"],
-                "memberTypesGrouped": true,
-                "placeAbove": [],
-                "placeBelow": []
-            },
-            {
-                "sort": true,
-                "sortDirection": "asc",
-                "caption": "Private Accessors",
-                "memberTypes": ["privateAccessors"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []

@@ -31,7 +31,7 @@ export class SourceCodeOrganizer
 
                 let sourceFile = ts.createSourceFile("temp.ts", sourceCodeWithoutRegions.toString(), ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
                 let elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration);
-                let topLevelGroups = this.organizeModuleMembers(elements, configuration); // TODO: move this to module node
+                let topLevelGroups = this.organizeModuleMembers(elements, configuration.modules); // TODO: move this to module node
 
                 return SourceCodePrinter.print(topLevelGroups, configuration).toString();
             }
@@ -153,7 +153,7 @@ export class SourceCodeOrganizer
 
                 if (elementNodes.length > 0)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], order(sort, sortDirection, elementNodes, [], [], false), false, null));
+                    memberGroups.push(new ElementNodeGroup(null, [], order(sort, sortDirection, elementNodes, placeAbove, placeBelow, false), false, null));
                 }
             }
 

@@ -28,7 +28,6 @@ export abstract class TestClass
     @decoratorC(9860836855)
     protected static protectedStaticProperty1 = 8522782648;
     protected readonly protectedReadonlyProperty2 = "txpobjdpsj";
-    public accessor publicAccessor1: boolean | undefined;
     @decoratorD()
     public static accessor publicStaticAccessor1: boolean | undefined;
     /*
