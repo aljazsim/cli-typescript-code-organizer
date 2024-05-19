@@ -1,5 +1,9 @@
+import { ClassConfiguration } from "../configuration/class-configuration";
 import { Configuration } from "../../src/configuration/configuration";
+import { InterfaceConfiguration } from "../configuration/interface-configuration";
+import { ModuleConfiguration } from "../configuration/module-configuration";
 import { RegionConfiguration } from "../../src/configuration/region-configuration";
+import { TypeConfiguration } from "../configuration/type-configuration";
 
 // #region Functions (4)
 
@@ -8,16 +12,38 @@ async function getConfiguration(configurationFilePath: string, useRegions = true
     const configuration = await Configuration.getConfiguration(configurationFilePath);
 
     return new Configuration(
-        new RegionConfiguration(
-            useRegions,
-            addRegionIndentation,
-            addMemberCountInRegionName,
-            addRegionCaptionToRegionEnd
-        ),
-        configuration.modules,
-        configuration.classes,
-        configuration.interfaces,
-        configuration.types);
+        new ModuleConfiguration(
+            new RegionConfiguration(
+                useRegions,
+                addRegionIndentation,
+                addMemberCountInRegionName,
+                addRegionCaptionToRegionEnd),
+            configuration.modules.members,
+            configuration.modules.memberGroups),
+        new ClassConfiguration(
+            new RegionConfiguration(
+                useRegions,
+                addRegionIndentation,
+                addMemberCountInRegionName,
+                addRegionCaptionToRegionEnd),
+            configuration.classes.members,
+            configuration.classes.memberGroups),
+        new InterfaceConfiguration(
+            new RegionConfiguration(
+                useRegions,
+                addRegionIndentation,
+                addMemberCountInRegionName,
+                addRegionCaptionToRegionEnd),
+            configuration.interfaces.members,
+            configuration.interfaces.memberGroups),
+        new TypeConfiguration(
+            new RegionConfiguration(
+                useRegions,
+                addRegionIndentation,
+                addMemberCountInRegionName,
+                addRegionCaptionToRegionEnd),
+            configuration.types.members,
+            configuration.types.memberGroups),);
 }
 
 export async function membersByGroupedMemberTypeConfiguration(useRegions = true, addRegionIndentation = true, addMemberCountInRegionName = true, addRegionCaptionToRegionEnd = true)

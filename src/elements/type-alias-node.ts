@@ -6,6 +6,7 @@ import { TypeMemberType } from "../enums/type-member-type";
 import { groupByPlaceAboveBelow, isWritable } from "../helpers/node-helper";
 import { MethodSignatureNode } from "./method-signature-node";
 import { PropertySignatureNode } from "./property-signature-node";
+import { TypeConfiguration } from "../configuration/type-configuration";
 export class TypeAliasNode extends ElementNode
 {
     // #region Properties (5)
@@ -67,31 +68,35 @@ export class TypeAliasNode extends ElementNode
 
     // #region Public Methods (1)
 
-    public organizeMembers(memberTypeOrder: TypeMemberGroupConfiguration[])
+    public organizeMembers(configuration: TypeConfiguration)
     {
         let regions: ElementNodeGroup[] = [];
 
-        for (const memberTypeGroup of memberTypeOrder)
+        for (const memberGroup of configuration.memberGroups)
         {
-            const placeAbove = memberTypeGroup.placeAbove;
-            const placeBelow = memberTypeGroup.placeBelow;
+            const placeAbove = memberGroup.placeAbove;
+            const placeBelow = memberGroup.placeBelow;
             const memberGroups: ElementNodeGroup[] = [];
 
-            for (const memberType of memberTypeGroup.memberTypes)
+            for (const memberType of memberGroup.memberTypes)
             {
                 if (memberType === TypeMemberType.properties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.properties, placeAbove, placeBelow, false), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.properties, placeAbove, placeBelow, false), false, null));
                 }
-                if (memberType === TypeMemberType.methods)
+                else if (memberType === TypeMemberType.indexes)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.methods, placeAbove, placeBelow, false), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.properties, placeAbove, placeBelow, false), false, null));
+                }
+                else if (memberType === TypeMemberType.methods)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.methods, placeAbove, placeBelow, false), false, null));
                 }
             }
 
             if (memberGroups.length > 0)
             {
-                regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], true));
+                regions.push(new ElementNodeGroup(memberGroup.caption, memberGroups, [], true, configuration.regions));
             }
         }
 

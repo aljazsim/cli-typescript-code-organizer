@@ -81,23 +81,23 @@ export class SourceCodeOrganizer
         let regions: ElementNodeGroup[] = [];
         const imports = getImports(elements);
         const interfaces = getInterfaces(elements);
-        const classes = getClasses(elements, configuration.classes.groupMembersWithDecorators);
+        const classes = getClasses(elements, configuration.classes.members.groupMembersWithDecorators);
         const types = getTypeAliases(elements);
         const enums = getEnums(elements);
-        const functions = getFunctions(elements, configuration.modules.treatArrowFunctionPropertiesAsMethods, false);
-        const exportedFunctions = getFunctions(elements, configuration.modules.treatArrowFunctionPropertiesAsMethods, true);
-        const constants = getVariables(elements, true, false, configuration.modules.treatArrowFunctionPropertiesAsMethods ? false : null);
-        const exportedConstants = getVariables(elements, true, true, configuration.modules.treatArrowFunctionPropertiesAsMethods ? false : null);
+        const functions = getFunctions(elements, configuration.modules.members.treatArrowFunctionPropertiesAsMethods, false);
+        const exportedFunctions = getFunctions(elements, configuration.modules.members.treatArrowFunctionPropertiesAsMethods, true);
+        const constants = getVariables(elements, true, false, configuration.modules.members.treatArrowFunctionPropertiesAsMethods ? false : null);
+        const exportedConstants = getVariables(elements, true, true, configuration.modules.members.treatArrowFunctionPropertiesAsMethods ? false : null);
         const variables = getVariables(elements, false, false, null);
         const exportedVariables = getVariables(elements, false, true, null);
         let expressions = getExpressions(elements);
 
         if (imports.length > 0)
         {
-            regions.push(new ElementNodeGroup("Imports", [], imports, false));
+            regions.push(new ElementNodeGroup("Imports", [], imports, false, null));
         }
 
-        for (const memberTypeGroup of configuration.modules.groups)
+        for (const memberTypeGroup of configuration.modules.memberGroups)
         {
             const memberGroups: ElementNodeGroup[] = [];
 
@@ -148,7 +148,7 @@ export class SourceCodeOrganizer
 
                 if (elementNodes.length > 0)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(elementNodes, [], [], false), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(elementNodes, [], [], false), false, null));
                 }
             }
 
@@ -162,13 +162,13 @@ export class SourceCodeOrganizer
                     variables.length > 0 ||
                     exportedVariables.length > 0;
 
-                regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], isRegion));
+                regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], isRegion, isRegion ? configuration.modules.regions : null));
             }
         }
 
         if (expressions.length > 0)
         {
-            regions.push(new ElementNodeGroup(null, [], expressions, false));
+            regions.push(new ElementNodeGroup(null, [], expressions, false, null));
         }
 
         return regions;

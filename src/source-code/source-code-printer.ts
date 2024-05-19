@@ -35,11 +35,11 @@ export class SourceCodePrinter
     private static printClass(node: ClassNode, configuration: Configuration)
     {
         const beforeMembers = node.sourceCode.substring(0, node.membersStart).trimStart();
-        const members = this.printNodeGroups(node.organizeMembers(configuration.classes.groups, configuration.classes.groupMembersWithDecorators), configuration);
+        const members = this.printNodeGroups(node.organizeMembers(configuration.classes), configuration);
         const afterMembers = node.sourceCode.substring(node.membersEnd + 1).trimEnd();
         const nodeSourceCode = new SourceCode();
 
-        if (configuration.classes.addPublicModifierIfMissing)
+        if (configuration.classes.members.addPublicModifierIfMissing)
         {
             // add public modifier if missing
             node.properties.forEach(p => members.addPublicModifierIfMissing(p));
@@ -49,7 +49,7 @@ export class SourceCodePrinter
             node.accessors.forEach(a => members.addPublicModifierIfMissing(a));
         }
 
-        if (configuration.classes.addPrivateModifierIfStartingWithHash)
+        if (configuration.classes.members.addPrivateModifierIfStartingWithHash)
         {
             // add private modifier if starting with hash
             node.properties.forEach(p => members.addPrivateModifierIfStartingWithHash(p));
@@ -70,7 +70,7 @@ export class SourceCodePrinter
     private static printInterface(node: InterfaceNode, configuration: Configuration)
     {
         const beforeMembers = node.sourceCode.substring(0, node.membersStart).trimStart();
-        const members = this.printNodeGroups(node.organizeMembers(configuration.interfaces.groups), configuration);
+        const members = this.printNodeGroups(node.organizeMembers(configuration.interfaces), configuration);
         const afterMembers = node.sourceCode.substring(node.membersEnd + 1).trimEnd();
         const nodeSourceCode = new SourceCode();
 
@@ -102,7 +102,7 @@ export class SourceCodePrinter
         if (node instanceof PropertyNode)
         {
             // arrow function property -> add a new line
-            nodeSourceCode.addNewLineIf(node.isArrowFunction && configuration.classes.treatArrowFunctionPropertiesAsMethods);
+            nodeSourceCode.addNewLineIf(node.isArrowFunction && configuration.classes.members.treatArrowFunctionPropertiesAsMethods);
         }
 
         nodeSourceCode.addNewLine();
@@ -135,10 +135,10 @@ export class SourceCodePrinter
             }
         }
 
-        if (configuration.regions.useRegions && nodeGroup.isRegion)
+        if (nodeGroup.isRegion && nodeGroup.regionConfiguration?.useRegions)
         {
             // wrap with region
-            nodeGroupSourceCode.addRegion(nodeGroup.caption ?? "Region", nodeGroupNodeCount, configuration.regions);
+            nodeGroupSourceCode.addRegion(nodeGroup.caption ?? "Region", nodeGroupNodeCount, nodeGroup.regionConfiguration);
         }
 
         return nodeGroupSourceCode;
@@ -170,7 +170,7 @@ export class SourceCodePrinter
     private static printType(node: TypeAliasNode, configuration: Configuration)
     {
         const beforeMembers = node.sourceCode.substring(0, node.membersStart).trimStart();
-        const members = this.printNodeGroups(node.organizeMembers(configuration.types.groups), configuration);
+        const members = this.printNodeGroups(node.organizeMembers(configuration.types), configuration);
         const afterMembers = node.sourceCode.substring(node.membersEnd + 1).trimEnd();
         const nodeSourceCode = new SourceCode();
 

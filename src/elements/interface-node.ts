@@ -9,6 +9,8 @@ import { InterfaceMemberGroupConfiguration } from "../configuration/interface-me
 import { ElementNodeGroup } from "./element-node-group";
 import { InterfaceMemberType } from "../enums/interface-member-type";
 import { groupByPlaceAboveBelow, isReadOnly, isWritable } from "../helpers/node-helper";
+import { InterfaceConfiguration } from "../configuration/interface-configuration";
+import { config } from "process";
 
 export class InterfaceNode extends ElementNode
 {
@@ -78,64 +80,68 @@ export class InterfaceNode extends ElementNode
 
     // #region Public Methods (6)
 
-    public getGettersAndSetters()
+    private getGettersAndSetters()
     {
         return this.getters.concat(this.setters);
     }
 
-    public getIndexes()
+    private getIndexes()
     {
         return this.indexes;
     }
 
-    public getMethods()
+    private getMethods()
     {
         return this.methods;
     }
 
-    public getProperties()
+    private getProperties()
     {
         return this.properties.filter((x) => isWritable(x));
     }
 
-    public getReadOnlyProperties()
+    private getReadOnlyProperties()
     {
         return this.properties.filter((x) => isReadOnly(x));
     }
 
-    public organizeMembers(memberTypeOrder: InterfaceMemberGroupConfiguration[])
+    public organizeMembers(configuration: InterfaceConfiguration)
     {
         let regions: ElementNodeGroup[] = [];
 
-        for (const memberTypeGroup of memberTypeOrder)
+        for (const memberGroup of configuration.memberGroups)
         {
-            const placeAbove = memberTypeGroup.placeAbove;
-            const placeBelow = memberTypeGroup.placeBelow;
+            const placeAbove = memberGroup.placeAbove;
+            const placeBelow = memberGroup.placeBelow;
             const memberGroups: ElementNodeGroup[] = [];
 
-            for (const memberType of memberTypeGroup.memberTypes)
+            for (const memberType of memberGroup.memberTypes)
             {
                 if (memberType === InterfaceMemberType.properties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProperties(), placeAbove, placeBelow, false), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProperties(), placeAbove, placeBelow, false), false, null));
+                }
+                else if (memberType === InterfaceMemberType.readOnlyProperties)
+                {
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProperties(), placeAbove, placeBelow, false), false, null));
                 }
                 else if (memberType === InterfaceMemberType.indexes)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getIndexes(), placeAbove, placeBelow, false), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getIndexes(), placeAbove, placeBelow, false), false, null));
                 }
                 if (memberType === InterfaceMemberType.gettersAndSetters)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getGettersAndSetters(), placeAbove, placeBelow, false), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getGettersAndSetters(), placeAbove, placeBelow, false), false, null));
                 }
                 else if (memberType === InterfaceMemberType.methods)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getMethods(), placeAbove, placeBelow, false), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getMethods(), placeAbove, placeBelow, false), false, null));
                 }
             }
 
             if (memberGroups.length > 0)
             {
-                regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], true));
+                regions.push(new ElementNodeGroup(memberGroup.caption, memberGroups, [], true, configuration.regions));
             }
         }
 

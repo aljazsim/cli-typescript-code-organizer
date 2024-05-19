@@ -1,10 +1,13 @@
+import { RegionConfiguration } from "./region-configuration";
+import { TypeMemberConfiguration } from "./type-member-configuration";
 import { TypeMemberGroupConfiguration } from "./type-member-group-configuration";
 
 export class TypeConfiguration
 {
     constructor(
-        public readonly treatArrowFunctionPropertiesAsMethods: boolean,
-        public readonly groups: TypeMemberGroupConfiguration[])
+        public readonly regions: RegionConfiguration,
+        public readonly members: TypeMemberConfiguration,
+        public readonly memberGroups: TypeMemberGroupConfiguration[])
     {
     }
 }

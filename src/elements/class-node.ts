@@ -11,6 +11,7 @@ import { getDecorators, getIsAbstract, getIsStatic, groupByPlaceAboveBelow, isPr
 import { ClassMemberGroupConfiguration } from "../configuration/class-member-group-configuration";
 import { ElementNodeGroup } from "./element-node-group";
 import { ClassMemberType } from "../enums/class-member-type";
+import { ClassConfiguration } from "../configuration/class-configuration";
 
 export class ClassNode extends ElementNode
 {
@@ -94,367 +95,371 @@ export class ClassNode extends ElementNode
 
     // #endregion Constructors (1)
 
-    // #region Public Methods (38)
+    // #region Public Methods (1)
 
-    public getConstructors()
-    {
-        return this.constructors;
-    }
-
-    public getPrivateAccessors()
-    {
-        return this.accessors.filter(x => isPrivate(x) && !x.isStatic && !x.isAbstract);
-    }
-
-    public getPrivateGettersAndSetters()
-    {
-        return this.getters.concat(this.setters).filter(x => isPrivate(x) && !x.isStatic && !x.isAbstract);
-    }
-
-    public getPrivateMethods()
-    {
-        return this.methods.filter(x => isPrivate(x) && !x.isStatic && !x.isAbstract);
-    }
-
-    public getPrivateProperties()
-    {
-        return this.properties.filter(x => isPrivate(x) && isWritable(x) && !x.isStatic);
-    }
-
-    public getPrivateReadOnlyProperties()
-    {
-        return this.properties.filter(x => isPrivate(x) && isReadOnly(x) && !x.isStatic);
-    }
-
-    public getPrivateStaticAccessors()
-    {
-        return this.accessors.filter(x => isPrivate(x) && x.isStatic && !x.isAbstract);
-    }
-
-    public getPrivateStaticGettersAndSetters()
-    {
-        return this.getters.concat(this.setters).filter(x => isPrivate(x) && x.isStatic && !x.isAbstract);
-    }
-
-    public getPrivateStaticMethods()
-    {
-        return this.methods.filter(x => isPrivate(x) && x.isStatic && !x.isAbstract);
-    }
-
-    public getPrivateStaticProperties()
-    {
-        return this.properties.filter(x => isPrivate(x) && isWritable(x) && x.isStatic);
-    }
-
-    public getPrivateStaticReadOnlyProperties()
-    {
-        return this.properties.filter(x => isPrivate(x) && isReadOnly(x) && x.isStatic);
-    }
-
-    public getProtectedAbstractAccessors()
-    {
-        return this.accessors.filter(x => isProtected(x) && !x.isStatic && x.isAbstract);
-    }
-
-    public getProtectedAbstractGettersAndSetters()
-    {
-        return this.getters.concat(this.setters).filter(x => isProtected(x) && !x.isStatic && x.isAbstract);
-    }
-
-    public getProtectedAbstractMethods()
-    {
-        return this.methods.filter(x => isProtected(x) && !x.isStatic && x.isAbstract);
-    }
-
-    public getProtectedAccessors()
-    {
-        return this.accessors.filter(x => isProtected(x) && !x.isStatic && !x.isAbstract);
-    }
-
-    public getProtectedGettersAndSetters()
-    {
-        return this.getters.concat(this.setters).filter(x => isProtected(x) && !x.isStatic && !x.isAbstract);
-    }
-
-    public getProtectedMethods()
-    {
-        return this.methods.filter(x => isProtected(x) && !x.isStatic && !x.isAbstract);
-    }
-
-    public getProtectedProperties()
-    {
-        return this.properties.filter(x => isProtected(x) && isWritable(x) && !x.isStatic);
-    }
-
-    public getProtectedReadOnlyProperties()
-    {
-        return this.properties.filter(x => isProtected(x) && isReadOnly(x) && !x.isStatic);
-    }
-
-    public getProtectedStaticAccessors()
-    {
-        return this.accessors.filter(x => isProtected(x) && x.isStatic && !x.isAbstract);
-    }
-
-    public getProtectedStaticGettersAndSetters()
-    {
-        return this.getters.concat(this.setters).filter(x => isProtected(x) && x.isStatic && !x.isAbstract);
-    }
-
-    public getProtectedStaticMethods()
-    {
-        return this.methods.filter(x => isProtected(x) && x.isStatic && !x.isAbstract);
-    }
-
-    public getProtectedStaticProperties()
-    {
-        return this.properties.filter(x => isProtected(x) && isWritable(x) && x.isStatic);
-    }
-
-    public getProtectedStaticReadOnlyProperties()
-    {
-        return this.properties.filter(x => isProtected(x) && isReadOnly(x) && x.isStatic);
-    }
-
-    public getPublicAbstractAccessors()
-    {
-        return this.accessors.filter(x => isPublic(x) && !x.isStatic && x.isAbstract);
-    }
-
-    public getPublicAbstractGettersAndSetters()
-    {
-        return this.getters.concat(this.setters).filter(x => isPublic(x) && !x.isStatic && x.isAbstract);
-    }
-
-    public getPublicAbstractMethods()
-    {
-        return this.methods.filter(x => isPublic(x) && !x.isStatic && x.isAbstract);
-    }
-
-    public getPublicAccessors()
-    {
-        return this.accessors.filter(x => isPublic(x) && !x.isStatic && !x.isAbstract);
-    }
-
-    public getPublicGettersAndSetters()
-    {
-        return this.getters.concat(this.setters).filter(x => isPublic(x) && !x.isStatic && !x.isAbstract);
-    }
-
-    public getPublicMethods()
-    {
-        return this.methods.filter(x => isPublic(x) && !x.isStatic && !x.isAbstract);
-    }
-
-    public getPublicProperties()
-    {
-        return this.properties.filter(x => isPublic(x) && isWritable(x) && !x.isStatic);
-    }
-
-    public getPublicReadOnlyProperties()
-    {
-        return this.properties.filter(x => isPublic(x) && isReadOnly(x) && !x.isStatic);
-    }
-
-    public getPublicStaticAccessors()
-    {
-        return this.accessors.filter(x => isPublic(x) && x.isStatic && !x.isAbstract);
-    }
-
-    public getPublicStaticGettersAndSetters()
-    {
-        return this.getters.concat(this.setters).filter(x => isPublic(x) && x.isStatic && !x.isAbstract);
-    }
-
-    public getPublicStaticMethods()
-    {
-        return this.methods.filter(x => isPublic(x) && x.isStatic && !x.isAbstract);
-    }
-
-    public getPublicStaticProperties()
-    {
-        return this.properties.filter(x => isPublic(x) && isWritable(x) && x.isStatic);
-    }
-
-    public getPublicStaticReadOnlyProperties()
-    {
-        return this.properties.filter(x => isPublic(x) && isReadOnly(x) && x.isStatic);
-    }
-
-    public organizeMembers(memberTypeOrder: ClassMemberGroupConfiguration[], groupElementsWithDecorators: boolean)
+    public organizeMembers(configuration: ClassConfiguration)
     {
         let regions: ElementNodeGroup[] = [];
 
-        for (const memberTypeGroup of memberTypeOrder)
+        for (const memberGroup of configuration.memberGroups)
         {
-            const placeAbove = memberTypeGroup.placeAbove;
-            const placeBelow = memberTypeGroup.placeBelow;
+            const placeAbove = memberGroup.placeAbove;
+            const placeBelow = memberGroup.placeBelow;
             const memberGroups: ElementNodeGroup[] = [];
 
-            for (const memberType of memberTypeGroup.memberTypes)
+            for (const memberType of memberGroup.memberTypes)
             {
                 if (memberType === ClassMemberType.privateStaticReadOnlyProperties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateStaticReadOnlyProperties(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateStaticReadOnlyProperties(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.privateReadOnlyProperties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateReadOnlyProperties(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateReadOnlyProperties(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.privateStaticProperties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateStaticProperties(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateStaticProperties(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.privateProperties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateProperties(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateProperties(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.protectedStaticReadOnlyProperties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedStaticReadOnlyProperties(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedStaticReadOnlyProperties(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.protectedReadOnlyProperties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedReadOnlyProperties(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedReadOnlyProperties(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.protectedStaticProperties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedStaticProperties(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedStaticProperties(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.protectedProperties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedProperties(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedProperties(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.publicStaticReadOnlyProperties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicStaticReadOnlyProperties(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicStaticReadOnlyProperties(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.publicReadOnlyProperties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicReadOnlyProperties(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicReadOnlyProperties(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.publicStaticProperties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicStaticProperties(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicStaticProperties(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.publicProperties)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicProperties(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicProperties(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.staticBlockDeclarations)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], this.staticBlockDeclarations, false));
+                    memberGroups.push(new ElementNodeGroup(null, [], this.staticBlockDeclarations, false, null));
                 }
                 else if (memberType === ClassMemberType.constructors)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], this.getConstructors(), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], this.getConstructors(), false, null));
                 }
                 else if (memberType === ClassMemberType.publicStaticAccessors)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicStaticAccessors(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicStaticAccessors(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.publicAccessors)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicAccessors(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicAccessors(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.publicAbstractAccessors)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicAbstractAccessors(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicAbstractAccessors(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.protectedStaticAccessors)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedStaticAccessors(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedStaticAccessors(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.protectedAccessors)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedAccessors(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedAccessors(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.protectedAbstractAccessors)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedAbstractAccessors(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedAbstractAccessors(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.privateStaticAccessors)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateStaticAccessors(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateStaticAccessors(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.privateAccessors)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateAccessors(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateAccessors(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.publicStaticGettersAndSetters)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicStaticGettersAndSetters(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicStaticGettersAndSetters(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.publicGettersAndSetters)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicGettersAndSetters(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicGettersAndSetters(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.publicAbstractGettersAndSetters)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicAbstractGettersAndSetters(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicAbstractGettersAndSetters(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.protectedStaticGettersAndSetters)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedStaticGettersAndSetters(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedStaticGettersAndSetters(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.protectedGettersAndSetters)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedGettersAndSetters(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedGettersAndSetters(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.protectedAbstractGettersAndSetters)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedAbstractGettersAndSetters(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedAbstractGettersAndSetters(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.privateStaticGettersAndSetters)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateStaticGettersAndSetters(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateStaticGettersAndSetters(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.privateGettersAndSetters)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateGettersAndSetters(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateGettersAndSetters(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.publicStaticMethods)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicStaticMethods(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicStaticMethods(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.publicMethods)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicMethods(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicMethods(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.publicAbstractMethods)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicAbstractMethods(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPublicAbstractMethods(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.protectedStaticMethods)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedStaticMethods(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedStaticMethods(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.protectedMethods)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedMethods(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedMethods(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.protectedAbstractMethods)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedAbstractMethods(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getProtectedAbstractMethods(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.privateStaticMethods)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateStaticMethods(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateStaticMethods(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
                 else if (memberType === ClassMemberType.privateMethods)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateMethods(), placeAbove, placeBelow, groupElementsWithDecorators), false));
+                    memberGroups.push(new ElementNodeGroup(null, [], groupByPlaceAboveBelow(this.getPrivateMethods(), placeAbove, placeBelow, configuration.members.groupMembersWithDecorators), false, null));
                 }
             }
 
             if (memberGroups.length > 0)
             {
-                regions.push(new ElementNodeGroup(memberTypeGroup.caption, memberGroups, [], true));
+                regions.push(new ElementNodeGroup(memberGroup.caption, memberGroups, [], true, configuration.regions));
             }
         }
 
         return regions;
     }
 
-    // #endregion Public Methods (38)
+    // #endregion Public Methods (1)
+
+    // #region Private Methods (37)
+
+    private getConstructors()
+    {
+        return this.constructors;
+    }
+
+    private getPrivateAccessors()
+    {
+        return this.accessors.filter(x => isPrivate(x) && !x.isStatic && !x.isAbstract);
+    }
+
+    private getPrivateGettersAndSetters()
+    {
+        return this.getters.concat(this.setters).filter(x => isPrivate(x) && !x.isStatic && !x.isAbstract);
+    }
+
+    private getPrivateMethods()
+    {
+        return this.methods.filter(x => isPrivate(x) && !x.isStatic && !x.isAbstract);
+    }
+
+    private getPrivateProperties()
+    {
+        return this.properties.filter(x => isPrivate(x) && isWritable(x) && !x.isStatic);
+    }
+
+    private getPrivateReadOnlyProperties()
+    {
+        return this.properties.filter(x => isPrivate(x) && isReadOnly(x) && !x.isStatic);
+    }
+
+    private getPrivateStaticAccessors()
+    {
+        return this.accessors.filter(x => isPrivate(x) && x.isStatic && !x.isAbstract);
+    }
+
+    private getPrivateStaticGettersAndSetters()
+    {
+        return this.getters.concat(this.setters).filter(x => isPrivate(x) && x.isStatic && !x.isAbstract);
+    }
+
+    private getPrivateStaticMethods()
+    {
+        return this.methods.filter(x => isPrivate(x) && x.isStatic && !x.isAbstract);
+    }
+
+    private getPrivateStaticProperties()
+    {
+        return this.properties.filter(x => isPrivate(x) && isWritable(x) && x.isStatic);
+    }
+
+    private getPrivateStaticReadOnlyProperties()
+    {
+        return this.properties.filter(x => isPrivate(x) && isReadOnly(x) && x.isStatic);
+    }
+
+    private getProtectedAbstractAccessors()
+    {
+        return this.accessors.filter(x => isProtected(x) && !x.isStatic && x.isAbstract);
+    }
+
+    private getProtectedAbstractGettersAndSetters()
+    {
+        return this.getters.concat(this.setters).filter(x => isProtected(x) && !x.isStatic && x.isAbstract);
+    }
+
+    private getProtectedAbstractMethods()
+    {
+        return this.methods.filter(x => isProtected(x) && !x.isStatic && x.isAbstract);
+    }
+
+    private getProtectedAccessors()
+    {
+        return this.accessors.filter(x => isProtected(x) && !x.isStatic && !x.isAbstract);
+    }
+
+    private getProtectedGettersAndSetters()
+    {
+        return this.getters.concat(this.setters).filter(x => isProtected(x) && !x.isStatic && !x.isAbstract);
+    }
+
+    private getProtectedMethods()
+    {
+        return this.methods.filter(x => isProtected(x) && !x.isStatic && !x.isAbstract);
+    }
+
+    private getProtectedProperties()
+    {
+        return this.properties.filter(x => isProtected(x) && isWritable(x) && !x.isStatic);
+    }
+
+    private getProtectedReadOnlyProperties()
+    {
+        return this.properties.filter(x => isProtected(x) && isReadOnly(x) && !x.isStatic);
+    }
+
+    private getProtectedStaticAccessors()
+    {
+        return this.accessors.filter(x => isProtected(x) && x.isStatic && !x.isAbstract);
+    }
+
+    private getProtectedStaticGettersAndSetters()
+    {
+        return this.getters.concat(this.setters).filter(x => isProtected(x) && x.isStatic && !x.isAbstract);
+    }
+
+    private getProtectedStaticMethods()
+    {
+        return this.methods.filter(x => isProtected(x) && x.isStatic && !x.isAbstract);
+    }
+
+    private getProtectedStaticProperties()
+    {
+        return this.properties.filter(x => isProtected(x) && isWritable(x) && x.isStatic);
+    }
+
+    private getProtectedStaticReadOnlyProperties()
+    {
+        return this.properties.filter(x => isProtected(x) && isReadOnly(x) && x.isStatic);
+    }
+
+    private getPublicAbstractAccessors()
+    {
+        return this.accessors.filter(x => isPublic(x) && !x.isStatic && x.isAbstract);
+    }
+
+    private getPublicAbstractGettersAndSetters()
+    {
+        return this.getters.concat(this.setters).filter(x => isPublic(x) && !x.isStatic && x.isAbstract);
+    }
+
+    private getPublicAbstractMethods()
+    {
+        return this.methods.filter(x => isPublic(x) && !x.isStatic && x.isAbstract);
+    }
+
+    private getPublicAccessors()
+    {
+        return this.accessors.filter(x => isPublic(x) && !x.isStatic && !x.isAbstract);
+    }
+
+    private getPublicGettersAndSetters()
+    {
+        return this.getters.concat(this.setters).filter(x => isPublic(x) && !x.isStatic && !x.isAbstract);
+    }
+
+    private getPublicMethods()
+    {
+        return this.methods.filter(x => isPublic(x) && !x.isStatic && !x.isAbstract);
+    }
+
+    private getPublicProperties()
+    {
+        return this.properties.filter(x => isPublic(x) && isWritable(x) && !x.isStatic);
+    }
+
+    private getPublicReadOnlyProperties()
+    {
+        return this.properties.filter(x => isPublic(x) && isReadOnly(x) && !x.isStatic);
+    }
+
+    private getPublicStaticAccessors()
+    {
+        return this.accessors.filter(x => isPublic(x) && x.isStatic && !x.isAbstract);
+    }
+
+    private getPublicStaticGettersAndSetters()
+    {
+        return this.getters.concat(this.setters).filter(x => isPublic(x) && x.isStatic && !x.isAbstract);
+    }
+
+    private getPublicStaticMethods()
+    {
+        return this.methods.filter(x => isPublic(x) && x.isStatic && !x.isAbstract);
+    }
+
+    private getPublicStaticProperties()
+    {
+        return this.properties.filter(x => isPublic(x) && isWritable(x) && x.isStatic);
+    }
+
+    private getPublicStaticReadOnlyProperties()
+    {
+        return this.properties.filter(x => isPublic(x) && isReadOnly(x) && x.isStatic);
+    }
+
+    // #endregion Private Methods (37)
 }

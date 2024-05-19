@@ -1,10 +1,11 @@
 import { ElementNode } from "./element-node";
+import { RegionConfiguration } from "../configuration/region-configuration";
 
 export class ElementNodeGroup
 {
     // #region Constructors (1)
 
-    constructor(public readonly caption: string | null, public readonly nodeSubGroups: ElementNodeGroup[], public readonly nodes: ElementNode[], public readonly isRegion: boolean)
+    constructor(public readonly caption: string | null, public readonly nodeSubGroups: ElementNodeGroup[], public readonly nodes: ElementNode[], public readonly isRegion: boolean, public readonly regionConfiguration: RegionConfiguration | null)
     {
     }
 

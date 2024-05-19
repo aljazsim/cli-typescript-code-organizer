@@ -1,14 +1,18 @@
 import { ClassConfiguration } from "./class-configuration";
+import { ClassMemberConfiguration } from "./class-member-configuration";
 import { ClassMemberGroupConfiguration } from "./class-member-group-configuration";
 import { ClassMemberType } from "../enums/class-member-type";
 import { InterfaceConfiguration } from "./interface-configuration";
+import { InterfaceMemberConfiguration } from "./interface-member-configuration";
 import { InterfaceMemberGroupConfiguration } from "./interface-member-group-configuration";
 import { InterfaceMemberType } from "../enums/interface-member-type";
 import { ModuleConfiguration } from "./module-configuration";
+import { ModuleMemberConfiguration } from "./module-member-configuration";
 import { ModuleMemberGroupConfiguration } from "./module-member-group-configuration";
 import { ModuleMemberType } from "../enums/module-member-type";
 import { RegionConfiguration } from "./region-configuration";
 import { TypeConfiguration } from "./type-configuration";
+import { TypeMemberConfiguration } from "./type-member-configuration";
 import { TypeMemberGroupConfiguration } from "./type-member-group-configuration";
 import { TypeMemberType } from "../enums/type-member-type";
 import { convertPascalCaseToTitleCase } from "../helpers/string-helper";
@@ -22,7 +26,6 @@ export class Configuration
 
     constructor
         (
-            public readonly regions: RegionConfiguration,
             public readonly modules: ModuleConfiguration,
             public readonly classes: ClassConfiguration,
             public readonly interfaces: InterfaceConfiguration,
@@ -53,35 +56,71 @@ export class Configuration
         }
 
         return new Configuration(
-            new RegionConfiguration
-                (
-                    configuration.regions?.useRegions ?? defaultConfiguration.regions.useRegions,
-                    configuration.regions?.addRegionIndentation ?? defaultConfiguration.regions.addRegionIndentation,
-                    configuration.regions?.addMemberCountInRegionName ?? defaultConfiguration.regions.addMemberCountInRegionName,
-                    configuration.regions?.addRegionCaptionToRegionEnd ?? defaultConfiguration.regions.addRegionCaptionToRegionEnd
-                ),
             new ModuleConfiguration
                 (
-                    configuration.modules?.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.modules.treatArrowFunctionPropertiesAsMethods,
-                    this.fixModuleMemberMemberGroup(defaultConfiguration.modules.groups, configuration.modules?.groups.map(g => this.parseModuleMemberGroupConfiguration(g) ?? []))
+                    new RegionConfiguration
+                        (
+                            configuration.modules.regions?.useRegions ?? defaultConfiguration.modules.regions.useRegions,
+                            configuration.modules.regions?.addRegionIndentation ?? defaultConfiguration.modules.regions.addRegionIndentation,
+                            configuration.modules.regions?.addMemberCountInRegionName ?? defaultConfiguration.modules.regions.addMemberCountInRegionName,
+                            configuration.modules.regions?.addRegionCaptionToRegionEnd ?? defaultConfiguration.modules.regions.addRegionCaptionToRegionEnd
+                        ),
+                    new ModuleMemberConfiguration
+                        (
+                            configuration.modules?.members.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.modules.members.treatArrowFunctionPropertiesAsMethods,
+                            configuration.modules?.members.treatArrowFunctionConstPropertiesAsMethods ?? defaultConfiguration.modules.members.treatArrowFunctionConstPropertiesAsMethods,
+                        ),
+                    this.fixModuleMemberMemberGroup(defaultConfiguration.modules.memberGroups, configuration.modules?.memberGroups.map(g => this.parseModuleMemberGroupConfiguration(g) ?? []))
                 ),
             new ClassConfiguration
                 (
-                    configuration.classes?.addPublicModifierIfMissing ?? defaultConfiguration.classes.addPublicModifierIfMissing,
-                    configuration.classes?.addPrivateModifierIfStartingWithHash ?? defaultConfiguration.classes.addPrivateModifierIfStartingWithHash,
-                    configuration.classes?.groupMembersWithDecorators ?? defaultConfiguration.classes.groupMembersWithDecorators,
-                    configuration.classes?.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.classes.treatArrowFunctionPropertiesAsMethods,
-                    this.fixClassMemberMemberGroup(defaultConfiguration.classes.groups, configuration.classes?.groups.map(g => this.parseClassMemberGroupConfiguration(g) ?? []))
+                    new RegionConfiguration
+                        (
+                            configuration.classes.regions?.useRegions ?? defaultConfiguration.classes.regions.useRegions,
+                            configuration.classes.regions?.addRegionIndentation ?? defaultConfiguration.classes.regions.addRegionIndentation,
+                            configuration.classes.regions?.addMemberCountInRegionName ?? defaultConfiguration.classes.regions.addMemberCountInRegionName,
+                            configuration.classes.regions?.addRegionCaptionToRegionEnd ?? defaultConfiguration.classes.regions.addRegionCaptionToRegionEnd
+                        ),
+                    new ClassMemberConfiguration
+                        (
+                            configuration.classes?.members.addPublicModifierIfMissing ?? defaultConfiguration.classes.members.addPublicModifierIfMissing,
+                            configuration.classes?.members.addPrivateModifierIfStartingWithHash ?? defaultConfiguration.classes.members.addPrivateModifierIfStartingWithHash,
+                            configuration.classes?.members.groupMembersWithDecorators ?? defaultConfiguration.classes.members.groupMembersWithDecorators,
+                            configuration.classes?.members.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.classes.members.treatArrowFunctionPropertiesAsMethods,
+                            configuration.classes?.members.treatArrowFunctionReadOnlyPropertiesAsMethods ?? defaultConfiguration.classes.members.treatArrowFunctionReadOnlyPropertiesAsMethods,
+                        ),
+                    this.fixClassMemberMemberGroup(defaultConfiguration.classes.memberGroups, configuration.classes?.memberGroups.map(g => this.parseClassMemberGroupConfiguration(g) ?? []))
                 ),
             new InterfaceConfiguration
                 (
-                    configuration.interfaces?.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.interfaces.treatArrowFunctionPropertiesAsMethods,
-                    this.fixInterfaceMemberMemberGroup(defaultConfiguration.interfaces.groups, configuration.interfaces?.groups.map(g => this.parseInterfaceMemberGroupConfiguration(g) ?? []))
+                    new RegionConfiguration
+                        (
+                            configuration.interfaces.regions?.useRegions ?? defaultConfiguration.interfaces.regions.useRegions,
+                            configuration.interfaces.regions?.addRegionIndentation ?? defaultConfiguration.interfaces.regions.addRegionIndentation,
+                            configuration.interfaces.regions?.addMemberCountInRegionName ?? defaultConfiguration.interfaces.regions.addMemberCountInRegionName,
+                            configuration.interfaces.regions?.addRegionCaptionToRegionEnd ?? defaultConfiguration.interfaces.regions.addRegionCaptionToRegionEnd
+                        ),
+                    new InterfaceMemberConfiguration
+                        (
+                            configuration.interfaces?.members.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.interfaces.members.treatArrowFunctionPropertiesAsMethods,
+                            configuration.interfaces?.members.treatArrowFunctionReadOnlyPropertiesAsMethods ?? defaultConfiguration.interfaces.members.treatArrowFunctionReadOnlyPropertiesAsMethods,
+                        ),
+                    this.fixInterfaceMemberMemberGroup(defaultConfiguration.interfaces.memberGroups, configuration.interfaces?.memberGroups.map(g => this.parseInterfaceMemberGroupConfiguration(g) ?? []))
                 ),
             new TypeConfiguration
                 (
-                    configuration.types?.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.types.treatArrowFunctionPropertiesAsMethods,
-                    this.fixTypeMemberMemberGroup(defaultConfiguration.types.groups, configuration.types?.groups.map(g => this.parseTypeMemberGroupConfiguration(g) ?? []))
+                    new RegionConfiguration
+                        (
+                            configuration.types.regions?.useRegions ?? defaultConfiguration.types.regions.useRegions,
+                            configuration.types.regions?.addRegionIndentation ?? defaultConfiguration.types.regions.addRegionIndentation,
+                            configuration.types.regions?.addMemberCountInRegionName ?? defaultConfiguration.types.regions.addMemberCountInRegionName,
+                            configuration.types.regions?.addRegionCaptionToRegionEnd ?? defaultConfiguration.types.regions.addRegionCaptionToRegionEnd
+                        ),
+                    new TypeMemberConfiguration
+                        (
+                            configuration.types?.members.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.types.members.treatArrowFunctionPropertiesAsMethods,
+                        ),
+                    this.fixTypeMemberMemberGroup(defaultConfiguration.types.memberGroups, configuration.types?.memberGroups.map(g => this.parseTypeMemberGroupConfiguration(g) ?? []))
                 )
         );
     }
@@ -89,36 +128,71 @@ export class Configuration
     public static getDefaultConfiguration()
     {
         return new Configuration(
-            new RegionConfiguration
-                (
-                    defaultConfiguration.regions.useRegions,
-                    defaultConfiguration.regions.addRegionIndentation,
-                    defaultConfiguration.regions.addMemberCountInRegionName,
-                    defaultConfiguration.regions.addRegionCaptionToRegionEnd
-                ),
             new ModuleConfiguration
                 (
-                    defaultConfiguration.modules.treatArrowFunctionPropertiesAsMethods,
-                    defaultConfiguration.modules.groups.map(g => this.parseModuleMemberGroupConfiguration(g))
+                    new RegionConfiguration
+                        (
+                            defaultConfiguration.modules.regions.useRegions,
+                            defaultConfiguration.modules.regions.addRegionIndentation,
+                            defaultConfiguration.modules.regions.addMemberCountInRegionName,
+                            defaultConfiguration.modules.regions.addRegionCaptionToRegionEnd
+                        ),
+                    new ModuleMemberConfiguration
+                        (
+                            defaultConfiguration.modules.members.treatArrowFunctionPropertiesAsMethods,
+                            defaultConfiguration.modules.members.treatArrowFunctionConstPropertiesAsMethods,
+                        ),
+                    defaultConfiguration.modules.memberGroups.map(g => this.parseModuleMemberGroupConfiguration(g) ?? [])
                 ),
             new ClassConfiguration
                 (
-                    defaultConfiguration.classes.addPublicModifierIfMissing,
-                    defaultConfiguration.classes.addPrivateModifierIfStartingWithHash,
-                    defaultConfiguration.classes.groupMembersWithDecorators,
-                    defaultConfiguration.classes.treatArrowFunctionPropertiesAsMethods,
-                    defaultConfiguration.classes.groups.map(g => this.parseClassMemberGroupConfiguration(g))
-
+                    new RegionConfiguration
+                        (
+                            defaultConfiguration.classes.regions.useRegions,
+                            defaultConfiguration.classes.regions.addRegionIndentation,
+                            defaultConfiguration.classes.regions.addMemberCountInRegionName,
+                            defaultConfiguration.classes.regions.addRegionCaptionToRegionEnd
+                        ),
+                    new ClassMemberConfiguration
+                        (
+                            defaultConfiguration.classes.members.addPublicModifierIfMissing,
+                            defaultConfiguration.classes.members.addPrivateModifierIfStartingWithHash,
+                            defaultConfiguration.classes.members.groupMembersWithDecorators,
+                            defaultConfiguration.classes.members.treatArrowFunctionPropertiesAsMethods,
+                            defaultConfiguration.classes.members.treatArrowFunctionReadOnlyPropertiesAsMethods,
+                        ),
+                    defaultConfiguration.classes.memberGroups.map(g => this.parseClassMemberGroupConfiguration(g) ?? [])
                 ),
             new InterfaceConfiguration
                 (
-                    defaultConfiguration.interfaces.treatArrowFunctionPropertiesAsMethods,
-                    defaultConfiguration.interfaces.groups.map(g => this.parseInterfaceMemberGroupConfiguration(g))
+                    new RegionConfiguration
+                        (
+                            defaultConfiguration.interfaces.regions.useRegions,
+                            defaultConfiguration.interfaces.regions.addRegionIndentation,
+                            defaultConfiguration.interfaces.regions.addMemberCountInRegionName,
+                            defaultConfiguration.interfaces.regions.addRegionCaptionToRegionEnd
+                        ),
+                    new InterfaceMemberConfiguration
+                        (
+                            defaultConfiguration.interfaces.members.treatArrowFunctionPropertiesAsMethods,
+                            defaultConfiguration.interfaces.members.treatArrowFunctionReadOnlyPropertiesAsMethods,
+                        ),
+                    defaultConfiguration.interfaces.memberGroups.map(g => this.parseInterfaceMemberGroupConfiguration(g) ?? [])
                 ),
             new TypeConfiguration
                 (
-                    defaultConfiguration.types.treatArrowFunctionPropertiesAsMethods,
-                    defaultConfiguration.types.groups.map(g => this.parseTypeMemberGroupConfiguration(g))
+                    new RegionConfiguration
+                        (
+                            defaultConfiguration.types.regions.useRegions,
+                            defaultConfiguration.types.regions.addRegionIndentation,
+                            defaultConfiguration.types.regions.addMemberCountInRegionName,
+                            defaultConfiguration.types.regions.addRegionCaptionToRegionEnd
+                        ),
+                    new TypeMemberConfiguration
+                        (
+                            defaultConfiguration.types.members.treatArrowFunctionPropertiesAsMethods,
+                        ),
+                    defaultConfiguration.types.memberGroups.map(g => this.parseTypeMemberGroupConfiguration(g) ?? [])
                 )
         );
     }
@@ -143,7 +217,7 @@ export class Configuration
         // add missing member types (one per group)
         for (const missingMemberType of missingMemberTypes) 
         {
-            fixedMemberTypeOrder.push(new ClassMemberGroupConfiguration(true, convertPascalCaseToTitleCase(ClassMemberType[missingMemberType]), [missingMemberType], [], []));
+            fixedMemberTypeOrder.push(new ClassMemberGroupConfiguration(true, "asc", convertPascalCaseToTitleCase(ClassMemberType[missingMemberType]), [missingMemberType], true, [], []));
         }
 
         return fixedMemberTypeOrder;
@@ -165,7 +239,7 @@ export class Configuration
         // add missing member types (one per group)
         for (const missingMemberType of missingMemberTypes) 
         {
-            fixedMemberTypeOrder.push(new InterfaceMemberGroupConfiguration(true, convertPascalCaseToTitleCase(InterfaceMemberType[missingMemberType]), [missingMemberType], [], []));
+            fixedMemberTypeOrder.push(new InterfaceMemberGroupConfiguration(true, "asc", convertPascalCaseToTitleCase(InterfaceMemberType[missingMemberType]), [missingMemberType], true, [], []));
         }
 
         return fixedMemberTypeOrder;
@@ -187,7 +261,7 @@ export class Configuration
         // add missing member types (one per group)
         for (const missingMemberType of missingMemberTypes) 
         {
-            fixedMemberTypeOrder.push(new ModuleMemberGroupConfiguration(true, convertPascalCaseToTitleCase(ModuleMemberType[missingMemberType]), [missingMemberType], [], []));
+            fixedMemberTypeOrder.push(new ModuleMemberGroupConfiguration(true, "asc", convertPascalCaseToTitleCase(ModuleMemberType[missingMemberType]), [missingMemberType], true, [], []));
         }
 
         return fixedMemberTypeOrder;
@@ -209,7 +283,7 @@ export class Configuration
         // add missing member types (one per group)
         for (const missingMemberType of missingMemberTypes) 
         {
-            fixedMemberTypeOrder.push(new TypeMemberGroupConfiguration(true, convertPascalCaseToTitleCase(TypeMemberType[missingMemberType]), [missingMemberType], [], []));
+            fixedMemberTypeOrder.push(new TypeMemberGroupConfiguration(true, "asc", convertPascalCaseToTitleCase(TypeMemberType[missingMemberType]), [missingMemberType], true, [], []));
         }
 
         return fixedMemberTypeOrder;
@@ -217,9 +291,11 @@ export class Configuration
 
     private static parseClassMemberGroupConfiguration(classMemberGroupConfiguration: any)
     {
-        const order = classMemberGroupConfiguration.order ?? true;
+        const sort = classMemberGroupConfiguration.order ?? true;
+        const sortDirection = classMemberGroupConfiguration.sortDirection === "asc" ? "asc" : "desc";
         const caption = classMemberGroupConfiguration.caption ?? "Region";
         const memberTypes = distinct(classMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => ClassMemberType[t as keyof typeof ClassMemberType]).filter(t => t != undefined);
+        const memberTypesGrouped = classMemberGroupConfiguration.memberTypesGrouped ?? true;
         const placeAbove = distinct(classMemberGroupConfiguration.placeAbove as string[] ?? []);
         const placeBelow = distinct(classMemberGroupConfiguration.placeBelow as string[] ?? []);
 
@@ -232,14 +308,16 @@ export class Configuration
             }
         }
 
-        return new ClassMemberGroupConfiguration(order, caption, memberTypes, placeAbove, placeBelow);
+        return new ClassMemberGroupConfiguration(sort, sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
     }
 
     private static parseInterfaceMemberGroupConfiguration(interfaceMemberGroupConfiguration: any)
     {
-        const order = interfaceMemberGroupConfiguration.order ?? true;
+        const sort = interfaceMemberGroupConfiguration.order ?? true;
+        const sortDirection = interfaceMemberGroupConfiguration.sortDirection === "asc" ? "asc" : "desc";
         const caption = interfaceMemberGroupConfiguration.caption ?? "Region";
         const memberTypes = distinct(interfaceMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => InterfaceMemberType[t as keyof typeof InterfaceMemberType]).filter(t => t != undefined);
+        const memberTypesGrouped = interfaceMemberGroupConfiguration.memberTypesGrouped ?? true;
         const placeAbove = distinct(interfaceMemberGroupConfiguration.placeAbove as string[] ?? []);
         const placeBelow = distinct(interfaceMemberGroupConfiguration.placeBelow as string[] ?? []);
 
@@ -252,14 +330,38 @@ export class Configuration
             }
         }
 
-        return new InterfaceMemberGroupConfiguration(order, caption, memberTypes, placeAbove, placeBelow);
+        return new InterfaceMemberGroupConfiguration(sort, sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
     }
 
-    private static parseModuleMemberGroupConfiguration(typeMemberGroupConfiguration: any)
+    private static parseModuleMemberGroupConfiguration(moduleMemberGroupConfiguration: any)
     {
-        const order = typeMemberGroupConfiguration.order ?? true;
+        const sort = moduleMemberGroupConfiguration.order ?? true;
+        const sortDirection = moduleMemberGroupConfiguration.sortDirection === "asc" ? "asc" : "desc";
+        const caption = moduleMemberGroupConfiguration.caption ?? "Region";
+        const memberTypes = distinct(moduleMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => ModuleMemberType[t as keyof typeof ModuleMemberType]).filter(t => t != undefined);
+        const memberTypesGrouped = moduleMemberGroupConfiguration.memberTypesGrouped ?? true;
+        const placeAbove = distinct(moduleMemberGroupConfiguration.placeAbove as string[] ?? []);
+        const placeBelow = distinct(moduleMemberGroupConfiguration.placeBelow as string[] ?? []);
+
+        for (const pa of placeAbove)
+        {
+            if (placeBelow.indexOf(pa) > -1)
+            {
+                // remove and items that are present in above and below from below
+                placeBelow.splice(placeBelow.indexOf(pa), 1);
+            }
+        }
+
+        return new ModuleMemberGroupConfiguration(sort, sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
+    }
+
+    private static parseTypeMemberGroupConfiguration(typeMemberGroupConfiguration: any)
+    {
+        const sort = typeMemberGroupConfiguration.order ?? true;
+        const sortDirection = typeMemberGroupConfiguration.sortDirection === "asc" ? "asc" : "desc";
         const caption = typeMemberGroupConfiguration.caption ?? "Region";
-        const memberTypes = distinct(typeMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => ModuleMemberType[t as keyof typeof ModuleMemberType]).filter(t => t != undefined);
+        const memberTypes = distinct(typeMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => TypeMemberType[t as keyof typeof TypeMemberType]).filter(t => t != undefined);
+        const memberTypesGrouped = typeMemberGroupConfiguration.memberTypesGrouped ?? true;
         const placeAbove = distinct(typeMemberGroupConfiguration.placeAbove as string[] ?? []);
         const placeBelow = distinct(typeMemberGroupConfiguration.placeBelow as string[] ?? []);
 
@@ -272,27 +374,7 @@ export class Configuration
             }
         }
 
-        return new ModuleMemberGroupConfiguration(order, caption, memberTypes, placeAbove, placeBelow);
-    }
-
-    private static parseTypeMemberGroupConfiguration(mmgc: any)
-    {
-        const order = mmgc.order ?? true;
-        const caption = mmgc.caption ?? "Region";
-        const memberTypes = distinct(mmgc.memberTypes as string[] ?? []).map(t => TypeMemberType[t as keyof typeof TypeMemberType]).filter(t => t != undefined);
-        const placeAbove = distinct(mmgc.placeAbove as string[] ?? []);
-        const placeBelow = distinct(mmgc.placeBelow as string[] ?? []);
-
-        for (const pa of placeAbove)
-        {
-            if (placeBelow.indexOf(pa) > -1)
-            {
-                // remove and items that are present in above and below from below
-                placeBelow.splice(placeBelow.indexOf(pa), 1);
-            }
-        }
-
-        return new TypeMemberGroupConfiguration(order, caption, memberTypes, placeAbove, placeBelow);
+        return new TypeMemberGroupConfiguration(sort, sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
     }
 
     // #endregion Private Static Methods (8)

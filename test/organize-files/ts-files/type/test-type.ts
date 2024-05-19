@@ -2,23 +2,23 @@
  * Description of TestType.
  */
 export type TestType = {
-    property3: string,
-    property1: string | null,
+    property3: string;
+    property1: string | null;
     /*
     * Description of property4.
     */
-    property6: (p1: number) => number,
+    property6: (p1: number) => number;
     // comment
-    property2: (date: Date) => Promise<Date>,
+    property2: (date: Date) => Promise<Date>;
 
 
-    property7: number | undefined,
-    property4: () => void,
+    property7: number | undefined;
+    property4: () => void;
 
 
 
 
-    property5: any,
+    property5: any;
     //
     //
     //
@@ -26,6 +26,6 @@ export type TestType = {
     //
     //
     //
-    property9: Date,
+    property9: Date;
     property8: number;
 };

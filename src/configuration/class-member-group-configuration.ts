@@ -5,9 +5,11 @@ export class ClassMemberGroupConfiguration
     // #region Constructors (1)
 
     constructor(
-        public readonly order: boolean,
+        public readonly sort: boolean,
+        public readonly sortDirection: "asc" | "desc",
         public readonly caption: string,
         public readonly memberTypes: ClassMemberType[],
+        public readonly memberTypesGrouped: boolean,
         public readonly placeAbove: string[],
         public readonly placeBelow: string[],
     ) { }

@@ -44,17 +44,17 @@ export class SourceCodeAnalyzer
         else if (ts.isTypeAliasDeclaration(node))
         {
             // type
-            elements.push(new TypeAliasNode(sourceFile, node, configuration.types.treatArrowFunctionPropertiesAsMethods));
+            elements.push(new TypeAliasNode(sourceFile, node, configuration.types.members.treatArrowFunctionPropertiesAsMethods));
         }
         else if (ts.isInterfaceDeclaration(node))
         {
             // interface
-            elements.push(new InterfaceNode(sourceFile, node, configuration.interfaces.treatArrowFunctionPropertiesAsMethods));
+            elements.push(new InterfaceNode(sourceFile, node, configuration.interfaces.members.treatArrowFunctionPropertiesAsMethods));
         }
         else if (ts.isClassDeclaration(node))
         {
             // class
-            elements.push(new ClassNode(sourceFile, node, configuration.classes.treatArrowFunctionPropertiesAsMethods));
+            elements.push(new ClassNode(sourceFile, node, configuration.classes.members.treatArrowFunctionPropertiesAsMethods));
         }
         else if (ts.isEnumDeclaration(node))
         {
