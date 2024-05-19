@@ -1,7 +1,11 @@
+// #region Types (1)
+
 /*
  * Description of TestType.
  */
 export type TestType = {
+    // #region Properties (9)
+
     property1: string | null;
     // comment
     property2: (date: Date) => Promise<Date>;
@@ -22,4 +26,15 @@ export type TestType = {
     //
     //
     property9: Date;
+
+    // #endregion Properties (9)
+
+    // #region Indexes (2)
+
+    [index: string]: any;
+    [index: number]: any;
+
+    // #endregion Indexes (2)
 };
+
+ // #endregion Types (1)

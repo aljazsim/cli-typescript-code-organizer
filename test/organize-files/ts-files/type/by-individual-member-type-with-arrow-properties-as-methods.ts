@@ -20,6 +20,13 @@ export type TestType = {
 
     // #endregion Properties (6)
 
+    // #region Indexes (2)
+
+    [index: string]: any;
+    [index: number]: any;
+
+    // #endregion Indexes (2)
+
     // #region Methods (3)
 
     // comment

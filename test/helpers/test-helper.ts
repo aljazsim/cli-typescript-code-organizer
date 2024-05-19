@@ -6,14 +6,14 @@ import { expect } from "@jest/globals";
 
 // #region Functions (1)
 
-export async function compareFiles(configuration: Configuration, inputTsFilePath: string, expectedTsFilePath: string)
+export async function compare(configuration: Configuration, inputTsFilePath: string, expectedTsFilePath: string)
 {
     // arrange
     const sourceCode = await readFile(inputTsFilePath);
 
     // act
     const organizedSourceCode = SourceCodeOrganizer.organizeSourceCode(sourceCode, configuration);
-    await writeFile(expectedTsFilePath + ".xxx", organizedSourceCode, true);
+    // await writeFile(expectedTsFilePath + ".xxx", organizedSourceCode, true);
 
     // if (!(await fileExists(expectedTsFilePath)))
     // {

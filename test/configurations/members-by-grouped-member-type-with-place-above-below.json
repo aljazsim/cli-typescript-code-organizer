@@ -263,8 +263,8 @@
                 "caption": "Properties",
                 "memberTypes": ["properties"],
                 "memberTypesGrouped": true,
-                "placeAbove": [],
-                "placeBelow": []
+                "placeAbove": ["property8", "property7"],
+                "placeBelow": ["property8", "property6"]
             },
             {
                 "sort": true,

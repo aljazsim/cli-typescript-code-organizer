@@ -2,8 +2,6 @@
  * Description of TestType.
  */
 export type TestType = {
-    // #region Properties (9)
-
     property1: string | null;
     // comment
     property2: (date: Date) => Promise<Date>;
@@ -25,5 +23,6 @@ export type TestType = {
     //
     property9: Date;
 
-    // #endregion Properties (9)
+    [index: string]: any;
+    [index: number]: any;
 };

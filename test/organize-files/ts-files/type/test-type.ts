@@ -13,8 +13,8 @@ export type TestType = {
 
 
     property7: number | undefined;
+    [index: string]: any;
     property4: () => void;
-
 
 
 
@@ -27,5 +27,6 @@ export type TestType = {
     //
     //
     property9: Date;
+    [index: number]: any;
     property8: number;
 };

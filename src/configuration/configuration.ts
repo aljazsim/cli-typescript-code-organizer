@@ -291,7 +291,7 @@ export class Configuration
 
     private static parseClassMemberGroupConfiguration(classMemberGroupConfiguration: any)
     {
-        const sort = classMemberGroupConfiguration.order ?? true;
+        const sort = classMemberGroupConfiguration.sort ?? true;
         const sortDirection = classMemberGroupConfiguration.sortDirection === "asc" ? "asc" : "desc";
         const caption = classMemberGroupConfiguration.caption ?? "Region";
         const memberTypes = distinct(classMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => ClassMemberType[t as keyof typeof ClassMemberType]).filter(t => t != undefined);
@@ -313,7 +313,7 @@ export class Configuration
 
     private static parseInterfaceMemberGroupConfiguration(interfaceMemberGroupConfiguration: any)
     {
-        const sort = interfaceMemberGroupConfiguration.order ?? true;
+        const sort = interfaceMemberGroupConfiguration.sort ?? true;
         const sortDirection = interfaceMemberGroupConfiguration.sortDirection === "asc" ? "asc" : "desc";
         const caption = interfaceMemberGroupConfiguration.caption ?? "Region";
         const memberTypes = distinct(interfaceMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => InterfaceMemberType[t as keyof typeof InterfaceMemberType]).filter(t => t != undefined);
@@ -335,7 +335,7 @@ export class Configuration
 
     private static parseModuleMemberGroupConfiguration(moduleMemberGroupConfiguration: any)
     {
-        const sort = moduleMemberGroupConfiguration.order ?? true;
+        const sort = moduleMemberGroupConfiguration.sort ?? true;
         const sortDirection = moduleMemberGroupConfiguration.sortDirection === "asc" ? "asc" : "desc";
         const caption = moduleMemberGroupConfiguration.caption ?? "Region";
         const memberTypes = distinct(moduleMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => ModuleMemberType[t as keyof typeof ModuleMemberType]).filter(t => t != undefined);
@@ -357,7 +357,7 @@ export class Configuration
 
     private static parseTypeMemberGroupConfiguration(typeMemberGroupConfiguration: any)
     {
-        const sort = typeMemberGroupConfiguration.order ?? true;
+        const sort = typeMemberGroupConfiguration.sort ?? true;
         const sortDirection = typeMemberGroupConfiguration.sortDirection === "asc" ? "asc" : "desc";
         const caption = typeMemberGroupConfiguration.caption ?? "Region";
         const memberTypes = distinct(typeMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => TypeMemberType[t as keyof typeof TypeMemberType]).filter(t => t != undefined);

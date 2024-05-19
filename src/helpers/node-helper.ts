@@ -294,7 +294,7 @@ export function order(sort: boolean, sortDirection: "asc" | "desc", nodes: Eleme
 
         if (sortDirection === "desc")
         {
-            nodes = nodes.reverse();
+            nodesMiddle = nodesMiddle.reverse();
         }
     }
 

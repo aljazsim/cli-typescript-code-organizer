@@ -60,10 +60,6 @@ export class TypeAliasNode extends ElementNode
                         {
                             this.indexes.push(new IndexSignatureNode(sourceFile, member));
                         }
-                        else
-                        {
-                            console.error("Unknow type member");
-                        }
                     }
                 }
             }
@@ -105,7 +101,7 @@ export class TypeAliasNode extends ElementNode
 
                 if (elementNodes.length > 0)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], order(sort, sortDirection, elementNodes, [], [], false), false, null));
+                    memberGroups.push(new ElementNodeGroup(null, [], order(sort, sortDirection, elementNodes, placeAbove, placeBelow, false), false, null));
                 }
             }
 

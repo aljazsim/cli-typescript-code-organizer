@@ -1,5 +1,3 @@
-// #region Types (1)
-
 /*
  * Description of TestType.
  */
@@ -28,6 +26,11 @@ export type TestType = {
     property9: Date;
 
     // #endregion Properties (9)
-};
 
- // #endregion Types (1)
+    // #region Indexes (2)
+
+    [index: string]: any;
+    [index: number]: any;
+
+    // #endregion Indexes (2)
+};

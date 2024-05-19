@@ -4,18 +4,17 @@
 export type TestType = {
     // #region Properties (9)
 
-    property1: string | null;
-    // comment
-    property2: (date: Date) => Promise<Date>;
     property3: string;
-    property4: () => void;
-    property5: any;
+    property1: string | null;
     /*
     * Description of property4.
     */
     property6: (p1: number) => number;
+    // comment
+    property2: (date: Date) => Promise<Date>;
     property7: number | undefined;
-    property8: number;
+    property4: () => void;
+    property5: any;
     //
     //
     //
@@ -24,6 +23,14 @@ export type TestType = {
     //
     //
     property9: Date;
+    property8: number;
 
     // #endregion Properties (9)
+
+    // #region Indexes (2)
+
+    [index: string]: any;
+    [index: number]: any;
+
+    // #endregion Indexes (2)
 };
