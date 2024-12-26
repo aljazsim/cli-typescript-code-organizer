@@ -7,7 +7,9 @@ import { TypeConfiguration } from "../../src/configuration/type-configuration";
 
 // #region Functions (1)
 
-export async function getConfiguration(configurationFilePath: string, useRegions: boolean,
+export async function getConfiguration(
+    configurationFilePath: string,
+    useRegions: boolean,
     addRegionIndentation: boolean,
     addMemberCountInRegionName: boolean,
     addRegionCaptionToRegionEnd: boolean)

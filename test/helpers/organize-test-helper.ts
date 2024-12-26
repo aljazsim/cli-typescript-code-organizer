@@ -4,7 +4,7 @@ import { OrganizeTestParameters } from "./organize-test-parameters";
 
 // #region Functions (1)
 
-export async function getOrganizeTestParameters()
+export function getOrganizeTestParameters()
 {
     const configurationFilePaths = [
         defaultConfigurationFilePath,
@@ -17,13 +17,13 @@ export async function getOrganizeTestParameters()
         membersGroupedByMultipleMemberTypeConfigurationFilePath
     ];
     const tests = [
-        { inputFilePath: testInputClassFilePath, outputDirectoryPath: testOutputClassDirectoryPath },
-        { inputFilePath: testInputExpressionFilePath, outputDirectoryPath: testOutputExpressionDirectoryPath },
-        { inputFilePath: testInputFunctionFilePath, outputDirectoryPath: testOutputFunctionDirectoryPath },
-        { inputFilePath: testInputInterfaceFilePath, outputDirectoryPath: testOutputInterfaceDirectoryPath },
-        { inputFilePath: testInputModuleFilePath, outputDirectoryPath: testOutputModuleDirectoryPath },
-        { inputFilePath: testInputTypeFilePath, outputDirectoryPath: testOutputTypeDirectoryPath },
-        { inputFilePath: testInputVariableFilePath, outputDirectoryPath: testOutputVariableDirectoryPath }
+        { name: "class", inputFilePath: testInputClassFilePath, outputDirectoryPath: testOutputClassDirectoryPath },
+        { name: "expression", inputFilePath: testInputExpressionFilePath, outputDirectoryPath: testOutputExpressionDirectoryPath },
+        { name: "function", inputFilePath: testInputFunctionFilePath, outputDirectoryPath: testOutputFunctionDirectoryPath },
+        { name: "interface", inputFilePath: testInputInterfaceFilePath, outputDirectoryPath: testOutputInterfaceDirectoryPath },
+        { name: "module", inputFilePath: testInputModuleFilePath, outputDirectoryPath: testOutputModuleDirectoryPath },
+        { name: "type", inputFilePath: testInputTypeFilePath, outputDirectoryPath: testOutputTypeDirectoryPath },
+        { name: "variable", inputFilePath: testInputVariableFilePath, outputDirectoryPath: testOutputVariableDirectoryPath }
     ];
     const regionConfiguration = [
         { useRegions: false, addRegionIndentation: false, addMemberCountInRegionName: false, addRegionCaptionToRegionEnd: false },
@@ -41,15 +41,13 @@ export async function getOrganizeTestParameters()
         {
             for (const { useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd } of regionConfiguration)
             {
-                const description = getFileNameWithoutExtension(configurationFilePath).replaceAll("-", " ");
-                const descriptionParameters = ` (${useRegions}, ${addRegionIndentation}, ${addMemberCountInRegionName}, ${addRegionCaptionToRegionEnd})`;
+                const description = `organize ${test.name}: ${getFileNameWithoutExtension(configurationFilePath).replaceAll("-", " ")} (${useRegions ? "regions" : "no regions"}, ${addRegionIndentation ? "region indentation" : "no region indentation"}, ${addMemberCountInRegionName ? "member count in region name" : "no member count in region name"}, ${addRegionCaptionToRegionEnd ? "region caption in region end" : "region caption in region end"})`;
                 const inputFilePath = test.inputFilePath;
                 const outputDirectoryPath = test.outputDirectoryPath;
                 const outputFilePathParameters = `-${useRegions}-${addRegionIndentation}-${addMemberCountInRegionName}-${addRegionCaptionToRegionEnd}`
                 const outputFilePath = joinPath(outputDirectoryPath, getFileNameWithoutExtension(configurationFilePath) + outputFilePathParameters + ".ts");
-                const configuration = await getConfiguration(configurationFilePath, useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd);
 
-                memberOrganizeParameters.push(new OrganizeTestParameters(description + " " + descriptionParameters, configuration, inputFilePath, outputFilePath));
+                memberOrganizeParameters.push(new OrganizeTestParameters(description, configurationFilePath, inputFilePath, outputFilePath, useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd));
             }
         }
     }

@@ -2,42 +2,38 @@ import { expect, test } from '@jest/globals';
 import { getOrganizeTestParameters } from '../helpers/organize-test-helper';
 import { deleteFile, fileExists, readFile, writeFile } from '../../src/helpers/file-system-helper';
 import { SourceCodeOrganizer } from '../../src/source-code/source-code-organizer';
+import { getConfiguration } from '../helpers/configuration-helper';
 
 
-test("organize files", async () =>
+for (const otp of getOrganizeTestParameters())
 {
-    // arrange
-    for (const otp of await getOrganizeTestParameters())
+    test(otp.description, async () =>
     {
-        const configuration = otp.configuration;
+        // arrange
+        const configuration = await getConfiguration(otp.configurationFilePath, otp.useRegions, otp.addRegionIndentation, otp.addMemberCountInRegionName, otp.addRegionCaptionToRegionEnd);
         const sourceCodeFilePath = otp.input;
         const sourceCode = await readFile(sourceCodeFilePath);
         const validOrganizedSourceCodeFilePath = otp.output;
-        // const validOrganizedSourceCode = await readFile(validOrganizedSourceCodeFilePath);
+        const validOrganizedSourceCode = await readFile(validOrganizedSourceCodeFilePath);
 
         // act
         const organizedSourceCodeSave = true;
-        const organizedSourceCodeFilePath = validOrganizedSourceCodeFilePath + ".result";
+        const organizedSourceCodeFilePath = validOrganizedSourceCodeFilePath + ".invalid";
         const organizedSourceCode = SourceCodeOrganizer.organizeSourceCode(sourceCode, configuration);
 
-        //----------------------------------------
-        if (!(await fileExists(validOrganizedSourceCodeFilePath)))
+        if (organizedSourceCode == validOrganizedSourceCode)
         {
-            await writeFile(validOrganizedSourceCodeFilePath, organizedSourceCode, false);
+            if (await fileExists(organizedSourceCodeFilePath))
+            {
+                await deleteFile(organizedSourceCodeFilePath);
+            }
         }
-        const validOrganizedSourceCode = await readFile(validOrganizedSourceCodeFilePath);
-        //----------------------------------------
-
-        if (organizedSourceCodeSave && organizedSourceCode != validOrganizedSourceCode)
+        else if (organizedSourceCodeSave)
         {
             await writeFile(organizedSourceCodeFilePath, organizedSourceCode, true);
-        }
-        else if (await fileExists(organizedSourceCodeFilePath))
-        {
-            await deleteFile(organizedSourceCodeFilePath);
         }
 
         // assert
         expect(organizedSourceCode).toBe(validOrganizedSourceCode);
-    }
-});
+    });
+}
