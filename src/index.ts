@@ -1,7 +1,7 @@
 import * as figlet from 'figlet';
 
 import { Command, Option } from 'commander';
-import { deleteFile, fileExists, writeFile } from './helpers/file-system-helper';
+import { writeFile } from './helpers/file-system-helper';
 
 import { Configuration } from './configuration/configuration';
 import { SourceCodeOrganizer } from "./source-code/source-code-organizer";
@@ -21,7 +21,7 @@ program.version("1.0.0")
     .parse(process.argv);
 
 const initialize = program.opts().initialize ?? false;
-const watchFiles = program.opts().watch ?? false;
+const watch = program.opts().watch ?? false;
 const defaultConfigurationFilePath = "./tsco.json";
 const configurationFilePath = program.opts().configuration ?? defaultConfigurationFilePath;
 const configuration = await Configuration.getConfiguration(configurationFilePath);
@@ -29,27 +29,25 @@ const typeScriptSourceFileGlobPattern = program.opts().sourceCode;
 
 if (initialize)
 {
-    if (await fileExists(configurationFilePath))
-    {
-        await deleteFile(configurationFilePath);
-    }
-
-    await writeFile(configurationFilePath, JSON.stringify(Configuration.getDefaultConfiguration()));
-}
-
-if (watchFiles)
-{
-    // run on file changes
-    const watcher = new Watcher(typeScriptSourceFileGlobPattern);
-
-    watcher.on('add', async filePath => await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration));
-    watcher.on('change', async filePath => await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration));
+    await writeFile(configurationFilePath, JSON.stringify(Configuration.getDefaultConfiguration()), true);
 }
 else
 {
-    // run once
+    // run on all files
     for (const filePath of await glob([typeScriptSourceFileGlobPattern]))
     {
         await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
     }
+
+    if (watch)
+    {
+        // run on file changes
+        const watcher = new Watcher(typeScriptSourceFileGlobPattern);
+
+        watcher.on('add', async filePath => await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration));
+        watcher.on('change', async filePath => await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration));
+
+        await watcher.watch();
+    }
+
 }
