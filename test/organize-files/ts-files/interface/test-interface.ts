@@ -17,7 +17,7 @@ export interface TestInterface
     publicMethod4(): number;
 
     readonly publicReadonlyProperty7: string;
-    publicProperty6: () => number;
+    publicProperty6: (p1: string) => number;
 
     publicMethod3(): number;
     publicProperty2: string;
@@ -44,7 +44,7 @@ export interface TestInterface
 
     readonly publicReadonlyProperty8: Number;
 
-    publicProperty1: () => void;
+    readonly publicReadonlyProperty1: (p1: number, p2: number) => void;
 
     publicMethod2(): void;
 
@@ -54,7 +54,7 @@ export interface TestInterface
     publicProperty5: Number;
 
 
-    readonly publicReadonlyProperty1: string;
+    publicProperty1: string;
     publicMethod8(): Promise<boolean>;
     publicProperty4: string;
     set publicGetterSetter1(size: Number);

@@ -8,7 +8,8 @@ test('ignore files', async () =>
 {
     // arrange
     const sourceCodes = [
-        await readFile("./test/ignore-files/ts-files/test-ignore-auto-generated.ts"),
+        await readFile("./test/ignore-files/ts-files/test-enum.ts"),
+        await readFile("./test/ignore-files/ts-files/test-ignore.ts"),
         await readFile("./test/ignore-files/ts-files/test-ignore.ts"),
     ];
 

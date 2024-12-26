@@ -112,17 +112,8 @@
             {
                 "sort": true,
                 "sortDirection": "asc",
-                "caption": "Static Block Declarations",
-                "memberTypes": ["staticBlockDeclarations"],
-                "memberTypesGrouped": true,
-                "placeAbove": [],
-                "placeBelow": []
-            },
-            {
-                "sort": true,
-                "sortDirection": "asc",
                 "caption": "Constructors",
-                "memberTypes": ["constructors"],
+                "memberTypes": ["staticBlockDeclarations", "constructors"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []

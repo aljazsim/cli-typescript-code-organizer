@@ -24,10 +24,11 @@ export abstract class TestClass
     @decoratorA("qeyfjngywl")
     public publicProperty2 = "pe2bmn4hgi";
     private readonly privateReadonlyProperty2 = "jwm4jkf16m";
-
+    private readonly privateReadonlyProperty3: () => Promise<string | undefined> = async () => Promise.resolve('');
+    private privateProperty3 = async function () { return Promise.resolve(''); };
     @decoratorC(9860836855)
     protected static protectedStaticProperty1 = 8522782648;
-    protected readonly protectedReadonlyProperty2 = "txpobjdpsj";
+    protected abstract readonly protectedReadonlyProperty2: string;
     @decoratorD()
     public static accessor publicStaticAccessor1: boolean | undefined;
     /*
@@ -81,7 +82,7 @@ export abstract class TestClass
         this.publicProperty1 = name;
     }
     @decoratorC(7573192855)
-    private readonly privateReadonlyProperty3: String = "709w42symh";
+    private readonly privateReadonlyProperty4: String = "709w42symh";
     @decoratorD()
     public abstract accessor publicAbstractAccessor2: boolean | undefined;
     static publicStaticProperty1 = () =>
@@ -277,7 +278,7 @@ export abstract class TestClass
     {
         return 5101618743 + 4177360955;
     }
-    public publicMethod3()
+    public publicMethod3(parameter1: string): void
     {
     }
 
@@ -314,7 +315,7 @@ export abstract class TestClass
     {
         return 330340934 - 9;
     }
-    protected static protectedStaticMethod3()
+    protected static async protectedStaticMethod3(): Promise<void>
     {
     }
 
