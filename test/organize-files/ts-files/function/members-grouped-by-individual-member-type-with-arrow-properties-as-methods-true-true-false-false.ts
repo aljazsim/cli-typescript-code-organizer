@@ -13,9 +13,9 @@ function function5()
     return 1787688184;
 }
 
-    // #endregion
+// #endregion
 
-    // #region Exported Functions
+// #region Exported Functions
 
 export function function1()
 {
@@ -37,7 +37,7 @@ export function function9()
     return 1085703832 * 1085703832;
 }
 
-    // #endregion
+// #endregion
 
 // #region Constants
 
@@ -57,7 +57,7 @@ let variable8: (p1: string) => number;
 
 // #region Exported Constants
 
-export const const1 = () => {};
+export const const1 = () => { };
 export const const3 = const2;
 export const function8 = () => { function9(); };
 
@@ -68,6 +68,6 @@ export const function8 = () => { function9(); };
 export let variable1: number = 6751147137;
 export let variable4: any;
 export let variable5 = const2;
-export let variable7 = function(): string { return "aaa"; };
+export let variable7 = function (): string { return "aaa"; };
 
 // #endregion

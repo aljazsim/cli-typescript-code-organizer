@@ -2,16 +2,16 @@ import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../t
 
 export abstract class TestClass
 {
-// #region Private Static ReadOnly Properties
+    // #region Private Static ReadOnly Properties
 
     // this is a comment
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
     // also a comment
     private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
 
-// #endregion
+    // #endregion
 
-// #region Private Readonly Properties
+    // #region Private Readonly Properties
 
     @decoratorC(7960805480)
     private readonly privateReadonlyProperty1: string | undefined = "ohqx31vc3a";
@@ -20,9 +20,9 @@ export abstract class TestClass
     @decoratorC(7573192855)
     private readonly privateReadonlyProperty4: String = "709w42symh";
 
-// #endregion
+    // #endregion
 
-// #region Private Static Properties
+    // #region Private Static Properties
 
     private static privateStaticProperty1: boolean;
     private static privateStaticProperty2 = new Date();
@@ -33,9 +33,9 @@ export abstract class TestClass
     private static _privateStaticGetterSetter1: string;
     private static _privateStaticGetterSetter2: string;
 
-// #endregion
+    // #endregion
 
-// #region Private Properties
+    // #region Private Properties
 
     #privateProperty1 = (ltgeubyxvt: string) => { };
     @decoratorB()
@@ -48,9 +48,9 @@ export abstract class TestClass
     private _protectedGetterSetter1: string = "";
     private _privateGetterSetter1: string = "";
 
-// #endregion
+    // #endregion
 
-// #region Protected Static ReadOnly Properties
+    // #region Protected Static ReadOnly Properties
 
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
     /*
@@ -59,9 +59,9 @@ export abstract class TestClass
     @decoratorB()
     protected static readonly protectedStaticReadonlyProperty2 = "oyasnkxrza";
 
-// #endregion
+    // #endregion
 
-// #region Protected ReadOnly Properties
+    // #region Protected ReadOnly Properties
 
     protected abstract readonly protectedReadonlyProperty2: string;
     protected readonly protectedReadonlyProperty4 = 6494372165;
@@ -73,24 +73,24 @@ export abstract class TestClass
     protected readonly protectedReadonlyProperty3 = 1187372274;
     protected readonly protectedReadonlyProperty1 = "tbgokvjelv";
 
-// #endregion
+    // #endregion
 
-// #region Protected Static Properties
+    // #region Protected Static Properties
 
     protected static protectedStaticProperty2 = "hyc8khk2oj";
     @decoratorC(9860836855)
     protected static protectedStaticProperty1 = 8522782648;
 
-// #endregion
+    // #endregion
 
-// #region Protected Properties
+    // #region Protected Properties
 
     protected protectedProperty1 = "jwm4jkf16m";
     protected protectedProperty2: Number = 9777108868;
 
-// #endregion
+    // #endregion
 
-// #region Public Static ReadOnly Properties
+    // #region Public Static ReadOnly Properties
 
     public static readonly publicStaticReadonlyProperty2: string;
     @decoratorB()
@@ -98,17 +98,17 @@ export abstract class TestClass
     @decoratorB()
     public static readonly publicStaticReadonlyProperty1: Number = 8345836946;
 
-// #endregion
+    // #endregion
 
-// #region Public ReadOnly Properties
+    // #region Public ReadOnly Properties
 
     @decoratorB()
     public readonly publicReadonlyProperty1 = "ztrfjcvmrm";
     public readonly publicReadonlyProperty2 = "uialqi4dkc";
 
-// #endregion
+    // #endregion
 
-// #region Public Static Properties
+    // #region Public Static Properties
 
     public static publicStaticProperty1 = () =>
     {
@@ -116,27 +116,27 @@ export abstract class TestClass
     };
     public static publicStaticProperty2: Number;
 
-// #endregion
+    // #endregion
 
-// #region Public Properties
+    // #region Public Properties
 
     @decoratorA("qeyfjngywl")
     public publicProperty2 = "pe2bmn4hgi";
     public publicProperty1: string | null;
     public publicProperty3: Number = 5502271448;
 
-// #endregion
+    // #endregion
 
-// #region Static Block Declarations
+    // #region Static Block Declarations
 
     static {
         this.protectedStaticProperty1 = 4286562276;
         this.privateStaticProperty1 = true;
     }
 
-// #endregion
+    // #endregion
 
-// #region Constructors
+    // #region Constructors
 
     constructor(private readonly name: string)
     {
@@ -144,9 +144,9 @@ export abstract class TestClass
         this.publicProperty1 = name;
     }
 
-// #endregion
+    // #endregion
 
-// #region Public Static Accessors
+    // #region Public Static Accessors
 
     public static accessor publicStaticAccessor2: number;
     @decoratorD()
@@ -155,16 +155,16 @@ export abstract class TestClass
     @decoratorE()
     public static accessor publicStaticAccessor3: boolean | undefined;
 
-// #endregion
+    // #endregion
 
-// #region Public Accessors
+    // #region Public Accessors
 
     public accessor publicAccessor2: number = 8647818341;
     public accessor publicAccessor3 = 4184534899;
 
-// #endregion
+    // #endregion
 
-// #region Public Abstract Accessors
+    // #region Public Abstract Accessors
 
     @decoratorD()
     public abstract accessor publicAbstractAccessor1: string;
@@ -174,16 +174,16 @@ export abstract class TestClass
     public abstract accessor publicAbstractAccessor2: boolean | undefined;
     public abstract accessor publicAbstractAccessor4: boolean | undefined;
 
-// #endregion
+    // #endregion
 
-// #region Protected Static Accessors
+    // #region Protected Static Accessors
 
     protected static accessor protectedStaticAccessor1: boolean | undefined;
     protected static accessor protectedStaticAccessor2: boolean | undefined;
 
-// #endregion
+    // #endregion
 
-// #region Protected Accessors
+    // #region Protected Accessors
 
     @decoratorE()
     @decoratorE()
@@ -191,34 +191,34 @@ export abstract class TestClass
     @decoratorD()
     protected accessor protectedAccessor1: boolean | undefined;
 
-// #endregion
+    // #endregion
 
-// #region Protected Abstract Accessors
+    // #region Protected Abstract Accessors
 
     protected abstract accessor protectedAbstractAccessor2: string;
     protected abstract accessor protectedAbstractAccessor1: boolean | undefined;
     @decoratorD()
     protected abstract accessor protectedAbstractAccessor3: boolean | undefined;
 
-// #endregion
+    // #endregion
 
-// #region Private Static Accessors
+    // #region Private Static Accessors
 
     private static accessor privateStaticAccessor1: boolean | undefined;
     @decoratorD()
     private static accessor privateStaticAccessor2: string;
 
-// #endregion
+    // #endregion
 
-// #region Private Accessors
+    // #region Private Accessors
 
     private accessor privateAccessor2: boolean | undefined;
     @decoratorD()
     private accessor privateAccessor1: boolean | undefined;
 
-// #endregion
+    // #endregion
 
-// #region Public Static Getters And Setters
+    // #region Public Static Getters And Setters
 
     public static get publicStaticGetterSetter1(): string
     {
@@ -249,9 +249,9 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 
-// #region Public Getters And Setters
+    // #region Public Getters And Setters
 
     @decoratorE()
     public get publicGetterSetter1(): string
@@ -264,9 +264,9 @@ export abstract class TestClass
         this._publicGetterSetter1 = value;
     }
 
-// #endregion
+    // #endregion
 
-// #region Public Abstract Getters And Setters
+    // #region Public Abstract Getters And Setters
 
     public abstract get publicAbstractGetterSetter4(): string;
 
@@ -280,9 +280,9 @@ export abstract class TestClass
 
     public abstract set publicAbstractGetterSetter1(value: string);
 
-// #endregion
+    // #endregion
 
-// #region Protected Static Getters And Setters
+    // #region Protected Static Getters And Setters
 
     protected static get protectedStaticGetterSetter1(): string
     {
@@ -315,9 +315,9 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 
-// #region Protected Getters And Setters
+    // #region Protected Getters And Setters
 
     @decoratorE()
     protected get protectedGetterSetter1(): string
@@ -330,9 +330,9 @@ export abstract class TestClass
         this._protectedGetterSetter1 = value;
     }
 
-// #endregion
+    // #endregion
 
-// #region Protected Abstract Getters And Setters
+    // #region Protected Abstract Getters And Setters
 
     protected abstract get protectedAbstractGetterSetter4(): string;
 
@@ -346,9 +346,9 @@ export abstract class TestClass
 
     protected abstract set protectedAbstractGetterSetter2(value: string);
 
-// #endregion
+    // #endregion
 
-// #region Private Static Getters And Setters
+    // #region Private Static Getters And Setters
 
     private static get privateStaticGetterSetter1(): string
     {
@@ -379,9 +379,9 @@ export abstract class TestClass
         this._privateStaticGetterSetter2 = value;
     }
 
-// #endregion
+    // #endregion
 
-// #region Private Getters And Setters
+    // #region Private Getters And Setters
 
     @decoratorE()
     private get privateGetterSetter1(): string
@@ -394,9 +394,9 @@ export abstract class TestClass
         this._privateGetterSetter1 = value;
     }
 
-// #endregion
+    // #endregion
 
-// #region Public Static Methods
+    // #region Public Static Methods
 
     public static publicStaticMethod3()
     {
@@ -412,9 +412,9 @@ export abstract class TestClass
         return 330340934 - 9;
     }
 
-// #endregion
+    // #endregion
 
-// #region Public Methods
+    // #region Public Methods
 
     public publicMethod1()
     {
@@ -430,9 +430,9 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 
-// #region Public Abstract Methods
+    // #region Public Abstract Methods
 
     public abstract publicAbstractMethod3(): string;
 
@@ -441,9 +441,9 @@ export abstract class TestClass
     // yup, a comment
     public abstract publicAbstractMethod2(): number;
 
-// #endregion
+    // #endregion
 
-// #region Protected Static Methods
+    // #region Protected Static Methods
 
     protected static protectedStaticMethod2()
     {
@@ -460,9 +460,9 @@ export abstract class TestClass
         console.log("ohnpmwinia");
     }
 
-// #endregion
+    // #endregion
 
-// #region Protected Methods
+    // #region Protected Methods
 
     @decoratorD()
     protected protectedMethod1()
@@ -479,9 +479,9 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 
-// #region Protected Abstract Methods
+    // #region Protected Abstract Methods
 
     protected abstract protectedAbstractMethod2(): number;
 
@@ -489,9 +489,9 @@ export abstract class TestClass
 
     protected abstract protectedAbstractMethod3(): string;
 
-// #endregion
+    // #endregion
 
-// #region Private Static Methods
+    // #region Private Static Methods
 
     // also a comment
     private static privateStaticMethod1()
@@ -511,9 +511,9 @@ export abstract class TestClass
         return 330340934 - 9;
     }
 
-// #endregion
+    // #endregion
 
-// #region Private Methods
+    // #region Private Methods
 
     @decoratorE()
     private privateMethod2()
@@ -531,5 +531,5 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 }

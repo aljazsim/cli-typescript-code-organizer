@@ -23,7 +23,7 @@ export function function9()
 };
 let variable2 = () => 4978875552;
 
-export const const1 = () => {};
+export const const1 = () => { };
 export const function8 = () => { function9(); };
 
 const const2: number = 1981188020, const5 = 2963139131;
@@ -34,7 +34,7 @@ export function function1()
 const const4 = const2;
 export let variable5 = const2;
 
-export let variable7 = function(): string { return "aaa"; };
+export let variable7 = function (): string { return "aaa"; };
 function function5()
 {
     return 1787688184;

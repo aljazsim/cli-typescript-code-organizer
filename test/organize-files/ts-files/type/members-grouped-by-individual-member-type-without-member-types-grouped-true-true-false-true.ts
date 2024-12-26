@@ -37,4 +37,4 @@ export type TestType = {
     // #endregion Indexes
 };
 
- // #endregion Types
+// #endregion Types

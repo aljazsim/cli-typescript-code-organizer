@@ -2,7 +2,7 @@ import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../t
 
 export abstract class TestClass
 {
-// #region Properties
+    // #region Properties
 
     // this is a comment
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
@@ -81,9 +81,9 @@ export abstract class TestClass
     public publicProperty2 = "pe2bmn4hgi";
     public publicProperty3: Number = 5502271448;
 
-// #endregion
+    // #endregion
 
-// #region Constructors
+    // #region Constructors
 
     static {
         this.protectedStaticProperty1 = 4286562276;
@@ -96,9 +96,9 @@ export abstract class TestClass
         this.publicProperty1 = name;
     }
 
-// #endregion
+    // #endregion
 
-// #region Accessors
+    // #region Accessors
 
     @decoratorD()
     public static accessor publicStaticAccessor1: boolean | undefined;
@@ -140,9 +140,9 @@ export abstract class TestClass
     private accessor privateAccessor1: boolean | undefined;
     private accessor privateAccessor2: boolean | undefined;
 
-// #endregion
+    // #endregion
 
-// #region Getters And Setters
+    // #region Getters And Setters
 
     public static get publicStaticGetterSetter1(): string
     {
@@ -290,9 +290,9 @@ export abstract class TestClass
         this._privateGetterSetter1 = value;
     }
 
-// #endregion
+    // #endregion
 
-// #region Methods
+    // #region Methods
 
     public static publicStaticMethod1()
     {
@@ -399,5 +399,5 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 }

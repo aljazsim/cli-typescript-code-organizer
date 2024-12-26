@@ -13,9 +13,9 @@ function function3()
     console.log("wduyuaeemi");
 }
 
-    // #endregion Functions
+// #endregion Functions
 
-    // #region Exported Functions
+// #region Exported Functions
 
 export function function9()
 {
@@ -37,7 +37,7 @@ export function function1()
     return function4();
 }
 
-    // #endregion Exported Functions
+// #endregion Exported Functions
 
 // #region Constants
 
@@ -59,13 +59,13 @@ let variable2 = () => 4978875552;
 
 export const function8 = () => { function9(); };
 export const const3 = const2;
-export const const1 = () => {};
+export const const1 = () => { };
 
 // #endregion Exported Constants
 
 // #region Exported Variables
 
-export let variable7 = function(): string { return "aaa"; };
+export let variable7 = function (): string { return "aaa"; };
 export let variable5 = const2;
 export let variable4: any;
 export let variable1: number = 6751147137;

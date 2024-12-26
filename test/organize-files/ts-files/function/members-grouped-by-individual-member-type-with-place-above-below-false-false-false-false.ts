@@ -39,11 +39,11 @@ let variable3;
 let variable6 = null;
 let variable8: (p1: string) => number;
 
-export const const1 = () => {};
+export const const1 = () => { };
 export const const3 = const2;
 export const function8 = () => { function9(); };
 
 export let variable1: number = 6751147137;
 export let variable4: any;
 export let variable5 = const2;
-export let variable7 = function(): string { return "aaa"; };
+export let variable7 = function (): string { return "aaa"; };

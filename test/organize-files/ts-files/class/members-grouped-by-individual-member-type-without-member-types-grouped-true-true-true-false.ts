@@ -1,6 +1,6 @@
 import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
 
-    // #region Classes (1)
+// #region Classes (1)
 
 export abstract class TestClass
 {
@@ -536,4 +536,4 @@ export abstract class TestClass
     // #endregion (3)
 }
 
-    // #endregion (1)
+// #endregion (1)

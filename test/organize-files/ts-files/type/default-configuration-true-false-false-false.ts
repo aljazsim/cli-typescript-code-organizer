@@ -2,7 +2,7 @@
  * Description of TestType.
  */
 export type TestType = {
-// #region Properties
+    // #region Properties
 
     property1: string | null;
     property3: string;
@@ -18,16 +18,16 @@ export type TestType = {
     //
     property9: Date;
 
-// #endregion
+    // #endregion
 
-// #region Indexes
+    // #region Indexes
 
     [index: string]: any;
     [index: number]: any;
 
-// #endregion
+    // #endregion
 
-// #region Methods
+    // #region Methods
 
     // comment
     property2: (date: Date) => Promise<Date>;
@@ -37,5 +37,5 @@ export type TestType = {
     */
     property6: (p1: number) => number;
 
-// #endregion
+    // #endregion
 };

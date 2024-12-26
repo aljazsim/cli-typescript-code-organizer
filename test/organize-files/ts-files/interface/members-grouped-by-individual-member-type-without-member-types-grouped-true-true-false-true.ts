@@ -62,4 +62,4 @@ export interface TestInterface
     // #endregion Methods
 }
 
-    // #endregion Interfaces
+// #endregion Interfaces

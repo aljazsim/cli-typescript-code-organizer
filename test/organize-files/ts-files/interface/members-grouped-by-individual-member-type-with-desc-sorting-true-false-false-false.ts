@@ -1,6 +1,6 @@
 export interface TestInterface
 {
-// #region Properties
+    // #region Properties
 
     readonly publicReadonlyProperty9: string;
     readonly publicReadonlyProperty8: Number;
@@ -22,15 +22,15 @@ export interface TestInterface
     publicProperty2: string;
     publicProperty1: string;
 
-// #endregion
+    // #endregion
 
-// #region Indexes
+    // #region Indexes
 
     [key: string]: any;
 
-// #endregion
+    // #endregion
 
-// #region Getters And Setters
+    // #region Getters And Setters
 
     get publicGetterSetter4(): any;
 
@@ -44,9 +44,9 @@ export interface TestInterface
 
     get accessor1(): string;
 
-// #endregion
+    // #endregion
 
-// #region Methods
+    // #region Methods
 
     publicMethod9(): void;
     publicMethod8(): Promise<boolean>;
@@ -58,5 +58,5 @@ export interface TestInterface
     publicMethod2(): void;
     publicMethod1(): number;
 
-// #endregion
+    // #endregion
 }

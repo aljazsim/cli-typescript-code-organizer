@@ -2,7 +2,7 @@ import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../t
 
 export abstract class TestClass
 {
-// #region Properties
+    // #region Properties
 
     // this is a comment
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
@@ -81,18 +81,18 @@ export abstract class TestClass
     public publicProperty2 = "pe2bmn4hgi";
     public publicProperty3: Number = 5502271448;
 
-// #endregion
+    // #endregion
 
-// #region Static Block Declarations
+    // #region Static Block Declarations
 
     static {
         this.protectedStaticProperty1 = 4286562276;
         this.privateStaticProperty1 = true;
     }
 
-// #endregion
+    // #endregion
 
-// #region Constructors
+    // #region Constructors
 
     constructor(private readonly name: string)
     {
@@ -100,9 +100,9 @@ export abstract class TestClass
         this.publicProperty1 = name;
     }
 
-// #endregion
+    // #endregion
 
-// #region Accessors
+    // #region Accessors
 
     @decoratorD()
     public static accessor publicStaticAccessor1: boolean | undefined;
@@ -144,9 +144,9 @@ export abstract class TestClass
     private accessor privateAccessor1: boolean | undefined;
     private accessor privateAccessor2: boolean | undefined;
 
-// #endregion
+    // #endregion
 
-// #region Public Static Getters And Setters
+    // #region Public Static Getters And Setters
 
     public static get publicStaticGetterSetter1(): string
     {
@@ -177,9 +177,9 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 
-// #region Public Getters And Setters
+    // #region Public Getters And Setters
 
     public abstract get publicAbstractGetterSetter1(): string;
 
@@ -204,9 +204,9 @@ export abstract class TestClass
         this._publicGetterSetter1 = value;
     }
 
-// #endregion
+    // #endregion
 
-// #region Protected Static Getters And Setters
+    // #region Protected Static Getters And Setters
 
     protected static get protectedStaticGetterSetter1(): string
     {
@@ -239,9 +239,9 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 
-// #region Protected Getters And Setters
+    // #region Protected Getters And Setters
 
     protected abstract get protectedAbstractGetterSetter1(): string;
 
@@ -266,9 +266,9 @@ export abstract class TestClass
         this._protectedGetterSetter1 = value;
     }
 
-// #endregion
+    // #endregion
 
-// #region Private Static Getters And Setters
+    // #region Private Static Getters And Setters
 
     private static get privateStaticGetterSetter1(): string
     {
@@ -299,9 +299,9 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 
-// #region Private Getters And Setters
+    // #region Private Getters And Setters
 
     @decoratorE()
     private get privateGetterSetter1(): string
@@ -314,9 +314,9 @@ export abstract class TestClass
         this._privateGetterSetter1 = value;
     }
 
-// #endregion
+    // #endregion
 
-// #region Public Static Methods
+    // #region Public Static Methods
 
     public static publicStaticMethod1()
     {
@@ -332,9 +332,9 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 
-// #region Public Methods
+    // #region Public Methods
 
     public abstract publicAbstractMethod1(): void;
 
@@ -357,9 +357,9 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 
-// #region Protected Static Methods
+    // #region Protected Static Methods
 
     @decoratorE()
     protected static protectedStaticMethod1()
@@ -376,9 +376,9 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 
-// #region Protected Methods
+    // #region Protected Methods
 
     protected abstract protectedAbstractMethod1(): void;
 
@@ -401,9 +401,9 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 
-// #region Private Static Methods
+    // #region Private Static Methods
 
     // also a comment
     private static privateStaticMethod1()
@@ -423,9 +423,9 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 
-// #region Private Methods
+    // #region Private Methods
 
     private privateMethod1()
     {
@@ -443,5 +443,5 @@ export abstract class TestClass
     {
     }
 
-// #endregion
+    // #endregion
 }
