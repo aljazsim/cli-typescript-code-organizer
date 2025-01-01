@@ -15,7 +15,7 @@
                 "sortDirection": "asc",
                 "caption": "Enums",
                 "memberTypes": ["enums"],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             },
@@ -24,7 +24,7 @@
                 "sortDirection": "asc",
                 "caption": "Interfaces",
                 "memberTypes": ["interfaces"],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             },
@@ -33,7 +33,7 @@
                 "sortDirection": "asc",
                 "caption": "Classes",
                 "memberTypes": ["classes"],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             },
@@ -42,7 +42,7 @@
                 "sortDirection": "asc",
                 "caption": "Types",
                 "memberTypes": ["types"],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             },
@@ -51,7 +51,7 @@
                 "sortDirection": "asc",
                 "caption": "Functions",
                 "memberTypes": ["functions", "exportedFunctions"],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             },
@@ -65,7 +65,7 @@
                     "exportedConstants",
                     "exportedVariables"
                 ],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             }
@@ -103,7 +103,7 @@
                     "publicStaticProperties",
                     "publicProperties"
                 ],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             },
@@ -112,7 +112,7 @@
                 "sortDirection": "asc",
                 "caption": "Constructors",
                 "memberTypes": ["staticBlockDeclarations", "constructors"],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             },
@@ -121,7 +121,7 @@
                 "sortDirection": "asc",
                 "caption": "Indexes",
                 "memberTypes": ["publicStaticIndexes", "publicIndexes"],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             },
@@ -139,7 +139,7 @@
                     "privateStaticAccessors",
                     "privateAccessors"
                 ],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             },
@@ -157,7 +157,7 @@
                     "privateStaticGettersAndSetters",
                     "privateGettersAndSetters"
                 ],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             },
@@ -175,7 +175,7 @@
                     "privateStaticMethods",
                     "privateMethods"
                 ],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             }
@@ -197,7 +197,7 @@
                 "sortDirection": "asc",
                 "caption": "Properties and indexes",
                 "memberTypes": ["readOnlyProperties", "properties", "indexes"],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             },
@@ -206,7 +206,7 @@
                 "sortDirection": "asc",
                 "caption": "Methods, getter and setters",
                 "memberTypes": ["methods", "gettersAndSetters"],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             }
@@ -227,7 +227,7 @@
                 "sortDirection": "asc",
                 "caption": "Properties, indexes and methods",
                 "memberTypes": ["properties", "indexes", "methods"],
-                "memberTypesGrouped": true,
+                "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
             }

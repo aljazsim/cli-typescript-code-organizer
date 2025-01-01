@@ -2,6 +2,7 @@ import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../t
 
 export abstract class TestClass
 {
+    // #region Properties
 
     // this is a comment
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
@@ -80,6 +81,10 @@ export abstract class TestClass
     public publicProperty2 = "pe2bmn4hgi";
     public publicProperty3: Number = 5502271448;
 
+    // #endregion
+
+    // #region Constructors
+
     static {
         this.protectedStaticProperty1 = 4286562276;
         this.privateStaticProperty1 = true;
@@ -90,6 +95,10 @@ export abstract class TestClass
         this.#privateProperty2 = "xzfkmndzen";
         this.publicProperty1 = name;
     }
+
+    // #endregion
+
+    // #region Accessors
 
     @decoratorD()
     public static accessor publicStaticAccessor1: boolean | undefined;
@@ -130,6 +139,10 @@ export abstract class TestClass
     @decoratorD()
     private accessor privateAccessor1: boolean | undefined;
     private accessor privateAccessor2: boolean | undefined;
+
+    // #endregion
+
+    // #region Getters And Setters
 
     public static get publicStaticGetterSetter1(): string
     {
@@ -277,6 +290,10 @@ export abstract class TestClass
         this._privateGetterSetter1 = value;
     }
 
+    // #endregion
+
+    // #region Methods
+
     public static publicStaticMethod1()
     {
         console.log("ohnpmwinia");
@@ -381,3 +398,6 @@ export abstract class TestClass
     private privateMethod3()
     {
     }
+
+    // #endregion
+}

@@ -1,4 +1,3 @@
-import { AccessorNode } from "../elements/accessor-node";
 import { ClassNode } from "../elements/class-node";
 import { Configuration } from "../configuration/configuration";
 import { ElementNode } from "../elements/element-node";
@@ -10,8 +9,7 @@ import { PropertyNode } from "../elements/property-node";
 import { SetterNode } from "../elements/setter-node";
 import { SourceCode } from "./source-code";
 import { TypeAliasNode } from "../elements/type-alias-node";
-import { TypeNode } from "typescript";
-import { WriteModifier } from "../enums/write-modifier";
+import { FunctionNode } from "../elements/function-node";
 
 export class SourceCodePrinter
 {
@@ -34,9 +32,9 @@ export class SourceCodePrinter
 
     private static printClass(node: ClassNode, configuration: Configuration)
     {
-        const beforeMembers = node.sourceCode.substring(0, node.membersStart).trimStart();
+        const beforeMembers = node.sourceCode.substring(0, node.membersStart).trim();
         const members = this.printNodeGroups(node.organizeMembers(configuration.classes), configuration);
-        const afterMembers = node.sourceCode.substring(node.membersEnd + 1).trimEnd();
+        const afterMembers = node.sourceCode.substring(node.membersEnd).trim();
         const nodeSourceCode = new SourceCode();
 
         if (configuration.classes.members.addPublicModifierIfMissing)
@@ -69,9 +67,9 @@ export class SourceCodePrinter
 
     private static printInterface(node: InterfaceNode, configuration: Configuration)
     {
-        const beforeMembers = node.sourceCode.substring(0, node.membersStart).trimStart();
+        const beforeMembers = node.sourceCode.substring(0, node.membersStart).trim();
         const members = this.printNodeGroups(node.organizeMembers(configuration.interfaces), configuration);
-        const afterMembers = node.sourceCode.substring(node.membersEnd + 1).trimEnd();
+        const afterMembers = node.sourceCode.substring(node.membersEnd).trim();
         const nodeSourceCode = new SourceCode();
 
         nodeSourceCode.add(beforeMembers);
@@ -125,7 +123,8 @@ export class SourceCodePrinter
 
             if (node instanceof MethodNode ||
                 node instanceof GetterNode ||
-                node instanceof SetterNode)
+                node instanceof SetterNode ||
+                node instanceof FunctionNode)
             {
                 if (nodeGroup.nodes.indexOf(node) < nodeGroup.nodes.length - 1)
                 {
@@ -169,9 +168,9 @@ export class SourceCodePrinter
 
     private static printType(node: TypeAliasNode, configuration: Configuration)
     {
-        const beforeMembers = node.sourceCode.substring(0, node.membersStart).trimStart();
+        const beforeMembers = node.sourceCode.substring(0, node.membersStart).trim();
         const members = this.printNodeGroups(node.organizeMembers(configuration.types), configuration);
-        const afterMembers = node.sourceCode.substring(node.membersEnd + 1).trimEnd();
+        const afterMembers = node.sourceCode.substring(node.membersEnd).trim();
         const nodeSourceCode = new SourceCode();
 
         nodeSourceCode.add(beforeMembers);

@@ -1,8 +1,8 @@
 import { expect, test } from '@jest/globals';
-import { getOrganizeTestParameters } from '../helpers/organize-test-helper';
 import { deleteFile, fileExists, readFile, writeFile } from '../../src/helpers/file-system-helper';
 import { SourceCodeOrganizer } from '../../src/source-code/source-code-organizer';
 import { Configuration } from '../../src/configuration/configuration';
+import { getOrganizeTestParameters } from '../helpers/organize-test-helper';
 
 
 for (const otp of getOrganizeTestParameters())

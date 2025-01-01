@@ -29,6 +29,9 @@ export type TestType = {
 
     // #region Methods
 
+    method1(): void;
+    method2(): void;
+    method3(): void;
     // comment
     property2: (date: Date) => Promise<Date>;
     property4: () => void;
@@ -38,5 +41,4 @@ export type TestType = {
     property6: (p1: number) => number;
 
     // #endregion
-
 };

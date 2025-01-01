@@ -14,7 +14,7 @@ export class TypeAliasNode extends ElementNode
 
     public readonly membersEnd: number = 0;
     public readonly membersStart: number = 0;
-    public readonly methods: PropertySignatureNode[] = [];
+    public readonly methods: MethodSignatureNode[] = [];
     public readonly name: string;
     public readonly properties: PropertySignatureNode[] = [];
     public readonly indexes: IndexSignatureNode[] = [];
@@ -59,6 +59,10 @@ export class TypeAliasNode extends ElementNode
                         else if (ts.isIndexSignatureDeclaration(member))
                         {
                             this.indexes.push(new IndexSignatureNode(sourceFile, member));
+                        }
+                        else if (ts.isMethodSignature(member))
+                        {
+                            this.methods.push(new MethodSignatureNode(sourceFile, member));
                         }
                     }
                 }

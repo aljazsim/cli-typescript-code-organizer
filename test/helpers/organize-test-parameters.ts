@@ -1,5 +1,3 @@
-import { Configuration } from "../configuration/configuration";
-
 export class OrganizeTestParameters
 {
     constructor(

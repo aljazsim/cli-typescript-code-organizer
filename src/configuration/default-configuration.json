@@ -1,4 +1,14 @@
 {
+    "imports": {
+        "removeUnusedImports": true,
+        "orderImportsBySource": true,
+        "orderImportsByName": true,
+        "groupImportsBySource": true,
+        "putModuleImportsFirst": true,
+        "separateImportGroups": true,
+        "quote": "double",
+        "path": "absolute"
+    },
     "modules": {
         "regions": {
             "addRegions": false,

@@ -2,7 +2,6 @@ import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../t
 
 export abstract class TestClass
 {
-
     // #region Properties (44)
 
     // this is a comment
@@ -445,3 +444,4 @@ export abstract class TestClass
     }
 
     // #endregion Private Methods
+}

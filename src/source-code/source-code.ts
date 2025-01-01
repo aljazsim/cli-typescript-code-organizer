@@ -1,6 +1,5 @@
 import { AccessModifier } from "../enums/access-modifier";
 import { AccessorNode } from "../elements/accessor-node";
-import { ElementNode } from "../elements/element-node";
 import { GetterNode } from "../elements/getter-node";
 import { MethodNode } from "../elements/method-node";
 import { PropertyNode } from "../elements/property-node";
@@ -294,18 +293,16 @@ export class SourceCode
 
     private static getIndentation(sourceCode: string)
     {
-        let tab = "\t";
-        let space = " ";
+        const sourceCodeLines = sourceCode.split("\n");
 
-        for (const sourceCodeLine of sourceCode.split("\n"))
+        if (sourceCodeLines.length === 0)
         {
-            if (sourceCodeLine.startsWith(tab) || sourceCodeLine.startsWith(space))
-            {
-                return sourceCodeLine.replace(sourceCodeLine.trimStart(), "");
-            }
+            return "";
         }
-
-        return "";
+        else
+        {
+            return sourceCodeLines[0].replace(sourceCodeLines[0].trimStart(), "");
+        }
     }
 
     // #endregion Private Static Methods (2)

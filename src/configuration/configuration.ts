@@ -19,6 +19,9 @@ import { convertPascalCaseToTitleCase } from "../helpers/string-helper";
 import defaultConfiguration from './default-configuration.json';
 import { distinct } from "../helpers/array-helper";
 import { readFile } from "../helpers/file-system-helper";
+import { ImportConfiguration } from "./import-configuration";
+import { ImportSourceFilePathQuoteType } from "./Import-source-file-path-quote-type";
+import { ImportSourceFilePathType } from "./import-source-file-path-type";
 
 export class Configuration
 {
@@ -26,6 +29,7 @@ export class Configuration
 
     constructor
         (
+            public readonly imports: ImportConfiguration,
             public readonly modules: ModuleConfiguration,
             public readonly classes: ClassConfiguration,
             public readonly interfaces: InterfaceConfiguration,
@@ -56,6 +60,17 @@ export class Configuration
         }
 
         return new Configuration(
+            new ImportConfiguration
+                (
+                    configuration.imports?.removeUnusedImports ?? defaultConfiguration.imports.removeUnusedImports,
+                    configuration.imports?.orderImportsBySource ?? defaultConfiguration.imports.orderImportsBySource,
+                    configuration.imports?.orderImportsByName ?? defaultConfiguration.imports.orderImportsByName,
+                    configuration.imports?.groupImportsBySource ?? defaultConfiguration.imports.groupImportsBySource,
+                    configuration.imports?.putModuleImportsFirst ?? defaultConfiguration.imports.putModuleImportsFirst,
+                    configuration.imports?.separateImportGroups ?? defaultConfiguration.imports.separateImportGroups,
+                    this.parseImportSourceFilePathQuoteType(configuration.imports?.quote) ?? defaultConfiguration.imports.quote,
+                    this.parseImportSourceFilePathType(configuration.imports?.path) ?? defaultConfiguration.imports.path,
+                ),
             new ModuleConfiguration
                 (
                     new RegionConfiguration
@@ -124,6 +139,17 @@ export class Configuration
     public static getDefaultConfiguration()
     {
         return new Configuration(
+            new ImportConfiguration
+                (
+                    defaultConfiguration.imports.removeUnusedImports,
+                    defaultConfiguration.imports.orderImportsBySource,
+                    defaultConfiguration.imports.orderImportsByName,
+                    defaultConfiguration.imports.groupImportsBySource,
+                    defaultConfiguration.imports.putModuleImportsFirst,
+                    defaultConfiguration.imports.separateImportGroups,
+                    this.parseImportSourceFilePathQuoteType(defaultConfiguration.imports.quote) ?? ImportSourceFilePathQuoteType.Double,
+                    this.parseImportSourceFilePathType(defaultConfiguration.imports.path) ?? ImportSourceFilePathType.Absolute,
+                ),
             new ModuleConfiguration
                 (
                     new RegionConfiguration
@@ -191,7 +217,7 @@ export class Configuration
 
     // #endregion Public Static Methods (2)
 
-    // #region Private Static Methods (8)
+    // #region Private Static Methods (10)
 
     private static fixClassMemberMemberGroup(defaultMemberTypeOrder: ClassMemberGroupConfiguration[], memberTypeOrder: ClassMemberGroupConfiguration[]): ClassMemberGroupConfiguration[]
     {
@@ -303,6 +329,38 @@ export class Configuration
         return new ClassMemberGroupConfiguration(sort, sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
     }
 
+    private static parseImportSourceFilePathQuoteType(quoteType: string)
+    {
+        if (quoteType === ImportSourceFilePathQuoteType.Double)
+        {
+            return ImportSourceFilePathQuoteType.Double;
+        }
+        else if (quoteType === ImportSourceFilePathQuoteType.Single)
+        {
+            return ImportSourceFilePathQuoteType.Single;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private static parseImportSourceFilePathType(filePathType: string)
+    {
+        if (filePathType === ImportSourceFilePathType.Absolute)
+        {
+            return ImportSourceFilePathType.Absolute;
+        }
+        else if (filePathType === ImportSourceFilePathType.Relative)
+        {
+            ImportSourceFilePathType.Relative;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     private static parseInterfaceMemberGroupConfiguration(interfaceMemberGroupConfiguration: any)
     {
         const sort = interfaceMemberGroupConfiguration.sort ?? true;
@@ -369,5 +427,5 @@ export class Configuration
         return new TypeMemberGroupConfiguration(sort, sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
     }
 
-    // #endregion Private Static Methods (8)
+    // #endregion Private Static Methods (10)
 } 

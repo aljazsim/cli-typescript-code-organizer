@@ -1,5 +1,5 @@
 import { getFileNameWithoutExtension, joinPath } from "../../src/helpers/file-system-helper";
-import { defaultConfigurationWithNoRegions, defaultConfigurationWithRegionMemberCount, defaultConfigurationWithRegionMemberCountAndCaptionInRegionEnd, defaultConfigurationWithRegions, membersGroupedByIndividualMemberTypeConfigurationFilePath, membersGroupedByIndividualMemberTypeWithArrowPropertiesAsMethodsConfigurationFilePath, membersGroupedByIndividualMemberTypeWithDescSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithoutMemberTypesGroupedConfigurationFilePath, membersGroupedByIndividualMemberTypeWithoutSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithPlaceAboveBelowConfigurationFilePath, membersGroupedByMultipleMemberTypeConfigurationFilePath } from "./configuration-helper";
+import { defaultConfigurationWithNoRegions, defaultConfigurationWithRegionMemberCount, defaultConfigurationWithRegionMemberCountAndCaptionInRegionEnd, defaultConfigurationWithRegions, membersGroupedByIndividualMemberTypeConfigurationFilePath, membersGroupedByIndividualMemberTypeWithArrowPropertiesAsMethodsConfigurationFilePath, membersGroupedByIndividualMemberTypeWithDescSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithoutSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithPlaceAboveBelowConfigurationFilePath, membersGroupedByMultipleMemberTypeConfigurationFilePath, membersGroupedByMultipleMemberTypeWithoutGroupingConfigurationFilePath } from "./configuration-helper";
 import { OrganizeTestParameters } from "./organize-test-parameters";
 
 // #region Functions (1)
@@ -11,13 +11,15 @@ export function getOrganizeTestParameters()
         defaultConfigurationWithRegions,
         defaultConfigurationWithRegionMemberCount,
         defaultConfigurationWithRegionMemberCountAndCaptionInRegionEnd,
+
         membersGroupedByIndividualMemberTypeConfigurationFilePath,
-        membersGroupedByIndividualMemberTypeWithoutMemberTypesGroupedConfigurationFilePath,
         membersGroupedByIndividualMemberTypeWithArrowPropertiesAsMethodsConfigurationFilePath,
         membersGroupedByIndividualMemberTypeWithDescSortingConfigurationFilePath,
         membersGroupedByIndividualMemberTypeWithPlaceAboveBelowConfigurationFilePath,
         membersGroupedByIndividualMemberTypeWithoutSortingConfigurationFilePath,
-        membersGroupedByMultipleMemberTypeConfigurationFilePath
+
+        membersGroupedByMultipleMemberTypeConfigurationFilePath,
+        membersGroupedByMultipleMemberTypeWithoutGroupingConfigurationFilePath
     ];
     const tests = [
         { name: "class", inputFilePath: testInputClassFilePath, outputDirectoryPath: testOutputClassDirectoryPath },

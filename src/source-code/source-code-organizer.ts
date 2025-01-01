@@ -173,7 +173,7 @@ export class SourceCodeOrganizer
                 }
                 else 
                 {
-                    regions.push(new ElementNodeGroup(memberGroup.caption, [], order(sort, sortDirection, memberGroups.flatMap(mg => mg.nodes), placeAbove, placeBelow, false), true, configuration.regions));
+                    regions.push(new ElementNodeGroup(memberGroup.caption, [], order(sort, sortDirection, memberGroups.flatMap(mg => mg.nodes), placeAbove, placeBelow, false), isRegion, configuration.regions));
                 }
             }
         }

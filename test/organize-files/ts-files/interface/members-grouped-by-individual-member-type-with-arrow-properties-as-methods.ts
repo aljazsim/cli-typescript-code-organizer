@@ -8,14 +8,14 @@ export interface TestInterface
     readonly publicReadonlyProperty5: string;
     readonly publicReadonlyProperty6: string | undefined;
     readonly publicReadonlyProperty7: string;
-    readonly publicReadonlyProperty8: Number;
+    readonly publicReadonlyProperty8: number;
     readonly publicReadonlyProperty9: string;
 
     publicProperty1: string;
     publicProperty2: string;
     publicProperty3: string | undefined;
     publicProperty4: string;
-    publicProperty5: Number;
+    publicProperty5: number;
     publicProperty7: string;
     publicProperty8: boolean;
     publicProperty9: string | null;
@@ -28,19 +28,27 @@ export interface TestInterface
 
     // #endregion Indexes
 
-    // #region Getters And Setters (6)
+    // #region Getters And Setters (10)
 
     get accessor1(): string;
 
-    get publicGetterSetter1(): Number;
+    get publicGetter1(): number;
 
-    set publicGetterSetter1(size: Number);
+    set publicGetter1(size: number);
 
-    get publicGetterSetter2(): Number;
+    get publicGetter2(): number;
 
-    set publicGetterSetter3(size: Number);
+    set publicGetter3(size: number);
 
-    get publicGetterSetter4(): any;
+    get publicGetter4(): any;
+
+    set publicSetter1(value: any);
+
+    set publicSetter2(value: any);
+
+    set publicSetter3(value: number);
+
+    set publicSetter4(value: any);
 
     // #endregion Getters And Setters
 
@@ -59,5 +67,4 @@ export interface TestInterface
     readonly publicReadonlyProperty1: (p1: number, p2: number) => void;
 
     // #endregion Methods
-
 }

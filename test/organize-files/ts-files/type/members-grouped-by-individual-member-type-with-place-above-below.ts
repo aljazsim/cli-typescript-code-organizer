@@ -26,4 +26,7 @@ export type TestType = {
     [index: string]: any;
     [index: number]: any;
 
+    method1(): void;
+    method2(): void;
+    method3(): void;
 };
