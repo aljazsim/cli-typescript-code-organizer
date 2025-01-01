@@ -178,17 +178,15 @@ export class SourceCode
         let region = "";
         let endregion = "";
 
-        region += regionConfiguration.addRegionIndentation ? indentation : "";
+        region += indentation;
         region += "// #region ";
         region += regionCaption + " ";
         region += regionConfiguration.addMemberCountInRegionName ? `(${regionMemberCount})` : "";
         region = region.trimEnd();
 
-        endregion += regionConfiguration.addRegionIndentation ? indentation : "";
+        endregion += indentation;
         endregion += "// #endregion ";
         endregion += regionConfiguration.addRegionCaptionToRegionEnd ? regionCaption : "";
-        endregion = endregion.trimEnd() + " ";
-        endregion += regionConfiguration.addMemberCountInRegionName ? `(${regionMemberCount})` : "";
         endregion = endregion.trimEnd();
 
         this.sourceCode = region;

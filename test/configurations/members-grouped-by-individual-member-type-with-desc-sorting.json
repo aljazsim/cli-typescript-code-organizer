@@ -1,8 +1,7 @@
 {
     "modules": {
         "regions": {
-            "useRegions": true,
-            "addRegionIndentation": true,
+            "addRegions": true,
             "addMemberCountInRegionName": true,
             "addRegionCaptionToRegionEnd": true
         },
@@ -105,8 +104,7 @@
     },
     "classes": {
         "regions": {
-            "useRegions": true,
-            "addRegionIndentation": true,
+            "addRegions": true,
             "addMemberCountInRegionName": true,
             "addRegionCaptionToRegionEnd": true
         },
@@ -482,8 +480,7 @@
     },
     "interfaces": {
         "regions": {
-            "useRegions": true,
-            "addRegionIndentation": true,
+            "addRegions": true,
             "addMemberCountInRegionName": true,
             "addRegionCaptionToRegionEnd": true
         },
@@ -532,8 +529,7 @@
     },
     "types": {
         "regions": {
-            "useRegions": false,
-            "addRegionIndentation": false,
+            "addRegions": false,
             "addMemberCountInRegionName": false,
             "addRegionCaptionToRegionEnd": false
         },

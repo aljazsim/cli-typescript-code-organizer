@@ -12,7 +12,7 @@ export async function fileExists(filePath: string)
 {
     try
     {
-        await fs.promises.access(filePath, fs.constants.F_OK);
+        await fs.access(filePath, fs.constants.F_OK);
 
         return true;
     }

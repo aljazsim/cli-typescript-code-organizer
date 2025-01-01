@@ -60,8 +60,7 @@ export class Configuration
                 (
                     new RegionConfiguration
                         (
-                            configuration.modules.regions?.useRegions ?? defaultConfiguration.modules.regions.useRegions,
-                            configuration.modules.regions?.addRegionIndentation ?? defaultConfiguration.modules.regions.addRegionIndentation,
+                            configuration.modules.regions?.addRegions ?? defaultConfiguration.modules.regions.addRegions,
                             configuration.modules.regions?.addMemberCountInRegionName ?? defaultConfiguration.modules.regions.addMemberCountInRegionName,
                             configuration.modules.regions?.addRegionCaptionToRegionEnd ?? defaultConfiguration.modules.regions.addRegionCaptionToRegionEnd
                         ),
@@ -76,8 +75,7 @@ export class Configuration
                 (
                     new RegionConfiguration
                         (
-                            configuration.classes.regions?.useRegions ?? defaultConfiguration.classes.regions.useRegions,
-                            configuration.classes.regions?.addRegionIndentation ?? defaultConfiguration.classes.regions.addRegionIndentation,
+                            configuration.classes.regions?.addRegions ?? defaultConfiguration.classes.regions.addRegions,
                             configuration.classes.regions?.addMemberCountInRegionName ?? defaultConfiguration.classes.regions.addMemberCountInRegionName,
                             configuration.classes.regions?.addRegionCaptionToRegionEnd ?? defaultConfiguration.classes.regions.addRegionCaptionToRegionEnd
                         ),
@@ -95,8 +93,7 @@ export class Configuration
                 (
                     new RegionConfiguration
                         (
-                            configuration.interfaces.regions?.useRegions ?? defaultConfiguration.interfaces.regions.useRegions,
-                            configuration.interfaces.regions?.addRegionIndentation ?? defaultConfiguration.interfaces.regions.addRegionIndentation,
+                            configuration.interfaces.regions?.addRegions ?? defaultConfiguration.interfaces.regions.addRegions,
                             configuration.interfaces.regions?.addMemberCountInRegionName ?? defaultConfiguration.interfaces.regions.addMemberCountInRegionName,
                             configuration.interfaces.regions?.addRegionCaptionToRegionEnd ?? defaultConfiguration.interfaces.regions.addRegionCaptionToRegionEnd
                         ),
@@ -111,8 +108,7 @@ export class Configuration
                 (
                     new RegionConfiguration
                         (
-                            configuration.types.regions?.useRegions ?? defaultConfiguration.types.regions.useRegions,
-                            configuration.types.regions?.addRegionIndentation ?? defaultConfiguration.types.regions.addRegionIndentation,
+                            configuration.types.regions?.addRegions ?? defaultConfiguration.types.regions.addRegions,
                             configuration.types.regions?.addMemberCountInRegionName ?? defaultConfiguration.types.regions.addMemberCountInRegionName,
                             configuration.types.regions?.addRegionCaptionToRegionEnd ?? defaultConfiguration.types.regions.addRegionCaptionToRegionEnd
                         ),
@@ -132,8 +128,7 @@ export class Configuration
                 (
                     new RegionConfiguration
                         (
-                            defaultConfiguration.modules.regions.useRegions,
-                            defaultConfiguration.modules.regions.addRegionIndentation,
+                            defaultConfiguration.modules.regions.addRegions,
                             defaultConfiguration.modules.regions.addMemberCountInRegionName,
                             defaultConfiguration.modules.regions.addRegionCaptionToRegionEnd
                         ),
@@ -148,8 +143,7 @@ export class Configuration
                 (
                     new RegionConfiguration
                         (
-                            defaultConfiguration.classes.regions.useRegions,
-                            defaultConfiguration.classes.regions.addRegionIndentation,
+                            defaultConfiguration.classes.regions.addRegions,
                             defaultConfiguration.classes.regions.addMemberCountInRegionName,
                             defaultConfiguration.classes.regions.addRegionCaptionToRegionEnd
                         ),
@@ -167,8 +161,7 @@ export class Configuration
                 (
                     new RegionConfiguration
                         (
-                            defaultConfiguration.interfaces.regions.useRegions,
-                            defaultConfiguration.interfaces.regions.addRegionIndentation,
+                            defaultConfiguration.interfaces.regions.addRegions,
                             defaultConfiguration.interfaces.regions.addMemberCountInRegionName,
                             defaultConfiguration.interfaces.regions.addRegionCaptionToRegionEnd
                         ),
@@ -183,8 +176,7 @@ export class Configuration
                 (
                     new RegionConfiguration
                         (
-                            defaultConfiguration.types.regions.useRegions,
-                            defaultConfiguration.types.regions.addRegionIndentation,
+                            defaultConfiguration.types.regions.addRegions,
                             defaultConfiguration.types.regions.addMemberCountInRegionName,
                             defaultConfiguration.types.regions.addRegionCaptionToRegionEnd
                         ),

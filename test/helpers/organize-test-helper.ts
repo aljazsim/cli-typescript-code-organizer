@@ -1,5 +1,5 @@
 import { getFileNameWithoutExtension, joinPath } from "../../src/helpers/file-system-helper";
-import { defaultConfigurationFilePath, getConfiguration, membersGroupedByIndividualMemberTypeConfigurationFilePath, membersGroupedByIndividualMemberTypeWithArrowPropertiesAsMethodsConfigurationFilePath, membersGroupedByIndividualMemberTypeWithDescSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithoutMemberTypesGroupedConfigurationFilePath, membersGroupedByIndividualMemberTypeWithoutSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithPlaceAboveBelowConfigurationFilePath, membersGroupedByMultipleMemberTypeConfigurationFilePath } from "./configuration-helper";
+import { defaultConfigurationWithNoRegions, defaultConfigurationWithRegionMemberCount, defaultConfigurationWithRegionMemberCountAndCaptionInRegionEnd, defaultConfigurationWithRegions, membersGroupedByIndividualMemberTypeConfigurationFilePath, membersGroupedByIndividualMemberTypeWithArrowPropertiesAsMethodsConfigurationFilePath, membersGroupedByIndividualMemberTypeWithDescSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithoutMemberTypesGroupedConfigurationFilePath, membersGroupedByIndividualMemberTypeWithoutSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithPlaceAboveBelowConfigurationFilePath, membersGroupedByMultipleMemberTypeConfigurationFilePath } from "./configuration-helper";
 import { OrganizeTestParameters } from "./organize-test-parameters";
 
 // #region Functions (1)
@@ -7,7 +7,10 @@ import { OrganizeTestParameters } from "./organize-test-parameters";
 export function getOrganizeTestParameters()
 {
     const configurationFilePaths = [
-        defaultConfigurationFilePath,
+        defaultConfigurationWithNoRegions,
+        defaultConfigurationWithRegions,
+        defaultConfigurationWithRegionMemberCount,
+        defaultConfigurationWithRegionMemberCountAndCaptionInRegionEnd,
         membersGroupedByIndividualMemberTypeConfigurationFilePath,
         membersGroupedByIndividualMemberTypeWithoutMemberTypesGroupedConfigurationFilePath,
         membersGroupedByIndividualMemberTypeWithArrowPropertiesAsMethodsConfigurationFilePath,
@@ -25,30 +28,18 @@ export function getOrganizeTestParameters()
         { name: "type", inputFilePath: testInputTypeFilePath, outputDirectoryPath: testOutputTypeDirectoryPath },
         { name: "variable", inputFilePath: testInputVariableFilePath, outputDirectoryPath: testOutputVariableDirectoryPath }
     ];
-    const regionConfiguration = [
-        { useRegions: false, addRegionIndentation: false, addMemberCountInRegionName: false, addRegionCaptionToRegionEnd: false },
-        { useRegions: true, addRegionIndentation: false, addMemberCountInRegionName: false, addRegionCaptionToRegionEnd: false },
-        { useRegions: true, addRegionIndentation: true, addMemberCountInRegionName: false, addRegionCaptionToRegionEnd: false },
-        { useRegions: true, addRegionIndentation: true, addMemberCountInRegionName: true, addRegionCaptionToRegionEnd: false },
-        { useRegions: true, addRegionIndentation: true, addMemberCountInRegionName: false, addRegionCaptionToRegionEnd: true },
-        { useRegions: true, addRegionIndentation: true, addMemberCountInRegionName: true, addRegionCaptionToRegionEnd: true }
-    ];
     const memberOrganizeParameters: OrganizeTestParameters[] = [];
 
     for (const test of tests)
     {
         for (const configurationFilePath of configurationFilePaths)
         {
-            for (const { useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd } of regionConfiguration)
-            {
-                const description = `organize ${test.name}: ${getFileNameWithoutExtension(configurationFilePath).replaceAll("-", " ")} (${useRegions ? "regions" : "no regions"}, ${addRegionIndentation ? "region indentation" : "no region indentation"}, ${addMemberCountInRegionName ? "member count in region name" : "no member count in region name"}, ${addRegionCaptionToRegionEnd ? "region caption in region end" : "region caption in region end"})`;
-                const inputFilePath = test.inputFilePath;
-                const outputDirectoryPath = test.outputDirectoryPath;
-                const outputFilePathParameters = `-${useRegions}-${addRegionIndentation}-${addMemberCountInRegionName}-${addRegionCaptionToRegionEnd}`
-                const outputFilePath = joinPath(outputDirectoryPath, getFileNameWithoutExtension(configurationFilePath) + outputFilePathParameters + ".ts");
+            const description = `organize ${test.name}: ${getFileNameWithoutExtension(configurationFilePath).replaceAll("-", " ")}`;
+            const inputFilePath = test.inputFilePath;
+            const outputDirectoryPath = test.outputDirectoryPath;
+            const outputFilePath = joinPath(outputDirectoryPath, getFileNameWithoutExtension(configurationFilePath) + ".ts");
 
-                memberOrganizeParameters.push(new OrganizeTestParameters(description, configurationFilePath, inputFilePath, outputFilePath, useRegions, addRegionIndentation, addMemberCountInRegionName, addRegionCaptionToRegionEnd));
-            }
+            memberOrganizeParameters.push(new OrganizeTestParameters(description, configurationFilePath, inputFilePath, outputFilePath));
         }
     }
 

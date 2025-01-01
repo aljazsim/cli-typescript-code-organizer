@@ -135,7 +135,7 @@ export class SourceCodePrinter
             }
         }
 
-        if (nodeGroup.isRegion && nodeGroup.regionConfiguration?.useRegions)
+        if (nodeGroup.isRegion && nodeGroup.regionConfiguration?.addRegions)
         {
             // wrap with region
             nodeGroupSourceCode.addRegion(nodeGroup.caption ?? "Region", nodeGroupNodeCount, nodeGroup.regionConfiguration);
