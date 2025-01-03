@@ -92,7 +92,7 @@ export function getFunctions(nodes: ElementNode[], treatArrowFunctionPropertiesA
 
 export function getImports(nodes: ElementNode[])
 {
-    return nodes.filter(n => n instanceof ImportNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
+    return nodes.filter(n => n instanceof ImportNode);
 }
 
 export function getInterfaces(nodes: ElementNode[])

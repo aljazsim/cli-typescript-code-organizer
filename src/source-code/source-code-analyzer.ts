@@ -13,7 +13,7 @@ import { VariableNode } from "../elements/variable-node";
 
 export class SourceCodeAnalyzer
 {
-    // #region Public Static Methods (1)
+    // #region Public Static Methods (2)
 
     public static getNodes(sourceFile: ts.SourceFile, configuration: Configuration)
     {
@@ -28,9 +28,50 @@ export class SourceCodeAnalyzer
         return elements;
     }
 
-    // #endregion Public Static Methods (1)
+    public static hasReference(sourceFile: ts.SourceFile, identifier: string)
+    {
+        return sourceFile.getChildren(sourceFile).some(node => this.findReference1(node, sourceFile, identifier));
+    }
 
-    // #region Private Static Methods (1)
+    // #endregion Public Static Methods (2)
+
+    // #region Private Static Methods (2)
+
+    private static findReference1(node: ts.Node, sourceFile: ts.SourceFile, identifier: string)
+    {
+        if (ts.isTypeReferenceNode(node) && ts.isIdentifier(node.typeName) && node.typeName.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
+        else if (ts.isNewExpression(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
+        else if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
+        else if (ts.isExpressionWithTypeArguments(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
+        else if (ts.isPropertyAccessExpression(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
+        else
+        {
+            for (const childNode of node.getChildren(sourceFile))
+            {
+                if (this.findReference1(childNode, sourceFile, identifier))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
     private static traverseSyntaxTree(node: ts.Node, sourceFile: ts.SourceFile, configuration: Configuration)
     {
@@ -88,5 +129,5 @@ export class SourceCodeAnalyzer
         return elements;
     }
 
-    // #endregion Private Static Methods (1)
+    // #endregion Private Static Methods (2)
 }

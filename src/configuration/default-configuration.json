@@ -1,10 +1,9 @@
 {
     "imports": {
         "removeUnusedImports": true,
-        "orderImportsBySource": true,
-        "orderImportsByName": true,
+        "sortImportsBySource": true,
+        "sortImportsByName": true,
         "groupImportsBySource": true,
-        "putModuleImportsFirst": true,
         "separateImportGroups": true,
         "quote": "double",
         "path": "absolute"

@@ -5,10 +5,9 @@ export class ImportConfiguration
 {
     constructor(
         public readonly removeUnusedImports: boolean,
-        public readonly orderImportsBySource: boolean,
-        public readonly orderImportsByName: boolean,
+        public readonly sortImportsBySource: boolean,
+        public readonly sortImportsByName: boolean,
         public readonly groupImportsBySource: boolean,
-        public readonly putModuleImportsFirst: boolean,
         public readonly separateImportGroups: boolean,
         public readonly quote: ImportSourceFilePathQuoteType,
         public readonly path: ImportSourceFilePathType)

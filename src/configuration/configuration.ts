@@ -63,10 +63,9 @@ export class Configuration
             new ImportConfiguration
                 (
                     configuration.imports?.removeUnusedImports ?? defaultConfiguration.imports.removeUnusedImports,
-                    configuration.imports?.orderImportsBySource ?? defaultConfiguration.imports.orderImportsBySource,
-                    configuration.imports?.orderImportsByName ?? defaultConfiguration.imports.orderImportsByName,
+                    configuration.imports?.sortImportsBySource ?? defaultConfiguration.imports.sortImportsBySource,
+                    configuration.imports?.sortImportsByName ?? defaultConfiguration.imports.sortImportsByName,
                     configuration.imports?.groupImportsBySource ?? defaultConfiguration.imports.groupImportsBySource,
-                    configuration.imports?.putModuleImportsFirst ?? defaultConfiguration.imports.putModuleImportsFirst,
                     configuration.imports?.separateImportGroups ?? defaultConfiguration.imports.separateImportGroups,
                     this.parseImportSourceFilePathQuoteType(configuration.imports?.quote) ?? defaultConfiguration.imports.quote,
                     this.parseImportSourceFilePathType(configuration.imports?.path) ?? defaultConfiguration.imports.path,
@@ -142,10 +141,9 @@ export class Configuration
             new ImportConfiguration
                 (
                     defaultConfiguration.imports.removeUnusedImports,
-                    defaultConfiguration.imports.orderImportsBySource,
-                    defaultConfiguration.imports.orderImportsByName,
+                    defaultConfiguration.imports.sortImportsBySource,
+                    defaultConfiguration.imports.sortImportsByName,
                     defaultConfiguration.imports.groupImportsBySource,
-                    defaultConfiguration.imports.putModuleImportsFirst,
                     defaultConfiguration.imports.separateImportGroups,
                     this.parseImportSourceFilePathQuoteType(defaultConfiguration.imports.quote) ?? ImportSourceFilePathQuoteType.Double,
                     this.parseImportSourceFilePathType(defaultConfiguration.imports.path) ?? ImportSourceFilePathType.Absolute,
@@ -353,7 +351,7 @@ export class Configuration
         }
         else if (filePathType === ImportSourceFilePathType.Relative)
         {
-            ImportSourceFilePathType.Relative;
+            return ImportSourceFilePathType.Relative;
         }
         else
         {

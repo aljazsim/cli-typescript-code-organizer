@@ -7,16 +7,17 @@ import { readFile } from "../../src/helpers/file-system-helper";
 test('ignore files', async () =>
 {
     // arrange
-    const sourceCodes = [
-        await readFile("./test/ignore-files/ts-files/test-enum.ts"),
-        await readFile("./test/ignore-files/ts-files/test-ignore.ts"),
-        await readFile("./test/ignore-files/ts-files/test-ignore.ts"),
+    const sourceFilePaths = [
+        "./test/ignore-files/ts-files/test-enum.ts",
+        "./test/ignore-files/ts-files/test-ignore.ts",
+        "./test/ignore-files/ts-files/test-ignore.ts"
     ];
 
     // act & assert
-    for (const sourceCode of sourceCodes)
+    for (const sourceFilePath of sourceFilePaths)
     {
-        const organizedSourceCode = SourceCodeOrganizer.organizeSourceCode(sourceCode, Configuration.getDefaultConfiguration());
+        const sourceCode = await readFile(sourceFilePath);
+        const organizedSourceCode = await SourceCodeOrganizer.organizeSourceCode(sourceFilePath, sourceCode, Configuration.getDefaultConfiguration());
 
         expect(sourceCode).toBe(organizedSourceCode);
     }

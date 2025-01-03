@@ -17,7 +17,7 @@ for (const otp of getOrganizeTestParameters())
 
         // act
         const organizedSourceCodeFilePath = expectedOrganizedSourceCodeFilePath + ".invalid";
-        const organizedSourceCode = SourceCodeOrganizer.organizeSourceCode(sourceCode, configuration);
+        const organizedSourceCode = await SourceCodeOrganizer.organizeSourceCode(sourceCodeFilePath, sourceCode, configuration);
 
         if (!(await fileExists(expectedOrganizedSourceCodeFilePath)))
         {

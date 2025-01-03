@@ -1,18 +1,23 @@
 import * as ts from "typescript";
 
 import { ElementNode } from "./element-node";
-import { ImportType } from "../enums/import-type";
+import { distinct } from "../helpers/array-helper";
 
 export class ImportNode extends ElementNode
 {
-    // #region Properties (4)
+    // #region Properties (8)
 
-    public readonly imports: string[];
     public readonly name: string;
-    public readonly source: string;
-    public readonly type: ImportType;
 
-    // #endregion Properties (4)
+    public isAbsoluteReference = false;
+    public isModuleReference = false;
+    public isRelativeReference = false;
+    public nameBinding: string | null = null;
+    public namedImports: string[] | null = null;
+    public namespace: string | null = null;
+    public source: string;
+
+    // #endregion Properties (8)
 
     // #region Constructors (1)
 
@@ -21,47 +26,40 @@ export class ImportNode extends ElementNode
         super(sourceFile, importDeclaration);
 
         this.name = "import";
-        this.type = this.getImportType(importDeclaration);
-        this.imports = this.getImports(importDeclaration);
+
+        this.getBindings(importDeclaration);
         this.source = this.getSource(importDeclaration);
+
+        this.isRelativeReference = this.source.startsWith(".") || this.source.startsWith("..");
+        this.isAbsoluteReference = !this.isRelativeReference && (this.source.indexOf("/") > -1 || this.source.indexOf("\\") > -1);
+        this.isModuleReference = !this.isRelativeReference && !this.isAbsoluteReference;
     }
 
     // #endregion Constructors (1)
 
-    // #region Private Methods (3)
+    // #region Private Methods (2)
 
-    private getImportType(node: ts.ImportDeclaration): ImportType
+    private getBindings(node: ts.ImportDeclaration)
     {
-        if (node.importClause?.namedBindings)
+        if (node.importClause)
         {
-            if ((ts.isNamespaceImport(node.importClause?.namedBindings)))
+            if (node.importClause.namedBindings)
             {
-                return ImportType.Namespace;
+                if ((ts.isNamespaceImport(node.importClause?.namedBindings)))
+                {
+                    this.namespace = node.importClause?.namedBindings.name.text.replace("* as ", "").trim();
+                }
+                else if (ts.isNamedImports(node.importClause?.namedBindings))
+                {
+                    this.namedImports = distinct(node.importClause?.namedBindings.elements.map(e => e.name.text.trim()));
+                }
             }
-            else if (ts.isNamedImports(node.importClause?.namedBindings))
+
+            if (node.importClause.name)
             {
-                return ImportType.Named;
+                this.nameBinding = node.importClause.name.text.trim();
             }
         }
-
-        return ImportType.Unknown;
-    }
-
-    private getImports(node: ts.ImportDeclaration)
-    {
-        if (node.importClause?.namedBindings)
-        {
-            if ((ts.isNamespaceImport(node.importClause?.namedBindings)))
-            {
-                return [node.importClause?.namedBindings.name.text];
-            }
-            else if (ts.isNamedImports(node.importClause?.namedBindings))
-            {
-                return node.importClause?.namedBindings.elements.map(e => e.name.text);
-            }
-        }
-
-        return [];
     }
 
     private getSource(node: ts.ImportDeclaration): string
@@ -69,5 +67,5 @@ export class ImportNode extends ElementNode
         return ts.isStringLiteral(node.moduleSpecifier) ? node.moduleSpecifier.text : "";
     }
 
-    // #endregion Private Methods (3)
+    // #endregion Private Methods (2)
 } 

@@ -10,6 +10,9 @@ import { SetterNode } from "../elements/setter-node";
 import { SourceCode } from "./source-code";
 import { TypeAliasNode } from "../elements/type-alias-node";
 import { FunctionNode } from "../elements/function-node";
+import { ImportNode } from "../elements/import-node";
+import { ImportSourceFilePathQuoteType } from "../configuration/Import-source-file-path-quote-type";
+import { ImportConfiguration } from "../configuration/import-configuration";
 
 export class SourceCodePrinter
 {
@@ -28,7 +31,7 @@ export class SourceCodePrinter
 
     // #endregion Public Static Methods (1)
 
-    // #region Private Static Methods (6)
+    // #region Private Static Methods (7)
 
     private static printClass(node: ClassNode, configuration: Configuration)
     {
@@ -65,6 +68,36 @@ export class SourceCodePrinter
         return nodeSourceCode;
     }
 
+    private static printImport(node: ImportNode, configuration: ImportConfiguration)
+    {
+        const source = node.source;
+        const quote = configuration.quote === ImportSourceFilePathQuoteType.Single ? "'" : '"';
+        const namedImports = node.namedImports && node.namedImports.length > 0 ? node.namedImports.join(", ") : null;
+        const nameBinding = node.nameBinding;
+        const namespace = node.namespace;
+
+        if (nameBinding && namespace)
+        {
+            return new SourceCode(`import ${nameBinding}, * as ${namespace} from ${quote}${source}${quote};`);
+        }
+        else if (!nameBinding && namespace)
+        {
+            return new SourceCode(`import * as ${namespace} from ${quote}${source}${quote};`);
+        }
+        else if (nameBinding && namedImports)
+        {
+            return new SourceCode(`import ${nameBinding}, { ${namedImports} } from ${quote}${source}${quote};`);
+        }
+        else if (!nameBinding && namedImports)
+        {
+            return new SourceCode(`import { ${namedImports} } from ${quote}${source}${quote};`);
+        }
+        else
+        {
+            return new SourceCode(`import ${quote}${source}${quote};`);
+        }
+    }
+
     private static printInterface(node: InterfaceNode, configuration: Configuration)
     {
         const beforeMembers = node.sourceCode.substring(0, node.membersStart).trim();
@@ -84,7 +117,11 @@ export class SourceCodePrinter
     {
         let nodeSourceCode = new SourceCode(node.sourceCode);
 
-        if (node instanceof InterfaceNode)
+        if (node instanceof ImportNode)
+        {
+            nodeSourceCode = this.printImport(node, configuration.imports);
+        }
+        else if (node instanceof InterfaceNode)
         {
             nodeSourceCode = this.printInterface(node, configuration);
         }
@@ -181,5 +218,5 @@ export class SourceCodePrinter
         return nodeSourceCode;
     }
 
-    // #endregion Private Static Methods (6)
+    // #endregion Private Static Methods (7)
 }
