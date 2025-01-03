@@ -1,4 +1,6 @@
-import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
+import { decoratorD, decoratorB, decoratorC, decoratorB, decoratorE, decoratorA, decoratorF } from "../test-decorators";
+import * as react from "react";
+import angular from "@angular";
 
 export abstract class TestClass
 {

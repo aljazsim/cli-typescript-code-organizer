@@ -245,7 +245,7 @@ export class SourceCodeOrganizer
                 {
                     if (!SourceCodeAnalyzer.hasReference(sourceFile, identifier))
                     {
-                        import1.namedImports = import1.namedImports.splice(import1.namedImports.indexOf(identifier, 0), 1);
+                        import1.namedImports.splice(import1.namedImports.indexOf(identifier), 1);
                     }
                 }
             }
