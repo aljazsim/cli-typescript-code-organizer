@@ -1,7 +1,12 @@
-import ts, { SourceFile } from "typescript";
+import angular, * as angular from "@angular";
+import * as react from "react";
+import ts, { AbstractKeyword, SourceFile } from "typescript";
+import vue, { Component } from "vue";
+
+import "../../../configurations/default-configuration-with-no-regions.json";
 
 import { TestInterface } from "../interface/test-interface";
-import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
+import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE, decoratorF, decoratorG } from "../test-decorators";
 
 export abstract class TestClass implements TestInterface
 {

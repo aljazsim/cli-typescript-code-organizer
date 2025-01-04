@@ -1,5 +1,7 @@
 import ts, { SourceFile } from "typescript";
 
+import "../../../configurations/default-configuration-with-no-regions.json";
+
 import { TestInterface } from "../interface/test-interface";
 import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
 

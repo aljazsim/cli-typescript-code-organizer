@@ -37,6 +37,15 @@ export class ImportNode extends ElementNode
 
     // #endregion Constructors (1)
 
+    // #region Public Getters And Setters (1)
+
+    public get isEmptyReference()
+    {
+        return (!this.namedImports || this.namedImports.length === 0) && !this.namespace && !this.nameBinding;
+    }
+
+    // #endregion Public Getters And Setters (1)
+
     // #region Private Methods (2)
 
     private getBindings(node: ts.ImportDeclaration)

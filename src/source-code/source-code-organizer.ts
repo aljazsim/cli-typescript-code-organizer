@@ -1,5 +1,5 @@
 import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, order } from "../helpers/node-helper";
-import { fileExists, getDirectoryPath, getFullPath, getProjectRootDirectoryPath, getRelativePath, joinPath, readFile, writeFile } from "../helpers/file-system-helper";
+import { fileExists, getDirectoryPath, getFileExtension, getFullPath, getProjectRootDirectoryPath, getRelativePath, joinPath, readFile, writeFile } from "../helpers/file-system-helper";
 import { Configuration } from "../configuration/configuration";
 import { ElementNode } from "../elements/element-node";
 import { ElementNodeGroup } from "../elements/element-node-group";
@@ -12,6 +12,7 @@ import { ImportNode } from "../elements/import-node";
 import { ImportConfiguration } from "../configuration/import-configuration";
 import { ImportSourceFilePathType } from "../configuration/import-source-file-path-type";
 import { compareStrings } from "../helpers/comparing-helper";
+import { distinct, remove } from "../helpers/array-helper";
 
 export class SourceCodeOrganizer
 {
@@ -77,28 +78,103 @@ export class SourceCodeOrganizer
 
     // #endregion Public Static Methods (2)
 
-    // #region Private Static Methods (4)
+    // #region Private Static Methods (8)
+
+    private static async getWorkspaceRootDirectoryPath(sourceFilePath: string)
+    {
+        const workspaceConfigurationFileName = "package.json";
+        let workspaceRootDirectoryPath = getFullPath(getDirectoryPath(sourceFilePath));
+
+        while (!(await fileExists(joinPath(workspaceRootDirectoryPath, workspaceConfigurationFileName))))
+        {
+            const oneDirectoryUp = getFullPath(joinPath(workspaceRootDirectoryPath, ".."));
+
+            if (workspaceRootDirectoryPath === oneDirectoryUp)
+            {
+                // reached root directory and didn't find package.json -> don't make any changes
+                return;
+            }
+            else
+            {
+                workspaceRootDirectoryPath = oneDirectoryUp;
+            }
+        }
+
+        return workspaceRootDirectoryPath;
+    }
+
+    private static mergeImportsWithSameReferences(imports: ImportNode[])
+    {
+        const importsByReference = new Map<string, ImportNode[]>();
+
+        for (const import1 of [...imports])
+        {
+            if (importsByReference.has(import1.source))
+            {
+                importsByReference.get(import1.source)!.push(import1);
+            }
+            else
+            {
+                importsByReference.set(import1.source, [import1]);
+            }
+        }
+
+        for (const importGroup of importsByReference.values())
+        {
+            if (importGroup.length > 1)
+            {
+                const firstImport = importGroup[0];
+
+                for (let i = 1; i < importGroup.length; i++)
+                {
+                    const secondImport = importGroup[i];
+
+                    if (((!firstImport.nameBinding && secondImport.nameBinding) || (firstImport.nameBinding && !secondImport.nameBinding) || firstImport.nameBinding === secondImport.nameBinding) &&
+                        ((!firstImport.namespace && secondImport.namespace) || (firstImport.namespace && !secondImport.namespace) || (firstImport.namespace && secondImport.namespace && firstImport.namespace === secondImport.namespace)))
+                    {
+                        firstImport.nameBinding = firstImport.nameBinding ?? secondImport.nameBinding;
+                        firstImport.namespace = firstImport.namespace ?? secondImport.namespace;
+
+                        remove(imports, secondImport)
+                    }
+                    else if (((!firstImport.nameBinding && secondImport.nameBinding) || (firstImport.nameBinding && !secondImport.nameBinding) || firstImport.nameBinding === secondImport.nameBinding) &&
+                        (!firstImport.namespace && !secondImport.namespace))
+                    {
+                        firstImport.nameBinding = firstImport.nameBinding ?? secondImport.nameBinding;
+                        firstImport.namedImports = distinct((firstImport.namedImports ?? []).concat(secondImport.namedImports ?? []));
+
+                        remove(imports, secondImport);
+                    }
+                }
+            }
+        }
+    }
 
     private static async organizeImports(imports: ImportNode[], configuration: ImportConfiguration, sourceFile: SourceFile)
     {
-        if (configuration.removeUnusedImports)
+        const workspaceRootDirectoryPath = await this.getWorkspaceRootDirectoryPath(sourceFile.fileName);
+
+        if (workspaceRootDirectoryPath)
         {
-            // remove unused imports
-            imports = SourceCodeOrganizer.removeUnusedImports(imports, sourceFile);
+            await this.updateImportPath(configuration.path, workspaceRootDirectoryPath, sourceFile.fileName, imports);
+            await this.removeBrokenImports(configuration.path, workspaceRootDirectoryPath, sourceFile.fileName, imports);
         }
 
-        // update import paths
-        await this.updateImportPath(imports, sourceFile.fileName, configuration.path);
+        if (configuration.removeUnusedImports)
+        {
+            this.removeUnusedImports(imports, sourceFile);
+            this.removeEmptyImports(imports);
+        }
+
+        this.mergeImportsWithSameReferences(imports);
 
         if (configuration.sortImportsBySource)
         {
-            // sort imports by source
             imports = imports.sort((a, b) => compareStrings(a.source, b.source));
         }
 
         if (configuration.sortImportsByName)
         {
-            // sort named imports
             imports.filter(i => i.namedImports).forEach(i => i.namedImports = i.namedImports!.sort((a, b) => compareStrings(a, b)));
         }
 
@@ -235,6 +311,47 @@ export class SourceCodeOrganizer
         return regions;
     }
 
+    private static async removeBrokenImports(pathType: ImportSourceFilePathType, workspaceConfigurationFileName: string, sourceFilePath: string, imports: ImportNode[])
+    {
+        for (const import1 of imports.filter(i => !i.isModuleReference))
+        {
+            let referenceFilePath = import1.source;
+
+            if (pathType === ImportSourceFilePathType.Relative)
+            {
+                referenceFilePath = joinPath(workspaceConfigurationFileName, joinPath(getDirectoryPath(sourceFilePath), referenceFilePath));
+            }
+            else if (pathType === ImportSourceFilePathType.Absolute)
+            {
+                referenceFilePath = joinPath(workspaceConfigurationFileName, referenceFilePath);
+            }
+
+            if (!(await fileExists(referenceFilePath)))
+            {
+                if (!getFileExtension(referenceFilePath))
+                {
+                    referenceFilePath += ".ts";
+                }
+
+                if (!(await fileExists(referenceFilePath)))
+                {
+                    imports.splice(imports.indexOf(import1), 1);
+                }
+            }
+        }
+    }
+
+    private static removeEmptyImports(imports: ImportNode[])
+    {
+        for (const import1 of imports.filter(i => i.isEmptyReference))
+        {
+            if (import1.isModuleReference || !getFileExtension(import1.source))
+            {
+                imports.splice(imports.indexOf(import1), 1);
+            }
+        }
+    }
+
     private static removeUnusedImports(imports: ImportNode[], sourceFile: ts.SourceFile)
     {
         for (const import1 of imports)
@@ -266,43 +383,24 @@ export class SourceCodeOrganizer
                 }
             }
         }
-
-        return imports.filter(i => i.namedImports && i.namedImports.length > 0 || i.namespace || i.nameBinding);
     }
 
-    private static async updateImportPath(imports: ImportNode[], sourceFilePath: string, pathType: ImportSourceFilePathType)
+    private static async updateImportPath(pathType: ImportSourceFilePathType, workspaceConfigurationFileName: string, sourceFilePath: string, imports: ImportNode[])
     {
-        // find project root directory
-        let projectRootDirectoryPath = getFullPath(getDirectoryPath(sourceFilePath));
-
-        while (!(await fileExists(joinPath(projectRootDirectoryPath, "package.json"))))
-        {
-            if (getFullPath(joinPath(projectRootDirectoryPath, "..")) === projectRootDirectoryPath)
-            {
-                // reached root directory, don't make any changes
-                return;
-            }
-            else
-            {
-                projectRootDirectoryPath = getFullPath(joinPath(projectRootDirectoryPath, ".."));
-            }
-        }
-
-        // update source file path
-        const sourceFileDirectoryPath = getRelativePath(projectRootDirectoryPath, getDirectoryPath(sourceFilePath));
+        const sourceFileDirectoryPath = getRelativePath(workspaceConfigurationFileName, getDirectoryPath(sourceFilePath));
 
         for (const import1 of imports)
         {
             if (import1.isAbsoluteReference && pathType === ImportSourceFilePathType.Relative)
             {
-                import1.source = "./" + getRelativePath(sourceFileDirectoryPath, import1.source);
+                import1.source = getRelativePath(sourceFileDirectoryPath, import1.source);
             }
             else if (import1.isRelativeReference && pathType === ImportSourceFilePathType.Absolute)
             {
-                import1.source = getRelativePath(projectRootDirectoryPath, joinPath(sourceFileDirectoryPath, import1.source));
+                import1.source = getRelativePath(workspaceConfigurationFileName, joinPath(sourceFileDirectoryPath, import1.source));
             }
         }
     }
 
-    // #endregion Private Static Methods (4)
+    // #endregion Private Static Methods (8)
 }

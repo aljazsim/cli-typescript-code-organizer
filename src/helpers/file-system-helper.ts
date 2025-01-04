@@ -1,4 +1,4 @@
-// #region Functions (12)
+// #region Functions (13)
 
 export async function deleteFile(filePath: string)
 {
@@ -25,6 +25,11 @@ export async function fileExists(filePath: string)
 export function getDirectoryPath(filePath: string)
 {
     return (path.dirname(filePath) as string).replaceAll("\\", "/");
+}
+
+export function getFileExtension(filePath: string)
+{
+    return getFileName(filePath).replace(getFileNameWithoutExtension(filePath), "");
 }
 
 export function getFileName(filePath: string)
@@ -87,7 +92,7 @@ export async function writeFile(filePath: string, fileContents: string, overwrit
     }
 }
 
-// #endregion Functions (12)
+// #endregion Functions (13)
 
 // #region Variables (2)
 

@@ -1,6 +1,6 @@
 {
     "imports": {
-        "removeUnusedImports": true,
+        "removeUnusedImports": false,
         "sortImportsBySource": true,
         "sortImportsByName": true,
         "groupImportsBySource": true,
