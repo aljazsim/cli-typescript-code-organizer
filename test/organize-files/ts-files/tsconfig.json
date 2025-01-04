@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "rootDirs": ["src", "test"],
         "outDir": "dist",
         "strict": true,
         "target": "es2022",
@@ -11,9 +10,5 @@
         "resolveJsonModule": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true
-    },
-    "exclude": [
-        "test/ignore-files/ts-files/**/*",
-        "test/organize-files/ts-files/**/*"
-    ]
+    }
 }

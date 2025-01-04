@@ -10,7 +10,6 @@ import { SourceCodePrinter } from "./source-code-printer";
 import ts, { SourceFile } from "typescript";
 import { ImportNode } from "../elements/import-node";
 import { ImportConfiguration } from "../configuration/import-configuration";
-import { ImportSourceFilePathType } from "../configuration/import-source-file-path-type";
 import { compareStrings } from "../helpers/comparing-helper";
 import { distinct, remove } from "../helpers/array-helper";
 
@@ -78,30 +77,7 @@ export class SourceCodeOrganizer
 
     // #endregion Public Static Methods (2)
 
-    // #region Private Static Methods (8)
-
-    private static async getWorkspaceRootDirectoryPath(sourceFilePath: string)
-    {
-        const workspaceConfigurationFileName = "package.json";
-        let workspaceRootDirectoryPath = getFullPath(getDirectoryPath(sourceFilePath));
-
-        while (!(await fileExists(joinPath(workspaceRootDirectoryPath, workspaceConfigurationFileName))))
-        {
-            const oneDirectoryUp = getFullPath(joinPath(workspaceRootDirectoryPath, ".."));
-
-            if (workspaceRootDirectoryPath === oneDirectoryUp)
-            {
-                // reached root directory and didn't find package.json -> don't make any changes
-                return;
-            }
-            else
-            {
-                workspaceRootDirectoryPath = oneDirectoryUp;
-            }
-        }
-
-        return workspaceRootDirectoryPath;
-    }
+    // #region Private Static Methods (5)
 
     private static mergeImportsWithSameReferences(imports: ImportNode[])
     {
@@ -152,14 +128,6 @@ export class SourceCodeOrganizer
 
     private static async organizeImports(imports: ImportNode[], configuration: ImportConfiguration, sourceFile: SourceFile)
     {
-        const workspaceRootDirectoryPath = await this.getWorkspaceRootDirectoryPath(sourceFile.fileName);
-
-        if (workspaceRootDirectoryPath)
-        {
-            await this.updateImportPath(configuration.path, workspaceRootDirectoryPath, sourceFile.fileName, imports);
-            await this.removeBrokenImports(configuration.path, workspaceRootDirectoryPath, sourceFile.fileName, imports);
-        }
-
         if (configuration.removeUnusedImports)
         {
             this.removeUnusedImports(imports, sourceFile);
@@ -311,43 +279,13 @@ export class SourceCodeOrganizer
         return regions;
     }
 
-    private static async removeBrokenImports(pathType: ImportSourceFilePathType, workspaceConfigurationFileName: string, sourceFilePath: string, imports: ImportNode[])
-    {
-        for (const import1 of imports.filter(i => !i.isModuleReference))
-        {
-            let referenceFilePath = import1.source;
-
-            if (pathType === ImportSourceFilePathType.Relative)
-            {
-                referenceFilePath = joinPath(workspaceConfigurationFileName, joinPath(getDirectoryPath(sourceFilePath), referenceFilePath));
-            }
-            else if (pathType === ImportSourceFilePathType.Absolute)
-            {
-                referenceFilePath = joinPath(workspaceConfigurationFileName, referenceFilePath);
-            }
-
-            if (!(await fileExists(referenceFilePath)))
-            {
-                if (!getFileExtension(referenceFilePath))
-                {
-                    referenceFilePath += ".ts";
-                }
-
-                if (!(await fileExists(referenceFilePath)))
-                {
-                    imports.splice(imports.indexOf(import1), 1);
-                }
-            }
-        }
-    }
-
     private static removeEmptyImports(imports: ImportNode[])
     {
         for (const import1 of imports.filter(i => i.isEmptyReference))
         {
             if (import1.isModuleReference || !getFileExtension(import1.source))
             {
-                imports.splice(imports.indexOf(import1), 1);
+                remove(imports, import1);
             }
         }
     }
@@ -362,7 +300,7 @@ export class SourceCodeOrganizer
                 {
                     if (!SourceCodeAnalyzer.hasReference(sourceFile, identifier))
                     {
-                        import1.namedImports.splice(import1.namedImports.indexOf(identifier), 1);
+                        remove(import1.namedImports, identifier);
                     }
                 }
             }
@@ -385,22 +323,5 @@ export class SourceCodeOrganizer
         }
     }
 
-    private static async updateImportPath(pathType: ImportSourceFilePathType, workspaceConfigurationFileName: string, sourceFilePath: string, imports: ImportNode[])
-    {
-        const sourceFileDirectoryPath = getRelativePath(workspaceConfigurationFileName, getDirectoryPath(sourceFilePath));
-
-        for (const import1 of imports)
-        {
-            if (import1.isAbsoluteReference && pathType === ImportSourceFilePathType.Relative)
-            {
-                import1.source = getRelativePath(sourceFileDirectoryPath, import1.source);
-            }
-            else if (import1.isRelativeReference && pathType === ImportSourceFilePathType.Absolute)
-            {
-                import1.source = getRelativePath(workspaceConfigurationFileName, joinPath(sourceFileDirectoryPath, import1.source));
-            }
-        }
-    }
-
-    // #endregion Private Static Methods (8)
+    // #endregion Private Static Methods (5)
 }

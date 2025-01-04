@@ -9,9 +9,7 @@ export class ImportNode extends ElementNode
 
     public readonly name: string;
 
-    public isAbsoluteReference = false;
     public isModuleReference = false;
-    public isRelativeReference = false;
     public nameBinding: string | null = null;
     public namedImports: string[] | null = null;
     public namespace: string | null = null;
@@ -30,9 +28,9 @@ export class ImportNode extends ElementNode
         this.getBindings(importDeclaration);
         this.source = this.getSource(importDeclaration);
 
-        this.isRelativeReference = this.source.startsWith(".") || this.source.startsWith("..");
-        this.isAbsoluteReference = !this.isRelativeReference && (this.source.indexOf("/") > -1 || this.source.indexOf("\\") > -1);
-        this.isModuleReference = !this.isRelativeReference && !this.isAbsoluteReference;
+        const isRelativeReference = this.source.startsWith(".") || this.source.startsWith("..");
+        const isAbsoluteReference = !isRelativeReference && (this.source.indexOf("/") > -1 || this.source.indexOf("\\") > -1);
+        this.isModuleReference = !isRelativeReference && !isAbsoluteReference;
     }
 
     // #endregion Constructors (1)

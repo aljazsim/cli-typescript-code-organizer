@@ -17,11 +17,10 @@ import { TypeMemberGroupConfiguration } from "./type-member-group-configuration"
 import { TypeMemberType } from "../enums/type-member-type";
 import { convertPascalCaseToTitleCase } from "../helpers/string-helper";
 import defaultConfiguration from './default-configuration.json';
-import { distinct } from "../helpers/array-helper";
+import { distinct, remove } from "../helpers/array-helper";
 import { readFile } from "../helpers/file-system-helper";
 import { ImportConfiguration } from "./import-configuration";
 import { ImportSourceFilePathQuoteType } from "./Import-source-file-path-quote-type";
-import { ImportSourceFilePathType } from "./import-source-file-path-type";
 
 export class Configuration
 {
@@ -67,8 +66,7 @@ export class Configuration
                     configuration.imports?.sortImportsByName ?? defaultConfiguration.imports.sortImportsByName,
                     configuration.imports?.groupImportsBySource ?? defaultConfiguration.imports.groupImportsBySource,
                     configuration.imports?.separateImportGroups ?? defaultConfiguration.imports.separateImportGroups,
-                    this.parseImportSourceFilePathQuoteType(configuration.imports?.quote) ?? defaultConfiguration.imports.quote,
-                    this.parseImportSourceFilePathType(configuration.imports?.path) ?? defaultConfiguration.imports.path,
+                    this.parseImportSourceFilePathQuoteType(configuration.imports?.quote) ?? defaultConfiguration.imports.quote
                 ),
             new ModuleConfiguration
                 (
@@ -145,8 +143,7 @@ export class Configuration
                     defaultConfiguration.imports.sortImportsByName,
                     defaultConfiguration.imports.groupImportsBySource,
                     defaultConfiguration.imports.separateImportGroups,
-                    this.parseImportSourceFilePathQuoteType(defaultConfiguration.imports.quote) ?? ImportSourceFilePathQuoteType.Double,
-                    this.parseImportSourceFilePathType(defaultConfiguration.imports.path) ?? ImportSourceFilePathType.Absolute,
+                    this.parseImportSourceFilePathQuoteType(defaultConfiguration.imports.quote) ?? ImportSourceFilePathQuoteType.Double
                 ),
             new ModuleConfiguration
                 (
@@ -320,7 +317,7 @@ export class Configuration
             if (placeBelow.indexOf(pa) > -1)
             {
                 // remove and items that are present in above and below from below
-                placeBelow.splice(placeBelow.indexOf(pa), 1);
+                remove(placeBelow, pa);
             }
         }
 
@@ -343,22 +340,6 @@ export class Configuration
         }
     }
 
-    private static parseImportSourceFilePathType(filePathType: string)
-    {
-        if (filePathType === ImportSourceFilePathType.Absolute)
-        {
-            return ImportSourceFilePathType.Absolute;
-        }
-        else if (filePathType === ImportSourceFilePathType.Relative)
-        {
-            return ImportSourceFilePathType.Relative;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
     private static parseInterfaceMemberGroupConfiguration(interfaceMemberGroupConfiguration: any)
     {
         const sort = interfaceMemberGroupConfiguration.sort ?? true;
@@ -374,7 +355,7 @@ export class Configuration
             if (placeBelow.indexOf(pa) > -1)
             {
                 // remove and items that are present in above and below from below
-                placeBelow.splice(placeBelow.indexOf(pa), 1);
+                remove(placeBelow, pa);
             }
         }
 
@@ -396,7 +377,7 @@ export class Configuration
             if (placeBelow.indexOf(pa) > -1)
             {
                 // remove and items that are present in above and below from below
-                placeBelow.splice(placeBelow.indexOf(pa), 1);
+                remove(placeBelow, pa)
             }
         }
 
@@ -418,7 +399,7 @@ export class Configuration
             if (placeBelow.indexOf(pa) > -1)
             {
                 // remove and items that are present in above and below from below
-                placeBelow.splice(placeBelow.indexOf(pa), 1);
+                remove(placeBelow, pa);
             }
         }
 

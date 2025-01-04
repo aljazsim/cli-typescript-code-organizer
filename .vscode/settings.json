@@ -36,7 +36,8 @@
         "tsconfig.json": true,
         "tslint.json": true,
         "babel.config.js": true,
-        "LICENSE": true
+        "LICENSE": true,
+        "coverage": true
     },
     "search.exclude": {
         "**/.git": true,
@@ -55,7 +56,8 @@
         "tsconfig.json": true,
         "tslint.json": true,
         "babel.config.js": true,
-        "LICENSE": true
+        "LICENSE": true,
+        "coverage": true
     },
     "cSpell.words": ["endregion"],
     "terminal.integrated.profiles.windows": {
@@ -67,4 +69,3 @@
     },
     "terminal.integrated.defaultProfile.windows": "PowerShell"
 }
-

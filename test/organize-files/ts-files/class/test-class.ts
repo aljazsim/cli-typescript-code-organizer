@@ -4,7 +4,7 @@ import { decoratorD, decoratorG, decoratorB, decoratorC, decoratorB, decoratorE,
 import angular from "@angular";
 import vue, { Component } from "vue";
 import * as angular from "@angular";
-import { decoratorA, decoratorB } from "test/organize-files/ts-files/test-decorators";
+import { decoratorA, decoratorB } from "../test-decorators";
 import * as angular from "@angular";
 import "./missing-file.json";
 import { TestInterface } from "../interface/test-interface";
@@ -73,7 +73,7 @@ export abstract class TestClass implements TestInterface
     protected static accessor protectedStaticAccessor2: boolean | undefined;
     abstract set publicAbstractGetterSetter3(value: string);
     @decoratorB()
-    public readonly publicReadonlyProperty1 = "ztrfjcvmrm";
+    public readonly publicReadonlyProperty1 = (p1: number, p2: number) => { };
     @decoratorD()
     @decoratorE()
     public static accessor publicStaticAccessor3: boolean | undefined;
@@ -86,13 +86,84 @@ export abstract class TestClass implements TestInterface
     @decoratorE()
     @decoratorE()
     protected accessor protectedAccessor2: boolean | undefined;
-    publicProperty1: string | null;
+    publicProperty1: string = "";
     public accessor publicAccessor3 = 4184534899;
     constructor(private readonly name: string)
     {
         this.#privateProperty2 = "xzfkmndzen";
         this.publicProperty1 = name;
     }
+    [key: string]: any;
+    readonly publicReadonlyProperty3: String = "16";
+    publicMethod6()
+    {
+    }
+    get publicGetter4(): any
+    {
+        return 2;
+    }
+    readonly publicReadonlyProperty5: string = '15';
+    set publicSetter4(value: any)
+    {
+    }
+    publicMethod5(): number | undefined
+    {
+        return 3;
+    }
+    accessor publicAccessor1: number = 111;
+    readonly publicReadonlyProperty6: string | undefined;
+    publicMethod7(): string
+    {
+        return "1";
+    }
+    set publicSetter1(value: any)
+    {
+    }
+    publicMethod4(): number
+    {
+        return 4;
+    }
+    set publicSetter2(value: any)
+    {
+    }
+    readonly publicReadonlyProperty7 = "";
+    publicProperty6 = (p1: string) => p1.length;
+    set publicGetter3(size: number)
+    {
+    }
+    set publicSetter3(value: number)
+    {
+    }
+    readonly publicReadonlyProperty4: string = "NULL";
+    get accessor1(): string
+    {
+        return "1";
+    }
+    publicProperty7: string = "1";
+    readonly publicReadonlyProperty9: string = "1";
+    publicProperty9: string | null = "1";
+    get publicGetter1(): number
+    {
+        return 3;
+    }
+    set publicGetter1(size: number)
+    {
+    }
+    get publicGetter2(): number
+    {
+        return 2;
+    }
+    readonly publicReadonlyProperty8: number = 3;
+    publicMethod9(): void
+    {
+    }
+    publicProperty8 = true;
+    publicProperty5 = 6;
+    async publicMethod8(): Promise<boolean>
+    {
+        return Promise.resolve(true);
+    }
+    publicProperty4: string = "4";
     @decoratorC(7573192855)
     private readonly privateReadonlyProperty4: String = "709w42symh";
     @decoratorD()
@@ -107,7 +178,7 @@ export abstract class TestClass implements TestInterface
         return 5101618743 + 4177360955;
     }
     public abstract accessor publicAbstractAccessor4: boolean | undefined;
-    publicProperty3: Number = 5502271448;
+    publicProperty3: string | undefined = undefined;
     protected abstract accessor protectedAbstractAccessor2: string;
     @decoratorD()
     protected accessor protectedAccessor1: boolean | undefined;
@@ -285,13 +356,16 @@ export abstract class TestClass implements TestInterface
     publicMethod1()
     {
         console.log("wduyuaeemi");
+
+        return 12334124124;
     }
     public publicMethod2()
     {
-        return 5101618743 + 4177360955;
+        const a = 5101618743 + 4177360955;
     }
-    public publicMethod3(parameter1: string): void
+    public publicMethod3(): number
     {
+        return 234234234;
     }
 
     /*

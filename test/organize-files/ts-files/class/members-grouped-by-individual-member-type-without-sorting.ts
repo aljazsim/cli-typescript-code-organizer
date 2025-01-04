@@ -1,6 +1,7 @@
 import ts, { SourceFile } from "typescript";
 
 import "../../../configurations/default-configuration-with-no-regions.json";
+import "./missing-file.json";
 
 import { TestInterface } from "../interface/test-interface";
 import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
@@ -105,10 +106,17 @@ export abstract class TestClass implements TestInterface
 
     // #endregion Public Static ReadOnly Properties
 
-    // #region Public ReadOnly Properties (2)
+    // #region Public ReadOnly Properties (9)
 
     @decoratorB()
-    public readonly publicReadonlyProperty1 = "ztrfjcvmrm";
+    public readonly publicReadonlyProperty1 = (p1: number, p2: number) => { };
+    public readonly publicReadonlyProperty3: String = "16";
+    public readonly publicReadonlyProperty5: string = '15';
+    public readonly publicReadonlyProperty6: string | undefined;
+    public readonly publicReadonlyProperty7 = "";
+    public readonly publicReadonlyProperty4: string = "NULL";
+    public readonly publicReadonlyProperty9: string = "1";
+    public readonly publicReadonlyProperty8: number = 3;
     public readonly publicReadonlyProperty2 = "uialqi4dkc";
 
     // #endregion Public ReadOnly Properties
@@ -123,12 +131,18 @@ export abstract class TestClass implements TestInterface
 
     // #endregion Public Static Properties
 
-    // #region Public Properties (3)
+    // #region Public Properties (9)
 
     @decoratorA("qeyfjngywl")
     public publicProperty2 = "pe2bmn4hgi";
-    public publicProperty1: string | null;
-    public publicProperty3: Number = 5502271448;
+    public publicProperty1: string = "";
+    public publicProperty6 = (p1: string) => p1.length;
+    public publicProperty7: string = "1";
+    public publicProperty9: string | null = "1";
+    public publicProperty8 = true;
+    public publicProperty5 = 6;
+    public publicProperty4: string = "4";
+    public publicProperty3: string | undefined = undefined;
 
     // #endregion Public Properties
 
@@ -162,10 +176,11 @@ export abstract class TestClass implements TestInterface
 
     // #endregion Public Static Accessors
 
-    // #region Public Accessors (2)
+    // #region Public Accessors (3)
 
     public accessor publicAccessor2: number = 8647818341;
     public accessor publicAccessor3 = 4184534899;
+    public accessor publicAccessor1: number = 111;
 
     // #endregion Public Accessors
 
@@ -256,12 +271,56 @@ export abstract class TestClass implements TestInterface
 
     // #endregion Public Static Getters And Setters
 
-    // #region Public Getters And Setters (2)
+    // #region Public Getters And Setters (12)
+
+    public get publicGetter4(): any
+    {
+        return 2;
+    }
+
+    public get accessor1(): string
+    {
+        return "1";
+    }
+
+    public get publicGetter1(): number
+    {
+        return 3;
+    }
+
+    public get publicGetter2(): number
+    {
+        return 2;
+    }
 
     @decoratorE()
     public get publicGetterSetter1(): string
     {
         return this._publicGetterSetter1;
+    }
+
+    public set publicSetter4(value: any)
+    {
+    }
+
+    public set publicSetter1(value: any)
+    {
+    }
+
+    public set publicSetter2(value: any)
+    {
+    }
+
+    public set publicGetter3(size: number)
+    {
+    }
+
+    public set publicSetter3(value: number)
+    {
+    }
+
+    public set publicGetter1(size: number)
+    {
     }
 
     public set publicGetterSetter1(value: string)
@@ -419,20 +478,51 @@ export abstract class TestClass implements TestInterface
 
     // #endregion Public Static Methods
 
-    // #region Public Methods (3)
+    // #region Public Methods (9)
+
+    public publicMethod6()
+    {
+    }
+
+    public publicMethod5(): number | undefined
+    {
+        return 3;
+    }
+
+    public publicMethod7(): string
+    {
+        return "1";
+    }
+
+    public publicMethod4(): number
+    {
+        return 4;
+    }
+
+    public publicMethod9(): void
+    {
+    }
+
+    public async publicMethod8(): Promise<boolean>
+    {
+        return Promise.resolve(true);
+    }
 
     public publicMethod1()
     {
         console.log("wduyuaeemi");
+
+        return 12334124124;
     }
 
     public publicMethod2()
     {
-        return 5101618743 + 4177360955;
+        const a = 5101618743 + 4177360955;
     }
 
-    public publicMethod3(parameter1: string): void
+    public publicMethod3(): number
     {
+        return 234234234;
     }
 
     // #endregion Public Methods
