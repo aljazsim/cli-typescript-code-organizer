@@ -1,6 +1,9 @@
+import ts, { SourceFile } from "typescript";
+
+import { TestInterface } from "../interface/test-interface";
 import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
 
-export abstract class TestClass
+export abstract class TestClass implements TestInterface
 {
     // #region Properties (44)
 
@@ -29,7 +32,7 @@ export abstract class TestClass
     private _protectedGetterSetter1: string = "";
     private _publicGetterSetter1: string = "";
     @decoratorB()
-    private privateProperty1 = "1jznbqo1ck";
+    private privateProperty1: SourceFile | undefined;
     #privateProperty1 = (ltgeubyxvt: string) => { };
     @decoratorC(9860836855)
     private privateProperty2 = () => 3357116507;
@@ -390,6 +393,7 @@ export abstract class TestClass
     protected protectedMethod1()
     {
         console.log("wduyuaeemi");
+        const a = ts.ScriptKind.TS;
     }
 
     protected protectedMethod2()

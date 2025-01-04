@@ -1,8 +1,12 @@
-import { decoratorD, decoratorB, decoratorC, decoratorB, decoratorE, decoratorA, decoratorF } from "../test-decorators";
+import vue, { Component } from "vue";
 import * as react from "react";
+import { decoratorD, decoratorG, decoratorB, decoratorC, decoratorB, decoratorE, decoratorA, decoratorF } from "../test-decorators";
 import angular from "@angular";
+import * as angular from "@angular";
+import { TestInterface } from "../interface/test-interface";
+import ts, { SourceFile, AbstractKeyword } from "typescript";
 
-export abstract class TestClass
+export abstract class TestClass implements TestInterface
 {
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
 
@@ -12,7 +16,7 @@ export abstract class TestClass
     @decoratorC(7960805480)
     private readonly privateReadonlyProperty1: string | undefined = "ohqx31vc3a";
     @decoratorB()
-    private privateProperty1 = "1jznbqo1ck";
+    private privateProperty1: SourceFile | undefined;
     protected protectedProperty1 = "jwm4jkf16m";
     @decoratorD()
     public abstract accessor publicAbstractAccessor1: string;
@@ -72,6 +76,7 @@ export abstract class TestClass
     protected protectedMethod1()
     {
         console.log("wduyuaeemi");
+        const a = ts.ScriptKind.TS;
     }
     @decoratorE()
     @decoratorE()
