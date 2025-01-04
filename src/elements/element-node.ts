@@ -22,14 +22,7 @@ export abstract class ElementNode
 
     private static getSourceCode(sourceFile: ts.SourceFile, start: number, end: number)
     {
-        let text = sourceFile.getFullText().substring(start, end);
-
-        while (text.startsWith("\r") || text.startsWith("\n"))
-        {
-            text = text.substring(1);
-        }
-
-        return text.trimEnd();
+        return sourceFile.getFullText().substring(start, end);
     }
 
     // #endregion Private Static Methods (1)

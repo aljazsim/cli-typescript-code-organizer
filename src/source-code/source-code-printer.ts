@@ -31,7 +31,7 @@ export class SourceCodePrinter
 
     // #endregion Public Static Methods (1)
 
-    // #region Private Static Methods (7)
+    // #region Private Static Methods (8)
 
     private static printClass(node: ClassNode, configuration: Configuration)
     {
@@ -60,10 +60,18 @@ export class SourceCodePrinter
             node.accessors.forEach(a => members.addPrivateModifierIfStartingWithHash(a));
         }
 
-        nodeSourceCode.add(beforeMembers);
-        nodeSourceCode.addNewLine();
+        if (beforeMembers.length > 0)
+        {
+            nodeSourceCode.add(beforeMembers);
+            nodeSourceCode.addNewLine();
+        }
+
         nodeSourceCode.add(members);
-        nodeSourceCode.add(afterMembers);
+
+        if (afterMembers.length > 0)
+        {
+            nodeSourceCode.add(afterMembers);
+        }
 
         return nodeSourceCode;
     }
@@ -105,17 +113,25 @@ export class SourceCodePrinter
         const afterMembers = node.sourceCode.substring(node.membersEnd).trim();
         const nodeSourceCode = new SourceCode();
 
-        nodeSourceCode.add(beforeMembers);
-        nodeSourceCode.addNewLine();
+        if (beforeMembers.length > 0)
+        {
+            nodeSourceCode.add(beforeMembers);
+            nodeSourceCode.addNewLine();
+        }
+
         nodeSourceCode.add(members);
-        nodeSourceCode.add(afterMembers);
+
+        if (afterMembers.length > 0)
+        {
+            nodeSourceCode.add(afterMembers);
+        }
 
         return nodeSourceCode;
     }
 
     private static printNode(node: ElementNode, configuration: Configuration)
     {
-        let nodeSourceCode = new SourceCode(node.sourceCode);
+        let nodeSourceCode: SourceCode;
 
         if (node instanceof ImportNode)
         {
@@ -132,6 +148,9 @@ export class SourceCodePrinter
         else if (node instanceof TypeAliasNode)
         {
             nodeSourceCode = this.printType(node, configuration);
+        } else
+        {
+            nodeSourceCode = this.printOther(node);
         }
 
         if (node instanceof PropertyNode)
@@ -158,10 +177,13 @@ export class SourceCodePrinter
         {
             nodeGroupSourceCode.add(this.printNode(node, configuration));
 
-            if (node instanceof MethodNode ||
+            if (node instanceof InterfaceNode ||
+                node instanceof ClassNode ||
+                node instanceof TypeAliasNode ||
                 node instanceof GetterNode ||
                 node instanceof SetterNode ||
-                node instanceof FunctionNode)
+                node instanceof FunctionNode ||
+                node instanceof MethodNode)
             {
                 if (nodeGroup.nodes.indexOf(node) < nodeGroup.nodes.length - 1)
                 {
@@ -203,6 +225,22 @@ export class SourceCodePrinter
         return nodeGroupsSourceCode;
     }
 
+    private static printOther(node: ElementNode)
+    {
+        let sourceCode = node.sourceCode;
+
+        // remove leading empty lines (but keep indentation)
+        while (sourceCode.startsWith("\r") || sourceCode.startsWith("\n"))
+        {
+            sourceCode = sourceCode.substring(1);
+        }
+
+        // remove trailing empty lines
+        sourceCode = sourceCode.trimEnd();
+
+        return new SourceCode(sourceCode);
+    }
+
     private static printType(node: TypeAliasNode, configuration: Configuration)
     {
         const beforeMembers = node.sourceCode.substring(0, node.membersStart).trim();
@@ -210,13 +248,21 @@ export class SourceCodePrinter
         const afterMembers = node.sourceCode.substring(node.membersEnd).trim();
         const nodeSourceCode = new SourceCode();
 
-        nodeSourceCode.add(beforeMembers);
-        nodeSourceCode.addNewLine();
+        if (beforeMembers.length > 0)
+        {
+            nodeSourceCode.add(beforeMembers);
+            nodeSourceCode.addNewLine();
+        }
+
         nodeSourceCode.add(members);
-        nodeSourceCode.add(afterMembers);
+
+        if (afterMembers.length > 0)
+        {
+            nodeSourceCode.add(afterMembers);
+        }
 
         return nodeSourceCode;
     }
 
-    // #endregion Private Static Methods (7)
+    // #endregion Private Static Methods (8)
 }

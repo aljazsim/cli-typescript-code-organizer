@@ -37,8 +37,8 @@ export class TypeAliasNode extends ElementNode
 
                 if (typeLiteral.members && typeLiteral.members.length > 0)
                 {
-                    this.membersStart = typeLiteral.members[0].getFullStart();
-                    this.membersEnd = typeLiteral.members[typeLiteral.members.length - 1].getEnd();
+                    this.membersStart = typeLiteral.members[0].getFullStart() - typeAliasDeclaration.getFullStart();
+                    this.membersEnd = typeLiteral.members[typeLiteral.members.length - 1].getEnd() - typeAliasDeclaration.getFullStart();
 
                     // members
                     for (let member of typeLiteral.members)
