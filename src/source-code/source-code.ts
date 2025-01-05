@@ -67,7 +67,7 @@ export class SourceCode
         this.add(this.newLine, "before");
     }
 
-    public addNewLineIf(condition: boolean)
+    public addNewLineAfterIf(condition: boolean)
     {
         if (condition)
         {

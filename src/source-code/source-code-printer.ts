@@ -161,18 +161,7 @@ export class SourceCodePrinter
         if (node instanceof PropertyNode)
         {
             // arrow function property -> add a new line
-            nodeSourceCode.addNewLineIf(node.isArrowFunction && configuration.classes.members.treatArrowFunctionPropertiesAsMethods);
-        }
-        else if ((node instanceof PropertySignatureNode && node.hasLeadingComment) ||
-            (node instanceof IndexSignatureNode && node.hasLeadingComment) ||
-            (node instanceof MethodSignatureNode && node.hasLeadingComment) ||
-            (node instanceof PropertyNode && node.hasLeadingComment) ||
-            (node instanceof AccessorNode && node.hasLeadingComment) ||
-            (node instanceof VariableNode && node.hasLeadingComment)
-        )
-        {
-            // property / property signature / variable / method signature has a comment before it -> add new line
-            nodeSourceCode.addNewLineBefore()
+            nodeSourceCode.addNewLineAfterIf(node.isArrowFunction && configuration.classes.members.treatArrowFunctionPropertiesAsMethods);
         }
 
         nodeSourceCode.addNewLineAfter();
@@ -191,7 +180,21 @@ export class SourceCodePrinter
         // print nodes within a group
         for (const node of nodeGroup.nodes)
         {
-            nodeGroupSourceCode.add(this.printNode(node, configuration));
+            const nodeSourceCode = this.printNode(node, configuration);
+
+            if ((node instanceof PropertySignatureNode && node.hasLeadingComment) ||
+                (node instanceof IndexSignatureNode && node.hasLeadingComment) ||
+                (node instanceof MethodSignatureNode && node.hasLeadingComment) ||
+                (node instanceof PropertyNode && node.hasLeadingComment) ||
+                (node instanceof AccessorNode && node.hasLeadingComment) ||
+                (node instanceof VariableNode && node.hasLeadingComment))
+            {
+                if (nodeGroup.nodes.indexOf(node) > 0)
+                {
+                    // comment before an one-line element -> add new line
+                    nodeSourceCode.addNewLineBefore()
+                }
+            }
 
             if (node instanceof InterfaceNode ||
                 node instanceof ClassNode ||
@@ -204,9 +207,11 @@ export class SourceCodePrinter
                 if (nodeGroup.nodes.indexOf(node) < nodeGroup.nodes.length - 1)
                 {
                     // separate elements that end with '}' with an additional empty line
-                    nodeGroupSourceCode.addNewLineAfter();
+                    nodeSourceCode.addNewLineAfter();
                 }
             }
+
+            nodeGroupSourceCode.add(nodeSourceCode);
         }
 
         if (nodeGroup.isRegion && nodeGroup.regionConfiguration?.addRegions)

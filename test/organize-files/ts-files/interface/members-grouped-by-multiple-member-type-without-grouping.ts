@@ -1,8 +1,6 @@
 export interface TestInterface
 {
-
-// #region Properties and indexes (19)
-
+    // #region Properties and indexes (19)
 
     // an index
     [key: string]: any;
@@ -27,8 +25,7 @@ export interface TestInterface
     readonly publicReadonlyProperty8: number;
     readonly publicReadonlyProperty9: string;
 
-
-// #endregion Properties and indexes
+    // #endregion Properties and indexes
 
     // #region Methods, getter and setters (18)
 

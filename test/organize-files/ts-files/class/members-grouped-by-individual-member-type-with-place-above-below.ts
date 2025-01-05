@@ -12,6 +12,7 @@ export abstract class TestClass implements TestInterface
 
     // this is a comment
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
+
     // also a comment
     private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
 
@@ -59,6 +60,7 @@ export abstract class TestClass implements TestInterface
     // #region Protected Static ReadOnly Properties (2)
 
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
+
     /*
      * This is documentation.
      */
@@ -179,9 +181,7 @@ export abstract class TestClass implements TestInterface
 
     // #endregion Public Static Accessors
 
-
-// #region Public Accessors (3)
-
+    // #region Public Accessors (3)
 
     /**
      * The accessor
@@ -190,8 +190,7 @@ export abstract class TestClass implements TestInterface
     public accessor publicAccessor2: number = 8647818341;
     public accessor publicAccessor1: number = 111;
 
-
-// #endregion Public Accessors
+    // #endregion Public Accessors
 
     // #region Public Abstract Accessors (4)
 

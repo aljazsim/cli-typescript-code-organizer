@@ -9,6 +9,7 @@ export type TestType = {
     method3(): void;
 
     property3: string;
+    // comment
     property1: string | null;
     /*
     * Property documentation
@@ -20,12 +21,16 @@ export type TestType = {
     method2(): void;
 
     property7: number | undefined;
+    /**
+     * Comment!
+     */
     [index: string]: any;
     /**
      * Property documentation
      * @returns a value
      */
     property4: () => void;
+    // comment
     method1(): void;
 
 
@@ -39,6 +44,7 @@ export type TestType = {
     //
     //
     property9: Date;
+    // comment
     [index: number]: any;
 
 

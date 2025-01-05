@@ -4,8 +4,15 @@
 export type TestType = {
     // #region Properties, indexes and methods (14)
 
+    /**
+     * Comment!
+     */
     [index: string]: any;
+
+    // comment
     [index: number]: any;
+
+    // comment
     method1(): void;
     method2(): void;
 
@@ -13,6 +20,8 @@ export type TestType = {
      * Method documentation.
      */
     method3(): void;
+
+    // comment
     property1: string | null;
 
     // comment

@@ -4,6 +4,7 @@
 export type TestType = {
     // #region Properties (6)
 
+    // comment
     property1: string | null;
     property3: string;
     property5: any;
@@ -23,13 +24,19 @@ export type TestType = {
 
     // #region Indexes (2)
 
+    /**
+     * Comment!
+     */
     [index: string]: any;
+
+    // comment
     [index: number]: any;
 
     // #endregion
 
     // #region Methods (6)
 
+    // comment
     method1(): void;
     method2(): void;
 

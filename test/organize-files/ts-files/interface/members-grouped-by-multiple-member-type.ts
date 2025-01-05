@@ -24,7 +24,6 @@ export interface TestInterface
     publicProperty8: boolean;
     publicProperty9: string | null;
 
-
     // an index
     [key: string]: any;
 

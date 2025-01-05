@@ -3,6 +3,8 @@
  */
 export type TestType = {
     property3: string;
+
+    // comment
     property1: string | null;
 
     /*
@@ -31,14 +33,20 @@ export type TestType = {
     property9: Date;
     property8: number;
 
+    /**
+     * Comment!
+     */
     [index: string]: any;
-    [index: number]: any;
 
+    // comment
+    [index: number]: any;
 
     /**
      * Method documentation.
      */
     method3(): void;
     method2(): void;
+
+    // comment
     method1(): void;
 };

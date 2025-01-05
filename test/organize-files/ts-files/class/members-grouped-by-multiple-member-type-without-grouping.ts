@@ -34,8 +34,10 @@ export abstract class TestClass implements TestInterface
     private readonly privateReadonlyProperty4: String = "709w42symh";
     private static privateStaticProperty1: boolean;
     private static privateStaticProperty2 = new Date();
+
     // this is a comment
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
+
     // also a comment
     private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
     protected protectedProperty1 = "jwm4jkf16m";
@@ -53,6 +55,7 @@ export abstract class TestClass implements TestInterface
     protected static protectedStaticProperty1 = 8522782648;
     protected static protectedStaticProperty2 = "hyc8khk2oj";
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
+
     /*
      * This is documentation.
      */
@@ -68,6 +71,7 @@ export abstract class TestClass implements TestInterface
     public publicProperty7: string = "1";
     public publicProperty8 = true;
     public publicProperty9: string | null = "1";
+
     /**
      * The property
      */

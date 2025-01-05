@@ -12,6 +12,7 @@ export abstract class TestClass implements TestInterface
 
     // this is a comment
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
+
     // also a comment
     private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
 
@@ -55,6 +56,7 @@ export abstract class TestClass implements TestInterface
     // #region Protected Static ReadOnly Properties (2)
 
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
+
     /*
      * This is documentation.
      */
@@ -527,6 +529,7 @@ export abstract class TestClass implements TestInterface
     }
 
     public publicProperty6 = (p1: string) => p1.length;
+
 
     /**
      * The property

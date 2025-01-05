@@ -12,6 +12,7 @@ export abstract class TestClass implements TestInterface
 
     // also a comment
     private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
+
     // this is a comment
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
 
@@ -116,6 +117,7 @@ export abstract class TestClass implements TestInterface
     public readonly publicReadonlyProperty4: string = "NULL";
     public readonly publicReadonlyProperty3: String = "16";
     public readonly publicReadonlyProperty2 = "uialqi4dkc";
+
     /**
      * The property
      */
@@ -179,9 +181,7 @@ export abstract class TestClass implements TestInterface
 
     // #endregion Public Static Accessors
 
-
-// #region Public Accessors (3)
-
+    // #region Public Accessors (3)
 
     /**
      * The accessor
@@ -190,8 +190,7 @@ export abstract class TestClass implements TestInterface
     public accessor publicAccessor2: number = 8647818341;
     public accessor publicAccessor1: number = 111;
 
-
-// #endregion Public Accessors
+    // #endregion Public Accessors
 
     // #region Public Abstract Accessors (4)
 
@@ -212,9 +211,7 @@ export abstract class TestClass implements TestInterface
 
     // #endregion Protected Static Accessors
 
-
-// #region Protected Accessors (2)
-
+    // #region Protected Accessors (2)
 
     // an accessor
     @decoratorE()
@@ -223,8 +220,7 @@ export abstract class TestClass implements TestInterface
     @decoratorD()
     protected accessor protectedAccessor1: boolean | undefined;
 
-
-// #endregion Protected Accessors
+    // #endregion Protected Accessors
 
     // #region Protected Abstract Accessors (3)
 

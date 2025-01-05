@@ -24,15 +24,12 @@ export interface TestInterface
 
     // #endregion Properties
 
-
-// #region Indexes (1)
-
+    // #region Indexes (1)
 
     // an index
     [key: string]: any;
 
-
-// #endregion Indexes
+    // #endregion Indexes
 
     // #region Getters And Setters (9)
 

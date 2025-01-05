@@ -4,6 +4,8 @@
 export type TestType = {
     property8: number;
     property7: number | undefined;
+
+    // comment
     property1: string | null;
 
     // comment
@@ -31,9 +33,15 @@ export type TestType = {
     */
     property6: (p1: number) => number;
 
+    /**
+     * Comment!
+     */
     [index: string]: any;
+
+    // comment
     [index: number]: any;
 
+    // comment
     method1(): void;
     method2(): void;
 

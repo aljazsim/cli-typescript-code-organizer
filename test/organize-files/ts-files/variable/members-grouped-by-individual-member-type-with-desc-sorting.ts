@@ -5,16 +5,13 @@ const a07: number = 1981188020, a11 = 2963139131;
 
 // #endregion Constants
 
-
 // #region Variables (4)
-
 
 // a variable
 let a14: (p1: string) => number;
 let a13 = null;
 let a04 = () => 4978875552;
 let a01;
-
 
 // #endregion Variables
 

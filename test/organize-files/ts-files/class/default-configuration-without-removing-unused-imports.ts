@@ -17,6 +17,7 @@ export abstract class TestClass implements TestInterface
 {
     // this is a comment
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
+
     // also a comment
     private static readonly privateStaticReadonlyProperty2: string | undefined = "ckrxombx0g";
 
@@ -48,6 +49,7 @@ export abstract class TestClass implements TestInterface
     private privateProperty3 = async function () { return Promise.resolve(''); };
 
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
+
     /*
      * This is documentation.
      */

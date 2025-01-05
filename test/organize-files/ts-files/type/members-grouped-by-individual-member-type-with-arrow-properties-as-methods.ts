@@ -2,6 +2,7 @@
  * Description of TestType.
  */
 export type TestType = {
+    // comment
     property1: string | null;
     property3: string;
     property5: any;
@@ -17,9 +18,15 @@ export type TestType = {
     //
     property9: Date;
 
+    /**
+     * Comment!
+     */
     [index: string]: any;
+
+    // comment
     [index: number]: any;
 
+    // comment
     method1(): void;
     method2(): void;
 
