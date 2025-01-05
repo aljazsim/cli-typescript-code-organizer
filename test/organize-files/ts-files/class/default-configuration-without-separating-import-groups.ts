@@ -1,15 +1,11 @@
 import ts, { SourceFile } from "typescript";
-
 import "../../../configurations/default-configuration-with-no-regions.json";
 import "./missing-file.json";
-
 import { TestInterface } from "../interface/test-interface";
 import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
 
 export abstract class TestClass implements TestInterface
 {
-    // #region Properties
-
     // this is a comment
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
     // also a comment
@@ -100,28 +96,16 @@ export abstract class TestClass implements TestInterface
     public publicProperty8 = true;
     public publicProperty9: string | null = "1";
 
-    // #endregion
-
-    // #region Static Block Declarations
-
     static {
         this.protectedStaticProperty1 = 4286562276;
         this.privateStaticProperty1 = true;
     }
-
-    // #endregion
-
-    // #region Constructors
 
     constructor(private readonly name: string)
     {
         this.#privateProperty2 = "xzfkmndzen";
         this.publicProperty1 = name;
     }
-
-    // #endregion
-
-    // #region Accessors
 
     @decoratorD()
     public static accessor publicStaticAccessor1: boolean | undefined;
@@ -164,10 +148,6 @@ export abstract class TestClass implements TestInterface
     private accessor privateAccessor1: boolean | undefined;
     private accessor privateAccessor2: boolean | undefined;
 
-    // #endregion
-
-    // #region Public Static Getters And Setters
-
     public static get publicStaticGetterSetter1(): string
     {
         return this._publicStaticGetterSetter1;
@@ -196,10 +176,6 @@ export abstract class TestClass implements TestInterface
     public static set publicStaticGetterSetter4(value: string)
     {
     }
-
-    // #endregion
-
-    // #region Public Getters And Setters
 
     public get accessor1(): string
     {
@@ -268,10 +244,6 @@ export abstract class TestClass implements TestInterface
     {
     }
 
-    // #endregion
-
-    // #region Protected Static Getters And Setters
-
     protected static get protectedStaticGetterSetter1(): string
     {
         return this._protectedStaticGetterSetter1;
@@ -303,10 +275,6 @@ export abstract class TestClass implements TestInterface
     {
     }
 
-    // #endregion
-
-    // #region Protected Getters And Setters
-
     protected abstract get protectedAbstractGetterSetter1(): string;
 
     protected abstract set protectedAbstractGetterSetter1(value: string);
@@ -329,10 +297,6 @@ export abstract class TestClass implements TestInterface
     {
         this._protectedGetterSetter1 = value;
     }
-
-    // #endregion
-
-    // #region Private Static Getters And Setters
 
     private static get privateStaticGetterSetter1(): string
     {
@@ -363,10 +327,6 @@ export abstract class TestClass implements TestInterface
     {
     }
 
-    // #endregion
-
-    // #region Private Getters And Setters
-
     @decoratorE()
     private get privateGetterSetter1(): string
     {
@@ -377,10 +337,6 @@ export abstract class TestClass implements TestInterface
     {
         this._privateGetterSetter1 = value;
     }
-
-    // #endregion
-
-    // #region Public Static Methods
 
     public static publicStaticMethod1()
     {
@@ -395,10 +351,6 @@ export abstract class TestClass implements TestInterface
     public static publicStaticMethod3()
     {
     }
-
-    // #endregion
-
-    // #region Public Methods
 
     public abstract publicAbstractMethod1(): void;
 
@@ -452,10 +404,6 @@ export abstract class TestClass implements TestInterface
     {
     }
 
-    // #endregion
-
-    // #region Protected Static Methods
-
     @decoratorE()
     protected static protectedStaticMethod1()
     {
@@ -470,10 +418,6 @@ export abstract class TestClass implements TestInterface
     protected static async protectedStaticMethod3(): Promise<void>
     {
     }
-
-    // #endregion
-
-    // #region Protected Methods
 
     protected abstract protectedAbstractMethod1(): void;
 
@@ -497,10 +441,6 @@ export abstract class TestClass implements TestInterface
     {
     }
 
-    // #endregion
-
-    // #region Private Static Methods
-
     // also a comment
     private static privateStaticMethod1()
     {
@@ -519,10 +459,6 @@ export abstract class TestClass implements TestInterface
     {
     }
 
-    // #endregion
-
-    // #region Private Methods
-
     private privateMethod1()
     {
         console.log("wduyuaeemi");
@@ -538,6 +474,4 @@ export abstract class TestClass implements TestInterface
     private privateMethod3()
     {
     }
-
-    // #endregion
 }

@@ -130,11 +130,10 @@ export class SourceCodeOrganizer
     {
         if (configuration.removeUnusedImports)
         {
+            this.mergeImportsWithSameReferences(imports);
             this.removeUnusedImports(imports, sourceFile);
             this.removeEmptyImports(imports);
         }
-
-        this.mergeImportsWithSameReferences(imports);
 
         if (configuration.sortImportsBySource)
         {

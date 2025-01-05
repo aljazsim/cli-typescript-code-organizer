@@ -5,11 +5,11 @@
         "sortImportsByName": true,
         "groupImportsBySource": true,
         "separateImportGroups": true,
-        "quote": "double"
+        "quote": "single"
     },
     "modules": {
         "regions": {
-            "addRegions": true,
+            "addRegions": false,
             "addMemberCountInRegionName": false,
             "addRegionCaptionToRegionEnd": false
         },
@@ -90,7 +90,7 @@
     },
     "classes": {
         "regions": {
-            "addRegions": true,
+            "addRegions": false,
             "addMemberCountInRegionName": false,
             "addRegionCaptionToRegionEnd": false
         },
@@ -287,7 +287,7 @@
     },
     "interfaces": {
         "regions": {
-            "addRegions": true,
+            "addRegions": false,
             "addMemberCountInRegionName": false,
             "addRegionCaptionToRegionEnd": false
         },
@@ -336,7 +336,7 @@
     },
     "types": {
         "regions": {
-            "addRegions": true,
+            "addRegions": false,
             "addMemberCountInRegionName": false,
             "addRegionCaptionToRegionEnd": false
         },

@@ -1,11 +1,10 @@
-import vue, { Component } from 'vue';
-import * as react from 'react';
-import { decoratorD, decoratorG, decoratorB, decoratorC, decoratorE, decoratorA, decoratorF } from '../test-decorators';
-import angular, * as angular from '@angular';
-import './missing-file.json';
-import { TestInterface } from '../interface/test-interface';
-import ts, { SourceFile, AbstractKeyword } from 'typescript';
-import '../../../configurations/default-configuration-with-no-regions.json';
+import ts, { SourceFile } from "typescript";
+
+import "../../../configurations/default-configuration-with-no-regions.json";
+import "./missing-file.json";
+
+import { TestInterface } from "../interface/test-interface";
+import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../test-decorators";
 
 export abstract class TestClass implements TestInterface
 {

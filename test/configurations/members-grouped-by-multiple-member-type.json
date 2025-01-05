@@ -1,12 +1,11 @@
 {
     "imports": {
-        "removeUnusedImports": false,
-        "sortImportsBySource": false,
-        "sortImportsByName": false,
-        "groupImportsBySource": false,
-        "separateImportGroups": false,
-        "quote": "single",
-        "path": "absolute"
+        "removeUnusedImports": true,
+        "sortImportsBySource": true,
+        "sortImportsByName": true,
+        "groupImportsBySource": true,
+        "separateImportGroups": true,
+        "quote": "double"
     },
     "modules": {
         "regions": {

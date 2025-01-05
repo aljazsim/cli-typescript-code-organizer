@@ -1,5 +1,5 @@
 import { getFileNameWithoutExtension, joinPath } from "../../src/helpers/file-system-helper";
-import { defaultConfigurationWithNoRegions, defaultConfigurationWithRegionMemberCount, defaultConfigurationWithRegionMemberCountAndCaptionInRegionEnd, defaultConfigurationWithRegions, membersGroupedByIndividualMemberTypeConfigurationFilePath, membersGroupedByIndividualMemberTypeWithArrowPropertiesAsMethodsConfigurationFilePath, membersGroupedByIndividualMemberTypeWithDescSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithoutSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithPlaceAboveBelowConfigurationFilePath, membersGroupedByMultipleMemberTypeConfigurationFilePath, membersGroupedByMultipleMemberTypeWithoutGroupingConfigurationFilePath } from "./configuration-helper";
+import { defaultConfigurationWithNoRegions, defaultConfigurationWithoutGroupingImportsBySource, defaultConfigurationWithoutRemovingUnusedImports, defaultConfigurationWithoutSeparatingImportGroups, defaultConfigurationWithoutSortingImportsByName, defaultConfigurationWithoutSortingImportsBySource, defaultConfigurationWithRegionMemberCount, defaultConfigurationWithRegionMemberCountAndCaptionInRegionEnd, defaultConfigurationWithRegions, defaultConfigurationWithSingleQuotesForImports, membersGroupedByIndividualMemberTypeConfigurationFilePath, membersGroupedByIndividualMemberTypeWithArrowPropertiesAsMethodsConfigurationFilePath, membersGroupedByIndividualMemberTypeWithDescSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithoutSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithPlaceAboveBelowConfigurationFilePath, membersGroupedByMultipleMemberTypeConfigurationFilePath, membersGroupedByMultipleMemberTypeWithoutGroupingConfigurationFilePath } from "./configuration-helper";
 import { OrganizeTestParameters } from "./organize-test-parameters";
 
 // #region Functions (1)
@@ -12,11 +12,18 @@ export function getOrganizeTestParameters()
         defaultConfigurationWithRegionMemberCount,
         defaultConfigurationWithRegionMemberCountAndCaptionInRegionEnd,
 
+        defaultConfigurationWithoutRemovingUnusedImports,
+        defaultConfigurationWithoutSortingImportsBySource,
+        defaultConfigurationWithoutSortingImportsByName,
+        defaultConfigurationWithoutGroupingImportsBySource,
+        defaultConfigurationWithoutSeparatingImportGroups,
+        defaultConfigurationWithSingleQuotesForImports,
+
         membersGroupedByIndividualMemberTypeConfigurationFilePath,
         membersGroupedByIndividualMemberTypeWithArrowPropertiesAsMethodsConfigurationFilePath,
         membersGroupedByIndividualMemberTypeWithDescSortingConfigurationFilePath,
-        membersGroupedByIndividualMemberTypeWithPlaceAboveBelowConfigurationFilePath,
         membersGroupedByIndividualMemberTypeWithoutSortingConfigurationFilePath,
+        membersGroupedByIndividualMemberTypeWithPlaceAboveBelowConfigurationFilePath,
 
         membersGroupedByMultipleMemberTypeConfigurationFilePath,
         membersGroupedByMultipleMemberTypeWithoutGroupingConfigurationFilePath
