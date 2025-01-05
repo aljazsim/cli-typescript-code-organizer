@@ -44,36 +44,3 @@ export function function1()
 }
 
 // #endregion Exported Functions
-
-// #region Constants (2)
-
-const const4 = const2;
-const const2: number = 1981188020, const5 = 2963139131;
-
-// #endregion Constants
-
-// #region Variables (4)
-
-let variable8: (p1: string) => number;
-let variable6 = null;
-let variable3;
-let variable2 = () => 4978875552;
-
-// #endregion Variables
-
-// #region Exported Constants (3)
-
-export const function8 = () => { function9(); };
-export const const3 = const2;
-export const const1 = () => { };
-
-// #endregion Exported Constants
-
-// #region Exported Variables (4)
-
-export let variable7 = function (): string { return "aaa"; };
-export let variable5 = const2;
-export let variable4: any;
-export let variable1: number = 6751147137;
-
-// #endregion Exported Variables
