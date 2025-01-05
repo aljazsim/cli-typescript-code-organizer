@@ -84,8 +84,8 @@ export class Configuration
                         ),
                     new ModuleMemberConfiguration
                         (
-                            configuration.modules?.members.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.modules.members.treatArrowFunctionPropertiesAsMethods,
-                            configuration.modules?.members.treatArrowFunctionConstPropertiesAsMethods ?? defaultConfiguration.modules.members.treatArrowFunctionConstPropertiesAsMethods,
+                            configuration.modules?.members.treatArrowFunctionVariablesAsMethods ?? defaultConfiguration.modules.members.treatArrowFunctionVariablesAsMethods,
+                            configuration.modules?.members.treatArrowFunctionConstantsAsMethods ?? defaultConfiguration.modules.members.treatArrowFunctionConstantsAsMethods,
                         ),
                     this.fixModuleMemberMemberGroup(defaultConfiguration.modules.memberGroups, configuration.modules?.memberGroups.map(g => this.parseModuleMemberGroupConfiguration(g) ?? []))
                 ),
@@ -165,8 +165,8 @@ export class Configuration
                         ),
                     new ModuleMemberConfiguration
                         (
-                            defaultConfiguration.modules.members.treatArrowFunctionPropertiesAsMethods,
-                            defaultConfiguration.modules.members.treatArrowFunctionConstPropertiesAsMethods,
+                            defaultConfiguration.modules.members.treatArrowFunctionVariablesAsMethods,
+                            defaultConfiguration.modules.members.treatArrowFunctionConstantsAsMethods,
                         ),
                     defaultConfiguration.modules.memberGroups.map(g => this.parseModuleMemberGroupConfiguration(g) ?? [])
                 ),

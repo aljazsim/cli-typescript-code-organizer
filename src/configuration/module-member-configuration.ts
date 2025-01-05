@@ -1,8 +1,8 @@
 export class ModuleMemberConfiguration
 {
     constructor(
-        public readonly treatArrowFunctionPropertiesAsMethods: boolean,
-        public readonly treatArrowFunctionConstPropertiesAsMethods: boolean)
+        public readonly treatArrowFunctionVariablesAsMethods: boolean,
+        public readonly treatArrowFunctionConstantsAsMethods: boolean)
     {
     }
 }

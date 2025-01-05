@@ -1,7 +1,7 @@
 {
     "files": {
         "include": ["./**/*.ts"],
-        "exclude": [""]
+        "exclude": ["node_modules", "dist", "out"]
     },
     "imports": {
         "removeUnusedImports": true,
@@ -18,8 +18,8 @@
             "addRegionCaptionToRegionEnd": false
         },
         "members": {
-            "treatArrowFunctionPropertiesAsMethods": false,
-            "treatArrowFunctionConstPropertiesAsMethods": true
+            "treatArrowFunctionVariablesAsMethods": false,
+            "treatArrowFunctionConstantsAsMethods": true
         },
         "memberGroups": [
             {

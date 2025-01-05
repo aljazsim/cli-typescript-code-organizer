@@ -1,3 +1,9 @@
+// #region Functions (1)
+
+let a04 = () => 4978875552;
+
+// #endregion Functions
+
 // #region Exported Functions (2)
 
 export const a05 = () => { };
@@ -12,10 +18,9 @@ const a08 = a11;
 
 // #endregion Constants
 
-// #region Variables (4)
+// #region Variables (3)
 
 let a01;
-let a04 = () => 4978875552;
 let a13 = null;
 
 // a variable

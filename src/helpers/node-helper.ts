@@ -80,15 +80,16 @@ export function getExpressions(nodes: ElementNode[])
     return nodes.filter(n => n instanceof ExpressionNode);
 }
 
-export function getFunctions(nodes: ElementNode[], treatArrowFunctionPropertiesAsMethods: boolean, exported: boolean)
+export function getFunctions(nodes: ElementNode[], treatArrowFunctionVariablesAsMethods: boolean, treatArrowFunctionConstantsAsMethods: boolean, exported: boolean)
 {
     const functions = nodes.filter(n => n instanceof FunctionNode)
         .map(f => f as FunctionNode)
         .filter(f => f.isExport === exported)
         .map(f => f as ElementNode);
-    const arrowFunctionVariables = treatArrowFunctionPropertiesAsMethods ? getVariables(nodes, true, exported, true) : [];
+    const arrowFunctionVariables = treatArrowFunctionVariablesAsMethods ? getVariables(nodes, false, exported, true) : [];
+    const arrowFunctionConstants = treatArrowFunctionConstantsAsMethods ? getVariables(nodes, true, exported, true) : [];
 
-    return functions.concat(arrowFunctionVariables).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
+    return functions.concat(arrowFunctionVariables).concat(arrowFunctionConstants).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
 export function getImports(nodes: ElementNode[])

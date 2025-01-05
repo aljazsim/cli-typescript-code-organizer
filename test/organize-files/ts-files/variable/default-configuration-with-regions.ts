@@ -1,3 +1,10 @@
+// #region Exported Functions
+
+export const a05 = () => { };
+export const a06 = () => "poiuopiuopuip";
+
+// #endregion
+
 // #region Variables
 
 const a07: number = 1981188020, a11 = 2963139131;
@@ -10,8 +17,6 @@ let a13 = null;
 // a variable
 let a14: (p1: string) => number;
 
-export const a05 = () => { };
-export const a06 = () => "poiuopiuopuip";
 export const a15 = a05;
 
 export let a02: any;

@@ -176,12 +176,12 @@ export class SourceCodeOrganizer
         const classes = getClasses(elements, false);
         const types = getTypeAliases(elements);
         const enums = getEnums(elements);
-        const functions = getFunctions(elements, configuration.modules.members.treatArrowFunctionPropertiesAsMethods, false);
-        const exportedFunctions = getFunctions(elements, configuration.modules.members.treatArrowFunctionPropertiesAsMethods, true);
-        const constants = getVariables(elements, true, false, configuration.modules.members.treatArrowFunctionPropertiesAsMethods ? false : null);
-        const exportedConstants = getVariables(elements, true, true, configuration.modules.members.treatArrowFunctionPropertiesAsMethods ? false : null);
-        const variables = getVariables(elements, false, false, null);
-        const exportedVariables = getVariables(elements, false, true, null);
+        const functions = getFunctions(elements, configuration.modules.members.treatArrowFunctionVariablesAsMethods, configuration.modules.members.treatArrowFunctionConstantsAsMethods, false);
+        const exportedFunctions = getFunctions(elements, configuration.modules.members.treatArrowFunctionVariablesAsMethods, configuration.modules.members.treatArrowFunctionConstantsAsMethods, true);
+        const constants = getVariables(elements, true, false, configuration.modules.members.treatArrowFunctionConstantsAsMethods ? false : null);
+        const exportedConstants = getVariables(elements, true, true, configuration.modules.members.treatArrowFunctionConstantsAsMethods ? false : null);
+        const variables = getVariables(elements, false, false, configuration.modules.members.treatArrowFunctionVariablesAsMethods ? false : null);
+        const exportedVariables = getVariables(elements, false, true, configuration.modules.members.treatArrowFunctionVariablesAsMethods ? false : null);
         let expressions = getExpressions(elements);
 
         if (imports.length > 0)
