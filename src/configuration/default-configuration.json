@@ -1,4 +1,8 @@
 {
+    "files": {
+        "include": ["./**/*.ts"],
+        "exclude": [""]
+    },
     "imports": {
         "removeUnusedImports": true,
         "sortImportsBySource": true,

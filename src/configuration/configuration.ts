@@ -21,6 +21,7 @@ import { distinct, remove } from "../helpers/array-helper";
 import { readFile } from "../helpers/file-system-helper";
 import { ImportConfiguration } from "./import-configuration";
 import { ImportSourceFilePathQuoteType } from "./Import-source-file-path-quote-type";
+import { FileConfiguration } from "./file-configuration";
 
 export class Configuration
 {
@@ -28,6 +29,7 @@ export class Configuration
 
     constructor
         (
+            public readonly files: FileConfiguration,
             public readonly imports: ImportConfiguration,
             public readonly modules: ModuleConfiguration,
             public readonly classes: ClassConfiguration,
@@ -59,6 +61,10 @@ export class Configuration
         }
 
         return new Configuration(
+            new FileConfiguration(
+                configuration.files?.include ?? defaultConfiguration.files.include,
+                configuration.files?.exclude ?? defaultConfiguration.files.exclude,
+            ),
             new ImportConfiguration
                 (
                     configuration.imports?.removeUnusedImports ?? defaultConfiguration.imports.removeUnusedImports,
@@ -136,6 +142,10 @@ export class Configuration
     public static getDefaultConfiguration()
     {
         return new Configuration(
+            new FileConfiguration(
+                distinct(defaultConfiguration.files.include.map(f => f as string).filter(f => f && f.trim().length > 0)),
+                distinct(defaultConfiguration.files.exclude.map(f => f as string).filter(f => f && f.trim().length > 0))
+            ),
             new ImportConfiguration
                 (
                     defaultConfiguration.imports.removeUnusedImports,
