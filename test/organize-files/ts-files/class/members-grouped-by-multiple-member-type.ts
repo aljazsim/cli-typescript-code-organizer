@@ -8,7 +8,7 @@ import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "../t
 
 export abstract class TestClass implements TestInterface
 {
-    // #region Properties
+    // #region Properties (57)
 
     // this is a comment
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
@@ -100,9 +100,9 @@ export abstract class TestClass implements TestInterface
     public publicProperty8 = true;
     public publicProperty9: string | null = "1";
 
-    // #endregion
+    // #endregion Properties
 
-    // #region Constructors
+    // #region Constructors (2)
 
     static {
         this.protectedStaticProperty1 = 4286562276;
@@ -115,9 +115,9 @@ export abstract class TestClass implements TestInterface
         this.publicProperty1 = name;
     }
 
-    // #endregion
+    // #endregion Constructors
 
-    // #region Accessors
+    // #region Accessors (21)
 
     @decoratorD()
     public static accessor publicStaticAccessor1: boolean | undefined;
@@ -160,9 +160,9 @@ export abstract class TestClass implements TestInterface
     private accessor privateAccessor1: boolean | undefined;
     private accessor privateAccessor2: boolean | undefined;
 
-    // #endregion
+    // #endregion Accessors
 
-    // #region Getters And Setters
+    // #region Getters And Setters (46)
 
     public static get publicStaticGetterSetter1(): string
     {
@@ -354,9 +354,9 @@ export abstract class TestClass implements TestInterface
         this._privateGetterSetter1 = value;
     }
 
-    // #endregion
+    // #endregion Getters And Setters
 
-    // #region Methods
+    // #region Methods (30)
 
     public static publicStaticMethod1()
     {
@@ -495,5 +495,5 @@ export abstract class TestClass implements TestInterface
     {
     }
 
-    // #endregion
+    // #endregion Methods
 }

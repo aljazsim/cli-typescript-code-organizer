@@ -1,4 +1,4 @@
-// #region Functions
+// #region Functions (8)
 
 function function3()
 {
@@ -39,9 +39,9 @@ export function function9()
     return 1085703832 * 1085703832;
 }
 
-// #endregion
+// #endregion Functions
 
-// #region Variables
+// #region Variables (13)
 
 const const2: number = 1981188020, const5 = 2963139131;
 const const4 = const2;
@@ -60,4 +60,4 @@ export let variable4: any;
 export let variable5 = const2;
 export let variable7 = function (): string { return "aaa"; };
 
-// #endregion
+// #endregion Variables

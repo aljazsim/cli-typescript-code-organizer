@@ -17,8 +17,9 @@ function function5()
 
 // #endregion Functions
 
-// #region Exported Functions (5)
+// #region Exported Functions (7)
 
+export const const1 = () => { };
 export function function1()
 {
     return function4();
@@ -38,6 +39,7 @@ export function function7()
     return 3016660817 + 9761854145;
 }
 
+export const function8 = () => { function9(); };
 export function function9()
 {
     return 1085703832 * 1085703832;
@@ -61,11 +63,9 @@ let variable8: (p1: string) => number;
 
 // #endregion Variables
 
-// #region Exported Constants (3)
+// #region Exported Constants (1)
 
-export const const1 = () => { };
 export const const3 = const2;
-export const function8 = () => { function9(); };
 
 // #endregion Exported Constants
 

@@ -10,8 +10,8 @@
     "modules": {
         "regions": {
             "addRegions": true,
-            "addMemberCountInRegionName": false,
-            "addRegionCaptionToRegionEnd": false
+            "addMemberCountInRegionName": true,
+            "addRegionCaptionToRegionEnd": true
         },
         "members": {
             "treatArrowFunctionPropertiesAsMethods": false,
@@ -82,8 +82,8 @@
     "classes": {
         "regions": {
             "addRegions": true,
-            "addMemberCountInRegionName": false,
-            "addRegionCaptionToRegionEnd": false
+            "addMemberCountInRegionName": true,
+            "addRegionCaptionToRegionEnd": true
         },
         "members": {
             "addPublicModifierIfMissing": true,
@@ -192,8 +192,8 @@
     "interfaces": {
         "regions": {
             "addRegions": true,
-            "addMemberCountInRegionName": false,
-            "addRegionCaptionToRegionEnd": false
+            "addMemberCountInRegionName": true,
+            "addRegionCaptionToRegionEnd": true
         },
         "members": {
             "treatArrowFunctionPropertiesAsMethods": false,
@@ -223,8 +223,8 @@
     "types": {
         "regions": {
             "addRegions": true,
-            "addMemberCountInRegionName": false,
-            "addRegionCaptionToRegionEnd": false
+            "addMemberCountInRegionName": true,
+            "addRegionCaptionToRegionEnd": true
         },
         "members": {
             "treatArrowFunctionPropertiesAsMethods": false

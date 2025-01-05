@@ -1,6 +1,6 @@
 export interface TestInterface
 {
-    // #region Properties and indexes
+    // #region Properties and indexes (19)
 
     readonly publicReadonlyProperty1: (p1: number, p2: number) => void;
     readonly publicReadonlyProperty2: string | undefined;
@@ -24,9 +24,9 @@ export interface TestInterface
 
     [key: string]: any;
 
-    // #endregion
+    // #endregion Properties and indexes
 
-    // #region Methods, getter and setters
+    // #region Methods, getter and setters (19)
 
     publicMethod1(): number;
     publicMethod2(): void;
@@ -58,5 +58,5 @@ export interface TestInterface
 
     set publicSetter4(value: any);
 
-    // #endregion
+    // #endregion Methods, getter and setters
 }

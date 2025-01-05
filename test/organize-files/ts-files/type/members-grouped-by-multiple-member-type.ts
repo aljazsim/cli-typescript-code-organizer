@@ -2,7 +2,7 @@
  * Description of TestType.
  */
 export type TestType = {
-    // #region Properties, indexes and methods
+    // #region Properties, indexes and methods (14)
 
     property1: string | null;
     // comment
@@ -32,5 +32,5 @@ export type TestType = {
     method2(): void;
     method3(): void;
 
-    // #endregion
+    // #endregion Properties, indexes and methods
 };

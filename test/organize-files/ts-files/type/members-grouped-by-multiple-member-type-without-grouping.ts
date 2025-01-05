@@ -2,7 +2,7 @@
  * Description of TestType.
  */
 export type TestType = {
-    // #region Properties, indexes and methods
+    // #region Properties, indexes and methods (14)
 
     [index: string]: any;
     [index: number]: any;
@@ -30,5 +30,5 @@ export type TestType = {
     //
     property9: Date;
 
-    // #endregion
+    // #endregion Properties, indexes and methods
 };

@@ -14,7 +14,7 @@
             "addRegionCaptionToRegionEnd": true
         },
         "members": {
-            "treatArrowFunctionPropertiesAsMethods": false,
+            "treatArrowFunctionPropertiesAsMethods": true,
             "treatArrowFunctionConstPropertiesAsMethods": true
         },
         "memberGroups": [

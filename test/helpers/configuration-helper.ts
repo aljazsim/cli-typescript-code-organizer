@@ -1,7 +1,7 @@
 export const testConfigurationDirectoryPath = './test/configurations';
 
 // region configuration variations
-export const defaultConfiguration = "../../src/configuration/default-configuration.json";
+export const defaultConfiguration = `${testConfigurationDirectoryPath}/default-configuration.json`;
 export const defaultConfigurationWithRegions = `${testConfigurationDirectoryPath}/default-configuration-with-regions.json`;
 export const defaultConfigurationWithRegionMemberCount = `${testConfigurationDirectoryPath}/default-configuration-with-region-member-count.json`;
 export const defaultConfigurationWithRegionMemberCountAndCaptionInRegionEnd = `${testConfigurationDirectoryPath}/default-configuration-with-region-member-count-and-caption-in-region-end.json`;
