@@ -46,7 +46,6 @@ else
 
         await watcher.watch();
     }
-
 }
 
 async function organizeSourceCode(filePath: any, configuration: Configuration)
@@ -58,4 +57,3 @@ async function organizeSourceCode(filePath: any, configuration: Configuration)
         await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
     }
 }
-
