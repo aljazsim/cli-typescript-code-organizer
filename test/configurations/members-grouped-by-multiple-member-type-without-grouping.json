@@ -118,14 +118,6 @@
             },
             {
                 "sortDirection": "asc",
-                "caption": "Indexes",
-                "memberTypes": ["publicStaticIndexes", "publicIndexes"],
-                "memberTypesGrouped": false,
-                "placeAbove": [],
-                "placeBelow": []
-            },
-            {
-                "sortDirection": "asc",
                 "caption": "Accessors",
                 "memberTypes": [
                     "publicStaticAccessors",

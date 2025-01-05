@@ -224,7 +224,7 @@ Specifies how members are grouped together when organizing modules, classes, int
 }
 ```
 
-Member types are dependant on where are they being used: modules, classes, interfaces or types. You can group them any way you prefer by assigning them to the `memberTypes` array.
+Member types are dependant on where are they being used: modules, classes, interfaces or types.
 
 #### Module Member Types
 
@@ -237,20 +237,20 @@ Structures   | Functions           | Variables
 
 #### Class Member Types
 
-Properties                          | Constructors              | Accessors                       | Getters and Setters                  | Methods
------------------------------------ | ------------------------- | ------------------------------- | ------------------------------------ | --------------------------
-`privateStaticReadOnlyProperties`   | `staticBlockDeclarations` | `publicAccessors`               | `publicGettersAndSetters`            | `publicMethods`
-`privateReadOnlyProperties`         | `constructors`            | `publicAbstractAccessors`       | `publicAbstractGettersAndSetters`    | `publicAbstractMethods`
-`privateStaticProperties`           |                           | `privateStaticAccessors`        | `privateStaticGettersAndSetters`     | `protectedStaticMethods`
-`privateProperties`                 |                           | `privateAccessors`              | `privateGettersAndSetters`           | `protectedMethods`
-`protectedStaticReadOnlyProperties` |                           | `protectedStaticAccessors`      | `protectedStaticGettersAndSetters`   | `protectedAbstractMethods`
-`protectedReadOnlyProperties`       |                           | `protectedAccessors`            | `protectedGettersAndSetters`         | `privateStaticMethods`
-`protectedStaticProperties`         |                           | `protectedAbstractAccessors`    | `protectedAbstractGettersAndSetters` | `privateMethods`
-`protectedProperties`               |                           | `publicStaticGettersAndSetters` | `publicStaticMethods`                |
-`publicStaticReadOnlyProperties`    |                           |                                 |                                      |
-`publicReadOnlyProperties`          |                           |                                 |                                      |
-`publicStaticProperties`            |                           |                                 |                                      |
-`publicProperties`                  |                           |                                 |                                      |
+Properties                          | Constructors              | Indexes   | Accessors                       | Getters and Setters                  | Methods
+----------------------------------- | ------------------------- | --------- | ------------------------------- | ------------------------------------ | --------------------------
+`privateStaticReadOnlyProperties`   | `staticBlockDeclarations` | `indexes` | `publicAccessors`               | `publicGettersAndSetters`            | `publicMethods`
+`privateReadOnlyProperties`         | `constructors`            |           | `publicAbstractAccessors`       | `publicAbstractGettersAndSetters`    | `publicAbstractMethods`
+`privateStaticProperties`           |                           |           | `privateStaticAccessors`        | `privateStaticGettersAndSetters`     | `protectedStaticMethods`
+`privateProperties`                 |                           |           | `privateAccessors`              | `privateGettersAndSetters`           | `protectedMethods`
+`protectedStaticReadOnlyProperties` |                           |           | `protectedStaticAccessors`      | `protectedStaticGettersAndSetters`   | `protectedAbstractMethods`
+`protectedReadOnlyProperties`       |                           |           | `protectedAccessors`            | `protectedGettersAndSetters`         | `privateStaticMethods`
+`protectedStaticProperties`         |                           |           | `protectedAbstractAccessors`    | `protectedAbstractGettersAndSetters` | `privateMethods`
+`protectedProperties`               |                           |           | `publicStaticGettersAndSetters` | `publicStaticMethods`                |
+`publicStaticReadOnlyProperties`    |                           |           |                                 |                                      |
+`publicReadOnlyProperties`          |                           |           |                                 |                                      |
+`publicStaticProperties`            |                           |           |                                 |                                      |
+`publicProperties`                  |                           |           |                                 |                                      |
 
 #### Interface Member Types
 
