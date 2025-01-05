@@ -30,7 +30,9 @@ export interface TestInterface
 
     // #endregion Indexes
 
-    // #region Getters And Setters (10)
+    // #region Getters And Setters (9)
+
+    set publicSetter5(size: number);
 
     set publicSetter4(value: any);
 
@@ -40,17 +42,13 @@ export interface TestInterface
 
     set publicSetter1(value: any);
 
+    set publicGetterSetter1(size: number);
+
+    get publicGetterSetter1(): number;
+
     get publicGetter4(): any;
 
-    set publicGetter3(size: number);
-
     get publicGetter2(): number;
-
-    set publicGetter1(size: number);
-
-    get publicGetter1(): number;
-
-    get accessor1(): string;
 
     // #endregion Getters And Setters
 
@@ -62,7 +60,7 @@ export interface TestInterface
     publicMethod6(): any;
     publicMethod5(): number | undefined;
     publicMethod4(): number;
-    publicMethod3(): number;
+    publicMethod3(): () => number;
     publicMethod2(): void;
     publicMethod1(): number;
 

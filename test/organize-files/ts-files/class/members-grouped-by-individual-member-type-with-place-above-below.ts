@@ -46,13 +46,13 @@ export abstract class TestClass implements TestInterface
     private _privateGetterSetter1: string = "";
     private _protectedGetterSetter1: string = "";
     private _publicGetterSetter1: string = "";
-    @decoratorB()
-    private privateProperty1: SourceFile | undefined;
     #privateProperty1 = (ltgeubyxvt: string) => { };
-    @decoratorC(9860836855)
-    private privateProperty2 = () => 3357116507;
     #privateProperty2: string;
     private privateProperty3 = async function () { return Promise.resolve(''); };
+    @decoratorB()
+    private privateProperty1: SourceFile | undefined;
+    @decoratorC(9860836855)
+    private privateProperty2 = () => 3357116507;
 
     // #endregion Private Properties
 
@@ -178,9 +178,9 @@ export abstract class TestClass implements TestInterface
 
     // #region Public Accessors (3)
 
-    public accessor publicAccessor1: number = 111;
-    public accessor publicAccessor2: number = 8647818341;
     public accessor publicAccessor3 = 4184534899;
+    public accessor publicAccessor2: number = 8647818341;
+    public accessor publicAccessor1: number = 111;
 
     // #endregion Public Accessors
 
@@ -559,16 +559,16 @@ export abstract class TestClass implements TestInterface
 
     // #region Protected Methods (3)
 
+    protected protectedMethod2()
+    {
+        return 5101618743 + 4177360955;
+    }
+
     @decoratorD()
     protected protectedMethod1()
     {
         console.log("wduyuaeemi");
         const a = ts.ScriptKind.TS;
-    }
-
-    protected protectedMethod2()
-    {
-        return 5101618743 + 4177360955;
     }
 
     protected protectedMethod3()

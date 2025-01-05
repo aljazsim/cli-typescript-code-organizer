@@ -26,11 +26,11 @@ export interface TestInterface
 
     // #endregion Properties and indexes
 
-    // #region Methods, getter and setters (19)
+    // #region Methods, getter and setters (18)
 
     publicMethod1(): number;
     publicMethod2(): void;
-    publicMethod3(): number;
+    publicMethod3(): () => number;
     publicMethod4(): number;
     publicMethod5(): number | undefined;
     publicMethod6(): any;
@@ -38,17 +38,13 @@ export interface TestInterface
     publicMethod8(): Promise<boolean>;
     publicMethod9(): void;
 
-    get accessor1(): string;
-
-    get publicGetter1(): number;
-
-    set publicGetter1(size: number);
-
     get publicGetter2(): number;
 
-    set publicGetter3(size: number);
-
     get publicGetter4(): any;
+
+    get publicGetterSetter1(): number;
+
+    set publicGetterSetter1(size: number);
 
     set publicSetter1(value: any);
 
@@ -57,6 +53,8 @@ export interface TestInterface
     set publicSetter3(value: number);
 
     set publicSetter4(value: any);
+
+    set publicSetter5(size: number);
 
     // #endregion Methods, getter and setters
 }

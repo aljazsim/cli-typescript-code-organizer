@@ -131,7 +131,7 @@
                 "memberTypes": ["privateStaticReadOnlyProperties"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
-                "placeBelow": ["privateProperty1", "privateProperty2"]
+                "placeBelow": []
             },
             {
                 "sort": true,
@@ -158,7 +158,7 @@
                 "memberTypes": ["privateProperties"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
-                "placeBelow": []
+                "placeBelow": ["privateProperty1", "privateProperty2"]
             },
             {
                 "sort": true,
@@ -265,12 +265,8 @@
                 "caption": "Public Indexes",
                 "memberTypes": ["publicIndexes"],
                 "memberTypesGrouped": true,
-                "placeAbove": [
-                    "publicAccessor3",
-                    "publicAccessor2",
-                    "publicAccessor1"
-                ],
-                "placeBelow": ["publicAccessorX"]
+                "placeAbove": [],
+                "placeBelow": []
             },
             {
                 "sort": true,
@@ -278,8 +274,8 @@
                 "caption": "Public Static Accessors",
                 "memberTypes": ["publicStaticAccessors"],
                 "memberTypesGrouped": true,
-                "placeAbove": ["protectedStaticGetterAndSetter2"],
-                "placeBelow": ["protectedStaticGetterAndSetter1"]
+                "placeAbove": [],
+                "placeBelow": []
             },
             {
                 "sort": true,
@@ -287,8 +283,12 @@
                 "caption": "Public Accessors",
                 "memberTypes": ["publicAccessors"],
                 "memberTypesGrouped": false,
-                "placeAbove": [],
-                "placeBelow": []
+                "placeAbove": [
+                    "publicAccessor3",
+                    "publicAccessor2",
+                    "publicAccessor1"
+                ],
+                "placeBelow": ["publicAccessorX"]
             },
             {
                 "sort": true,
@@ -305,8 +305,8 @@
                 "caption": "Protected Static Accessors",
                 "memberTypes": ["protectedStaticAccessors"],
                 "memberTypesGrouped": true,
-                "placeAbove": ["protectedMethod2"],
-                "placeBelow": ["protectedMethod3"]
+                "placeAbove": [],
+                "placeBelow": []
             },
             {
                 "sort": true,
@@ -458,8 +458,8 @@
                 "caption": "Protected Methods",
                 "memberTypes": ["protectedMethods"],
                 "memberTypesGrouped": false,
-                "placeAbove": [],
-                "placeBelow": []
+                "placeAbove": ["protectedMethod2"],
+                "placeBelow": ["protectedMethod3"]
             },
             {
                 "sort": true,
@@ -507,8 +507,8 @@
                 "caption": "Properties",
                 "memberTypes": ["readOnlyProperties", "properties"],
                 "memberTypesGrouped": true,
-                "placeAbove": ["property1"],
-                "placeBelow": ["property2"]
+                "placeAbove": ["publicProperty3"],
+                "placeBelow": ["publicProperty1"]
             },
             {
                 "sort": true,
@@ -534,8 +534,8 @@
                 "caption": "Methods",
                 "memberTypes": ["methods"],
                 "memberTypesGrouped": true,
-                "placeAbove": ["methodX", "method1"],
-                "placeBelow": ["method2", "methodY"]
+                "placeAbove": ["publicMethodX", "publicMethod2"],
+                "placeBelow": ["publicMethod1", "publicMethodY"]
             }
         ]
     },

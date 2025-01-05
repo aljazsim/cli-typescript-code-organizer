@@ -60,7 +60,6 @@ export function getOrganizeTestParameters()
 
 const testOutputDirectoryPath = "./test/organize-files/ts-files";
 const testOutputClassDirectoryPath = `${testOutputDirectoryPath}/class`;
-const testOutputExpressionDirectoryPath = `${testOutputDirectoryPath}/expression`;
 const testOutputFunctionDirectoryPath = `${testOutputDirectoryPath}/function`;
 const testOutputInterfaceDirectoryPath = `${testOutputDirectoryPath}/interface`;
 const testOutputModuleDirectoryPath = `${testOutputDirectoryPath}/module`;
@@ -68,7 +67,6 @@ const testOutputTypeDirectoryPath = `${testOutputDirectoryPath}/type`;
 const testOutputVariableDirectoryPath = `${testOutputDirectoryPath}/variable`;
 const testInputDirectoryPath = './test/organize-files/ts-files';
 const testInputClassFilePath = `${testInputDirectoryPath}/class/test-class.ts`;
-const testInputExpressionFilePath = `${testInputDirectoryPath}/expression/test-expression.ts`;
 const testInputFunctionFilePath = `${testInputDirectoryPath}/function/test-function.ts`;
 const testInputInterfaceFilePath = `${testInputDirectoryPath}/interface/test-interface.ts`;
 const testInputModuleFilePath = `${testInputDirectoryPath}/module/test-module.ts`;
