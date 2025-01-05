@@ -8,6 +8,10 @@ export type TestType = {
     // comment
     property2: (date: Date) => Promise<Date>;
     property3: string;
+    /**
+     * Property documentation
+     * @returns a value
+     */
     property4: () => void;
     property5: any;
     //
@@ -19,7 +23,7 @@ export type TestType = {
     //
     property9: Date;
     /*
-    * Description of property4.
+    * Property documentation
     */
     property6: (p1: number) => number;
 
@@ -28,5 +32,8 @@ export type TestType = {
 
     method1(): void;
     method2(): void;
+    /**
+     * Method documentation.
+     */
     method3(): void;
 };

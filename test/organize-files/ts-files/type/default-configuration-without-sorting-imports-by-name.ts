@@ -21,12 +21,19 @@ export type TestType = {
 
     method1(): void;
     method2(): void;
+    /**
+     * Method documentation.
+     */
     method3(): void;
     // comment
     property2: (date: Date) => Promise<Date>;
+    /**
+     * Property documentation
+     * @returns a value
+     */
     property4: () => void;
     /*
-    * Description of property4.
+    * Property documentation
     */
     property6: (p1: number) => number;
 };

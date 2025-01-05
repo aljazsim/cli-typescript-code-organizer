@@ -13,10 +13,14 @@ export type TestType = {
     property8: number;
     property7: number | undefined;
     /*
-    * Description of property4.
+    * Property documentation
     */
     property6: (p1: number) => number;
     property5: any;
+    /**
+     * Property documentation
+     * @returns a value
+     */
     property4: () => void;
     property3: string;
     // comment
@@ -26,6 +30,9 @@ export type TestType = {
     [index: number]: any;
     [index: string]: any;
 
+    /**
+     * Method documentation.
+     */
     method3(): void;
     method2(): void;
     method1(): void;

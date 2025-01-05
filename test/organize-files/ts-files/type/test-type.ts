@@ -3,12 +3,15 @@
  */
 export type TestType = {
 
+    /**
+     * Method documentation.
+     */
     method3(): void;
 
     property3: string;
     property1: string | null;
     /*
-    * Description of property4.
+    * Property documentation
     */
     property6: (p1: number) => number;
     // comment
@@ -18,6 +21,10 @@ export type TestType = {
 
     property7: number | undefined;
     [index: string]: any;
+    /**
+     * Property documentation
+     * @returns a value
+     */
     property4: () => void;
     method1(): void;
 

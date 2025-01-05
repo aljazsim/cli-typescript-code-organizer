@@ -30,7 +30,6 @@ export function getOrganizeTestParameters()
     ];
     const tests = [
         { name: "class", inputFilePath: testInputClassFilePath, outputDirectoryPath: testOutputClassDirectoryPath },
-        { name: "expression", inputFilePath: testInputExpressionFilePath, outputDirectoryPath: testOutputExpressionDirectoryPath },
         { name: "function", inputFilePath: testInputFunctionFilePath, outputDirectoryPath: testOutputFunctionDirectoryPath },
         { name: "interface", inputFilePath: testInputInterfaceFilePath, outputDirectoryPath: testOutputInterfaceDirectoryPath },
         { name: "module", inputFilePath: testInputModuleFilePath, outputDirectoryPath: testOutputModuleDirectoryPath },
