@@ -2,15 +2,15 @@ export interface TestInterface
 {
     // #region Properties (18)
 
-    readonly publicReadonlyProperty1: (p1: number, p2: number) => void;
-    readonly publicReadonlyProperty2: string | undefined;
     readonly publicReadonlyProperty3: String;
+    readonly publicReadonlyProperty2: string | undefined;
     readonly publicReadonlyProperty4: string;
     readonly publicReadonlyProperty5: string;
     readonly publicReadonlyProperty6: string | undefined;
     readonly publicReadonlyProperty7: string;
     readonly publicReadonlyProperty8: number;
     readonly publicReadonlyProperty9: string;
+    readonly publicReadonlyProperty1: (p1: number, p2: number) => void;
 
     publicProperty3: string | undefined;
     publicProperty2: string;

@@ -101,8 +101,8 @@ export type Type06 = {};
 type Type07 = {
  property1: string
 
- method1(): void;
  method2(): number;
+ method1(): void;
 };
 
 export type Type08 = {};

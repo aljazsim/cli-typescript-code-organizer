@@ -1,12 +1,13 @@
 import { ElementNode } from "../elements/element-node";
+import { matchRegEx, matchWildcard } from "./string-helper";
 
 // #region Functions (1)
 
-export function sortBy<T extends ElementNode>(nodes: T[], nodeNames: string[])
+export function sortBy<T extends ElementNode>(nodes: T[], patterns: string[])
 {
-    if (nodes && nodeNames && nodes.length > 0 && nodeNames.length > 0)
+    if (nodes && nodes.length > 0 && patterns && patterns.length > 0)
     {
-        return nodeNames.map(name => nodes.find(node => node.name === name)).filter(node => node).map(node => node!);
+        return patterns.map(p => nodes.find(node => node.name === p || matchWildcard(p, node.name) || matchRegEx(p, node.name))).filter(node => node).map(node => node!);
     }
     else
     {

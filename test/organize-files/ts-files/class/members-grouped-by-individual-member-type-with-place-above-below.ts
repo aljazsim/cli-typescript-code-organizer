@@ -47,13 +47,13 @@ export abstract class TestClass implements TestInterface
     private _privateGetterSetter1: string = "";
     private _protectedGetterSetter1: string = "";
     private _publicGetterSetter1: string = "";
-    #privateProperty1 = (ltgeubyxvt: string) => { };
     #privateProperty2: string;
     private privateProperty3 = async function () { return Promise.resolve(''); };
-    @decoratorB()
-    private privateProperty1: SourceFile | undefined;
+    #privateProperty1 = (ltgeubyxvt: string) => { };
     @decoratorC(9860836855)
     private privateProperty2 = () => 3357116507;
+    @decoratorB()
+    private privateProperty1: SourceFile | undefined;
 
     // #endregion Private Properties
 
@@ -574,15 +574,15 @@ export abstract class TestClass implements TestInterface
         return 5101618743 + 4177360955;
     }
 
+    protected protectedMethod3()
+    {
+    }
+
     @decoratorD()
     protected protectedMethod1()
     {
         console.log("wduyuaeemi");
         const a = ts.ScriptKind.TS;
-    }
-
-    protected protectedMethod3()
-    {
     }
 
     // #endregion Protected Methods

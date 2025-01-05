@@ -158,7 +158,11 @@
                 "memberTypes": ["privateProperties"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
-                "placeBelow": ["privateProperty1", "privateProperty2"]
+                "placeBelow": [
+                    "#privateProperty1",
+                    "privateProperty2",
+                    "privateProperty1"
+                ]
             },
             {
                 "sort": true,
@@ -459,7 +463,7 @@
                 "memberTypes": ["protectedMethods"],
                 "memberTypesGrouped": false,
                 "placeAbove": ["protectedMethod2"],
-                "placeBelow": ["protectedMethod3"]
+                "placeBelow": ["protectedMethod1"]
             },
             {
                 "sort": true,
@@ -507,8 +511,8 @@
                 "caption": "Properties",
                 "memberTypes": ["readOnlyProperties", "properties"],
                 "memberTypesGrouped": true,
-                "placeAbove": ["publicProperty3"],
-                "placeBelow": ["publicProperty1"]
+                "placeAbove": ["*y3"],
+                "placeBelow": ["*y1"]
             },
             {
                 "sort": true,
@@ -573,8 +577,8 @@
                 "caption": "Methods",
                 "memberTypes": ["methods"],
                 "memberTypesGrouped": true,
-                "placeAbove": [],
-                "placeBelow": []
+                "placeAbove": [".*(3|4).*"],
+                "placeBelow": [".*(0|1).*"]
             }
         ]
     }

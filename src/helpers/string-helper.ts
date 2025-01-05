@@ -1,4 +1,7 @@
-// #region Functions (1)
+import { StringLiteralLike } from 'typescript';
+import wcmatch from 'wildcard-match'
+
+// #region Functions (3)
 
 export function convertPascalCaseToTitleCase(value: string)
 {
@@ -12,4 +15,46 @@ export function convertPascalCaseToTitleCase(value: string)
     return value;
 }
 
-// #endregion Functions (1)
+export function matchRegEx(regex: string, text: string)
+{
+    if (regex && regex.length > 0)
+    {
+        if (!regex.startsWith("^"))
+        {
+            regex = "^" + regex;
+        }
+
+        if (!regex.endsWith("$"))
+        {
+            regex = regex + "$";
+        }
+
+        try
+        {
+            return new RegExp(regex).test(text);
+        }
+        catch 
+        {
+        }
+    }
+
+    return false
+}
+
+export function matchWildcard(pattern: string, text: string)
+{
+    if (pattern && pattern.length > 0)
+    {
+        try
+        {
+            return wcmatch(pattern)(text);
+        }
+        catch 
+        {
+        }
+    }
+
+    return false;
+}
+
+// #endregion Functions (3)

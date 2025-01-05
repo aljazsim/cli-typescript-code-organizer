@@ -19,6 +19,7 @@ import { VariableNode } from "../elements/variable-node";
 import { WriteModifier } from "../enums/write-modifier";
 import { compareStrings } from "./comparing-helper";
 import { sortBy } from "./sorting-helper";
+import { matchRegEx, matchWildcard } from "./string-helper";
 
 // #region Functions (25)
 
@@ -301,16 +302,15 @@ export function order(sort: boolean, sortDirection: "asc" | "desc", nodes: Eleme
     return nodesAbove.concat(nodesMiddle).concat(nodesBelow);
 }
 
-export function splitByPlaceAboveBelow<T extends ElementNode>(nodes: T[], placeAbove: string[] | null, placeBelow: string[] | null)
+export function splitByPlaceAboveBelow<T extends ElementNode>(nodes: T[], placeAbove: string[], placeBelow: string[])
 {
-    const nodesAbove = placeAbove ? nodes.filter(n => placeAbove.indexOf(n.name) > -1) : [];
-    const nodesBelow = placeBelow ? nodes.filter(n => placeBelow.indexOf(n.name) > -1) : [];
-    const nodesMiddle = nodes.filter(n => nodesAbove.indexOf(n) === -1 && nodesBelow.indexOf(n) === -1);
+    const nodesAbove = nodes.filter(n => placeAbove.some(p => p === n.name || matchWildcard(p, n.name) || matchRegEx(p, n.name)));
+    const nodesBelow = nodes.filter(n => placeBelow.some(p => p === n.name || matchWildcard(p, n.name) || matchRegEx(p, n.name)));
 
     return {
         nodesAbove,
-        nodesMiddle,
-        nodesBelow
+        nodesMiddle: nodes.filter(n => !nodesAbove.includes(n)).filter(n => !nodesBelow.includes(n)),
+        nodesBelow: nodesBelow.filter(n => !nodesAbove.includes(n))
     };
 }
 

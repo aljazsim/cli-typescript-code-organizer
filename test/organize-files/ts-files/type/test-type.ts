@@ -30,6 +30,7 @@ export type TestType = {
      * @returns a value
      */
     property4: () => void;
+
     // comment
     method1(): void;
 

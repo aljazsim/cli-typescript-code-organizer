@@ -41,12 +41,12 @@ export type TestType = {
     // comment
     [index: number]: any;
 
-    // comment
-    method1(): void;
-    method2(): void;
-
     /**
      * Method documentation.
      */
     method3(): void;
+    method2(): void;
+
+    // comment
+    method1(): void;
 };
