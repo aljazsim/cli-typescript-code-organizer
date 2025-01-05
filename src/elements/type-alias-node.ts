@@ -80,7 +80,6 @@ export class TypeAliasNode extends ElementNode
 
         for (const memberGroup of configuration.memberGroups)
         {
-            const sort = memberGroup.sort;
             const sortDirection = memberGroup.sortDirection;
             const placeAbove = memberGroup.placeAbove;
             const placeBelow = memberGroup.placeBelow;
@@ -105,7 +104,7 @@ export class TypeAliasNode extends ElementNode
 
                 if (elementNodes.length > 0)
                 {
-                    memberGroups.push(new ElementNodeGroup(null, [], order(sort, sortDirection, elementNodes, placeAbove, placeBelow, false), false, null));
+                    memberGroups.push(new ElementNodeGroup(null, [], order(sortDirection, elementNodes, placeAbove, placeBelow, false), false, null));
                 }
             }
 
@@ -117,7 +116,7 @@ export class TypeAliasNode extends ElementNode
                 }
                 else 
                 {
-                    regions.push(new ElementNodeGroup(memberGroup.caption, [], order(sort, sortDirection, memberGroups.flatMap(mg => mg.nodes), placeAbove, placeBelow, false), true, configuration.regions));
+                    regions.push(new ElementNodeGroup(memberGroup.caption, [], order(sortDirection, memberGroups.flatMap(mg => mg.nodes), placeAbove, placeBelow, false), true, configuration.regions));
                 }
             }
         }

@@ -6,18 +6,17 @@ import { getAccessModifier, getDecorators, getIsAbstract, getIsStatic, getWriteM
 
 export class PropertyNode extends ElementNode
 {
-    // #region Properties (8)
+    // #region Properties (7)
 
     public readonly accessModifier: AccessModifier | null;
     public readonly decorators: string[];
-    public readonly hasLeadingComment: boolean;
     public readonly isAbstract: boolean;
     public readonly isArrowFunction: boolean;
     public readonly isStatic: boolean;
     public readonly name: string;
     public readonly writeMode: WriteModifier;
 
-    // #endregion Properties (8)
+    // #endregion Properties (7)
 
     // #region Constructors (1)
 
@@ -41,22 +40,16 @@ export class PropertyNode extends ElementNode
         this.writeMode = getWriteMode(propertyDeclaration);
 
         this.isArrowFunction = this.getIsArrowFunction(propertyDeclaration);
-        this.hasLeadingComment = this.getHasLeadingComment(propertyDeclaration, sourceFile);
     }
 
     // #endregion Constructors (1)
 
-    // #region Private Methods (2)
-
-    private getHasLeadingComment(propertyDeclaration: ts.PropertyDeclaration, sourceFile: ts.SourceFile): any
-    {
-        return ts.getLeadingCommentRanges(propertyDeclaration.getFullText(sourceFile), 0) !== undefined;
-    }
+    // #region Private Methods (1)
 
     private getIsArrowFunction(propertyDeclaration: ts.PropertyDeclaration)
     {
         return typeof propertyDeclaration.initializer !== "undefined" && propertyDeclaration.initializer.kind === ts.SyntaxKind.ArrowFunction;
     }
 
-    // #endregion Private Methods (2)
+    // #endregion Private Methods (1)
 }

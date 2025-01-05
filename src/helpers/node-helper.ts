@@ -282,14 +282,14 @@ export function isWritable(x: PropertyNode | PropertySignatureNode)
     return x.writeMode === WriteModifier.writable;
 }
 
-export function order(sort: boolean, sortDirection: "asc" | "desc", nodes: ElementNode[], placeAbove: string[], placeBelow: string[], groupWithDecorators: boolean)
+export function order(sortDirection: "asc" | "desc" | "none", nodes: ElementNode[], placeAbove: string[], placeBelow: string[], groupWithDecorators: boolean)
 {
     const nodesAboveMiddleBelow = splitByPlaceAboveBelow(nodes, placeAbove, placeBelow);
     const nodesAbove = sortBy(nodesAboveMiddleBelow.nodesAbove, placeAbove);
     const nodesBelow = sortBy(nodesAboveMiddleBelow.nodesBelow, placeBelow);
     let nodesMiddle = nodesAboveMiddleBelow.nodesMiddle;
 
-    if (sort)
+    if (sortDirection !== "none")
     {
         nodesMiddle = nodesMiddle.sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
 

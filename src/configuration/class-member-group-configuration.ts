@@ -5,8 +5,7 @@ export class ClassMemberGroupConfiguration
     // #region Constructors (1)
 
     constructor(
-        public readonly sort: boolean,
-        public readonly sortDirection: "asc" | "desc",
+        public readonly sortDirection: "asc" | "desc" | "none",
         public readonly caption: string,
         public readonly memberTypes: ClassMemberType[],
         public readonly memberTypesGrouped: boolean,

@@ -2,18 +2,20 @@ import * as ts from "typescript";
 
 export abstract class ElementNode
 {
-    // #region Properties (2)
+    // #region Properties (3)
 
+    public readonly hasLeadingComment: boolean;
     public abstract readonly name: string;
     public readonly sourceCode: string;
 
-    // #endregion Properties (2)
+    // #endregion Properties (3)
 
     // #region Constructors (1)
 
     constructor(sourceFile: ts.SourceFile, public readonly node: ts.Node)
     {
         this.sourceCode = ElementNode.getSourceCode(sourceFile, node.getFullStart(), node.getEnd());
+        this.hasLeadingComment = this.getHasLeadingComment(node, sourceFile);
     }
 
     // #endregion Constructors (1)
@@ -26,4 +28,13 @@ export abstract class ElementNode
     }
 
     // #endregion Private Static Methods (1)
+
+    // #region Private Methods (1)
+
+    private getHasLeadingComment(node: ts.Node, sourceFile: ts.SourceFile): any
+    {
+        return ts.getLeadingCommentRanges(node.getFullText(sourceFile), 0) !== undefined;
+    }
+
+    // #endregion Private Methods (1)
 }

@@ -19,7 +19,6 @@
         },
         "memberGroups": [
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Enums",
                 "memberTypes": ["enums"],
@@ -28,7 +27,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Interfaces",
                 "memberTypes": ["interfaces"],
@@ -37,7 +35,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Classes",
                 "memberTypes": ["classes"],
@@ -46,7 +43,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Types",
                 "memberTypes": ["types"],
@@ -55,7 +51,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Functions",
                 "memberTypes": ["functions", "exportedFunctions"],
@@ -64,7 +59,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Variables",
                 "memberTypes": [
@@ -94,7 +88,6 @@
         },
         "memberGroups": [
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Properties",
                 "memberTypes": [
@@ -116,7 +109,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Constructors",
                 "memberTypes": ["staticBlockDeclarations", "constructors"],
@@ -125,7 +117,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Indexes",
                 "memberTypes": ["publicStaticIndexes", "publicIndexes"],
@@ -134,7 +125,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Accessors",
                 "memberTypes": [
@@ -152,7 +142,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Getters And Setters",
                 "memberTypes": [
@@ -170,7 +159,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Methods",
                 "memberTypes": [
@@ -201,7 +189,6 @@
         },
         "memberGroups": [
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Properties and indexes",
                 "memberTypes": ["readOnlyProperties", "properties", "indexes"],
@@ -210,7 +197,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Methods, getter and setters",
                 "memberTypes": ["methods", "gettersAndSetters"],
@@ -231,7 +217,6 @@
         },
         "memberGroups": [
             {
-                "sort": true,
                 "sortDirection": "asc",
                 "caption": "Properties, indexes and methods",
                 "memberTypes": ["properties", "indexes", "methods"],

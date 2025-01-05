@@ -19,7 +19,6 @@
         },
         "memberGroups": [
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Enums",
                 "memberTypes": ["enums"],
@@ -28,7 +27,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Interfaces",
                 "memberTypes": ["interfaces"],
@@ -37,7 +35,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Classes",
                 "memberTypes": ["classes"],
@@ -46,7 +43,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Types",
                 "memberTypes": ["types"],
@@ -55,7 +51,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Functions",
                 "memberTypes": ["functions"],
@@ -64,7 +59,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Exported Functions",
                 "memberTypes": ["exportedFunctions"],
@@ -73,7 +67,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Constants",
                 "memberTypes": ["constants"],
@@ -82,7 +75,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Variables",
                 "memberTypes": ["variables"],
@@ -91,7 +83,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Exported Constants",
                 "memberTypes": ["exportedConstants"],
@@ -100,7 +91,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Exported Variables",
                 "memberTypes": ["exportedVariables"],
@@ -125,7 +115,6 @@
         },
         "memberGroups": [
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Private Static ReadOnly Properties",
                 "memberTypes": ["privateStaticReadOnlyProperties"],
@@ -134,7 +123,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Private Readonly Properties",
                 "memberTypes": ["privateReadOnlyProperties"],
@@ -143,7 +131,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Private Static Properties",
                 "memberTypes": ["privateStaticProperties"],
@@ -152,7 +139,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Private Properties",
                 "memberTypes": ["privateProperties"],
@@ -161,7 +147,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Protected Static ReadOnly Properties",
                 "memberTypes": ["protectedStaticReadOnlyProperties"],
@@ -170,7 +155,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Protected ReadOnly Properties",
                 "memberTypes": ["protectedReadOnlyProperties"],
@@ -179,7 +163,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Protected Static Properties",
                 "memberTypes": ["protectedStaticProperties"],
@@ -188,7 +171,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Protected Properties",
                 "memberTypes": ["protectedProperties"],
@@ -197,7 +179,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Static ReadOnly Properties",
                 "memberTypes": ["publicStaticReadOnlyProperties"],
@@ -206,7 +187,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public ReadOnly Properties",
                 "memberTypes": ["publicReadOnlyProperties"],
@@ -215,7 +195,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Static Properties",
                 "memberTypes": ["publicStaticProperties"],
@@ -224,7 +203,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Properties",
                 "memberTypes": ["publicProperties"],
@@ -233,7 +211,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Static Block Declarations",
                 "memberTypes": ["staticBlockDeclarations"],
@@ -242,7 +219,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Constructors",
                 "memberTypes": ["constructors"],
@@ -251,7 +227,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Static Indexes",
                 "memberTypes": ["publicStaticIndexes"],
@@ -260,7 +235,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Indexes",
                 "memberTypes": ["publicIndexes"],
@@ -269,7 +243,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Static Accessors",
                 "memberTypes": ["publicStaticAccessors"],
@@ -278,7 +251,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Accessors",
                 "memberTypes": ["publicAccessors"],
@@ -287,7 +259,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Abstract Accessors",
                 "memberTypes": ["publicAbstractAccessors"],
@@ -296,7 +267,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Protected Static Accessors",
                 "memberTypes": ["protectedStaticAccessors"],
@@ -305,7 +275,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Protected Accessors",
                 "memberTypes": ["protectedAccessors"],
@@ -314,7 +283,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Protected Abstract Accessors",
                 "memberTypes": ["protectedAbstractAccessors"],
@@ -323,7 +291,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Private Static Accessors",
                 "memberTypes": ["privateStaticAccessors"],
@@ -332,7 +299,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Private Accessors",
                 "memberTypes": ["privateAccessors"],
@@ -341,7 +307,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Static Getters And Setters",
                 "memberTypes": ["publicStaticGettersAndSetters"],
@@ -350,7 +315,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Getters And Setters",
                 "memberTypes": ["publicGettersAndSetters"],
@@ -359,7 +323,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Abstract Getters And Setters",
                 "memberTypes": ["publicAbstractGettersAndSetters"],
@@ -368,7 +331,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Protected Static Getters And Setters",
                 "memberTypes": ["protectedStaticGettersAndSetters"],
@@ -377,7 +339,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Protected Getters And Setters",
                 "memberTypes": ["protectedGettersAndSetters"],
@@ -386,7 +347,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Protected Abstract Getters And Setters",
                 "memberTypes": ["protectedAbstractGettersAndSetters"],
@@ -395,7 +355,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Private Static Getters And Setters",
                 "memberTypes": ["privateStaticGettersAndSetters"],
@@ -404,7 +363,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Private Getters And Setters",
                 "memberTypes": ["privateGettersAndSetters"],
@@ -413,7 +371,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Static Methods",
                 "memberTypes": ["publicStaticMethods"],
@@ -422,7 +379,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Methods",
                 "memberTypes": ["publicMethods"],
@@ -431,7 +387,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Public Abstract Methods",
                 "memberTypes": ["publicAbstractMethods"],
@@ -440,7 +395,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Protected Static Methods",
                 "memberTypes": ["protectedStaticMethods"],
@@ -449,7 +403,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Protected Methods",
                 "memberTypes": ["protectedMethods"],
@@ -458,7 +411,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Protected Abstract Methods",
                 "memberTypes": ["protectedAbstractMethods"],
@@ -467,7 +419,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Private Static Methods",
                 "memberTypes": ["privateStaticMethods"],
@@ -476,7 +427,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Private Methods",
                 "memberTypes": ["privateMethods"],
@@ -498,7 +448,6 @@
         },
         "memberGroups": [
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Properties",
                 "memberTypes": ["readOnlyProperties", "properties"],
@@ -507,7 +456,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Indexes",
                 "memberTypes": ["indexes"],
@@ -516,7 +464,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Getters And Setters",
                 "memberTypes": ["gettersAndSetters"],
@@ -525,7 +472,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Methods",
                 "memberTypes": ["methods"],
@@ -546,7 +492,6 @@
         },
         "memberGroups": [
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Properties",
                 "memberTypes": ["properties"],
@@ -555,7 +500,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Indexes",
                 "memberTypes": ["indexes"],
@@ -564,7 +508,6 @@
                 "placeBelow": []
             },
             {
-                "sort": true,
                 "sortDirection": "desc",
                 "caption": "Methods",
                 "memberTypes": ["methods"],

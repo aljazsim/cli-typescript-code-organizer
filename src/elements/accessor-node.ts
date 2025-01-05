@@ -5,16 +5,15 @@ import * as ts from "typescript";
 
 export class AccessorNode extends ElementNode
 {
-    // #region Properties (6)
+    // #region Properties (5)
 
     public readonly accessModifier: AccessModifier | null;
     public readonly decorators: string[];
-    public readonly hasLeadingComment: boolean;
     public readonly isAbstract: boolean;
     public readonly isStatic: boolean;
     public readonly name: string;
 
-    // #endregion Properties (6)
+    // #endregion Properties (5)
 
     // #region Constructors (1)
 
@@ -29,18 +28,7 @@ export class AccessorNode extends ElementNode
 
         this.isAbstract = getIsAbstract(accessorDeclaration);
         this.isStatic = getIsStatic(accessorDeclaration);
-
-        this.hasLeadingComment = this.getHasLeadingComment(accessorDeclaration, sourceFile);
     }
 
     // #endregion Constructors (1)
-
-    // #region Private Methods (1)
-
-    private getHasLeadingComment(accessorDeclaration: ts.AccessorDeclaration | ts.AutoAccessorPropertyDeclaration, sourceFile: ts.SourceFile): any
-    {
-        return ts.getLeadingCommentRanges(accessorDeclaration.getFullText(sourceFile), 0) !== undefined;
-    }
-
-    // #endregion Private Methods (1)
 }

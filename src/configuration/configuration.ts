@@ -240,7 +240,7 @@ export class Configuration
         // add missing member types (one per group)
         for (const missingMemberType of missingMemberTypes) 
         {
-            fixedMemberTypeOrder.push(new ClassMemberGroupConfiguration(true, "asc", convertPascalCaseToTitleCase(ClassMemberType[missingMemberType]), [missingMemberType], true, [], []));
+            fixedMemberTypeOrder.push(new ClassMemberGroupConfiguration("asc", convertPascalCaseToTitleCase(ClassMemberType[missingMemberType]), [missingMemberType], true, [], []));
         }
 
         return fixedMemberTypeOrder;
@@ -262,7 +262,7 @@ export class Configuration
         // add missing member types (one per group)
         for (const missingMemberType of missingMemberTypes) 
         {
-            fixedMemberTypeOrder.push(new InterfaceMemberGroupConfiguration(true, "asc", convertPascalCaseToTitleCase(InterfaceMemberType[missingMemberType]), [missingMemberType], true, [], []));
+            fixedMemberTypeOrder.push(new InterfaceMemberGroupConfiguration("asc", convertPascalCaseToTitleCase(InterfaceMemberType[missingMemberType]), [missingMemberType], true, [], []));
         }
 
         return fixedMemberTypeOrder;
@@ -284,7 +284,7 @@ export class Configuration
         // add missing member types (one per group)
         for (const missingMemberType of missingMemberTypes) 
         {
-            fixedMemberTypeOrder.push(new ModuleMemberGroupConfiguration(true, "asc", convertPascalCaseToTitleCase(ModuleMemberType[missingMemberType]), [missingMemberType], true, [], []));
+            fixedMemberTypeOrder.push(new ModuleMemberGroupConfiguration("asc", convertPascalCaseToTitleCase(ModuleMemberType[missingMemberType]), [missingMemberType], true, [], []));
         }
 
         return fixedMemberTypeOrder;
@@ -306,7 +306,7 @@ export class Configuration
         // add missing member types (one per group)
         for (const missingMemberType of missingMemberTypes) 
         {
-            fixedMemberTypeOrder.push(new TypeMemberGroupConfiguration(true, "asc", convertPascalCaseToTitleCase(TypeMemberType[missingMemberType]), [missingMemberType], true, [], []));
+            fixedMemberTypeOrder.push(new TypeMemberGroupConfiguration("asc", convertPascalCaseToTitleCase(TypeMemberType[missingMemberType]), [missingMemberType], true, [], []));
         }
 
         return fixedMemberTypeOrder;
@@ -314,8 +314,7 @@ export class Configuration
 
     private static parseClassMemberGroupConfiguration(classMemberGroupConfiguration: any)
     {
-        const sort = classMemberGroupConfiguration.sort ?? true;
-        const sortDirection = classMemberGroupConfiguration.sortDirection === "asc" ? "asc" : "desc";
+        const sortDirection = classMemberGroupConfiguration.sortDirection === "asc" ? "asc" : (classMemberGroupConfiguration.sortDirection === "desc" ? "desc" : "none");
         const caption = classMemberGroupConfiguration.caption ?? "Region";
         const memberTypes = distinct(classMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => ClassMemberType[t as keyof typeof ClassMemberType]).filter(t => t != undefined);
         const memberTypesGrouped = classMemberGroupConfiguration.memberTypesGrouped ?? true;
@@ -331,7 +330,7 @@ export class Configuration
             }
         }
 
-        return new ClassMemberGroupConfiguration(sort, sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
+        return new ClassMemberGroupConfiguration(sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
     }
 
     private static parseImportSourceFilePathQuoteType(quoteType: string)
@@ -352,8 +351,7 @@ export class Configuration
 
     private static parseInterfaceMemberGroupConfiguration(interfaceMemberGroupConfiguration: any)
     {
-        const sort = interfaceMemberGroupConfiguration.sort ?? true;
-        const sortDirection = interfaceMemberGroupConfiguration.sortDirection === "asc" ? "asc" : "desc";
+        const sortDirection = interfaceMemberGroupConfiguration.sortDirection === "asc" ? "asc" : (interfaceMemberGroupConfiguration.sortDirection === "desc" ? "desc" : "none");
         const caption = interfaceMemberGroupConfiguration.caption ?? "Region";
         const memberTypes = distinct(interfaceMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => InterfaceMemberType[t as keyof typeof InterfaceMemberType]).filter(t => t != undefined);
         const memberTypesGrouped = interfaceMemberGroupConfiguration.memberTypesGrouped ?? true;
@@ -369,13 +367,12 @@ export class Configuration
             }
         }
 
-        return new InterfaceMemberGroupConfiguration(sort, sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
+        return new InterfaceMemberGroupConfiguration(sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
     }
 
     private static parseModuleMemberGroupConfiguration(moduleMemberGroupConfiguration: any)
     {
-        const sort = moduleMemberGroupConfiguration.sort ?? true;
-        const sortDirection = moduleMemberGroupConfiguration.sortDirection === "asc" ? "asc" : "desc";
+        const sortDirection = moduleMemberGroupConfiguration.sortDirection === "asc" ? "asc" : (moduleMemberGroupConfiguration.sortDirection === "desc" ? "desc" : "none");
         const caption = moduleMemberGroupConfiguration.caption ?? "Region";
         const memberTypes = distinct(moduleMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => ModuleMemberType[t as keyof typeof ModuleMemberType]).filter(t => t != undefined);
         const memberTypesGrouped = moduleMemberGroupConfiguration.memberTypesGrouped ?? true;
@@ -391,13 +388,12 @@ export class Configuration
             }
         }
 
-        return new ModuleMemberGroupConfiguration(sort, sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
+        return new ModuleMemberGroupConfiguration(sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
     }
 
     private static parseTypeMemberGroupConfiguration(typeMemberGroupConfiguration: any)
     {
-        const sort = typeMemberGroupConfiguration.sort ?? true;
-        const sortDirection = typeMemberGroupConfiguration.sortDirection === "asc" ? "asc" : "desc";
+        const sortDirection = typeMemberGroupConfiguration.sortDirection === "asc" ? "asc" : (typeMemberGroupConfiguration.sortDirection === "desc" ? "desc" : "none");
         const caption = typeMemberGroupConfiguration.caption ?? "Region";
         const memberTypes = distinct(typeMemberGroupConfiguration.memberTypes as string[] ?? []).map(t => TypeMemberType[t as keyof typeof TypeMemberType]).filter(t => t != undefined);
         const memberTypesGrouped = typeMemberGroupConfiguration.memberTypesGrouped ?? true;
@@ -413,7 +409,7 @@ export class Configuration
             }
         }
 
-        return new TypeMemberGroupConfiguration(sort, sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
+        return new TypeMemberGroupConfiguration(sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
     }
 
     // #endregion Private Static Methods (10)

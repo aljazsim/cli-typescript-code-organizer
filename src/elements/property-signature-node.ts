@@ -5,13 +5,12 @@ import { getWriteMode } from "../helpers/node-helper";
 
 export class PropertySignatureNode extends ElementNode
 {
-    // #region Properties (3)
+    // #region Properties (2)
 
-    public readonly hasLeadingComment: boolean;
     public readonly name: string;
     public readonly writeMode: WriteModifier;
 
-    // #endregion Properties (3)
+    // #endregion Properties (2)
 
     // #region Constructors (1)
 
@@ -22,17 +21,7 @@ export class PropertySignatureNode extends ElementNode
         this.name = (<ts.Identifier>propertySignatureDeclaration.name).escapedText.toString();
 
         this.writeMode = getWriteMode(propertySignatureDeclaration);
-        this.hasLeadingComment = this.getHasLeadingComment(propertySignatureDeclaration, sourceFile);
     }
 
     // #endregion Constructors (1)
-
-    // #region Private Methods (1)
-
-    private getHasLeadingComment(propertySignatureDeclaration: ts.PropertySignature, sourceFile: ts.SourceFile): any
-    {
-        return ts.getLeadingCommentRanges(propertySignatureDeclaration.getFullText(sourceFile), 0) !== undefined;
-    }
-
-    // #endregion Private Methods (1)
 }

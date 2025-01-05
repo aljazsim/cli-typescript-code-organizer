@@ -1,5 +1,3 @@
-import { ClassMemberGroupConfiguration } from "./class-member-group-configuration";
-import { RegionConfiguration } from "./region-configuration";
 
 export class ClassMemberConfiguration
 {

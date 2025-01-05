@@ -5,8 +5,7 @@ export class ModuleMemberGroupConfiguration
     // #region Constructors (1)
 
     constructor(
-        public readonly sort: boolean,
-        public readonly sortDirection: "asc" | "desc",
+        public readonly sortDirection: "asc" | "desc" | "none",
         public readonly caption: string,
         public readonly memberTypes: ModuleMemberType[],
         public readonly memberTypesGrouped: boolean,
