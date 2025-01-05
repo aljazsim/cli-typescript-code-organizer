@@ -10,8 +10,8 @@ import "../../../configurations/default-configuration-with-no-regions.json";
 import "./missing-file.json";
 
 import { TestInterface } from "../interface/test-interface";
-import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE, decoratorF, decoratorG } from "../test-decorators";
-import { decoratorA, decoratorB } from "../test-decorators";
+import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE, decoratorF, decoratorG } from "./test-decorators";
+import { decoratorA, decoratorB } from "./test-decorators";
 
 export abstract class TestClass implements TestInterface
 {
