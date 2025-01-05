@@ -1,8 +1,62 @@
 # TypeScript Class Organizer Command Line Interface
 
+TypeScript Class Organizer Command Line Interface (or `tsco cli` for short) is a command line tool for organizing TypeScript source code in a workspace. It allows software developers to organize import statements, modules, classes, interfaces and type members and helps them keep their source code consistent and easier to navigate. It is highly configurable and allows sharing of the configuration across the development team.
+
+Here is an example of TypeScript code before organizing:
+
+```typescript
+interface ICube {
+    move(): void,
+    readonly surface: number,
+    depth: number,
+
+    height: number,
+    readonly volume: number,
+
+    width: number,
+    translate(): Promise<void>,
+    color: string,
+    load(): Promise<void>,
+    reload(): Promise<void>,
+
+
+    rotate():void,
+}
+```
+
+Here is the same TypeScript code after organizing:
+
+```typescript
+interface ICube {
+    // #region Properties (6)
+
+    readonly surface: number,
+    readonly volume: number,
+
+    color: string,
+    depth: number,
+    height: number,
+    width: number,
+
+    // #endregion
+
+    // #region Methods (5)
+
+    load(): Promise<void>,
+    move(): void,
+    reload(): Promise<void>,
+    rotate(): void,
+    translate(): Promise<void>,
+
+    // #endregion
+}
+```
+
+Everything from import statements, regions, grouping to sorting can be configured!
+
 ## Installation
 
-In order to install TypeScript Class Organizer (or `tsco cli` for short) ensure you have `npm` installed, open a terminal window and run:
+In order to install TypeScript Class Organizer ensure you have `npm` installed, open a terminal window and run:
 
 ```powershell
 npm install tsco -g
@@ -135,7 +189,7 @@ Specifies how module level elements (enums, types, interfaces, classes, function
 
 ### Class Organization Configuration
 
-Specifies how class level elements (properties, constructors, indexes, accessors, getters, setters and methods) will be organized.
+Specifies how class level elements (properties, constructors, indexes, accessors, getters, setters and methods) will be organized. Here's an example of the default class configuration section:
 
 ```json
 {
@@ -161,7 +215,7 @@ Specifies how class level elements (properties, constructors, indexes, accessors
 
 ### Interface Organization Configuration
 
-Specifies how interface level elements (properties, indexes, accessors, getters, setters and methods) will be organized.
+Specifies how interface level elements (properties, indexes, accessors, getters, setters and methods) will be organized. Here's an example of the default interface configuration section:
 
 ```json
 {
@@ -184,7 +238,7 @@ Specifies how interface level elements (properties, indexes, accessors, getters,
 
 ### Type Organization Configuration
 
-Specifies how type level elements (properties, indexes, and methods) will be organized.
+Specifies how type level elements (properties, indexes, and methods) will be organized. Here's an example of the default type configuration section:
 
 ```json
 {
@@ -206,7 +260,7 @@ Specifies how type level elements (properties, indexes, and methods) will be org
 
 ### Member Group Configuration
 
-Specifies how members are grouped together when organizing modules, classes, interfaces and types.
+Specifies how members are grouped together when organizing modules, classes, interfaces and types. Here's an example of the default member group configuration section:
 
 ```json
 {
@@ -237,20 +291,20 @@ Structures   | Functions           | Variables
 
 #### Class Member Types
 
-Properties                          | Constructors              | Indexes   | Accessors                       | Getters and Setters                  | Methods
------------------------------------ | ------------------------- | --------- | ------------------------------- | ------------------------------------ | --------------------------
-`privateStaticReadOnlyProperties`   | `staticBlockDeclarations` | `indexes` | `publicAccessors`               | `publicGettersAndSetters`            | `publicMethods`
-`privateReadOnlyProperties`         | `constructors`            |           | `publicAbstractAccessors`       | `publicAbstractGettersAndSetters`    | `publicAbstractMethods`
-`privateStaticProperties`           |                           |           | `privateStaticAccessors`        | `privateStaticGettersAndSetters`     | `protectedStaticMethods`
-`privateProperties`                 |                           |           | `privateAccessors`              | `privateGettersAndSetters`           | `protectedMethods`
-`protectedStaticReadOnlyProperties` |                           |           | `protectedStaticAccessors`      | `protectedStaticGettersAndSetters`   | `protectedAbstractMethods`
-`protectedReadOnlyProperties`       |                           |           | `protectedAccessors`            | `protectedGettersAndSetters`         | `privateStaticMethods`
-`protectedStaticProperties`         |                           |           | `protectedAbstractAccessors`    | `protectedAbstractGettersAndSetters` | `privateMethods`
-`protectedProperties`               |                           |           | `publicStaticGettersAndSetters` | `publicStaticMethods`                |
-`publicStaticReadOnlyProperties`    |                           |           |                                 |                                      |
-`publicReadOnlyProperties`          |                           |           |                                 |                                      |
-`publicStaticProperties`            |                           |           |                                 |                                      |
-`publicProperties`                  |                           |           |                                 |                                      |
+Properties                          | Constructors              | Accessors                       | Getters and Setters                  | Methods
+----------------------------------- | ------------------------- | ------------------------------- | ------------------------------------ | --------------------------
+`privateStaticReadOnlyProperties`   | `staticBlockDeclarations` | `publicAccessors`               | `publicGettersAndSetters`            | `publicMethods`
+`privateReadOnlyProperties`         | `constructors`            | `publicAbstractAccessors`       | `publicAbstractGettersAndSetters`    | `publicAbstractMethods`
+`privateStaticProperties`           |                           | `privateStaticAccessors`        | `privateStaticGettersAndSetters`     | `protectedStaticMethods`
+`privateProperties`                 |                           | `privateAccessors`              | `privateGettersAndSetters`           | `protectedMethods`
+`protectedStaticReadOnlyProperties` |                           | `protectedStaticAccessors`      | `protectedStaticGettersAndSetters`   | `protectedAbstractMethods`
+`protectedReadOnlyProperties`       |                           | `protectedAccessors`            | `protectedGettersAndSetters`         | `privateStaticMethods`
+`protectedStaticProperties`         |                           | `protectedAbstractAccessors`    | `protectedAbstractGettersAndSetters` | `privateMethods`
+`protectedProperties`               |                           | `publicStaticGettersAndSetters` | `publicStaticMethods`                |
+`publicStaticReadOnlyProperties`    |                           |                                 |                                      |
+`publicReadOnlyProperties`          |                           |                                 |                                      |
+`publicStaticProperties`            |                           |                                 |                                      |
+`publicProperties`                  |                           |                                 |                                      |
 
 #### Interface Member Types
 
