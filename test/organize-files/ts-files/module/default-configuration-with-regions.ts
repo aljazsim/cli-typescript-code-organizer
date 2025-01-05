@@ -1,16 +1,6 @@
 // #region Interfaces
 
-export interface ExportedInterface1 { }
-
-export interface ExportedInterface2 { }
-
-export interface ExportedInterface3 { }
-
-export interface ExportedInterface4 { }
-
-export interface ExportedInterface5 { }
-
-interface Interface1 {
+interface Interface01 {
  // #region Properties
 
  property1: string;
@@ -24,35 +14,39 @@ interface Interface1 {
  // #endregion
 }
 
-interface Interface2 { }
+export interface Interface02 { }
 
-interface Interface3 { }
+export interface Interface03 { }
 
-interface Interface4 { }
+interface Interface04 { }
 
-interface Interface5 { }
+interface Interface05 { }
+
+export interface Interface06 { }
+
+export interface Interface07 { }
+
+interface Interface08 { }
+
+interface Interface09 { }
+
+export interface Interface10 { }
 
 // #endregion
 
 // #region Classes
 
-class Class1 { }
+class Class01 { }
 
-class Class2 {
- // #region Properties
+export class Class02 { }
 
- public property1: string | null = null;
+class Class03 { }
 
- // #endregion
-}
+export class Class04 { }
 
-class Class3 { }
+class Class05 { }
 
-class Class4 { }
-
-class Class5 { }
-
-export class ExportedClass1 {
+export class Class06 {
  // #region Public Methods
 
  public method2() { }
@@ -60,29 +54,39 @@ export class ExportedClass1 {
  // #endregion
 }
 
-export class ExportedClass2 { }
+class Class07 {
+ // #region Properties
 
-export class ExportedClass3 { }
+ public property1: string | null = null;
 
-export class ExportedClass4 { }
+ // #endregion
 
-export class ExportedClass5 { }
+ // #region Accessors
+
+ public accessor accessor1: string = "";
+
+ // #endregion
+
+ // #region Public Getters And Setters
+
+ public get getZero() { return 0 }
+
+ // #endregion
+}
+
+export class Class08 { }
+
+export class Class09 { }
+
+class Class10 { }
 
 // #endregion
 
 // #region Types
 
-export type ExportedType1 = {};
+type Type01 = {};
 
-export type ExportedType2 = {};
-
-export type ExportedType3 = {};
-
-export type ExportedType4 = {};
-
-export type ExportedType5 = {};
-
-type Type1 = {
+type Type02 = {
  // #region Properties
 
  property1: string
@@ -90,7 +94,21 @@ type Type1 = {
  // #endregion
 };
 
-type Type2 = {
+type Type03 = {};
+
+export type Type04 = {};
+
+export type Type05 = {};
+
+export type Type06 = {};
+
+type Type07 = {
+ // #region Properties
+
+ property1: string
+
+ // #endregion
+
  // #region Methods
 
  method1(): void;
@@ -99,66 +117,66 @@ type Type2 = {
  // #endregion
 };
 
-type Type3 = {};
+export type Type08 = {};
 
-type Type4 = {};
+type Type09 = {};
 
-type Type5 = {};
+export type Type10 = {};
 
 // #endregion
 
 // #region Functions
 
-function function1() { }
+function function02() { }
 
-function function2() { }
+function function04() { }
 
-function function3() { }
+function function05() { }
 
-function function4() { }
+function function07() { }
 
-function function5() { }
+function function08() { }
 
 // #endregion
 
 // #region Exported Functions
 
-export function exportedFunction1() { }
+export function function01() { }
 
-export function exportedFunction2() { }
+export function function03() { }
 
-export function exportedFunction3() { }
+export function function06() { }
 
-export function exportedFunction4() { }
+export function function09() { }
 
-export function exportedFunction5() { }
+export function function10() { }
 
 // #endregion
 
 // #region Variables
 
-const const1 = 1;
-const const2 = 2;
-const const3 = 3;
-const const4 = 4;
-const const5 = 5;
+const var01 = 1;
+const var03 = 3;
+const var05 = 5;
+const var11 = 2;
+const var14 = 4;
 
-let variable1 = null;
-let variable2 = null;
-let variable3 = null;
-let variable4 = null;
-let variable5 = null;
+let var06 = null;
+let var07 = null;
+let var18 = null;
+let var20 = null;
+let var29 = null;
 
-export const exportedConst1 = 1;
-export const exportedConst2 = 2;
-export const exportedConst3 = 3;
-export const exportedConst4 = 4;
-export const exportedConst5 = 5;
+export const var02 = 1;
+export const var04 = 4;
+export const var13 = 3;
+export const var15 = 5;
+export const var19 = 2;
 
-export let exportedVariable1 = null;
-export let exportedVariable2 = null;
-export let exportedVariable3 = null;
-export let exportedVariable4 = null;
-export let exportedVariable5 = null;
+export let var08 = null;
+export let var09 = null;
+export let var10 = null;
+export let var16 = null;
+export let var17 = null;
 
 // #endregion
