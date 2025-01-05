@@ -6,6 +6,8 @@ export interface TestInterface
 
 
     publicProperty2: string;
+
+    // a setter
     set publicSetter4(value: any);
 
 
@@ -20,13 +22,17 @@ export interface TestInterface
     readonly publicReadonlyProperty8: number;
     publicMethod7(): string;
 
+    // a getter
     get publicGetter2(): number;
     publicProperty1: string;
 
     readonly publicReadonlyProperty2: string | undefined;
 
 
+    // a property
     publicProperty7: string;
+
+    // a method
     publicMethod4(): number;
     readonly publicReadonlyProperty6: string | undefined;
     publicMethod6(): any;
@@ -40,6 +46,7 @@ export interface TestInterface
 
     publicProperty9: string | null;
 
+    // an index
     [key: string]: any;
     readonly publicReadonlyProperty1: (p1: number, p2: number) => void;
     publicMethod5(): number | undefined;

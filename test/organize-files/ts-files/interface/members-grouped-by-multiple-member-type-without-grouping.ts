@@ -1,7 +1,10 @@
 export interface TestInterface
 {
-    // #region Properties and indexes (19)
 
+// #region Properties and indexes (19)
+
+
+    // an index
     [key: string]: any;
     publicProperty1: string;
     publicProperty2: string;
@@ -9,6 +12,8 @@ export interface TestInterface
     publicProperty4: string;
     publicProperty5: number;
     publicProperty6: (p1: string) => number;
+
+    // a property
     publicProperty7: string;
     publicProperty8: boolean;
     publicProperty9: string | null;
@@ -22,10 +27,12 @@ export interface TestInterface
     readonly publicReadonlyProperty8: number;
     readonly publicReadonlyProperty9: string;
 
-    // #endregion Properties and indexes
+
+// #endregion Properties and indexes
 
     // #region Methods, getter and setters (18)
 
+    // a getter
     get publicGetter2(): number;
 
     get publicGetter4(): any;
@@ -37,6 +44,8 @@ export interface TestInterface
     publicMethod1(): number;
     publicMethod2(): void;
     publicMethod3(): () => number;
+
+    // a method
     publicMethod4(): number;
     publicMethod5(): number | undefined;
     publicMethod6(): any;
@@ -49,6 +58,7 @@ export interface TestInterface
 
     set publicSetter3(value: number);
 
+    // a setter
     set publicSetter4(value: any);
 
     set publicSetter5(size: number);

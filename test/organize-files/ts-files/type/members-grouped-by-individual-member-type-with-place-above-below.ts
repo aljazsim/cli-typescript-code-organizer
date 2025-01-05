@@ -5,15 +5,18 @@ export type TestType = {
     property8: number;
     property7: number | undefined;
     property1: string | null;
+
     // comment
     property2: (date: Date) => Promise<Date>;
     property3: string;
+
     /**
      * Property documentation
      * @returns a value
      */
     property4: () => void;
     property5: any;
+
     //
     //
     //
@@ -22,6 +25,7 @@ export type TestType = {
     //
     //
     property9: Date;
+
     /*
     * Property documentation
     */
@@ -32,6 +36,7 @@ export type TestType = {
 
     method1(): void;
     method2(): void;
+
     /**
      * Method documentation.
      */

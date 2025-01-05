@@ -23,17 +23,25 @@ export class SourceCode
 
     // #endregion Constructors (1)
 
-    // #region Public Methods (11)
+    // #region Public Methods (12)
 
-    public add(newSourceCode: string | SourceCode)
+    public add(newSourceCode: string | SourceCode, where: "before" | "after" = "after")
     {
-        if (newSourceCode instanceof SourceCode)
+        if (newSourceCode instanceof SourceCode && where === "after")
         {
-            this.sourceCode += newSourceCode.toString();
+            this.sourceCode = this.sourceCode + newSourceCode.toString();
         }
-        else
+        else if (newSourceCode instanceof SourceCode && where === "before")
         {
-            this.sourceCode += newSourceCode;
+            this.sourceCode = newSourceCode.toString() + this.sourceCode;
+        }
+        else if (where === "after")
+        {
+            this.sourceCode = this.sourceCode + newSourceCode;
+        }
+        else if (where === "before")
+        {
+            this.sourceCode = newSourceCode + this.sourceCode;
         }
     }
 
@@ -44,21 +52,26 @@ export class SourceCode
             const temp = this.sourceCode;
 
             this.sourceCode = comment.trimEnd();
-            this.addNewLine();
+            this.addNewLineAfter();
             this.add(temp);
         }
     }
 
-    public addNewLine()
+    public addNewLineAfter()
     {
         this.add(this.newLine);
+    }
+
+    public addNewLineBefore()
+    {
+        this.add(this.newLine, "before");
     }
 
     public addNewLineIf(condition: boolean)
     {
         if (condition)
         {
-            this.addNewLine();
+            this.addNewLineAfter();
         }
     }
 
@@ -189,12 +202,12 @@ export class SourceCode
         endregion = endregion.trimEnd();
 
         this.sourceCode = region;
-        this.addNewLine();
-        this.addNewLine();
+        this.addNewLineAfter();
+        this.addNewLineAfter();
         this.add(code);
-        this.addNewLine();
+        this.addNewLineAfter();
         this.add(endregion);
-        this.addNewLine();
+        this.addNewLineAfter();
     }
 
     public removeConsecutiveEmptyLines()
@@ -287,9 +300,9 @@ export class SourceCode
         this.sourceCode = this.sourceCode.trim();
     }
 
-    // #endregion Public Methods (11)
+    // #endregion Public Methods (12)
 
-    // #region Private Static Methods (2)
+    // #region Private Static Methods (1)
 
     private static getIndentation(sourceCode: string)
     {
@@ -305,5 +318,5 @@ export class SourceCode
         }
     }
 
-    // #endregion Private Static Methods (2)
+    // #endregion Private Static Methods (1)
 }

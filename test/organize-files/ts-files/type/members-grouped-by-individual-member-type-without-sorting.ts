@@ -4,19 +4,23 @@
 export type TestType = {
     property3: string;
     property1: string | null;
+
     /*
     * Property documentation
     */
     property6: (p1: number) => number;
+
     // comment
     property2: (date: Date) => Promise<Date>;
     property7: number | undefined;
+
     /**
      * Property documentation
      * @returns a value
      */
     property4: () => void;
     property5: any;
+
     //
     //
     //
@@ -29,6 +33,7 @@ export type TestType = {
 
     [index: string]: any;
     [index: number]: any;
+
 
     /**
      * Method documentation.

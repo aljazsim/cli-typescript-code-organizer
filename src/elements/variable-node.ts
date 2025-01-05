@@ -5,14 +5,15 @@ import { getIsExport } from "../helpers/node-helper";
 
 export class VariableNode extends ElementNode
 {
-    // #region Properties (4)
+    // #region Properties (5)
 
+    public readonly hasLeadingComment: boolean;
     public readonly isArrowFunction: boolean;
     public readonly isConst: boolean;
     public readonly isExport: boolean;
     public readonly name: string;
 
-    // #endregion Properties (4)
+    // #endregion Properties (5)
 
     // #region Constructors (1)
 
@@ -29,11 +30,17 @@ export class VariableNode extends ElementNode
         const sourceCode = variableStatement.getText(sourceFile).trim();
 
         this.isConst = sourceCode.startsWith("const ") || sourceCode.startsWith("export const ");
+        this.hasLeadingComment = this.getHasLeadingComment(variableStatement, sourceFile);
     }
 
     // #endregion Constructors (1)
 
-    // #region Private Methods (1)
+    // #region Private Methods (2)
+
+    private getHasLeadingComment(variableStatement: ts.VariableStatement, sourceFile: ts.SourceFile): any
+    {
+        return ts.getLeadingCommentRanges(variableStatement.getFullText(sourceFile), 0) !== undefined;
+    }
 
     private getIsArrowFunction(variableStatement: ts.VariableStatement)
     {
@@ -44,5 +51,5 @@ export class VariableNode extends ElementNode
             variableStatement.declarationList.declarations[0].initializer.kind === ts.SyntaxKind.ArrowFunction;
     }
 
-    // #endregion Private Methods (1)
+    // #endregion Private Methods (2)
 }

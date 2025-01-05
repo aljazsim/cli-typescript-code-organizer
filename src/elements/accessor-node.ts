@@ -5,30 +5,42 @@ import * as ts from "typescript";
 
 export class AccessorNode extends ElementNode
 {
-    // #region Properties (5)
+    // #region Properties (6)
 
     public readonly accessModifier: AccessModifier | null;
     public readonly decorators: string[];
+    public readonly hasLeadingComment: boolean;
     public readonly isAbstract: boolean;
     public readonly isStatic: boolean;
     public readonly name: string;
 
-    // #endregion Properties (5)
+    // #endregion Properties (6)
 
     // #region Constructors (1)
 
-    constructor(sourceFile: ts.SourceFile, getterDeclaration: ts.AccessorDeclaration | ts.AutoAccessorPropertyDeclaration)
+    constructor(sourceFile: ts.SourceFile, accessorDeclaration: ts.AccessorDeclaration | ts.AutoAccessorPropertyDeclaration)
     {
-        super(sourceFile, getterDeclaration);
+        super(sourceFile, accessorDeclaration);
 
-        this.name = (<ts.Identifier>getterDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(getterDeclaration.name.pos, getterDeclaration.name.end).trim();
+        this.name = (<ts.Identifier>accessorDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(accessorDeclaration.name.pos, accessorDeclaration.name.end).trim();
 
-        this.accessModifier = getAccessModifier(getterDeclaration);
-        this.decorators = getDecorators(getterDeclaration, sourceFile);
+        this.accessModifier = getAccessModifier(accessorDeclaration);
+        this.decorators = getDecorators(accessorDeclaration, sourceFile);
 
-        this.isAbstract = getIsAbstract(getterDeclaration);
-        this.isStatic = getIsStatic(getterDeclaration);
+        this.isAbstract = getIsAbstract(accessorDeclaration);
+        this.isStatic = getIsStatic(accessorDeclaration);
+
+        this.hasLeadingComment = this.getHasLeadingComment(accessorDeclaration, sourceFile);
     }
 
     // #endregion Constructors (1)
+
+    // #region Private Methods (1)
+
+    private getHasLeadingComment(accessorDeclaration: ts.AccessorDeclaration | ts.AutoAccessorPropertyDeclaration, sourceFile: ts.SourceFile): any
+    {
+        return ts.getLeadingCommentRanges(accessorDeclaration.getFullText(sourceFile), 0) !== undefined;
+    }
+
+    // #endregion Private Methods (1)
 }

@@ -108,6 +108,9 @@ export abstract class TestClass implements TestInterface
 
     // #region Public ReadOnly Properties (9)
 
+    /**
+     * The property
+     */
     @decoratorB()
     public readonly publicReadonlyProperty1 = (p1: number, p2: number) => { };
     public readonly publicReadonlyProperty3: String = "16";
@@ -179,6 +182,10 @@ export abstract class TestClass implements TestInterface
     // #region Public Accessors (3)
 
     public accessor publicAccessor2: number = 8647818341;
+
+    /**
+     * The accessor
+     */
     public accessor publicAccessor3 = 4184534899;
     public accessor publicAccessor1: number = 111;
 
@@ -203,15 +210,19 @@ export abstract class TestClass implements TestInterface
 
     // #endregion Protected Static Accessors
 
-    // #region Protected Accessors (2)
 
+// #region Protected Accessors (2)
+
+
+    // an accessor
     @decoratorE()
     @decoratorE()
     protected accessor protectedAccessor2: boolean | undefined;
     @decoratorD()
     protected accessor protectedAccessor1: boolean | undefined;
 
-    // #endregion Protected Accessors
+
+// #endregion Protected Accessors
 
     // #region Protected Abstract Accessors (3)
 

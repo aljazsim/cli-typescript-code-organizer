@@ -108,6 +108,9 @@ export abstract class TestClass implements TestInterface
 
     // #region Public ReadOnly Properties (9)
 
+    /**
+     * The property
+     */
     @decoratorB()
     public readonly publicReadonlyProperty1 = (p1: number, p2: number) => { };
     public readonly publicReadonlyProperty2 = "uialqi4dkc";
@@ -176,13 +179,19 @@ export abstract class TestClass implements TestInterface
 
     // #endregion Public Static Accessors
 
-    // #region Public Accessors (3)
 
+// #region Public Accessors (3)
+
+
+    /**
+     * The accessor
+     */
     public accessor publicAccessor3 = 4184534899;
     public accessor publicAccessor2: number = 8647818341;
     public accessor publicAccessor1: number = 111;
 
-    // #endregion Public Accessors
+
+// #endregion Public Accessors
 
     // #region Public Abstract Accessors (4)
 
@@ -207,6 +216,8 @@ export abstract class TestClass implements TestInterface
 
     @decoratorD()
     protected accessor protectedAccessor1: boolean | undefined;
+
+    // an accessor
     @decoratorE()
     @decoratorE()
     protected accessor protectedAccessor2: boolean | undefined;

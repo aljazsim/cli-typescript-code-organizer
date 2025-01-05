@@ -13,6 +13,11 @@ import { FunctionNode } from "../elements/function-node";
 import { ImportNode } from "../elements/import-node";
 import { ImportSourceFilePathQuoteType } from "../configuration/Import-source-file-path-quote-type";
 import { ImportConfiguration } from "../configuration/import-configuration";
+import { PropertySignatureNode } from "../elements/property-signature-node";
+import { MethodSignatureNode } from "../elements/method-signature-node";
+import { VariableNode } from "../elements/variable-node";
+import { IndexSignatureNode } from "../elements/index-signature-node";
+import { AccessorNode } from "../elements/accessor-node";
 
 export class SourceCodePrinter
 {
@@ -24,7 +29,7 @@ export class SourceCodePrinter
 
         printedSourceCode.removeConsecutiveEmptyLines();
         printedSourceCode.trim();
-        printedSourceCode.addNewLine();
+        printedSourceCode.addNewLineAfter();
 
         return printedSourceCode;
     }
@@ -63,7 +68,7 @@ export class SourceCodePrinter
         if (beforeMembers.length > 0)
         {
             nodeSourceCode.add(beforeMembers);
-            nodeSourceCode.addNewLine();
+            nodeSourceCode.addNewLineAfter();
         }
 
         nodeSourceCode.add(members);
@@ -116,7 +121,7 @@ export class SourceCodePrinter
         if (beforeMembers.length > 0)
         {
             nodeSourceCode.add(beforeMembers);
-            nodeSourceCode.addNewLine();
+            nodeSourceCode.addNewLineAfter();
         }
 
         nodeSourceCode.add(members);
@@ -158,8 +163,19 @@ export class SourceCodePrinter
             // arrow function property -> add a new line
             nodeSourceCode.addNewLineIf(node.isArrowFunction && configuration.classes.members.treatArrowFunctionPropertiesAsMethods);
         }
+        else if ((node instanceof PropertySignatureNode && node.hasLeadingComment) ||
+            (node instanceof IndexSignatureNode && node.hasLeadingComment) ||
+            (node instanceof MethodSignatureNode && node.hasLeadingComment) ||
+            (node instanceof PropertyNode && node.hasLeadingComment) ||
+            (node instanceof AccessorNode && node.hasLeadingComment) ||
+            (node instanceof VariableNode && node.hasLeadingComment)
+        )
+        {
+            // property / property signature / variable / method signature has a comment before it -> add new line
+            nodeSourceCode.addNewLineBefore()
+        }
 
-        nodeSourceCode.addNewLine();
+        nodeSourceCode.addNewLineAfter();
 
         return nodeSourceCode;
     }
@@ -188,7 +204,7 @@ export class SourceCodePrinter
                 if (nodeGroup.nodes.indexOf(node) < nodeGroup.nodes.length - 1)
                 {
                     // separate elements that end with '}' with an additional empty line
-                    nodeGroupSourceCode.addNewLine();
+                    nodeGroupSourceCode.addNewLineAfter();
                 }
             }
         }
@@ -217,7 +233,7 @@ export class SourceCodePrinter
                     nodeGroupsWithNodes.indexOf(nodeGroup) < nodeGroupsWithNodes.length - 1)
                 {
                     // add empty line after non-last node group end
-                    nodeGroupsSourceCode.addNewLine();
+                    nodeGroupsSourceCode.addNewLineAfter();
                 }
             }
         }
@@ -251,7 +267,7 @@ export class SourceCodePrinter
         if (beforeMembers.length > 0)
         {
             nodeSourceCode.add(beforeMembers);
-            nodeSourceCode.addNewLine();
+            nodeSourceCode.addNewLineAfter();
         }
 
         nodeSourceCode.add(members);

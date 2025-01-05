@@ -72,6 +72,9 @@ export abstract class TestClass implements TestInterface
     public abstract get publicAbstractGetterSetter4(): string;
     protected static accessor protectedStaticAccessor2: boolean | undefined;
     abstract set publicAbstractGetterSetter3(value: string);
+    /**
+     * The property
+     */
     @decoratorB()
     public readonly publicReadonlyProperty1 = (p1: number, p2: number) => { };
     @decoratorD()
@@ -83,10 +86,14 @@ export abstract class TestClass implements TestInterface
         console.log("wduyuaeemi");
         const a = ts.ScriptKind.TS;
     }
+    // an accessor
     @decoratorE()
     @decoratorE()
     protected accessor protectedAccessor2: boolean | undefined;
     publicProperty1: string = "";
+    /**
+     * The accessor
+     */
     public accessor publicAccessor3 = 4184534899;
     constructor(private readonly name: string)
     {
