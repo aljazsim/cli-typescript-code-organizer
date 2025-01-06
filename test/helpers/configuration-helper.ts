@@ -5,6 +5,8 @@ export const defaultConfiguration = `${testConfigurationDirectoryPath}/default-c
 export const defaultConfigurationWithRegions = `${testConfigurationDirectoryPath}/default-configuration-with-regions.json`;
 export const defaultConfigurationWithRegionMemberCount = `${testConfigurationDirectoryPath}/default-configuration-with-region-member-count.json`;
 export const defaultConfigurationWithRegionMemberCountAndCaptionInRegionEnd = `${testConfigurationDirectoryPath}/default-configuration-with-region-member-count-and-caption-in-region-end.json`;
+export const defaultConfigurationWithGroupingMembersWithDecorators = `${testConfigurationDirectoryPath}/default-configuration-with-grouping-members-with-decorators.json`;
+
 
 // import configuration variations
 export const defaultConfigurationWithoutRemovingUnusedImports = `${testConfigurationDirectoryPath}/default-configuration-without-removing-unused-imports.json`;
