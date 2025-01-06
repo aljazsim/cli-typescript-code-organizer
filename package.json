@@ -23,7 +23,10 @@
         "test": "jest"
     },
     "type": "module",
-    "main": "./src/index.ts",
+    "main": "./src/index.js",
+    "bin": {
+        "tsco": "./src/index.js"
+    },
     "directories": {
         "doc": "doc",
         "test": "test"

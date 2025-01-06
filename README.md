@@ -363,6 +363,8 @@ Members that match a pattern will then be organized by `sortDirection`. Here's a
 }
 ```
 
+## Using TSCO in VS Code
+
 ## Using TSCO With GIT pre-commit hook
 
 ## Change log

@@ -87,7 +87,7 @@ export class Configuration
                             configuration.modules?.members.treatArrowFunctionVariablesAsMethods ?? defaultConfiguration.modules.members.treatArrowFunctionVariablesAsMethods,
                             configuration.modules?.members.treatArrowFunctionConstantsAsMethods ?? defaultConfiguration.modules.members.treatArrowFunctionConstantsAsMethods,
                         ),
-                    this.fixModuleMemberMemberGroup(defaultConfiguration.modules.memberGroups, configuration.modules?.memberGroups.map(g => this.parseModuleMemberGroupConfiguration(g) ?? []))
+                    this.fixModuleMemberMemberGroup(defaultConfiguration.modules.memberGroups, configuration.modules?.memberGroups.map(g => this.parseModuleMemberGroupConfiguration(g)) ?? [])
                 ),
             new ClassConfiguration
                 (
@@ -105,7 +105,7 @@ export class Configuration
                             configuration.classes?.members.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.classes.members.treatArrowFunctionPropertiesAsMethods,
                             configuration.classes?.members.treatArrowFunctionReadOnlyPropertiesAsMethods ?? defaultConfiguration.classes.members.treatArrowFunctionReadOnlyPropertiesAsMethods,
                         ),
-                    this.fixClassMemberMemberGroup(defaultConfiguration.classes.memberGroups, configuration.classes?.memberGroups.map(g => this.parseClassMemberGroupConfiguration(g) ?? []))
+                    this.fixClassMemberMemberGroup(defaultConfiguration.classes.memberGroups, configuration.classes?.memberGroups.map(g => this.parseClassMemberGroupConfiguration(g)) ?? [])
                 ),
             new InterfaceConfiguration
                 (
@@ -120,7 +120,7 @@ export class Configuration
                             configuration.interfaces?.members.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.interfaces.members.treatArrowFunctionPropertiesAsMethods,
                             configuration.interfaces?.members.treatArrowFunctionReadOnlyPropertiesAsMethods ?? defaultConfiguration.interfaces.members.treatArrowFunctionReadOnlyPropertiesAsMethods,
                         ),
-                    this.fixInterfaceMemberMemberGroup(defaultConfiguration.interfaces.memberGroups, configuration.interfaces?.memberGroups.map(g => this.parseInterfaceMemberGroupConfiguration(g) ?? []))
+                    this.fixInterfaceMemberMemberGroup(defaultConfiguration.interfaces.memberGroups, configuration.interfaces?.memberGroups.map(g => this.parseInterfaceMemberGroupConfiguration(g)) ?? [])
                 ),
             new TypeConfiguration
                 (
@@ -134,7 +134,7 @@ export class Configuration
                         (
                             configuration.types?.members.treatArrowFunctionPropertiesAsMethods ?? defaultConfiguration.types.members.treatArrowFunctionPropertiesAsMethods,
                         ),
-                    this.fixTypeMemberMemberGroup(defaultConfiguration.types.memberGroups, configuration.types?.memberGroups.map(g => this.parseTypeMemberGroupConfiguration(g) ?? []))
+                    this.fixTypeMemberMemberGroup(defaultConfiguration.types.memberGroups, configuration.types?.memberGroups.map(g => this.parseTypeMemberGroupConfiguration(g)) ?? [])
                 )
         );
     }
@@ -168,7 +168,7 @@ export class Configuration
                             defaultConfiguration.modules.members.treatArrowFunctionVariablesAsMethods,
                             defaultConfiguration.modules.members.treatArrowFunctionConstantsAsMethods,
                         ),
-                    defaultConfiguration.modules.memberGroups.map(g => this.parseModuleMemberGroupConfiguration(g) ?? [])
+                    defaultConfiguration.modules.memberGroups.map(g => this.parseModuleMemberGroupConfiguration(g)) ?? []
                 ),
             new ClassConfiguration
                 (
@@ -186,7 +186,7 @@ export class Configuration
                             defaultConfiguration.classes.members.treatArrowFunctionPropertiesAsMethods,
                             defaultConfiguration.classes.members.treatArrowFunctionReadOnlyPropertiesAsMethods,
                         ),
-                    defaultConfiguration.classes.memberGroups.map(g => this.parseClassMemberGroupConfiguration(g) ?? [])
+                    defaultConfiguration.classes.memberGroups.map(g => this.parseClassMemberGroupConfiguration(g)) ?? []
                 ),
             new InterfaceConfiguration
                 (
@@ -201,7 +201,7 @@ export class Configuration
                             defaultConfiguration.interfaces.members.treatArrowFunctionPropertiesAsMethods,
                             defaultConfiguration.interfaces.members.treatArrowFunctionReadOnlyPropertiesAsMethods,
                         ),
-                    defaultConfiguration.interfaces.memberGroups.map(g => this.parseInterfaceMemberGroupConfiguration(g) ?? [])
+                    defaultConfiguration.interfaces.memberGroups.map(g => this.parseInterfaceMemberGroupConfiguration(g)) ?? []
                 ),
             new TypeConfiguration
                 (
@@ -215,7 +215,7 @@ export class Configuration
                         (
                             defaultConfiguration.types.members.treatArrowFunctionPropertiesAsMethods,
                         ),
-                    defaultConfiguration.types.memberGroups.map(g => this.parseTypeMemberGroupConfiguration(g) ?? [])
+                    defaultConfiguration.types.memberGroups.map(g => this.parseTypeMemberGroupConfiguration(g)) ?? []
                 )
         );
     }
