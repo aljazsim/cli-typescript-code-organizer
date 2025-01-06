@@ -147,8 +147,8 @@ Files configuration section specifies which files are included and which ones ar
 ```json
 {
     "files": {
-        "include": ["./**/*.ts"],
-        "exclude": ["node_modules", "dist", "out"]
+        "include": ["./**/*.ts"], <-- file/directory patterns to include
+        "exclude": ["node_modules", "dist", "out"] <-- file/directory patterns to exclude
     }
 }
 ```
