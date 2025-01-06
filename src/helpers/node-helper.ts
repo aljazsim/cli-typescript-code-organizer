@@ -18,8 +18,8 @@ import { TypeAliasNode } from "../elements/type-alias-node";
 import { VariableNode } from "../elements/variable-node";
 import { WriteModifier } from "../enums/write-modifier";
 import { compareStrings } from "./comparing-helper";
-import { sortBy } from "./sorting-helper";
 import { matchRegEx, matchWildcard } from "./string-helper";
+import { add, except, remove } from "./array-helper";
 
 // #region Functions (25)
 
@@ -285,34 +285,50 @@ export function isWritable(x: PropertyNode | PropertySignatureNode)
 
 export function order(sortDirection: "asc" | "desc" | "none", nodes: ElementNode[], placeAbove: string[], placeBelow: string[], groupWithDecorators: boolean)
 {
-    const nodesAboveMiddleBelow = splitByPlaceAboveBelow(nodes, placeAbove, placeBelow);
-    const nodesAbove = sortBy(nodesAboveMiddleBelow.nodesAbove, placeAbove);
-    const nodesBelow = sortBy(nodesAboveMiddleBelow.nodesBelow, placeBelow);
-    let nodesMiddle = nodesAboveMiddleBelow.nodesMiddle;
-
-    if (sortDirection !== "none")
-    {
-        nodesMiddle = nodesMiddle.sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
-
-        if (sortDirection === "desc")
-        {
-            nodesMiddle = nodesMiddle.reverse();
-        }
-    }
+    const nodesAbove = splitBy(nodes, placeAbove).map(ng => sortBy(ng, sortDirection, groupWithDecorators)).flatMap(ng => ng);
+    const nodesBelow = splitBy(except(nodes, nodesAbove), placeBelow).map(ng => sortBy(ng, sortDirection, groupWithDecorators)).flatMap(ng => ng);
+    const nodesMiddle = sortBy(except(except(nodes, nodesAbove), nodesBelow), sortDirection, groupWithDecorators);
 
     return nodesAbove.concat(nodesMiddle).concat(nodesBelow);
 }
 
-export function splitByPlaceAboveBelow<T extends ElementNode>(nodes: T[], placeAbove: string[], placeBelow: string[])
+function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupWithDecorators: boolean)
 {
-    const nodesAbove = nodes.filter(n => placeAbove.some(p => p === n.name || matchWildcard(p, n.name) || matchRegEx(p, n.name)));
-    const nodesBelow = nodes.filter(n => placeBelow.some(p => p === n.name || matchWildcard(p, n.name) || matchRegEx(p, n.name)));
+    if (sortDirection !== "none")
+    {
+        nodes = nodes.sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
 
-    return {
-        nodesAbove,
-        nodesMiddle: nodes.filter(n => !nodesAbove.includes(n)).filter(n => !nodesBelow.includes(n)),
-        nodesBelow: nodesBelow.filter(n => !nodesAbove.includes(n))
-    };
+        if (sortDirection === "desc")
+        {
+            nodes = nodes.reverse();
+        }
+    }
+
+    return nodes;
+}
+
+export function splitBy<T extends ElementNode>(nodes: T[], patterns: string[])
+{
+    const matchingNodes = Array<T[]>();
+    const nonMatchingNodes = [...nodes];
+
+    for (const pattern of patterns)
+    {
+        const patternNodes = Array<T>();
+
+        for (const node of [...nonMatchingNodes])
+        {
+            if (pattern === node.name || matchWildcard(pattern, node.name) || matchRegEx(pattern, node.name))
+            {
+                remove(nonMatchingNodes, node);
+                add(patternNodes, node);
+            }
+        }
+
+        matchingNodes.push(patternNodes);
+    }
+
+    return matchingNodes.filter(mn => mn.length > 0);
 }
 
 // #endregion Functions (25)
