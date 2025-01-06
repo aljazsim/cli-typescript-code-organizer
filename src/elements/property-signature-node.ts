@@ -1,7 +1,7 @@
-import { ElementNode } from "./element-node";
-import { WriteModifier } from "../enums/write-modifier";
+import { ElementNode } from "./element-node.js";
+import { WriteModifier } from "../enums/write-modifier.js";
+import { getWriteMode } from "../helpers/node-helper.js";
 import * as ts from "typescript";
-import { getWriteMode } from "../helpers/node-helper";
 
 export class PropertySignatureNode extends ElementNode
 {

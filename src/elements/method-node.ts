@@ -1,6 +1,6 @@
-import { AccessModifier } from "../enums/access-modifier";
-import { getAccessModifier, getDecorators, getIsAbstract, getIsAsync, getIsStatic } from "../helpers/node-helper";
-import { ElementNode } from "./element-node";
+import { AccessModifier } from "../enums/access-modifier.js";
+import { getAccessModifier, getDecorators, getIsAbstract, getIsAsync, getIsStatic } from "../helpers/node-helper.js";
+import { ElementNode } from "./element-node.js";
 import * as ts from "typescript";
 
 export class MethodNode extends ElementNode

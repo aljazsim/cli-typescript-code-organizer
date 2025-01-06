@@ -1,15 +1,15 @@
 import * as ts from "typescript";
 
-import { ClassNode } from "../elements/class-node";
-import { Configuration } from "../configuration/configuration";
-import { ElementNode } from "../elements/element-node";
-import { EnumNode } from "../elements/enum-node";
-import { ExpressionNode } from "../elements/expression-node";
-import { FunctionNode } from "../elements/function-node";
-import { ImportNode } from "../elements/import-node";
-import { InterfaceNode } from "../elements/interface-node";
-import { TypeAliasNode } from "../elements/type-alias-node";
-import { VariableNode } from "../elements/variable-node";
+import { ClassNode } from "../elements/class-node.js";
+import { Configuration } from "../configuration/configuration.js";
+import { ElementNode } from "../elements/element-node.js";
+import { EnumNode } from "../elements/enum-node.js";
+import { ExpressionNode } from "../elements/expression-node.js";
+import { FunctionNode } from "../elements/function-node.js";
+import { ImportNode } from "../elements/import-node.js";
+import { InterfaceNode } from "../elements/interface-node.js";
+import { TypeAliasNode } from "../elements/type-alias-node.js";
+import { VariableNode } from "../elements/variable-node.js";
 
 export class SourceCodeAnalyzer
 {

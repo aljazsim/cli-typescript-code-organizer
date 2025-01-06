@@ -1,7 +1,7 @@
 import * as ts from "typescript";
 
-import { ElementNode } from "./element-node";
-import { getIsExport } from "../helpers/node-helper";
+import { ElementNode } from "./element-node.js";
+import { getIsExport } from "../helpers/node-helper.js";
 
 export class VariableNode extends ElementNode
 {

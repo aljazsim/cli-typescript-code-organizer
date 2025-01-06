@@ -1,8 +1,8 @@
 import * as ts from "typescript";
 
-import { ElementNode } from "./element-node";
-import { WriteModifier } from "../enums/write-modifier";
-import { getWriteMode } from "../helpers/node-helper";
+import { ElementNode } from "./element-node.js";
+import { WriteModifier } from "../enums/write-modifier.js";
+import { getWriteMode } from "../helpers/node-helper.js";
 
 export class IndexSignatureNode extends ElementNode
 {

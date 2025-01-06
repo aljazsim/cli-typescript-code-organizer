@@ -1,25 +1,26 @@
-import { TypeMemberGroupConfiguration } from "../configuration/type-member-group-configuration";
-import { ElementNode } from "./element-node";
+import { TypeMemberGroupConfiguration } from "../configuration/type-member-group-configuration.js";
+import { ElementNode } from "./element-node.js";
+import { ElementNodeGroup } from "./element-node-group.js";
+import { TypeMemberType } from "../enums/type-member-type.js";
+import { order, isWritable } from "../helpers/node-helper.js";
+import { MethodSignatureNode } from "./method-signature-node.js";
+import { PropertySignatureNode } from "./property-signature-node.js";
+import { TypeConfiguration } from "../configuration/type-configuration.js";
+import { IndexSignatureNode } from "./index-signature-node.js";
+
 import * as ts from "typescript";
-import { ElementNodeGroup } from "./element-node-group";
-import { TypeMemberType } from "../enums/type-member-type";
-import { order, isWritable } from "../helpers/node-helper";
-import { MethodSignatureNode } from "./method-signature-node";
-import { PropertySignatureNode } from "./property-signature-node";
-import { TypeConfiguration } from "../configuration/type-configuration";
-import { IndexSignatureNode } from "./index-signature-node";
 export class TypeAliasNode extends ElementNode
 {
-    // #region Properties (5)
+    // #region Properties (6)
 
+    public readonly indexes: IndexSignatureNode[] = [];
     public readonly membersEnd: number = 0;
     public readonly membersStart: number = 0;
     public readonly methods: MethodSignatureNode[] = [];
     public readonly name: string;
     public readonly properties: PropertySignatureNode[] = [];
-    public readonly indexes: IndexSignatureNode[] = [];
 
-    // #endregion Properties (5)
+    // #endregion Properties (6)
 
     // #region Constructors (1)
 

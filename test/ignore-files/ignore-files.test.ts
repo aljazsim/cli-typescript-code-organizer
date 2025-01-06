@@ -1,8 +1,8 @@
 import { expect, test } from '@jest/globals';
 
-import { Configuration } from '../../src/configuration/configuration';
-import { SourceCodeOrganizer } from "../../src/source-code/source-code-organizer";
-import { readFile } from "../../src/helpers/file-system-helper";
+import { Configuration } from '../../src/configuration/configuration.js';
+import { SourceCodeOrganizer } from "../../src/source-code/source-code-organizer.js";
+import { readFile } from "../../src/helpers/file-system-helper.js";
 
 test('ignore files', async () =>
 {

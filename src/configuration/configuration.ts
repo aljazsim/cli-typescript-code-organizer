@@ -1,27 +1,27 @@
-import { ClassConfiguration } from "./class-configuration";
-import { ClassMemberConfiguration } from "./class-member-configuration";
-import { ClassMemberGroupConfiguration } from "./class-member-group-configuration";
-import { ClassMemberType } from "../enums/class-member-type";
-import { InterfaceConfiguration } from "./interface-configuration";
-import { InterfaceMemberConfiguration } from "./interface-member-configuration";
-import { InterfaceMemberGroupConfiguration } from "./interface-member-group-configuration";
-import { InterfaceMemberType } from "../enums/interface-member-type";
-import { ModuleConfiguration } from "./module-configuration";
-import { ModuleMemberConfiguration } from "./module-member-configuration";
-import { ModuleMemberGroupConfiguration } from "./module-member-group-configuration";
-import { ModuleMemberType } from "../enums/module-member-type";
-import { RegionConfiguration } from "./region-configuration";
-import { TypeConfiguration } from "./type-configuration";
-import { TypeMemberConfiguration } from "./type-member-configuration";
-import { TypeMemberGroupConfiguration } from "./type-member-group-configuration";
-import { TypeMemberType } from "../enums/type-member-type";
-import { convertPascalCaseToTitleCase } from "../helpers/string-helper";
-import defaultConfiguration from './default-configuration.json';
-import { distinct, remove } from "../helpers/array-helper";
-import { readFile } from "../helpers/file-system-helper";
-import { ImportConfiguration } from "./import-configuration";
-import { ImportSourceFilePathQuoteType } from "./Import-source-file-path-quote-type";
-import { FileConfiguration } from "./file-configuration";
+import { ClassConfiguration } from "./class-configuration.js";
+import { ClassMemberConfiguration } from "./class-member-configuration.js";
+import { ClassMemberGroupConfiguration } from "./class-member-group-configuration.js";
+import { ClassMemberType } from "../enums/class-member-type.js";
+import { InterfaceConfiguration } from "./interface-configuration.js";
+import { InterfaceMemberConfiguration } from "./interface-member-configuration.js";
+import { InterfaceMemberGroupConfiguration } from "./interface-member-group-configuration.js";
+import { InterfaceMemberType } from "../enums/interface-member-type.js";
+import { ModuleConfiguration } from "./module-configuration.js";
+import { ModuleMemberConfiguration } from "./module-member-configuration.js";
+import { ModuleMemberGroupConfiguration } from "./module-member-group-configuration.js";
+import { ModuleMemberType } from "../enums/module-member-type.js";
+import { RegionConfiguration } from "./region-configuration.js";
+import { TypeConfiguration } from "./type-configuration.js";
+import { TypeMemberConfiguration } from "./type-member-configuration.js";
+import { TypeMemberGroupConfiguration } from "./type-member-group-configuration.js";
+import { TypeMemberType } from "../enums/type-member-type.js";
+import { convertPascalCaseToTitleCase } from "../helpers/string-helper.js";
+import defaultConfiguration from './default-configuration.json'with { type: "json" };
+import { distinct, remove } from "../helpers/array-helper.js";
+import { readFile } from "../helpers/file-system-helper.js";
+import { ImportConfiguration } from "./import-configuration.js";
+import { ImportSourceFilePathQuoteType } from "./Import-source-file-path-quote-type.js";
+import { FileConfiguration } from "./file-configuration.js";
 
 export class Configuration
 {
@@ -55,9 +55,8 @@ export class Configuration
                 configuration = JSON.parse(await readFile(configurationFilePath));
             }
         }
-        catch (error)
+        catch
         {
-            console.error(error);
         }
 
         return new Configuration(
@@ -143,8 +142,8 @@ export class Configuration
     {
         return new Configuration(
             new FileConfiguration(
-                distinct(defaultConfiguration.files.include.map(f => f as string).filter(f => f && f.trim().length > 0)),
-                distinct(defaultConfiguration.files.exclude.map(f => f as string).filter(f => f && f.trim().length > 0))
+                distinct(defaultConfiguration.files.include.map((f: string) => f as string).filter((f: string) => f && f.trim().length > 0)),
+                distinct(defaultConfiguration.files.exclude.map((f: string) => f as string).filter((f: string) => f && f.trim().length > 0))
             ),
             new ImportConfiguration
                 (

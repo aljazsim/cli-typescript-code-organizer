@@ -1,4 +1,4 @@
-import { ImportSourceFilePathQuoteType } from "./Import-source-file-path-quote-type";
+import { ImportSourceFilePathQuoteType } from "./Import-source-file-path-quote-type.js";
 
 export class ImportConfiguration
 {

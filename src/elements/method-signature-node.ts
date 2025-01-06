@@ -1,4 +1,4 @@
-import { ElementNode } from "./element-node";
+import { ElementNode } from "./element-node.js";
 import * as ts from "typescript";
 
 export class MethodSignatureNode extends ElementNode

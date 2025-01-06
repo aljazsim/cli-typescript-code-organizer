@@ -1,25 +1,25 @@
 import * as ts from "typescript";
 
-import { AccessModifier } from "../enums/access-modifier";
-import { AccessorNode } from "../elements/accessor-node";
-import { ClassNode } from "../elements/class-node";
-import { ElementNode } from "../elements/element-node";
-import { EnumNode } from "../elements/enum-node";
-import { ExpressionNode } from "../elements/expression-node";
-import { FunctionNode } from "../elements/function-node";
-import { GetterNode } from "../elements/getter-node";
-import { ImportNode } from "../elements/import-node";
-import { InterfaceNode } from "../elements/interface-node";
-import { MethodNode } from "../elements/method-node";
-import { PropertyNode } from "../elements/property-node";
-import { PropertySignatureNode } from "../elements/property-signature-node";
-import { SetterNode } from "../elements/setter-node";
-import { TypeAliasNode } from "../elements/type-alias-node";
-import { VariableNode } from "../elements/variable-node";
-import { WriteModifier } from "../enums/write-modifier";
-import { compareStrings } from "./comparing-helper";
-import { matchRegEx, matchWildcard } from "./string-helper";
-import { add, except, remove } from "./array-helper";
+import { AccessModifier } from "../enums/access-modifier.js";
+import { AccessorNode } from "../elements/accessor-node.js";
+import { ClassNode } from "../elements/class-node.js";
+import { ElementNode } from "../elements/element-node.js";
+import { EnumNode } from "../elements/enum-node.js";
+import { ExpressionNode } from "../elements/expression-node.js";
+import { FunctionNode } from "../elements/function-node.js";
+import { GetterNode } from "../elements/getter-node.js";
+import { ImportNode } from "../elements/import-node.js";
+import { InterfaceNode } from "../elements/interface-node.js";
+import { MethodNode } from "../elements/method-node.js";
+import { PropertyNode } from "../elements/property-node.js";
+import { PropertySignatureNode } from "../elements/property-signature-node.js";
+import { SetterNode } from "../elements/setter-node.js";
+import { TypeAliasNode } from "../elements/type-alias-node.js";
+import { VariableNode } from "../elements/variable-node.js";
+import { WriteModifier } from "../enums/write-modifier.js";
+import { compareStrings } from "./comparing-helper.js";
+import { matchRegEx, matchWildcard } from "./string-helper.js";
+import { add, except, remove } from "./array-helper.js";
 
 // #region Functions (25)
 
@@ -66,7 +66,7 @@ export function getDecorators(node: ts.ClassDeclaration | ts.GetAccessorDeclarat
 
 export function getDecoratorsWithoutParameters(node: ClassNode | PropertyNode | MethodNode | SetterNode | GetterNode | AccessorNode)
 {
-    return node.decorators.map(d => d.replace(/\(.*\)/, ""));
+    return node.decorators.map((d: string) => d.replace(/\(.*\)/, ""));
 }
 
 export function getEnums(nodes: ElementNode[])

@@ -40,6 +40,7 @@
         "color-convert": "^2.0.1",
         "color-name": "^1.1.4",
         "commander": "^11.1.0",
+        "commander-help": "^1.0.1",
         "cross-spawn": "^7.0.3",
         "dettle": "^1.0.1",
         "duplexer": "^0.1.2",

@@ -1,10 +1,13 @@
+import * as fs from "fs";
+import * as path from "path";
+
 // #region Functions (13)
 
 export async function deleteFile(filePath: string)
 {
     if (await fileExists(filePath)) 
     {
-        await fs.unlink(filePath);
+        await fs.promises.unlink(filePath);
     }
 }
 
@@ -12,7 +15,7 @@ export async function fileExists(filePath: string)
 {
     try
     {
-        await fs.access(filePath, fs.constants.F_OK);
+        await fs.promises.access(filePath, fs.promises.constants.F_OK);
 
         return true;
     }
@@ -64,7 +67,7 @@ export function joinPath(path1: string, path2: string)
 
 export async function readFile(filePath: string)
 {
-    return await fs.readFile(filePath, "utf8") as string;
+    return await fs.promises.readFile(filePath, "utf8") as string;
 }
 
 function toUnixPath(filePath: string)
@@ -79,7 +82,7 @@ export async function writeFile(filePath: string, fileContents: string, overwrit
         if (overwriteFile)
         {
             await deleteFile(filePath);
-            await fs.writeFile(filePath, fileContents, "utf8");
+            await fs.promises.writeFile(filePath, fileContents, "utf8");
         }
         else
         {
@@ -88,15 +91,7 @@ export async function writeFile(filePath: string, fileContents: string, overwrit
     }
     else
     {
-        await fs.writeFile(filePath, fileContents, "utf8");
+        await fs.promises.writeFile(filePath, fileContents, "utf8");
     }
 }
 
-// #endregion Functions (13)
-
-// #region Variables (2)
-
-const fs = require('fs').promises;
-const path = require('path');
-
-// #endregion Variables (2)

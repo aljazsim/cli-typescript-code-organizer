@@ -1,11 +1,11 @@
-import { AccessModifier } from "../enums/access-modifier";
-import { AccessorNode } from "../elements/accessor-node";
-import { GetterNode } from "../elements/getter-node";
-import { MethodNode } from "../elements/method-node";
-import { PropertyNode } from "../elements/property-node";
-import { RegionConfiguration } from "../configuration/region-configuration";
-import { SetterNode } from "../elements/setter-node";
-import { WriteModifier } from "../enums/write-modifier";
+import { AccessModifier } from "../enums/access-modifier.js";
+import { AccessorNode } from "../elements/accessor-node.js";
+import { GetterNode } from "../elements/getter-node.js";
+import { MethodNode } from "../elements/method-node.js";
+import { PropertyNode } from "../elements/property-node.js";
+import { RegionConfiguration } from "../configuration/region-configuration.js";
+import { SetterNode } from "../elements/setter-node.js";
+import { WriteModifier } from "../enums/write-modifier.js";
 
 export class SourceCode
 {

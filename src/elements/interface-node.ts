@@ -1,15 +1,15 @@
 import * as ts from "typescript";
-import { ElementNode } from "./element-node";
-import { GetterNode } from "./getter-node";
-import { IndexSignatureNode } from "./index-signature-node";
-import { MethodSignatureNode } from "./method-signature-node";
-import { PropertySignatureNode } from "./property-signature-node";
-import { SetterNode } from "./setter-node";
-import { InterfaceMemberGroupConfiguration } from "../configuration/interface-member-group-configuration";
-import { ElementNodeGroup } from "./element-node-group";
-import { InterfaceMemberType } from "../enums/interface-member-type";
-import { order, isReadOnly, isWritable } from "../helpers/node-helper";
-import { InterfaceConfiguration } from "../configuration/interface-configuration";
+import { ElementNode } from "./element-node.js";
+import { GetterNode } from "./getter-node.js";
+import { IndexSignatureNode } from "./index-signature-node.js";
+import { MethodSignatureNode } from "./method-signature-node.js";
+import { PropertySignatureNode } from "./property-signature-node.js";
+import { SetterNode } from "./setter-node.js";
+import { InterfaceMemberGroupConfiguration } from "../configuration/interface-member-group-configuration.js";
+import { ElementNodeGroup } from "./element-node-group.js";
+import { InterfaceMemberType } from "../enums/interface-member-type.js";
+import { order, isReadOnly, isWritable } from "../helpers/node-helper.js";
+import { InterfaceConfiguration } from "../configuration/interface-configuration.js";
 import { config } from "process";
 
 export class InterfaceNode extends ElementNode

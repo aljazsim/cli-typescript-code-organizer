@@ -1,5 +1,5 @@
-import { getIsExport } from "../helpers/node-helper";
-import { ElementNode } from "./element-node";
+import { getIsExport } from "../helpers/node-helper.js";
+import { ElementNode } from "./element-node.js";
 import * as ts from "typescript";
 
 export class FunctionNode extends ElementNode
