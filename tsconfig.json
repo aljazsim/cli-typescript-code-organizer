@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "rootDirs": ["src", "test"],
+        "rootDir": ".",
         "outDir": "dist",
         "strict": true,
         "target": "es2022",

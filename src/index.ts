@@ -1,12 +1,12 @@
 import * as figlet from 'figlet';
 
 import { Command, Option } from 'commander';
-import { getFullPath, writeFile } from './helpers/file-system-helper';
 
 import { Configuration } from './configuration/configuration';
 import { SourceCodeOrganizer } from "./source-code/source-code-organizer";
 import Watcher from 'watcher';
 import { glob } from 'glob';
+import { getFullPath, writeFile } from './helpers/file-system-helper';
 
 const program = new Command();
 
@@ -26,12 +26,15 @@ const configuration = await Configuration.getConfiguration(configurationFilePath
 
 if (initialize)
 {
+    // generate default configuration
     await writeFile(configurationFilePath, JSON.stringify(Configuration.getDefaultConfiguration()), true);
 }
 else
 {
     // run on all files
-    for (const filePath of await glob(configuration.files.include, { ignore: configuration.files.exclude }))
+    const filePaths = await glob(configuration.files.include, { ignore: configuration.files.exclude });
+
+    for (const filePath of filePaths)
     {
         await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
     }
