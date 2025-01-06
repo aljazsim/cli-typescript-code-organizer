@@ -1,8 +1,8 @@
-# TypeScript Class Organizer Command Line Interface
+# TypeScript Code Organizer Command Line Interface
 
-TypeScript Class Organizer Command Line Interface (or `tsco cli` for short) is a command line tool for organizing TypeScript source code in a workspace. It allows software developers to organize import statements, modules, classes, interfaces and type members and helps them keep their source code consistent and easier to navigate. It is highly configurable and allows sharing of the configuration across the development team.
+TypeScript Code Organizer Command Line Interface (or `tsco` for short) is a command line tool for organizing TypeScript source code in a workspace. It allows software developers to organize import statements, modules, classes, interfaces and type members and helps them keep their source code more consistent and easier to navigate. It is highly configurable and allows sharing of the configuration across the development team.
 
-Here is an example of TypeScript code before organizing:
+Here is an example of TypeScript code **before organizing**:
 
 ```typescript
 interface ICube {
@@ -24,7 +24,7 @@ interface ICube {
 }
 ```
 
-Here is the same TypeScript code after organizing:
+Here is the same TypeScript code **after organizing**:
 
 ```typescript
 interface ICube {
@@ -58,7 +58,7 @@ Everything from import statements, regions, grouping to sorting can be configure
 
 In order to install TypeScript Class Organizer ensure you have `npm` installed, open a terminal window and run:
 
-```powershell
+```
 npm install tsco -g
 ```
 
@@ -66,9 +66,9 @@ npm install tsco -g
 
 ### Initializing a configuration file
 
-First you will need to generate a configuration file that will let `tsco` know how you want your TypeScript files organized. If you don't have one you can generate one with:
+First you will need to generate a configuration file that will let `tsco` know how you want your TypeScript files organized. If you don't have a configuration file you can generate a default configuration file with:
 
-```powershell
+```
 tsco --initialize
 ```
 
@@ -78,11 +78,11 @@ or
 tsco -i
 ```
 
-This will create a default configuration file called `tsco.json` in the current directory. The JSON configuration file can be committed to a repository ensuring identical code organizing settings across the development team. `tsco` will still work without a configuration file using default settings.
+This will create a default configuration file called `tsco.json` in the current directory. The configuration file is a JSON file and can be committed to a repository ensuring identical code organizing settings across the development team. `tsco` will still work without a configuration file using default settings.
 
 You can also create the configuration file at a different location using:
 
-```powershell
+```
 tsco --initialize --configuration ./some-directory/tsco.json
 ```
 
@@ -104,8 +104,14 @@ tsco
 
 If there are files or directories you'd like to explicitly include or exclude, you can do so in the configuration file (see below). If you'd to use a configuration file at a different location, you can specify it with an argument:
 
-```powershell
+```
 tsco --configuration ./some-directory/tsco.json
+```
+
+or
+
+```
+tsco -c ./some-directory/tsco.json
 ```
 
 ### Monitoring for file changes
@@ -122,11 +128,11 @@ or
 tsco -w
 ```
 
-This will first organize all TypeScript files in the workspace and then monitor the workspace for new files or file changes. As soon as a TypeScript file gets created or modified it will get organized.
+This will first organize all TypeScript files in the workspace and then monitor the workspace for new files or file changes. TypScript code will get organized ass soon as `tsco` detects a new file or a file change.
 
 ### Command line arguments
 
-- `--initialize` or `-i` creates a new configuration file at default location ( `./tsco.json` )
+- `--initialize` or `-i` creates a new configuration file with default settings at default location ( `./tsco.json` )
 - `--configuration` or `-c` specifies the configuration file path to be used
 - `--watch` or `-w` monitors the workspace for changes
 
@@ -134,11 +140,9 @@ This will first organize all TypeScript files in the workspace and then monitor 
 
 You can create a new default configuration file by running `tsco --initialize` in the terminal window which will create `./tsco.json` . The configuration file is in JSON format and can be modified to suit individual TypeScript organization preferences.
 
-### File Configuration
+### File Configuration Section
 
-File configuration specifies which files are included and which ones are excluded when running `tsco` . You can use glob patterns to specify files or directories.
-
-Here's an example of the default files configuration section:
+Files configuration section specifies which files are included and which ones are excluded when running `tsco`. You can use glob patterns to specify files or directories. Here's an example of the default files configuration section:
 
 ```json
 {
@@ -149,7 +153,9 @@ Here's an example of the default files configuration section:
 }
 ```
 
-### Import Statement Organization Configuration
+### Import Statement Organization Configuration Section
+
+Import statement organization configuration section specifies how TypeScript import statements get organized. Here's an example of the default import statement configuration section:
 
 ```json
 {
@@ -159,20 +165,20 @@ Here's an example of the default files configuration section:
         "sortImportsByName": true, <-- sorts imported references within individual import statement
         "groupImportsBySource": true, <-- groups imports statements by: module imports, non-TypeScript file imports, TypeScript file imports
         "separateImportGroups": true, <-- separates imports statement groups with a new line (only works if groupImportsBySource os set to true)
-        "quote": "double" <-- "double" uses double quotes and "single" uses single quotes
+        "quote": "double" <-- "double" uses double quotes and "single" uses single quotes when specifying import sources
     },
     }
 ```
 
-### Module Organization Configuration
+### Module Organization Configuration Section
 
-Specifies how module level elements (enums, types, interfaces, classes, functions, variables and constants) will be organized.
+Module organization configuration section specifies how module level elements (enums, types, interfaces, classes, functions, variables and constants) will be organized. Here's an example of the default module organization configuration section:
 
 ```json
 {
     "modules": {
         "regions": {
-            "addRegions": false, <-- inserts regions when set to true
+            "addRegions": false, <-- inserts regions (#region and #endregion comments) when set to true
             "addMemberCountInRegionName": false, <-- inserts member count in region name when set to true
             "addRegionCaptionToRegionEnd": false <-- inserts regions name to region end when set to true
         },
@@ -187,9 +193,9 @@ Specifies how module level elements (enums, types, interfaces, classes, function
 }
 ```
 
-### Class Organization Configuration
+### Class Organization Configuration Section
 
-Specifies how class level elements (properties, constructors, indexes, accessors, getters, setters and methods) will be organized. Here's an example of the default class configuration section:
+Class organization configuration specifies how class level elements (properties, constructors, indexes, accessors, getters, setters and methods) will be organized. Here's an example of the default class organization configuration section:
 
 ```json
 {
@@ -213,9 +219,9 @@ Specifies how class level elements (properties, constructors, indexes, accessors
 }
 ```
 
-### Interface Organization Configuration
+### Interface Organization Configuration Section
 
-Specifies how interface level elements (properties, indexes, accessors, getters, setters and methods) will be organized. Here's an example of the default interface configuration section:
+Interface organization configuration specifies how interface level elements (properties, indexes, accessors, getters, setters and methods) will be organized. Here's an example of the default interface organization configuration section:
 
 ```json
 {
@@ -236,9 +242,11 @@ Specifies how interface level elements (properties, indexes, accessors, getters,
 }
 ```
 
-### Type Organization Configuration
+### Type Organization Configuration Section
 
-Specifies how type level elements (properties, indexes, and methods) will be organized. Here's an example of the default type configuration section:
+Type organization configuration specifies how type level elements (properties, indexes, and methods) will be organized.
+
+Here's an example of the default type organization configuration section:
 
 ```json
 {
@@ -268,7 +276,7 @@ Specifies how members are grouped together when organizing modules, classes, int
         {
                 "sortDirection": "asc", <-- member group sorting direction (can be "asc" for ascending, "desc" for descending or "none" for no sorting)
                 "caption": "Enums", <-- member group caption (will be used as a region name when using regions)
-                "memberTypes": ["enums"], <-- member group module members (see list below)
+                "memberTypes": ["enums"], <-- member group module members (see tables below)
                 "memberTypesGrouped": true, <-- member groups will be grouped by member type when set to true or merged with other member types when set to false (only works if there's more than one member type specified in the member types)
                 "placeAbove": [], <-- member name patterns for placing particular members on top of the member group (supports exact match, wildcard patterns and regex)
                 "placeBelow": [] <-- member name patterns for placing particular members on bottom of the member group (supports exact match, wildcard patterns and regex)
@@ -291,20 +299,20 @@ Structures   | Functions           | Variables
 
 #### Class Member Types
 
-Properties                          | Constructors              | Accessors                       | Getters and Setters                  | Methods
------------------------------------ | ------------------------- | ------------------------------- | ------------------------------------ | --------------------------
-`privateStaticReadOnlyProperties`   | `staticBlockDeclarations` | `publicAccessors`               | `publicGettersAndSetters`            | `publicMethods`
-`privateReadOnlyProperties`         | `constructors`            | `publicAbstractAccessors`       | `publicAbstractGettersAndSetters`    | `publicAbstractMethods`
-`privateStaticProperties`           |                           | `privateStaticAccessors`        | `privateStaticGettersAndSetters`     | `protectedStaticMethods`
-`privateProperties`                 |                           | `privateAccessors`              | `privateGettersAndSetters`           | `protectedMethods`
-`protectedStaticReadOnlyProperties` |                           | `protectedStaticAccessors`      | `protectedStaticGettersAndSetters`   | `protectedAbstractMethods`
-`protectedReadOnlyProperties`       |                           | `protectedAccessors`            | `protectedGettersAndSetters`         | `privateStaticMethods`
-`protectedStaticProperties`         |                           | `protectedAbstractAccessors`    | `protectedAbstractGettersAndSetters` | `privateMethods`
-`protectedProperties`               |                           | `publicStaticGettersAndSetters` | `publicStaticMethods`                |
-`publicStaticReadOnlyProperties`    |                           |                                 |                                      |
-`publicReadOnlyProperties`          |                           |                                 |                                      |
-`publicStaticProperties`            |                           |                                 |                                      |
-`publicProperties`                  |                           |                                 |                                      |
+Properties                          | Constructors              | Accessors                    | Getters and Setters                  | Methods
+----------------------------------- | ------------------------- | ---------------------------- | ------------------------------------ | --------------------------
+`privateStaticReadOnlyProperties`   | `staticBlockDeclarations` | `publicStaticAccessors`      | `publicAbstractGettersAndSetters`    | `publicStaticMethods`
+`privateReadOnlyProperties`         | `constructors`            | `publicAccessors`            | `publicGettersAndSetters`            | `publicMethods`
+`privateStaticProperties`           |                           | `publicAbstractAccessors`    | `publicStaticGettersAndSetters`      | `publicAbstractMethods`
+`privateProperties`                 |                           | `protectedStaticAccessors`   | `protectedStaticGettersAndSetters`   | `protectedStaticMethods`
+`protectedStaticReadOnlyProperties` |                           | `protectedAccessors`         | `protectedGettersAndSetters`         | `protectedMethods`
+`protectedReadOnlyProperties`       |                           | `protectedAbstractAccessors` | `protectedAbstractGettersAndSetters` | `protectedAbstractMethods`
+`protectedStaticProperties`         |                           | `privateStaticAccessors`     | `privateStaticGettersAndSetters`     | `privateStaticMethods`
+`protectedProperties`               |                           | `privateAccessors`           | `privateGettersAndSetters`           | `privateMethods`
+`publicStaticReadOnlyProperties`    |                           |                              |                                      |
+`publicReadOnlyProperties`          |                           |                              |                                      |
+`publicStaticProperties`            |                           |                              |                                      |
+`publicProperties`                  |                           |                              |                                      |
 
 #### Interface Member Types
 
@@ -327,7 +335,35 @@ You can put particular members to the top or bottom of the group by specifying t
 - using a wildcard pattern (e.g. `On*`)
 - using a regular expression (e.g. `On.+Completed`)
 
-## Using With Git pre-commit hook
+Members that match a pattern will then be organized by `sortDirection`. Here's an example of putting Angular lifecycle methods on top of the public method group:
+
+```json
+{
+    "classes":{
+        "memberGroups":[
+            {
+                "sortDirection": "asc",
+                "caption": "Public Methods",
+                "memberTypes": ["publicMethods"],
+                "memberTypesGrouped": false,
+                "placeAbove": [
+                    "ngOnChanges", 
+                    "ngOnInit", 
+                    "ngDoCheck", 
+                    "ngAfterContentInit", 
+                    "ngAfterContentChecked", 
+                    "ngAfterViewInit", 
+                    "ngAfterViewChecked", 
+                    "ngOnDestroy"
+                ],
+                "placeBelow": []
+            },
+        ]
+    }
+}
+```
+
+## Using TSCO With GIT pre-commit hook
 
 ## Change log
 
