@@ -10,12 +10,12 @@ import { glob } from 'glob';
 
 const program = new Command();
 
-console.log(figlet.textSync("TypeScript Class Organizer CLI"));
+console.log(figlet.textSync("TypeScript Code Organizer CLI"));
 
 program.version("1.0.0")
     .description("CLI tool for organizing TypeScript code")
     .addOption(new Option("-i, --initialize", "Generates a default configuration file").default(false, "false"))
-    .addOption(new Option("-c, --configuration <string>", "Path to TypeScript Class Organizer configuration file").default("./tsco.json", "./tsco.json"))
+    .addOption(new Option("-c, --configuration <string>", "Path to TypeScript Code Organizer configuration file").default("./tsco.json", "./tsco.json"))
     .addOption(new Option("-w, --watch", "Watches TypeScript files for changes").default(false, "false"))
     .parse(process.argv);
 

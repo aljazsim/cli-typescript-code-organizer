@@ -1,5 +1,5 @@
 {
-    "name": "cli-typescript-class-organizer",
+    "name": "cli-typescript-code-organizer",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -62,6 +62,7 @@
         "@types/node": "^20.12.7",
         "babel-jest": "^29.7.0",
         "jest": "^29.7.0",
+        "ts-node": "^10.9.2",
         "typescript": "^5.4.5"
     },
     "scripts": {

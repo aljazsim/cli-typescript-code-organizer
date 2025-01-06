@@ -56,7 +56,7 @@ Everything from import statements, regions, grouping to sorting can be configure
 
 ## Installation
 
-In order to install TypeScript Class Organizer ensure you have `npm` installed, open a terminal window and run:
+In order to install TypeScript Code Organizer ensure you have `npm` installed, open a terminal window and run:
 
 ```
 npm install tsco -g
