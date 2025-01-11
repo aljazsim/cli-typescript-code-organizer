@@ -1,12 +1,23 @@
-import { Command, Option } from 'commander';
-import { text } from 'figlet';
-import { glob } from 'glob';
-import Watcher from 'watcher';
-import { fileExists, getFullPath, writeFile } from './helpers/file-system-helper.js';
-import { SourceCodeOrganizer } from './source-code/source-code-organizer.js';
-import { Configuration } from './configuration/configuration.js';
+import { Command, Option } from "commander";
+import { glob } from "glob";
+import "watcher";
 
-// #region Functions (6)
+import { Configuration } from "./configuration/configuration.js";
+import { getFullPath, writeFile } from "./helpers/file-system-helper.js";
+import { SourceCodeOrganizer } from "./source-code/source-code-organizer.js";
+import Watcher from "watcher";
+
+async function organizeSourceCode(filePath: any, configuration: Configuration)
+{
+    const includedFilePaths = await glob(configuration.files.include, { ignore: configuration.files.exclude });
+
+    if (includedFilePaths.some(fp => getFullPath(fp) === getFullPath(filePath)))
+    {
+        console.log(`tsco organizing ${filePath}`);
+
+        await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
+    }
+}
 
 export function displayHelp()
 {
@@ -40,22 +51,12 @@ export async function initializeConfigurationFile(configurationFilePath: string,
     console.log(`tsco configuration file created at ${getFullPath(configurationFilePath)}`);
 }
 
-async function organizeSourceCode(filePath: any, configuration: Configuration)
-{
-    const includedFilePaths = await glob(configuration.files.include, { ignore: configuration.files.exclude });
-
-    if (includedFilePaths.some(fp => getFullPath(fp) === getFullPath(filePath)))
-    {
-        console.log(`tsco organizing ${filePath}`);
-
-        await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
-    }
-}
-
 export function parseCommandLineArguments(commandLineArguments: string[])
 {
     const defaultConfigurationFilePath = "./tsco.json";
     let command = new Command();
+
+    commandLineArguments = commandLineArguments.filter(arg => arg && arg.trim().length > 0);
 
     command = command.name("tsco");
     command = command.description("CLI tool for organizing TypeScript code");
@@ -94,5 +95,3 @@ export async function run(configuration: Configuration, watch: boolean)
         await watcher.watch();
     }
 }
-
-// #endregion Functions (6)

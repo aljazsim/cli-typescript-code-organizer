@@ -7,4 +7,4 @@ export class OrganizeTestParameters
         public readonly output: string)
     {
     }
-};
+}

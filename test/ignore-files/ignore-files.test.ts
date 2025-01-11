@@ -1,11 +1,8 @@
-import { test, expect } from "vitest";
+import { expect, test } from "vitest";
+
+import { Configuration } from "../../src/configuration/configuration.js";
 import { readFile } from "../../src/helpers/file-system-helper.js";
 import { SourceCodeOrganizer } from "../../src/source-code/source-code-organizer.js";
-import { Configuration } from "../../src/configuration/configuration.js";
-
-
-
-
 
 test('ignore files', async () =>
 {
@@ -25,5 +22,3 @@ test('ignore files', async () =>
     }
 
 });
-
-

@@ -2,7 +2,7 @@ export const defaultConfiguration =
 {
     "files": {
         "include": ["./**/*.ts"],
-        "exclude": ["node_modules", "dist", "out"]
+        "exclude": ["node_modules/**", "dist/**", "out/**"]
     },
     "imports": {
         "removeUnusedImports": true,
