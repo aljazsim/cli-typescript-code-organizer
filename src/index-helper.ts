@@ -97,7 +97,7 @@ export async function run(configuration: Configuration, watch: boolean)
 
     if (watch)
     {
-        // wach for file changes
+        // watch for file changes
         const watcher = new Watcher(".", { recursive: true });
 
         watcher.on('add', async (filePath) => matchSourceCode(filePath, configuration) || await organizeSourceCode(filePath, configuration));
