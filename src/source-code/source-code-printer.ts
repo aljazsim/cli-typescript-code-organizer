@@ -19,23 +19,6 @@ import { VariableNode } from "../elements/variable-node.js";
 import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
 import { SourceCode } from "./source-code.js";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export class SourceCodePrinter
 {
     // #region Public Static Methods (1)
@@ -51,7 +34,7 @@ export class SourceCodePrinter
         return printedSourceCode;
     }
 
-    // #endregion Public Static Methods (1)
+    // #endregion Public Static Methods
 
     // #region Private Static Methods (8)
 
@@ -302,5 +285,5 @@ export class SourceCodePrinter
         return nodeSourceCode;
     }
 
-    // #endregion Private Static Methods (8)
+    // #endregion Private Static Methods
 }

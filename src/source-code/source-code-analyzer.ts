@@ -67,6 +67,10 @@ export class SourceCodeAnalyzer
         {
             return true;
         }
+        else if (ts.isIdentifier(node) && node.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
         else
         {
             for (const childNode of node.getChildren(sourceFile))
