@@ -1,15 +1,12 @@
+import { Configuration } from "./configuration/configuration.js";
+import { displayHelp, displayVersion, initializeConfigurationFile, parseCommandLineArguments, run } from "./index-helper.js";
 
-import { Configuration } from './configuration/configuration.js';
-import { displayHelp, displayVersion, initializeConfigurationFile, parseCommandLineArguments, run } from './index-helper.js';
-
-
-
-
+// #region Variables (2)
 
 const commandLineArguments = parseCommandLineArguments(process.argv);
 const configuration = await Configuration.getConfiguration(commandLineArguments.configurationFilePath);
 
-
+// #endregion Variables
 
 if (commandLineArguments.version)
 {
@@ -27,5 +24,3 @@ else
 {
     run(configuration, commandLineArguments.watch);
 }
-
-

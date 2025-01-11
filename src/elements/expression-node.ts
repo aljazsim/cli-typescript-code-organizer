@@ -12,7 +12,7 @@ export class ExpressionNode extends ElementNode
 
     // #region Constructors (1)
 
-    constructor(sourceFile: ts.SourceFile, expression: ts.Expression)
+    constructor(sourceFile: ts.SourceFile, expression: ts.Node)
     {
         super(sourceFile, expression);
 

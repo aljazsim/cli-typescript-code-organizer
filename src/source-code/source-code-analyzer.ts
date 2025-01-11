@@ -124,18 +124,18 @@ export class SourceCodeAnalyzer
             // variable
             elements.push(new VariableNode(sourceFile, node));
         }
-        else if (ts.isExpression(node))
-        {
-            // expression
-            elements.push(new ExpressionNode(sourceFile, node));
-        }
-        else
+        else if (node.kind == ts.SyntaxKind.SyntaxList)
         {
             // traverse children ast nodes
             for (let childNode of node.getChildren(sourceFile))
             {
                 elements = elements.concat(this.traverseSyntaxTree(childNode, sourceFile, configuration));
             }
+        }
+        else
+        {
+            // expression
+            elements.push(new ExpressionNode(sourceFile, node));
         }
 
         return elements;
