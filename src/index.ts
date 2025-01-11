@@ -1,12 +1,4 @@
 
-import * as figlet from 'figlet';
-
-
-
-import { glob } from 'glob';
-import Watcher from 'watcher';
-import { getFullPath, writeFile } from './helpers/file-system-helper.js';
-import { SourceCodeOrganizer } from './source-code/source-code-organizer.js';
 import { Configuration } from './configuration/configuration.js';
 import { displayHelp, displayVersion, initializeConfigurationFile, parseCommandLineArguments, run } from './index-helper.js';
 
