@@ -10,13 +10,22 @@ import { SourceCodeOrganizer } from "./source-code/source-code-organizer.js";
 
 async function organizeSourceCode(filePath: any, configuration: Configuration)
 {
+    console.log(`tsco organizing ${filePath}`);
+
+    await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
+}
+
+async function matchSourceCode(filePath: any, configuration: Configuration)
+{
     const includedFilePaths = await glob(configuration.files.include, { ignore: configuration.files.exclude });
 
     if (includedFilePaths.some(fp => getFullPath(fp) === getFullPath(filePath)))
     {
-        console.log(`tsco organizing ${filePath}`);
-
-        await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
 
@@ -82,20 +91,19 @@ export function parseCommandLineArguments(commandLineArguments: string[])
 
 export async function run(configuration: Configuration, watch: boolean)
 {
-    const filePaths = await glob(configuration.files.include, { ignore: configuration.files.exclude });
-
-    for (const filePath of filePaths)
+    // organize files
+    for (const filePath of await glob(configuration.files.include, { ignore: configuration.files.exclude }))
     {
-        await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
+        await organizeSourceCode(filePath, configuration);
     }
 
     if (watch)
     {
-        // run on file changes
+        // wach for file changes
         const watcher = new Watcher(".", { recursive: true });
 
-        watcher.on('add', async (filePath) => await organizeSourceCode(filePath, configuration));
-        watcher.on('change', async (filePath) => await organizeSourceCode(filePath, configuration));
+        watcher.on('add', async (filePath) => matchSourceCode(filePath, configuration) || await organizeSourceCode(filePath, configuration));
+        watcher.on('change', async (filePath) => matchSourceCode(filePath, configuration) || await organizeSourceCode(filePath, configuration));
 
         await watcher.watch();
     }
