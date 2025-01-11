@@ -8,7 +8,7 @@
             "program": "${workspaceFolder}/src/index.ts",
             "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-            "args": ["--initialize"]
+            "args": [""]
         }
     ]
 }
