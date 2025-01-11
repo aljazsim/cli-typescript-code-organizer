@@ -1,4 +1,5 @@
 import ts from "typescript";
+
 import { getDecorators } from "../helpers/node-helper.js";
 import { ElementNode } from "./element-node.js";
 

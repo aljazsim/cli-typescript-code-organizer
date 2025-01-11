@@ -1,10 +1,10 @@
 import { Command, Option } from "commander";
 import { glob } from "glob";
+import Watcher from "watcher";
 
 import { Configuration } from "./configuration/configuration.js";
 import { getFullPath, writeFile } from "./helpers/file-system-helper.js";
 import { SourceCodeOrganizer } from "./source-code/source-code-organizer.js";
-import Watcher from "watcher";
 
 // #region Functions (1)
 

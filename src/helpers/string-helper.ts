@@ -1,7 +1,6 @@
+import wcmatch from "wildcard-match";
 
-import wcmatch from 'wildcard-match'
-
-// #region Functions (3)
+// #region Exported Functions (3)
 
 export function convertPascalCaseToTitleCase(value: string)
 {
@@ -57,4 +56,4 @@ export function matchWildcard(pattern: string, text: string)
     return false;
 }
 
-// #endregion Functions (3)
+// #endregion Exported Functions

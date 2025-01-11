@@ -1,4 +1,5 @@
 import ts from "typescript";
+
 import { WriteModifier } from "../enums/write-modifier.js";
 import { getWriteMode } from "../helpers/node-helper.js";
 import { ElementNode } from "./element-node.js";

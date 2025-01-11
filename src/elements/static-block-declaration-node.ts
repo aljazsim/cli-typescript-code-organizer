@@ -1,4 +1,5 @@
 import ts from "typescript";
+
 import { ElementNode } from "./element-node.js";
 
 export class StaticBlockDeclarationNode extends ElementNode

@@ -1,4 +1,5 @@
 import ts from "typescript";
+
 import { AccessModifier } from "../enums/access-modifier.js";
 import { getAccessModifier, getDecorators, getIsAbstract, getIsAsync, getIsStatic } from "../helpers/node-helper.js";
 import { ElementNode } from "./element-node.js";
