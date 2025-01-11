@@ -10,23 +10,18 @@ export class VariableNode extends ElementNode
 
     public readonly dependencies: string[] = [];
     public readonly isArrowFunction: boolean = false;
-    public readonly isConst: boolean;
-    public readonly isExport: boolean;
     public readonly name: string;
 
     // #endregion Properties
 
     // #region Constructors (1)
 
-    constructor(sourceFile: ts.SourceFile, variableDeclaration: ts.VariableDeclaration, isExport: boolean, isConst: boolean)
+    constructor(sourceFile: ts.SourceFile, variableDeclaration: ts.VariableDeclaration, public readonly isExport: boolean, public readonly isConst: boolean, public readonly leadingComment: string, public readonly trailingComment: string)
     {
         super(sourceFile, variableDeclaration);
 
         // this.name = variableDeclaration.declarationList.declarations.map(d => (<ts.Identifier>d.name).escapedText.toString()).join(",");
         this.name = (<ts.Identifier>variableDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(variableDeclaration.name.pos, variableDeclaration.name.end).trim();
-
-        this.isExport = isExport;
-        this.isConst = isConst;
 
         this.isArrowFunction = getIsArrowFunction(variableDeclaration);
 

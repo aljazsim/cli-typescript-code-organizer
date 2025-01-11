@@ -1,7 +1,8 @@
-// #region Constants (2)
+// #region Constants (3)
 
+const a11 = 2963139131;
 const a08 = a11;
-const a07: number = 1981188020, a11 = 2963139131;
+const a07: number = 1981188020;
 
 // #endregion Constants
 

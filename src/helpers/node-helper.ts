@@ -1,5 +1,4 @@
 import * as ts from "typescript";
-
 import { AccessorNode } from "../elements/accessor-node.js";
 import { ClassNode } from "../elements/class-node.js";
 import { ElementNode } from "../elements/element-node.js";
@@ -21,26 +20,7 @@ import { add, except, remove } from "./array-helper.js";
 import { compareStrings } from "./comparing-helper.js";
 import { matchRegEx, matchWildcard } from "./string-helper.js";
 
-// #region Functions (1)
-
-function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupWithDecorators: boolean)
-{
-    if (sortDirection !== "none")
-    {
-        nodes = nodes.sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
-
-        if (sortDirection === "desc")
-        {
-            nodes = nodes.reverse();
-        }
-    }
-
-    return nodes;
-}
-
-// #endregion Functions
-
-// #region Exported Functions (28)
+// #region Functions (32)
 
 export function getAccessModifier(node: ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.MethodDeclaration | ts.PropertySignature | ts.IndexSignatureDeclaration)
 {
@@ -128,6 +108,11 @@ export function getFunctions(nodes: ElementNode[], treatArrowFunctionVariablesAs
     return functions.concat(arrowFunctionVariables).concat(arrowFunctionConstants).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
+export function getHasLeadingComment(node: ts.Node, sourceFile: ts.SourceFile): any
+{
+    return ts.getLeadingCommentRanges(node.getFullText(sourceFile), 0) !== undefined;
+}
+
 export function getImports(nodes: ElementNode[])
 {
     return nodes.filter(n => n instanceof ImportNode);
@@ -191,6 +176,29 @@ export function getIsExport(node: ts.ClassDeclaration | ts.FunctionDeclaration |
 export function getIsStatic(node: ts.ClassDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.PropertyDeclaration | ts.MethodDeclaration | ts.IndexedAccessTypeNode)
 {
     return getModifiers(node).find((x) => x.kind === ts.SyntaxKind.StaticKeyword) !== undefined;
+}
+
+export function getLeadingComment(node: ts.Node, sourceFile: ts.SourceFile)
+{
+    const sourceCode = node.getFullText(sourceFile);
+    const commentRanges = ts.getLeadingCommentRanges(sourceCode, 0)
+
+    if (commentRanges && commentRanges.length > 0 && commentRanges[0].hasTrailingNewLine)
+    {
+    }
+
+    if (commentRanges && commentRanges.length > 0)
+    {
+        let start = commentRanges[0].pos;
+        let end = commentRanges[0].end;
+        let trailingNewLine = commentRanges[0].hasTrailingNewLine;
+
+        return sourceCode.substring(start, end) + (trailingNewLine ? "\r\n" : "");
+    }
+    else
+    {
+        return "";
+    }
 }
 
 export function getModifiers(node: ts.ClassDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.PropertyDeclaration | ts.MethodDeclaration | ts.IndexedAccessTypeNode | ts.ConstructorDeclaration | ts.EnumDeclaration | ts.FunctionDeclaration | ts.IndexSignatureDeclaration | ts.MethodSignature | ts.PropertySignature | ts.TypeAliasDeclaration | ts.VariableStatement)
@@ -275,6 +283,25 @@ export function getName(node: ElementNode, groupWithDecorators: boolean): string
     return `${nodeDecorators.join(", ")} ${nodeName}`.trim();
 }
 
+export function getTrailingComment(node: ts.Node, sourceFile: ts.SourceFile)
+{
+    const sourceCode = node.getFullText(sourceFile);
+    const commentRanges = ts.getTrailingCommentRanges(sourceCode, 0);
+
+    if (commentRanges && commentRanges.length > 0)
+    {
+        let start = commentRanges[0].pos;
+        let end = commentRanges[0].end;
+        let trailingNewLine = commentRanges[0].hasTrailingNewLine;
+
+        return sourceCode.substring(start, end) + (trailingNewLine ? "\r\n" : "");
+    }
+    else
+    {
+        return "";
+    }
+}
+
 export function getTypeAliases(nodes: ElementNode[])
 {
     return nodes.filter(n => n instanceof TypeAliasNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
@@ -349,6 +376,21 @@ export function order(sortDirection: "asc" | "desc" | "none", nodes: ElementNode
     return nodesAbove.concat(nodesMiddle).concat(nodesBelow);
 }
 
+function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupWithDecorators: boolean)
+{
+    if (sortDirection !== "none")
+    {
+        nodes = nodes.sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+
+        if (sortDirection === "desc")
+        {
+            nodes = nodes.reverse();
+        }
+    }
+
+    return nodes;
+}
+
 export function splitBy<T extends ElementNode>(nodes: T[], patterns: string[])
 {
     const matchingNodes = Array<T[]>();
@@ -373,4 +415,4 @@ export function splitBy<T extends ElementNode>(nodes: T[], patterns: string[])
     return matchingNodes.filter(mn => mn.length > 0);
 }
 
-// #endregion Exported Functions
+// #endregion Functions (32)

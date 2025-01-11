@@ -10,7 +10,7 @@ import { ImportNode } from "../elements/import-node.js";
 import { InterfaceNode } from "../elements/interface-node.js";
 import { TypeAliasNode } from "../elements/type-alias-node.js";
 import { VariableNode } from "../elements/variable-node.js";
-import { getIsConst, getIsExport } from "../helpers/node-helper.js";
+import { getIsConst, getIsExport, getLeadingComment, getTrailingComment } from "../helpers/node-helper.js";
 
 export class SourceCodeAnalyzer
 {
@@ -40,7 +40,31 @@ export class SourceCodeAnalyzer
 
     private static findReference(node: ts.Node, sourceFile: ts.SourceFile, identifier: string)
     {
-        if (ts.isIdentifier(node) && node.getText(sourceFile) === identifier)
+        if (ts.isTypeReferenceNode(node) && ts.isIdentifier(node.typeName) && node.typeName.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
+        else if (ts.isNewExpression(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
+        else if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
+        else if (ts.isExpressionWithTypeArguments(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
+        else if (ts.isElementAccessExpression(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
+        else if (ts.isPropertyAccessExpression(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
+        else if (ts.isQualifiedName(node) && ts.isIdentifier(node.left) && node.left.getText(sourceFile) === identifier)
         {
             return true;
         }
@@ -96,12 +120,14 @@ export class SourceCodeAnalyzer
         {
             const isExport = getIsExport(node);
             const isConst = getIsConst(node.declarationList);
+            const leadingComment = getLeadingComment(node, sourceFile);
+            const trailingComment = getTrailingComment(node, sourceFile);
 
             // variable statement can have multiple variables -> break them up so we can organize them
             for (const variableDeclaration of node.declarationList.declarations)
             {
                 // variable
-                elements.push(new VariableNode(sourceFile, variableDeclaration, isExport, isConst));
+                elements.push(new VariableNode(sourceFile, variableDeclaration, isExport, isConst, leadingComment, trailingComment));
             }
         }
         else if (node.kind == ts.SyntaxKind.SyntaxList)
@@ -112,7 +138,7 @@ export class SourceCodeAnalyzer
                 elements = elements.concat(this.traverseSyntaxTree(childNode, sourceFile, configuration));
             }
         }
-        else
+        else if (!ts.isEmptyStatement(node))
         {
             // expression
             elements.push(new ExpressionNode(sourceFile, node));

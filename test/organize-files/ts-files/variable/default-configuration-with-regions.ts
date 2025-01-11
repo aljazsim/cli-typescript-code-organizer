@@ -7,8 +7,9 @@ export const a06 = () => "poiuopiuopuip";
 
 // #region Variables
 
-const a07: number = 1981188020, a11 = 2963139131;
+const a07: number = 1981188020;
 const a08 = a11;
+const a11 = 2963139131;
 
 let a01;
 let a04 = () => 4978875552;

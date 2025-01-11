@@ -21,7 +21,7 @@ import { SourceCode } from "./source-code.js";
 
 export class SourceCodePrinter
 {
-    // #region Public Static Methods (1)
+    // #region Public Static Methods (2)
 
     public static print(nodeGroups: ElementNodeGroup[], configuration: Configuration)
     {
@@ -34,7 +34,19 @@ export class SourceCodePrinter
         return printedSourceCode;
     }
 
-    // #endregion Public Static Methods
+    public static printVariable(node: VariableNode): SourceCode
+    {
+        let sourceCode = node.sourceCode.trim();
+
+        sourceCode = `${node.isConst ? "const" : "let"} ${sourceCode};`;
+        sourceCode = `${node.isExport ? "export " : ""}${sourceCode}`;
+        sourceCode = `${node.leadingComment}${sourceCode}`;
+        sourceCode = `${sourceCode}${node.trailingComment}`;
+
+        return new SourceCode(sourceCode);
+    }
+
+    // #endregion Public Static Methods (2)
 
     // #region Private Static Methods (8)
 
@@ -160,7 +172,12 @@ export class SourceCodePrinter
         else if (node instanceof TypeAliasNode)
         {
             nodeSourceCode = this.printType(node, configuration);
-        } else
+        }
+        else if (node instanceof VariableNode)
+        {
+            nodeSourceCode = this.printVariable(node);
+        }
+        else
         {
             nodeSourceCode = this.printOther(node);
         }
@@ -194,7 +211,7 @@ export class SourceCodePrinter
                 (node instanceof MethodSignatureNode && node.hasLeadingComment) ||
                 (node instanceof PropertyNode && node.hasLeadingComment) ||
                 (node instanceof AccessorNode && node.hasLeadingComment) ||
-                (node instanceof VariableNode && node.hasLeadingComment))
+                (node instanceof VariableNode && node.leadingComment.length > 0))
             {
                 if (nodeGroup.nodes.indexOf(node) > 0)
                 {
@@ -292,5 +309,5 @@ export class SourceCodePrinter
         return nodeSourceCode;
     }
 
-    // #endregion Private Static Methods
+    // #endregion Private Static Methods (8)
 }

@@ -1,4 +1,5 @@
 import * as ts from "typescript";
+import { getHasLeadingComment } from "../helpers/node-helper.js";
 
 export abstract class ElementNode
 {
@@ -8,17 +9,17 @@ export abstract class ElementNode
     public abstract readonly name: string;
     public readonly sourceCode: string;
 
-    // #endregion Properties
+    // #endregion Properties (3)
 
     // #region Constructors (1)
 
     constructor(sourceFile: ts.SourceFile, public readonly node: ts.Node)
     {
         this.sourceCode = ElementNode.getSourceCode(sourceFile, node.getFullStart(), node.getEnd());
-        this.hasLeadingComment = this.getHasLeadingComment(node, sourceFile);
+        this.hasLeadingComment = getHasLeadingComment(node, sourceFile);
     }
 
-    // #endregion Constructors
+    // #endregion Constructors (1)
 
     // #region Private Static Methods (1)
 
@@ -27,14 +28,5 @@ export abstract class ElementNode
         return sourceFile.getFullText().substring(start, end);
     }
 
-    // #endregion Private Static Methods
-
-    // #region Private Methods (1)
-
-    private getHasLeadingComment(node: ts.Node, sourceFile: ts.SourceFile): any
-    {
-        return ts.getLeadingCommentRanges(node.getFullText(sourceFile), 0) !== undefined;
-    }
-
-    // #endregion Private Methods
+    // #endregion Private Static Methods (1)
 }

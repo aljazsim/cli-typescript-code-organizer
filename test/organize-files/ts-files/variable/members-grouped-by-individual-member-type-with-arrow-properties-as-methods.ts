@@ -1,6 +1,9 @@
-// #region Functions (1)
+// #region Functions (2)
 
 let a04 = () => 4978875552;
+
+// a variable
+let a14: (p1: string) => number;
 
 // #endregion Functions
 
@@ -11,20 +14,18 @@ export const a06 = () => "poiuopiuopuip";
 
 // #endregion Exported Functions
 
-// #region Constants (2)
+// #region Constants (3)
 
-const a07: number = 1981188020, a11 = 2963139131;
+const a07: number = 1981188020;
 const a08 = a11;
+const a11 = 2963139131;
 
 // #endregion Constants
 
-// #region Variables (3)
+// #region Variables (2)
 
 let a01;
 let a13 = null;
-
-// a variable
-let a14: (p1: string) => number;
 
 // #endregion Variables
 

@@ -1,9 +1,9 @@
-import "@angular";
+import angular from "@angular";
 import * as angular from "@angular";
 import * as angular from "@angular";
 import * as react from "react";
 import ts, { AbstractKeyword, SourceFile } from "typescript";
-import "vue";
+import vue from "vue";
 import vue, { Component } from "vue";
 
 import "../../../configurations/default-configuration-with-no-regions.json";
