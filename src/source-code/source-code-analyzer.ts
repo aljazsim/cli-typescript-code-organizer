@@ -30,14 +30,14 @@ export class SourceCodeAnalyzer
 
     public static hasReference(sourceFile: ts.SourceFile, identifier: string)
     {
-        return sourceFile.getChildren(sourceFile).some(node => this.findReference1(node, sourceFile, identifier));
+        return sourceFile.getChildren(sourceFile).some(node => this.findReference(node, sourceFile, identifier));
     }
 
     // #endregion Public Static Methods
 
     // #region Private Static Methods (2)
 
-    private static findReference1(node: ts.Node, sourceFile: ts.SourceFile, identifier: string)
+    private static findReference(node: ts.Node, sourceFile: ts.SourceFile, identifier: string)
     {
         if (ts.isTypeReferenceNode(node) && ts.isIdentifier(node.typeName) && node.typeName.getText(sourceFile) === identifier)
         {
@@ -55,6 +55,10 @@ export class SourceCodeAnalyzer
         {
             return true;
         }
+        else if (ts.isElementAccessExpression(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
         else if (ts.isPropertyAccessExpression(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
         {
             return true;
@@ -63,7 +67,7 @@ export class SourceCodeAnalyzer
         {
             for (const childNode of node.getChildren(sourceFile))
             {
-                if (this.findReference1(childNode, sourceFile, identifier))
+                if (this.findReference(childNode, sourceFile, identifier))
                 {
                     return true;
                 }
