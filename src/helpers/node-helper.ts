@@ -1,48 +1,46 @@
-
 import * as ts from "typescript";
-import { AccessModifier } from "../enums/access-modifier.js";
-import { ElementNode } from "../elements/element-node.js";
-import { ClassNode } from "../elements/class-node.js";
-import { compareStrings } from "./comparing-helper.js";
-import { PropertyNode } from "../elements/property-node.js";
-import { MethodNode } from "../elements/method-node.js";
-import { SetterNode } from "../elements/setter-node.js";
-import { GetterNode } from "../elements/getter-node.js";
+
 import { AccessorNode } from "../elements/accessor-node.js";
+import { ClassNode } from "../elements/class-node.js";
+import { ElementNode } from "../elements/element-node.js";
 import { EnumNode } from "../elements/enum-node.js";
 import { ExpressionNode } from "../elements/expression-node.js";
 import { FunctionNode } from "../elements/function-node.js";
+import { GetterNode } from "../elements/getter-node.js";
 import { ImportNode } from "../elements/import-node.js";
 import { InterfaceNode } from "../elements/interface-node.js";
+import { MethodNode } from "../elements/method-node.js";
+import { PropertyNode } from "../elements/property-node.js";
+import { PropertySignatureNode } from "../elements/property-signature-node.js";
+import { SetterNode } from "../elements/setter-node.js";
 import { TypeAliasNode } from "../elements/type-alias-node.js";
 import { VariableNode } from "../elements/variable-node.js";
+import { AccessModifier } from "../enums/access-modifier.js";
 import { WriteModifier } from "../enums/write-modifier.js";
-import { PropertySignatureNode } from "../elements/property-signature-node.js";
 import { add, except, remove } from "./array-helper.js";
+import { compareStrings } from "./comparing-helper.js";
 import { matchRegEx, matchWildcard } from "./string-helper.js";
 
+// #region Functions (1)
 
+function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupWithDecorators: boolean)
+{
+    if (sortDirection !== "none")
+    {
+        nodes = nodes.sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
 
+        if (sortDirection === "desc")
+        {
+            nodes = nodes.reverse();
+        }
+    }
 
+    return nodes;
+}
 
+// #endregion Functions
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// #region Functions (25)
+// #region Exported Functions (25)
 
 export function getAccessModifier(node: ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.MethodDeclaration | ts.PropertySignature | ts.IndexSignatureDeclaration)
 {
@@ -313,21 +311,6 @@ export function order(sortDirection: "asc" | "desc" | "none", nodes: ElementNode
     return nodesAbove.concat(nodesMiddle).concat(nodesBelow);
 }
 
-function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupWithDecorators: boolean)
-{
-    if (sortDirection !== "none")
-    {
-        nodes = nodes.sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
-
-        if (sortDirection === "desc")
-        {
-            nodes = nodes.reverse();
-        }
-    }
-
-    return nodes;
-}
-
 export function splitBy<T extends ElementNode>(nodes: T[], patterns: string[])
 {
     const matchingNodes = Array<T[]>();
@@ -352,4 +335,4 @@ export function splitBy<T extends ElementNode>(nodes: T[], patterns: string[])
     return matchingNodes.filter(mn => mn.length > 0);
 }
 
-// #endregion Functions (25)
+// #endregion Exported Functions
