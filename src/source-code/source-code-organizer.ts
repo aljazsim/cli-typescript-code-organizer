@@ -73,6 +73,12 @@ export class SourceCodeOrganizer
         if (organizedSourceCode !== sourceCode)
         {
             await writeFile(sourceCodeFilePath, organizedSourceCode);
+
+            return true;
+        }
+        else 
+        {
+            return false;
         }
     }
 
