@@ -6,14 +6,7 @@ import { Configuration } from "./configuration/configuration.js";
 import { getFullPath, writeFile } from "./helpers/file-system-helper.js";
 import { SourceCodeOrganizer } from "./source-code/source-code-organizer.js";
 
-// #region Functions (1)
-
-async function organizeSourceCode(filePath: any, configuration: Configuration)
-{
-    console.log(`tsco organizing ${filePath}`);
-
-    await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
-}
+// #region Functions (2)
 
 async function matchSourceCode(filePath: any, configuration: Configuration)
 {
@@ -26,6 +19,15 @@ async function matchSourceCode(filePath: any, configuration: Configuration)
     else
     {
         return false;
+    }
+}
+
+async function organizeSourceCode(filePath: any, configuration: Configuration)
+{
+    if (await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration))
+    {
+        console.log(`tsco organizing ${filePath}`);
+
     }
 }
 
