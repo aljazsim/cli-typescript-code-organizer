@@ -43,6 +43,10 @@ export class SourceCodeOrganizer
                 console.error(error);
             }
         }
+        else
+        {
+            console.log(`tsco ignoring ${sourceCodeFilePath}`);
+        }
 
         return sourceCode;
     }
