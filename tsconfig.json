@@ -15,7 +15,8 @@
         "resolveJsonModule": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "allowJs": true
     },
     "include": ["src/**/*", "test/**/*"],
     "exclude": [
