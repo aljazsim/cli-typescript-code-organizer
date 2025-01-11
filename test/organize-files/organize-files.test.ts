@@ -1,8 +1,12 @@
-import { expect, test } from '@jest/globals';
-import { deleteFile, fileExists, readFile, writeFile } from '../../src/helpers/file-system-helper.js';
-import { SourceCodeOrganizer } from '../../src/source-code/source-code-organizer.js';
-import { Configuration } from '../../src/configuration/configuration.js';
-import { getOrganizeTestParameters } from '../helpers/organize-test-helper.js';
+
+import { Configuration } from "src/configuration/configuration.js";
+import { deleteFile, fileExists, readFile, writeFile } from "src/helpers/file-system-helper.js";
+import { SourceCodeOrganizer } from "src/source-code/source-code-organizer.js";
+import { getOrganizeTestParameters } from "test/helpers/organize-test-helper.js";
+import { test } from "vitest";
+
+
+
 
 
 for (const otp of getOrganizeTestParameters())

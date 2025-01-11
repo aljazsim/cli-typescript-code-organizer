@@ -1,13 +1,8 @@
+export const defaultConfiguration =
 {
     "files": {
-        "include": [
-            "./**/*.ts"
-        ],
-        "exclude": [
-            "node_modules",
-            "dist",
-            "out"
-        ]
+        "include": ["./**/*.ts"],
+        "exclude": ["node_modules", "dist", "out"]
     },
     "imports": {
         "removeUnusedImports": true,
@@ -31,9 +26,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Enums",
-                "memberTypes": [
-                    "enums"
-                ],
+                "memberTypes": ["enums"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -41,9 +34,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Interfaces",
-                "memberTypes": [
-                    "interfaces"
-                ],
+                "memberTypes": ["interfaces"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -51,9 +42,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Classes",
-                "memberTypes": [
-                    "classes"
-                ],
+                "memberTypes": ["classes"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -61,9 +50,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Types",
-                "memberTypes": [
-                    "types"
-                ],
+                "memberTypes": ["types"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -71,9 +58,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Functions",
-                "memberTypes": [
-                    "functions"
-                ],
+                "memberTypes": ["functions"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -81,9 +66,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Exported Functions",
-                "memberTypes": [
-                    "exportedFunctions"
-                ],
+                "memberTypes": ["exportedFunctions"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -141,9 +124,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Static Block Declarations",
-                "memberTypes": [
-                    "staticBlockDeclarations"
-                ],
+                "memberTypes": ["staticBlockDeclarations"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -151,9 +132,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Constructors",
-                "memberTypes": [
-                    "constructors"
-                ],
+                "memberTypes": ["constructors"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -178,9 +157,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Public Static Getters And Setters",
-                "memberTypes": [
-                    "publicStaticGettersAndSetters"
-                ],
+                "memberTypes": ["publicStaticGettersAndSetters"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -199,9 +176,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Protected Static Getters And Setters",
-                "memberTypes": [
-                    "protectedStaticGettersAndSetters"
-                ],
+                "memberTypes": ["protectedStaticGettersAndSetters"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -220,9 +195,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Private Static Getters And Setters",
-                "memberTypes": [
-                    "privateStaticGettersAndSetters"
-                ],
+                "memberTypes": ["privateStaticGettersAndSetters"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -230,9 +203,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Private Getters And Setters",
-                "memberTypes": [
-                    "privateGettersAndSetters"
-                ],
+                "memberTypes": ["privateGettersAndSetters"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -240,9 +211,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Public Static Methods",
-                "memberTypes": [
-                    "publicStaticMethods"
-                ],
+                "memberTypes": ["publicStaticMethods"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -250,10 +219,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Public Methods",
-                "memberTypes": [
-                    "publicMethods",
-                    "publicAbstractMethods"
-                ],
+                "memberTypes": ["publicMethods", "publicAbstractMethods"],
                 "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
@@ -261,9 +227,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Protected Static Methods",
-                "memberTypes": [
-                    "protectedStaticMethods"
-                ],
+                "memberTypes": ["protectedStaticMethods"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -271,10 +235,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Protected Methods",
-                "memberTypes": [
-                    "protectedMethods",
-                    "protectedAbstractMethods"
-                ],
+                "memberTypes": ["protectedMethods", "protectedAbstractMethods"],
                 "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
@@ -282,9 +243,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Private Static Methods",
-                "memberTypes": [
-                    "privateStaticMethods"
-                ],
+                "memberTypes": ["privateStaticMethods"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -292,9 +251,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Private Methods",
-                "memberTypes": [
-                    "privateMethods"
-                ],
+                "memberTypes": ["privateMethods"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -315,10 +272,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Properties",
-                "memberTypes": [
-                    "readOnlyProperties",
-                    "properties"
-                ],
+                "memberTypes": ["readOnlyProperties", "properties"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -326,9 +280,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Indexes",
-                "memberTypes": [
-                    "indexes"
-                ],
+                "memberTypes": ["indexes"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -336,9 +288,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Getters And Setters",
-                "memberTypes": [
-                    "gettersAndSetters"
-                ],
+                "memberTypes": ["gettersAndSetters"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -346,9 +296,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Methods",
-                "memberTypes": [
-                    "methods"
-                ],
+                "memberTypes": ["methods"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -368,9 +316,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Properties",
-                "memberTypes": [
-                    "properties"
-                ],
+                "memberTypes": ["properties"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -378,9 +324,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Indexes",
-                "memberTypes": [
-                    "indexes"
-                ],
+                "memberTypes": ["indexes"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
@@ -388,13 +332,11 @@
             {
                 "sortDirection": "asc",
                 "caption": "Methods",
-                "memberTypes": [
-                    "methods"
-                ],
+                "memberTypes": ["methods"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
             }
         ]
     }
-}
+};

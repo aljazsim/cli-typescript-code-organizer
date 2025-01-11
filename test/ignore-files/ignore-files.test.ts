@@ -1,8 +1,11 @@
-import { expect, test } from '@jest/globals';
+import { Configuration } from "src/configuration/configuration.js";
+import { readFile } from "src/helpers/file-system-helper.js";
+import { SourceCodeOrganizer } from "src/source-code/source-code-organizer.js";
+import { test } from "vitest";
 
-import { Configuration } from '../../src/configuration/configuration.js';
-import { SourceCodeOrganizer } from "../../src/source-code/source-code-organizer.js";
-import { readFile } from "../../src/helpers/file-system-helper.js";
+
+
+
 
 test('ignore files', async () =>
 {
@@ -12,7 +15,6 @@ test('ignore files', async () =>
         "./test/ignore-files/ts-files/test-ignore.ts",
         "./test/ignore-files/ts-files/test-ignore.ts"
     ];
-
     // act & assert
     for (const sourceFilePath of sourceFilePaths)
     {
@@ -21,6 +23,7 @@ test('ignore files', async () =>
 
         expect(sourceCode).toBe(organizedSourceCode);
     }
+
 });
 
 

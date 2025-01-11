@@ -1,7 +1,7 @@
 import "../../../configurations/default-configuration-with-no-regions.json";
-import { TestInterface } from "../interface/test-interface";
+
 import "./missing-file.json";
-import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "./test-decorators";
+
 import ts, { SourceFile } from "typescript";
 
 export abstract class TestClass implements TestInterface

@@ -1,4 +1,5 @@
-import { ElementNode } from "./element-node.js";
+
+import { ElementNode } from "src/elements/element-node.js";
 import * as ts from "typescript";
 
 export class EnumNode extends ElementNode

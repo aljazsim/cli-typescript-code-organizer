@@ -1,6 +1,9 @@
-import { RegionConfiguration } from "./region-configuration.js";
-import { TypeMemberConfiguration } from "./type-member-configuration.js";
-import { TypeMemberGroupConfiguration } from "./type-member-group-configuration.js";
+import { RegionConfiguration } from "src/configuration/region-configuration.js";
+import { TypeMemberConfiguration } from "src/configuration/type-member-configuration.js";
+import { TypeMemberGroupConfiguration } from "src/configuration/type-member-group-configuration.js";
+
+
+
 
 export class TypeConfiguration
 {

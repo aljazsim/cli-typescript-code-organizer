@@ -1,17 +1,30 @@
-import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
-import { fileExists, getDirectoryPath, getFileExtension, getFullPath, getProjectRootDirectoryPath, getRelativePath, joinPath, readFile, writeFile } from "../helpers/file-system-helper.js";
-import { Configuration } from "../configuration/configuration.js";
-import { ElementNode } from "../elements/element-node.js";
-import { ElementNodeGroup } from "../elements/element-node-group.js";
-import { ModuleMemberType } from "../enums/module-member-type.js";
-import { SourceCode } from "./source-code.js";
-import { SourceCodeAnalyzer } from "./source-code-analyzer.js";
-import { SourceCodePrinter } from "./source-code-printer.js";
+
+
+
+
+
+
+
+
+
+import { Configuration } from "src/configuration/configuration.js";
+import { ImportConfiguration } from "src/configuration/import-configuration.js";
+import { ElementNodeGroup } from "src/elements/element-node-group.js";
+import { ElementNode } from "src/elements/element-node.js";
+import { ImportNode } from "src/elements/import-node.js";
+import { ModuleMemberType } from "src/enums/module-member-type.js";
+import { distinct, remove } from "src/helpers/array-helper.js";
+import { compareStrings } from "src/helpers/comparing-helper.js";
+import { getFileExtension, readFile, writeFile } from "src/helpers/file-system-helper.js";
+import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, order } from "src/helpers/node-helper.js";
+import { SourceCodeAnalyzer } from "src/source-code/source-code-analyzer.js";
+import { SourceCodePrinter } from "src/source-code/source-code-printer.js";
+import { SourceCode } from "src/source-code/source-code.js";
 import ts, { SourceFile } from "typescript";
-import { ImportNode } from "../elements/import-node.js";
-import { ImportConfiguration } from "../configuration/import-configuration.js";
-import { compareStrings } from "../helpers/comparing-helper.js";
-import { distinct, remove } from "../helpers/array-helper.js";
+
+
+
+
 
 export class SourceCodeOrganizer
 {

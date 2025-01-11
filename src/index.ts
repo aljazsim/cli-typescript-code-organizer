@@ -1,25 +1,28 @@
+import { Command, Option } from 'commander';
 import * as figlet from 'figlet';
 
-import { Command, Option } from 'commander';
+
 
 import Watcher from 'watcher';
-import { glob } from 'glob';
 import { getFullPath, writeFile } from './helpers/file-system-helper.js';
-import { Configuration } from './configuration/configuration.js';
-import { SourceCodeOrganizer } from './source-code/source-code-organizer.js';
+import { Configuration } from 'src/configuration/configuration.js';
+import { glob } from 'glob';
+import { SourceCodeOrganizer } from 'src/source-code/source-code-organizer.js';
+
+
+
+
 
 const program = new Command();
 
-// console.log(figlet.textSync("TypeScript Code Organizer CLI"));
-
-program.name("tsco")
-    .description("CLI tool for organizing TypeScript code")
-    .version("1.0.0")
-    .addOption(new Option("-h, --help", "displays help").default(false, "false"))
-    .addOption(new Option("-i, --initialize", "generate default configuration file").default(false, "false"))
-    .addOption(new Option("-c, --configuration <string>", "set path to configuration file").default("./tsco.json", "./tsco.json"))
-    .addOption(new Option("-w, --watch", "watches TypeScript files for changes").default(false, "false"))
-    .parse(process.argv.filter(a => a !== "-v" && a !== "--version"));
+program.name("tsco");
+program.description("CLI tool for organizing TypeScript code");
+program.version("1.0.0");
+program.addOption(new Option("-h, --help", "displays help").default(false, "false"));
+program.addOption(new Option("-i, --initialize", "generate default configuration file").default(false, "false"));
+program.addOption(new Option("-c, --configuration <string>", "set path to configuration file").default("./tsco.json", "./tsco.json"));
+program.addOption(new Option("-w, --watch", "watches TypeScript files for changes").default(false, "false"));
+program.parse(process.argv.filter(a => a !== "-v" && a !== "--version"));;
 
 const help = program.opts().help === true;
 const initialize = program.opts().initialize === true;
@@ -30,6 +33,7 @@ const configuration = await Configuration.getConfiguration(configurationFilePath
 if (process.argv.some(a => a === "-v" || a === "--version"))
 {
     // display version (commander breaks when you specify -v or --version)
+    figlet.textSync("tsco")
     console.log(program.version());
 }
 else if (help)

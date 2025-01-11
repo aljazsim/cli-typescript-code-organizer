@@ -3,8 +3,8 @@ import ts, { SourceFile } from "typescript";
 import "../../../configurations/default-configuration-with-no-regions.json";
 import "./missing-file.json";
 
-import { TestInterface } from "../interface/test-interface";
-import { decoratorD, decoratorB, decoratorC, decoratorE, decoratorA } from "./test-decorators";
+
+
 
 export abstract class TestClass implements TestInterface
 {

@@ -1,4 +1,4 @@
-import { StringLiteralLike } from 'typescript';
+
 import wcmatch from 'wildcard-match'
 
 // #region Functions (3)
