@@ -24,11 +24,7 @@ async function matchSourceCode(filePath: any, configuration: Configuration)
 
 async function organizeSourceCode(filePath: any, configuration: Configuration)
 {
-    if (await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration))
-    {
-        console.log(`tsco organizing ${filePath}`);
-
-    }
+    await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
 }
 
 // #endregion Functions

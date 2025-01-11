@@ -76,13 +76,13 @@ export class SourceCodeOrganizer
 
         if (organizedSourceCode !== sourceCode)
         {
-            await writeFile(sourceCodeFilePath, organizedSourceCode);
+            console.log(`tsco organizing ${sourceCodeFilePath}`);
 
-            return true;
+            await writeFile(sourceCodeFilePath, organizedSourceCode);
         }
         else 
         {
-            return false;
+            console.log(`tsco skipping ${sourceCodeFilePath}`);
         }
     }
 
