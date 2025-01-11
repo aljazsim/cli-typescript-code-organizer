@@ -4,7 +4,7 @@ import { InterfaceMemberType } from "../enums/interface-member-type.js";
 import { ModuleMemberType } from "../enums/module-member-type.js";
 import { TypeMemberType } from "../enums/type-member-type.js";
 import { distinct, remove } from "../helpers/array-helper.js";
-import { readFile } from "../helpers/file-system-helper.js";
+import { fileExists, readFile } from "../helpers/file-system-helper.js";
 import { convertPascalCaseToTitleCase } from "../helpers/string-helper.js";
 import { ClassConfiguration } from "./class-configuration.js";
 import { ClassMemberConfiguration } from "./class-member-configuration.js";
@@ -50,13 +50,18 @@ export class Configuration
 
         try
         {
-            if (configurationFilePath)
+            if (configurationFilePath && await fileExists(configurationFilePath))
             {
                 configuration = JSON.parse(await readFile(configurationFilePath));
+            }
+            else
+            {
+                console.log("tsco using default configuration");
             }
         }
         catch
         {
+            console.log("tsco using default configuration");
         }
 
         return new Configuration(
