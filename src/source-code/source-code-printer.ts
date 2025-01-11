@@ -85,25 +85,32 @@ export class SourceCodePrinter
     {
         const source = node.source;
         const quote = configuration.quote === ImportSourceFilePathQuoteType.Single ? "'" : '"';
-        const namedImports = node.namedImports && node.namedImports.length > 0 ? node.namedImports.join(", ") : null;
+        const namedImports = (node.namedImports ?? []).filter(ni => ni && ni.trim().length > 0);
         const nameBinding = node.nameBinding;
         const namespace = node.namespace;
 
-        if (nameBinding && namespace)
+        if (nameBinding)
         {
-            return new SourceCode(`import ${nameBinding}, * as ${namespace} from ${quote}${source}${quote};`);
+            if (namespace)
+            {
+                return new SourceCode(`import ${nameBinding}, * as ${namespace} from ${quote}${source}${quote};`);
+            }
+            else if (namedImports.length > 0)
+            {
+                return new SourceCode(`import ${nameBinding}, { ${namedImports.join(", ")} } from ${quote}${source}${quote};`);
+            }
+            else
+            {
+                return new SourceCode(`import ${nameBinding} from ${quote}${source}${quote};`);
+            }
         }
-        else if (!nameBinding && namespace)
+        else if (namespace)
         {
             return new SourceCode(`import * as ${namespace} from ${quote}${source}${quote};`);
         }
-        else if (nameBinding && namedImports)
+        else if (namedImports.length > 0)
         {
-            return new SourceCode(`import ${nameBinding}, { ${namedImports} } from ${quote}${source}${quote};`);
-        }
-        else if (!nameBinding && namedImports)
-        {
-            return new SourceCode(`import { ${namedImports} } from ${quote}${source}${quote};`);
+            return new SourceCode(`import { ${namedImports.join(", ")} } from ${quote}${source}${quote};`);
         }
         else
         {
