@@ -1,8 +1,6 @@
 import { RegionConfiguration } from "../configuration/region-configuration.js";
 import { ElementNode } from "./element-node.js";
 
-
-
 export class ElementNodeGroup
 {
     // #region Constructors (1)
@@ -11,9 +9,7 @@ export class ElementNodeGroup
     {
     }
 
-
-
-    // #endregion Constructors (1)
+    // #endregion Constructors
 
     // #region Public Methods (1)
 
@@ -22,5 +18,5 @@ export class ElementNodeGroup
         return this.nodes.length + this.nodeSubGroups.reduce((sum: number, ng: ElementNodeGroup) => sum + ng.getNodeCount(), 0);
     }
 
-    // #endregion Public Methods (1)
-} 
+    // #endregion Public Methods
+}

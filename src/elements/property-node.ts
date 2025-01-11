@@ -1,12 +1,9 @@
-
-
-
-
 import * as ts from "typescript";
-import { ElementNode } from "./element-node.js";
+
 import { AccessModifier } from "../enums/access-modifier.js";
 import { WriteModifier } from "../enums/write-modifier.js";
 import { getAccessModifier, getDecorators, getIsAbstract, getIsStatic, getWriteMode } from "../helpers/node-helper.js";
+import { ElementNode } from "./element-node.js";
 
 export class PropertyNode extends ElementNode
 {
@@ -20,7 +17,7 @@ export class PropertyNode extends ElementNode
     public readonly name: string;
     public readonly writeMode: WriteModifier;
 
-    // #endregion Properties (7)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -46,7 +43,7 @@ export class PropertyNode extends ElementNode
         this.isArrowFunction = this.getIsArrowFunction(propertyDeclaration);
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 
     // #region Private Methods (1)
 
@@ -55,5 +52,5 @@ export class PropertyNode extends ElementNode
         return typeof propertyDeclaration.initializer !== "undefined" && propertyDeclaration.initializer.kind === ts.SyntaxKind.ArrowFunction;
     }
 
-    // #endregion Private Methods (1)
+    // #endregion Private Methods
 }

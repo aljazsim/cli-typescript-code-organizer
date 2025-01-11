@@ -1,8 +1,9 @@
 import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
 
-
 export class ImportConfiguration
 {
+    // #region Constructors (1)
+
     constructor(
         public readonly removeUnusedImports: boolean,
         public readonly sortImportsBySource: boolean,
@@ -12,4 +13,6 @@ export class ImportConfiguration
         public readonly quote: ImportSourceFilePathQuoteType)
     {
     }
+
+    // #endregion Constructors
 }

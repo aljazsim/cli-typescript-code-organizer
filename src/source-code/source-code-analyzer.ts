@@ -1,25 +1,15 @@
 import * as ts from "typescript";
+
 import { Configuration } from "../configuration/configuration.js";
-import { ElementNode } from "../elements/element-node.js";
-import { ImportNode } from "../elements/import-node.js";
-import { TypeAliasNode } from "../elements/type-alias-node.js";
-import { InterfaceNode } from "../elements/interface-node.js";
 import { ClassNode } from "../elements/class-node.js";
+import { ElementNode } from "../elements/element-node.js";
 import { EnumNode } from "../elements/enum-node.js";
-import { FunctionNode } from "../elements/function-node.js";
-import { VariableNode } from "../elements/variable-node.js";
 import { ExpressionNode } from "../elements/expression-node.js";
-
-
-
-
-
-
-
-
-
-
-
+import { FunctionNode } from "../elements/function-node.js";
+import { ImportNode } from "../elements/import-node.js";
+import { InterfaceNode } from "../elements/interface-node.js";
+import { TypeAliasNode } from "../elements/type-alias-node.js";
+import { VariableNode } from "../elements/variable-node.js";
 
 export class SourceCodeAnalyzer
 {
@@ -43,7 +33,7 @@ export class SourceCodeAnalyzer
         return sourceFile.getChildren(sourceFile).some(node => this.findReference1(node, sourceFile, identifier));
     }
 
-    // #endregion Public Static Methods (2)
+    // #endregion Public Static Methods
 
     // #region Private Static Methods (2)
 
@@ -139,5 +129,5 @@ export class SourceCodeAnalyzer
         return elements;
     }
 
-    // #endregion Private Static Methods (2)
+    // #endregion Private Static Methods
 }

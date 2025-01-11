@@ -1,10 +1,7 @@
-
-
-
-import * as ts from "typescript";
-import { ElementNode } from "./element-node.js";
+import ts from "typescript";
 import { AccessModifier } from "../enums/access-modifier.js";
 import { getAccessModifier, getDecorators, getIsAbstract, getIsAsync, getIsStatic } from "../helpers/node-helper.js";
+import { ElementNode } from "./element-node.js";
 
 export class MethodNode extends ElementNode
 {
@@ -17,7 +14,7 @@ export class MethodNode extends ElementNode
     public readonly isStatic: boolean;
     public readonly name: string;
 
-    // #endregion Properties (6)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -36,5 +33,5 @@ export class MethodNode extends ElementNode
         this.isAsync = getIsAsync(methodDeclaration);
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 }

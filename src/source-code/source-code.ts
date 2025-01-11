@@ -7,21 +7,13 @@ import { SetterNode } from "../elements/setter-node.js";
 import { AccessModifier } from "../enums/access-modifier.js";
 import { WriteModifier } from "../enums/write-modifier.js";
 
-
-
-
-
-
-
-
-
 export class SourceCode
 {
     // #region Properties (1)
 
     private readonly newLine = "\r\n";
 
-    // #endregion Properties (1)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -29,7 +21,7 @@ export class SourceCode
     {
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 
     // #region Public Methods (12)
 
@@ -70,17 +62,17 @@ export class SourceCode
         this.add(this.newLine);
     }
 
-    public addNewLineBefore()
-    {
-        this.add(this.newLine, "before");
-    }
-
     public addNewLineAfterIf(condition: boolean)
     {
         if (condition)
         {
             this.addNewLineAfter();
         }
+    }
+
+    public addNewLineBefore()
+    {
+        this.add(this.newLine, "before");
     }
 
     public addPrivateModifierIfStartingWithHash(node: PropertyNode | MethodNode | AccessorNode | GetterNode | SetterNode)
@@ -308,7 +300,7 @@ export class SourceCode
         this.sourceCode = this.sourceCode.trim();
     }
 
-    // #endregion Public Methods (12)
+    // #endregion Public Methods
 
     // #region Private Static Methods (1)
 
@@ -326,5 +318,5 @@ export class SourceCode
         }
     }
 
-    // #endregion Private Static Methods (1)
+    // #endregion Private Static Methods
 }

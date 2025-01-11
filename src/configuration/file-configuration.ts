@@ -6,5 +6,5 @@ export class FileConfiguration
     {
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 }

@@ -1,28 +1,17 @@
 import * as ts from "typescript";
-import { ElementNode } from "./element-node.js";
+
+import { ClassConfiguration } from "../configuration/class-configuration.js";
+import { ClassMemberType } from "../enums/class-member-type.js";
+import { getDecorators, getIsAbstract, getIsStatic, isPrivate, isProtected, isPublic, isReadOnly, isWritable, order } from "../helpers/node-helper.js";
 import { AccessorNode } from "./accessor-node.js";
 import { ConstructorNode } from "./constructor-node.js";
+import { ElementNodeGroup } from "./element-node-group.js";
+import { ElementNode } from "./element-node.js";
 import { GetterNode } from "./getter-node.js";
 import { MethodNode } from "./method-node.js";
 import { PropertyNode } from "./property-node.js";
 import { SetterNode } from "./setter-node.js";
 import { StaticBlockDeclarationNode } from "./static-block-declaration-node.js";
-import { getDecorators, getIsAbstract, getIsStatic, isPrivate, isProtected, isPublic, isReadOnly, isWritable, order } from "../helpers/node-helper.js";
-import { ClassConfiguration } from "../configuration/class-configuration.js";
-import { ElementNodeGroup } from "./element-node-group.js";
-import { ClassMemberType } from "../enums/class-member-type.js";
-
-
-
-
-
-
-
-
-
-
-
-
 
 export class ClassNode extends ElementNode
 {
@@ -42,7 +31,7 @@ export class ClassNode extends ElementNode
     public readonly setters: SetterNode[] = [];
     public readonly staticBlockDeclarations: StaticBlockDeclarationNode[] = [];
 
-    // #endregion Properties (13)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -104,7 +93,7 @@ export class ClassNode extends ElementNode
         }
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 
     // #region Public Methods (1)
 
@@ -298,7 +287,7 @@ export class ClassNode extends ElementNode
         return regions;
     }
 
-    // #endregion Public Methods (1)
+    // #endregion Public Methods
 
     // #region Private Methods (36)
 
@@ -482,5 +471,5 @@ export class ClassNode extends ElementNode
         return this.properties.filter(x => isPublic(x) && isReadOnly(x) && x.isStatic);
     }
 
-    // #endregion Private Methods (36)
+    // #endregion Private Methods
 }

@@ -1,4 +1,3 @@
-
 export class ClassMemberConfiguration
 {
     // #region Constructors (1)
@@ -12,5 +11,5 @@ export class ClassMemberConfiguration
     {
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 }

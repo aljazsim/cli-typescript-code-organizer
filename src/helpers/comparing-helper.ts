@@ -1,4 +1,4 @@
-// #region Functions (2)
+// #region Exported Functions (2)
 
 export function compareNumbers(a: number, b: number) 
 {
@@ -32,4 +32,4 @@ export function compareStrings(a: string, b: string)
     }
 }
 
-// #endregion Functions (2)
+// #endregion Exported Functions

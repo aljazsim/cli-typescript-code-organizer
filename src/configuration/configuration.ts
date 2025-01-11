@@ -1,3 +1,4 @@
+import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
 import { ClassMemberType } from "../enums/class-member-type.js";
 import { InterfaceMemberType } from "../enums/interface-member-type.js";
 import { ModuleMemberType } from "../enums/module-member-type.js";
@@ -11,7 +12,6 @@ import { ClassMemberGroupConfiguration } from "./class-member-group-configuratio
 import { defaultConfiguration } from "./default-configuration.js";
 import { FileConfiguration } from "./file-configuration.js";
 import { ImportConfiguration } from "./import-configuration.js";
-import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
 import { InterfaceConfiguration } from "./interface-configuration.js";
 import { InterfaceMemberConfiguration } from "./interface-member-configuration.js";
 import { InterfaceMemberGroupConfiguration } from "./interface-member-group-configuration.js";
@@ -22,31 +22,6 @@ import { RegionConfiguration } from "./region-configuration.js";
 import { TypeConfiguration } from "./type-configuration.js";
 import { TypeMemberConfiguration } from "./type-member-configuration.js";
 import { TypeMemberGroupConfiguration } from "./type-member-group-configuration.js";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export class Configuration
 {
@@ -64,7 +39,7 @@ export class Configuration
     {
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 
     // #region Public Static Methods (2)
 
@@ -244,9 +219,9 @@ export class Configuration
         );
     }
 
-    // #endregion Public Static Methods (2)
+    // #endregion Public Static Methods
 
-    // #region Private Static Methods (10)
+    // #region Private Static Methods (9)
 
     private static fixClassMemberMemberGroup(defaultMemberTypeOrder: ClassMemberGroupConfiguration[], memberTypeOrder: ClassMemberGroupConfiguration[]): ClassMemberGroupConfiguration[]
     {
@@ -436,5 +411,5 @@ export class Configuration
         return new TypeMemberGroupConfiguration(sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
     }
 
-    // #endregion Private Static Methods (10)
-} 
+    // #endregion Private Static Methods
+}

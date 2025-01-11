@@ -1,3 +1,5 @@
+// #region Variables (1)
+
 export const defaultConfiguration =
 {
     "files": {
@@ -340,3 +342,5 @@ export const defaultConfiguration =
         ]
     }
 };
+
+// #endregion Variables

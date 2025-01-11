@@ -1,9 +1,7 @@
 import * as ts from "typescript";
-import { ElementNode } from "./element-node.js";
+
 import { getIsExport } from "../helpers/node-helper.js";
-
-
-
+import { ElementNode } from "./element-node.js";
 
 export class VariableNode extends ElementNode
 {
@@ -14,7 +12,7 @@ export class VariableNode extends ElementNode
     public readonly isExport: boolean;
     public readonly name: string;
 
-    // #endregion Properties (4)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -33,7 +31,7 @@ export class VariableNode extends ElementNode
         this.isConst = sourceCode.startsWith("const ") || sourceCode.startsWith("export const ");
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 
     // #region Private Methods (1)
 
@@ -46,5 +44,5 @@ export class VariableNode extends ElementNode
             variableStatement.declarationList.declarations[0].initializer.kind === ts.SyntaxKind.ArrowFunction;
     }
 
-    // #endregion Private Methods (1)
+    // #endregion Private Methods
 }

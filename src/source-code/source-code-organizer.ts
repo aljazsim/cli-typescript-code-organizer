@@ -1,27 +1,18 @@
-
-
-
-
-
-
 import ts, { SourceFile } from "typescript";
+
 import { Configuration } from "../configuration/configuration.js";
+import { ImportConfiguration } from "../configuration/import-configuration.js";
+import { ElementNodeGroup } from "../elements/element-node-group.js";
+import { ElementNode } from "../elements/element-node.js";
+import { ImportNode } from "../elements/import-node.js";
+import { ModuleMemberType } from "../enums/module-member-type.js";
+import { distinct, remove } from "../helpers/array-helper.js";
+import { compareStrings } from "../helpers/comparing-helper.js";
+import { getFileExtension, readFile, writeFile } from "../helpers/file-system-helper.js";
+import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
 import { SourceCodeAnalyzer } from "./source-code-analyzer.js";
 import { SourceCodePrinter } from "./source-code-printer.js";
-import { getFileExtension, readFile, writeFile } from "../helpers/file-system-helper.js";
-import { ImportNode } from "../elements/import-node.js";
-import { distinct, remove } from "../helpers/array-helper.js";
-import { ImportConfiguration } from "../configuration/import-configuration.js";
-import { compareStrings } from "../helpers/comparing-helper.js";
-import { ElementNodeGroup } from "../elements/element-node-group.js";
-import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
-import { ElementNode } from "../elements/element-node.js";
-import { ModuleMemberType } from "../enums/module-member-type.js";
 import { SourceCode } from "./source-code.js";
-
-
-
-
 
 export class SourceCodeOrganizer
 {
@@ -85,7 +76,7 @@ export class SourceCodeOrganizer
         }
     }
 
-    // #endregion Public Static Methods (2)
+    // #endregion Public Static Methods
 
     // #region Private Static Methods (5)
 
@@ -331,5 +322,5 @@ export class SourceCodeOrganizer
         }
     }
 
-    // #endregion Private Static Methods (5)
+    // #endregion Private Static Methods
 }

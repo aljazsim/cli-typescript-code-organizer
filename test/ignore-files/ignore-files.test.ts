@@ -21,4 +21,4 @@ test('ignore files', async () =>
         expect(sourceCode).toBe(organizedSourceCode);
     }
 
-});
+})

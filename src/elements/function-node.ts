@@ -1,8 +1,6 @@
-
-
-import * as ts from "typescript";
-import { ElementNode } from "./element-node.js";
+import ts from "typescript";
 import { getIsExport } from "../helpers/node-helper.js";
+import { ElementNode } from "./element-node.js";
 
 export class FunctionNode extends ElementNode
 {
@@ -11,7 +9,7 @@ export class FunctionNode extends ElementNode
     public readonly isExport: boolean;
     public readonly name: string;
 
-    // #endregion Properties (2)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -24,5 +22,5 @@ export class FunctionNode extends ElementNode
         this.isExport = getIsExport(functionDeclaration);
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 }

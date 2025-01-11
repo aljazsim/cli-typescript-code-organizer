@@ -1,6 +1,5 @@
 import { InterfaceMemberType } from "../enums/interface-member-type.js";
 
-
 export class InterfaceMemberGroupConfiguration
 {
     // #region Constructors (1)
@@ -14,5 +13,5 @@ export class InterfaceMemberGroupConfiguration
         public readonly placeBelow: string[],
     ) { }
 
-    // #endregion Constructors (1)
-} 
+    // #endregion Constructors
+}

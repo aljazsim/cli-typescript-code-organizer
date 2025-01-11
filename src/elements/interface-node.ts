@@ -1,26 +1,15 @@
 import * as ts from "typescript";
+
+import { InterfaceConfiguration } from "../configuration/interface-configuration.js";
+import { InterfaceMemberType } from "../enums/interface-member-type.js";
+import { isReadOnly, isWritable, order } from "../helpers/node-helper.js";
+import { ElementNodeGroup } from "./element-node-group.js";
 import { ElementNode } from "./element-node.js";
 import { GetterNode } from "./getter-node.js";
 import { IndexSignatureNode } from "./index-signature-node.js";
 import { MethodSignatureNode } from "./method-signature-node.js";
 import { PropertySignatureNode } from "./property-signature-node.js";
 import { SetterNode } from "./setter-node.js";
-import { InterfaceConfiguration } from "../configuration/interface-configuration.js";
-import { ElementNodeGroup } from "./element-node-group.js";
-import { InterfaceMemberType } from "../enums/interface-member-type.js";
-import { isReadOnly, isWritable, order } from "../helpers/node-helper.js";
-
-
-
-
-
-
-
-
-
-
-
-
 
 export class InterfaceNode extends ElementNode
 {
@@ -35,7 +24,7 @@ export class InterfaceNode extends ElementNode
     public readonly properties: PropertySignatureNode[] = [];
     public readonly setters: SetterNode[] = [];
 
-    // #endregion Properties (8)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -86,7 +75,7 @@ export class InterfaceNode extends ElementNode
         }
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 
     // #region Public Methods (1)
 
@@ -148,7 +137,7 @@ export class InterfaceNode extends ElementNode
         return regions;
     }
 
-    // #endregion Public Methods (1)
+    // #endregion Public Methods
 
     // #region Private Methods (3)
 
@@ -167,5 +156,5 @@ export class InterfaceNode extends ElementNode
         return this.properties.filter((x) => isReadOnly(x));
     }
 
-    // #endregion Private Methods (3)
+    // #endregion Private Methods
 }

@@ -1,6 +1,5 @@
 import { ModuleMemberType } from "../enums/module-member-type.js";
 
-
 export class ModuleMemberGroupConfiguration
 {
     // #region Constructors (1)
@@ -14,5 +13,5 @@ export class ModuleMemberGroupConfiguration
         public readonly placeBelow: string[],
     ) { }
 
-    // #endregion Constructors (1)
-} 
+    // #endregion Constructors
+}

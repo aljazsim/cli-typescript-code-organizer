@@ -1,4 +1,4 @@
-// #region Functions (4)
+// #region Exported Functions (4)
 
 export function add<T>(items: T[] | null | undefined, ...itemsToAdd: any[])
 {
@@ -38,4 +38,4 @@ export function remove<T>(items: T[] | null | undefined, item: T | null | undefi
     }
 }
 
-// #endregion Functions (4)
+// #endregion Exported Functions

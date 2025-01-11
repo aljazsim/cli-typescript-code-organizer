@@ -1,7 +1,5 @@
-import * as ts from "typescript";
+import ts from "typescript";
 import { ElementNode } from "./element-node.js";
-
-
 
 export class StaticBlockDeclarationNode extends ElementNode
 {
@@ -9,7 +7,7 @@ export class StaticBlockDeclarationNode extends ElementNode
 
     public readonly name: string;
 
-    // #endregion Properties (1)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -20,5 +18,5 @@ export class StaticBlockDeclarationNode extends ElementNode
         this.name = "";
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 }

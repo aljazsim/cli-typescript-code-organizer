@@ -1,13 +1,11 @@
 import * as ts from "typescript";
-import { ElementNode } from "./element-node.js";
+
 import { distinct } from "../helpers/array-helper.js";
-
-
-
+import { ElementNode } from "./element-node.js";
 
 export class ImportNode extends ElementNode
 {
-    // #region Properties (8)
+    // #region Properties (6)
 
     public readonly name: string;
 
@@ -17,7 +15,7 @@ export class ImportNode extends ElementNode
     public namespace: string | null = null;
     public source: string;
 
-    // #endregion Properties (8)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -35,7 +33,7 @@ export class ImportNode extends ElementNode
         this.isModuleReference = !isRelativeReference && !isAbsoluteReference;
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 
     // #region Public Getters And Setters (1)
 
@@ -44,7 +42,7 @@ export class ImportNode extends ElementNode
         return (!this.namedImports || this.namedImports.length === 0) && !this.namespace && !this.nameBinding;
     }
 
-    // #endregion Public Getters And Setters (1)
+    // #endregion Public Getters And Setters
 
     // #region Private Methods (2)
 
@@ -76,5 +74,5 @@ export class ImportNode extends ElementNode
         return ts.isStringLiteral(node.moduleSpecifier) ? node.moduleSpecifier.text : "";
     }
 
-    // #endregion Private Methods (2)
-} 
+    // #endregion Private Methods
+}

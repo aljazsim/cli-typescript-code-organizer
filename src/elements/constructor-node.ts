@@ -1,9 +1,6 @@
-import * as ts from "typescript";
-import { ElementNode } from "./element-node.js";
+import ts from "typescript";
 import { getDecorators } from "../helpers/node-helper.js";
-
-
-
+import { ElementNode } from "./element-node.js";
 
 export class ConstructorNode extends ElementNode
 {
@@ -12,7 +9,7 @@ export class ConstructorNode extends ElementNode
     public readonly decorators: string[];
     public readonly name: string;
 
-    // #endregion Properties (2)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -24,5 +21,5 @@ export class ConstructorNode extends ElementNode
         this.decorators = getDecorators(constructorDeclaration, sourceFile);
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 }

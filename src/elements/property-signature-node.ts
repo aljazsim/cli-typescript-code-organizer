@@ -1,10 +1,7 @@
-
-
-
-import * as ts from "typescript";
-import { ElementNode } from "./element-node.js";
+import ts from "typescript";
 import { WriteModifier } from "../enums/write-modifier.js";
 import { getWriteMode } from "../helpers/node-helper.js";
+import { ElementNode } from "./element-node.js";
 
 export class PropertySignatureNode extends ElementNode
 {
@@ -13,7 +10,7 @@ export class PropertySignatureNode extends ElementNode
     public readonly name: string;
     public readonly writeMode: WriteModifier;
 
-    // #endregion Properties (2)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -26,5 +23,5 @@ export class PropertySignatureNode extends ElementNode
         this.writeMode = getWriteMode(propertySignatureDeclaration);
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 }

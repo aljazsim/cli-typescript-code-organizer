@@ -1,11 +1,12 @@
 import { Command, Option } from "commander";
 import { glob } from "glob";
-import "watcher";
 
 import { Configuration } from "./configuration/configuration.js";
 import { getFullPath, writeFile } from "./helpers/file-system-helper.js";
 import { SourceCodeOrganizer } from "./source-code/source-code-organizer.js";
 import Watcher from "watcher";
+
+// #region Functions (1)
 
 async function organizeSourceCode(filePath: any, configuration: Configuration)
 {
@@ -18,6 +19,10 @@ async function organizeSourceCode(filePath: any, configuration: Configuration)
         await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
     }
 }
+
+// #endregion Functions
+
+// #region Exported Functions (5)
 
 export function displayHelp()
 {
@@ -95,3 +100,5 @@ export async function run(configuration: Configuration, watch: boolean)
         await watcher.watch();
     }
 }
+
+// #endregion Exported Functions

@@ -1,6 +1,5 @@
 import { ClassMemberType } from "../enums/class-member-type.js";
 
-
 export class ClassMemberGroupConfiguration
 {
     // #region Constructors (1)
@@ -14,5 +13,5 @@ export class ClassMemberGroupConfiguration
         public readonly placeBelow: string[],
     ) { }
 
-    // #endregion Constructors (1)
-} 
+    // #endregion Constructors
+}

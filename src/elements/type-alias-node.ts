@@ -1,22 +1,14 @@
-
-
-
-
-
-
-
-
-
-
 import * as ts from "typescript";
+
+import { TypeConfiguration } from "../configuration/type-configuration.js";
+import { TypeMemberType } from "../enums/type-member-type.js";
+import { order } from "../helpers/node-helper.js";
+import { ElementNodeGroup } from "./element-node-group.js";
 import { ElementNode } from "./element-node.js";
 import { IndexSignatureNode } from "./index-signature-node.js";
 import { MethodSignatureNode } from "./method-signature-node.js";
 import { PropertySignatureNode } from "./property-signature-node.js";
-import { TypeConfiguration } from "../configuration/type-configuration.js";
-import { ElementNodeGroup } from "./element-node-group.js";
-import { TypeMemberType } from "../enums/type-member-type.js";
-import { order } from "../helpers/node-helper.js";
+
 export class TypeAliasNode extends ElementNode
 {
     // #region Properties (6)
@@ -28,7 +20,7 @@ export class TypeAliasNode extends ElementNode
     public readonly name: string;
     public readonly properties: PropertySignatureNode[] = [];
 
-    // #endregion Properties (6)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -79,7 +71,7 @@ export class TypeAliasNode extends ElementNode
         }
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 
     // #region Public Methods (1)
 
@@ -133,5 +125,5 @@ export class TypeAliasNode extends ElementNode
         return regions;
     }
 
-    // #endregion Public Methods (1)
+    // #endregion Public Methods
 }

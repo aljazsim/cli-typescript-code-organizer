@@ -1,10 +1,7 @@
-
-
-
-import * as ts from "typescript";
+import ts from "typescript";
+import { AccessModifier } from "../enums/access-modifier.js";
 import { getAccessModifier, getDecorators, getIsAbstract, getIsStatic } from "../helpers/node-helper.js";
 import { ElementNode } from "./element-node.js";
-import { AccessModifier } from "../enums/access-modifier.js";
 
 export class GetterNode extends ElementNode
 {
@@ -16,7 +13,7 @@ export class GetterNode extends ElementNode
     public readonly isStatic: boolean;
     public readonly name: string;
 
-    // #endregion Properties (5)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -33,5 +30,5 @@ export class GetterNode extends ElementNode
         this.isStatic = getIsStatic(getterDeclaration);
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 }

@@ -1,7 +1,16 @@
 import * as fs from "fs";
 import * as path from "path";
 
-// #region Functions (13)
+// #region Functions (1)
+
+function toUnixPath(filePath: string)
+{
+    return filePath.replaceAll("\\", "/");
+}
+
+// #endregion Functions
+
+// #region Exported Functions (12)
 
 export async function deleteFile(filePath: string)
 {
@@ -70,11 +79,6 @@ export async function readFile(filePath: string)
     return await fs.promises.readFile(filePath, "utf8") as string;
 }
 
-function toUnixPath(filePath: string)
-{
-    return filePath.replaceAll("\\", "/");
-}
-
 export async function writeFile(filePath: string, fileContents: string, overwriteFile = true)
 {
     if (await fileExists(filePath))
@@ -95,3 +99,4 @@ export async function writeFile(filePath: string, fileContents: string, overwrit
     }
 }
 
+// #endregion Exported Functions

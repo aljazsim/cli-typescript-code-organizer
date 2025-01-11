@@ -1,5 +1,4 @@
-
-import * as ts from "typescript";
+import ts from "typescript";
 import { ElementNode } from "./element-node.js";
 
 export class EnumNode extends ElementNode
@@ -8,7 +7,7 @@ export class EnumNode extends ElementNode
 
     public readonly name: string;
 
-    // #endregion Properties (1)
+    // #endregion Properties
 
     // #region Constructors (1)
 
@@ -19,5 +18,5 @@ export class EnumNode extends ElementNode
         this.name = (<ts.Identifier>enumDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(enumDeclaration.name.pos, enumDeclaration.name.end).trim();
     }
 
-    // #endregion Constructors (1)
+    // #endregion Constructors
 }
