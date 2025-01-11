@@ -1,11 +1,11 @@
-// #region Variables (1)
-
-import { ClassMemberType } from "../enums/class-member-type.js";
 import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
+import { ClassMemberType } from "../enums/class-member-type.js";
 import { InterfaceMemberType } from "../enums/interface-member-type.js";
 import { ModuleMemberType } from "../enums/module-member-type.js";
 import { TypeMemberType } from "../enums/type-member-type.js";
 import { Configuration } from "./configuration.js";
+
+// #region Variables (1)
 
 export const defaultConfiguration: Configuration =
 {
