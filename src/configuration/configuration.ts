@@ -1,27 +1,28 @@
-import { ClassConfiguration } from "src/configuration/class-configuration.js";
-import { ClassMemberConfiguration } from "src/configuration/class-member-configuration.js";
-import { ClassMemberGroupConfiguration } from "src/configuration/class-member-group-configuration.js";
-import { defaultConfiguration } from "src/configuration/default-configuration.js";
-import { FileConfiguration } from "src/configuration/file-configuration.js";
-import { ImportConfiguration } from "src/configuration/import-configuration.js";
-import { ImportSourceFilePathQuoteType } from "src/configuration/Import-source-file-path-quote-type.js";
-import { InterfaceConfiguration } from "src/configuration/interface-configuration.js";
-import { InterfaceMemberConfiguration } from "src/configuration/interface-member-configuration.js";
-import { InterfaceMemberGroupConfiguration } from "src/configuration/interface-member-group-configuration.js";
-import { ModuleConfiguration } from "src/configuration/module-configuration.js";
-import { ModuleMemberConfiguration } from "src/configuration/module-member-configuration.js";
-import { ModuleMemberGroupConfiguration } from "src/configuration/module-member-group-configuration.js";
-import { RegionConfiguration } from "src/configuration/region-configuration.js";
-import { TypeConfiguration } from "src/configuration/type-configuration.js";
-import { TypeMemberConfiguration } from "src/configuration/type-member-configuration.js";
-import { TypeMemberGroupConfiguration } from "src/configuration/type-member-group-configuration.js";
-import { ClassMemberType } from "src/enums/class-member-type.js";
-import { InterfaceMemberType } from "src/enums/interface-member-type.js";
-import { ModuleMemberType } from "src/enums/module-member-type.js";
-import { TypeMemberType } from "src/enums/type-member-type.js";
-import { distinct, remove } from "src/helpers/array-helper.js";
-import { readFile } from "src/helpers/file-system-helper.js";
-import { convertPascalCaseToTitleCase } from "src/helpers/string-helper.js";
+import { ClassMemberType } from "../enums/class-member-type.js";
+import { InterfaceMemberType } from "../enums/interface-member-type.js";
+import { ModuleMemberType } from "../enums/module-member-type.js";
+import { TypeMemberType } from "../enums/type-member-type.js";
+import { distinct, remove } from "../helpers/array-helper.js";
+import { readFile } from "../helpers/file-system-helper.js";
+import { convertPascalCaseToTitleCase } from "../helpers/string-helper.js";
+import { ClassConfiguration } from "./class-configuration.js";
+import { ClassMemberConfiguration } from "./class-member-configuration.js";
+import { ClassMemberGroupConfiguration } from "./class-member-group-configuration.js";
+import { defaultConfiguration } from "./default-configuration.js";
+import { FileConfiguration } from "./file-configuration.js";
+import { ImportConfiguration } from "./import-configuration.js";
+import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
+import { InterfaceConfiguration } from "./interface-configuration.js";
+import { InterfaceMemberConfiguration } from "./interface-member-configuration.js";
+import { InterfaceMemberGroupConfiguration } from "./interface-member-group-configuration.js";
+import { ModuleConfiguration } from "./module-configuration.js";
+import { ModuleMemberConfiguration } from "./module-member-configuration.js";
+import { ModuleMemberGroupConfiguration } from "./module-member-group-configuration.js";
+import { RegionConfiguration } from "./region-configuration.js";
+import { TypeConfiguration } from "./type-configuration.js";
+import { TypeMemberConfiguration } from "./type-member-configuration.js";
+import { TypeMemberGroupConfiguration } from "./type-member-group-configuration.js";
+
 
 
 

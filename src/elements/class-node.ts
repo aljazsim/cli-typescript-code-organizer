@@ -1,16 +1,16 @@
-import { ClassConfiguration } from "src/configuration/class-configuration.js";
-import { AccessorNode } from "src/elements/accessor-node.js";
-import { ConstructorNode } from "src/elements/constructor-node.js";
-import { ElementNodeGroup } from "src/elements/element-node-group.js";
-import { ElementNode } from "src/elements/element-node.js";
-import { GetterNode } from "src/elements/getter-node.js";
-import { MethodNode } from "src/elements/method-node.js";
-import { PropertyNode } from "src/elements/property-node.js";
-import { SetterNode } from "src/elements/setter-node.js";
-import { StaticBlockDeclarationNode } from "src/elements/static-block-declaration-node.js";
-import { ClassMemberType } from "src/enums/class-member-type.js";
-import { getDecorators, getIsAbstract, getIsStatic, isPrivate, isProtected, isPublic, isReadOnly, isWritable, order } from "src/helpers/node-helper.js";
 import * as ts from "typescript";
+import { ElementNode } from "./element-node.js";
+import { AccessorNode } from "./accessor-node.js";
+import { ConstructorNode } from "./constructor-node.js";
+import { GetterNode } from "./getter-node.js";
+import { MethodNode } from "./method-node.js";
+import { PropertyNode } from "./property-node.js";
+import { SetterNode } from "./setter-node.js";
+import { StaticBlockDeclarationNode } from "./static-block-declaration-node.js";
+import { getDecorators, getIsAbstract, getIsStatic, isPrivate, isProtected, isPublic, isReadOnly, isWritable, order } from "../helpers/node-helper.js";
+import { ClassConfiguration } from "../configuration/class-configuration.js";
+import { ElementNodeGroup } from "./element-node-group.js";
+import { ClassMemberType } from "../enums/class-member-type.js";
 
 
 

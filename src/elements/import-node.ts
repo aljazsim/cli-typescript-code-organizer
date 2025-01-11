@@ -1,6 +1,6 @@
-import { ElementNode } from "src/elements/element-node.js";
-import { distinct } from "src/helpers/array-helper.js";
 import * as ts from "typescript";
+import { ElementNode } from "./element-node.js";
+import { distinct } from "../helpers/array-helper.js";
 
 
 

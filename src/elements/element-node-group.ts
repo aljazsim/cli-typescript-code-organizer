@@ -1,5 +1,5 @@
-import { RegionConfiguration } from "src/configuration/region-configuration.js";
-import { ElementNode } from "src/elements/element-node.js";
+import { RegionConfiguration } from "../configuration/region-configuration.js";
+import { ElementNode } from "./element-node.js";
 
 
 
@@ -10,6 +10,8 @@ export class ElementNodeGroup
     constructor(public readonly caption: string | null, public readonly nodeSubGroups: ElementNodeGroup[], public readonly nodes: ElementNode[], public readonly isRegion: boolean, public readonly regionConfiguration: RegionConfiguration | null)
     {
     }
+
+
 
     // #endregion Constructors (1)
 

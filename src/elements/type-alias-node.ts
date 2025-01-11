@@ -8,15 +8,15 @@
 
 
 
-import { TypeConfiguration } from "src/configuration/type-configuration.js";
-import { ElementNodeGroup } from "src/elements/element-node-group.js";
-import { ElementNode } from "src/elements/element-node.js";
-import { IndexSignatureNode } from "src/elements/index-signature-node.js";
-import { MethodSignatureNode } from "src/elements/method-signature-node.js";
-import { PropertySignatureNode } from "src/elements/property-signature-node.js";
-import { TypeMemberType } from "src/enums/type-member-type.js";
-import { order } from "src/helpers/node-helper.js";
 import * as ts from "typescript";
+import { ElementNode } from "./element-node.js";
+import { IndexSignatureNode } from "./index-signature-node.js";
+import { MethodSignatureNode } from "./method-signature-node.js";
+import { PropertySignatureNode } from "./property-signature-node.js";
+import { TypeConfiguration } from "../configuration/type-configuration.js";
+import { ElementNodeGroup } from "./element-node-group.js";
+import { TypeMemberType } from "../enums/type-member-type.js";
+import { order } from "../helpers/node-helper.js";
 export class TypeAliasNode extends ElementNode
 {
     // #region Properties (6)

@@ -1,7 +1,7 @@
-import { ElementNode } from "src/elements/element-node.js";
-import { WriteModifier } from "src/enums/write-modifier.js";
-import { getWriteMode } from "src/helpers/node-helper.js";
 import * as ts from "typescript";
+import { ElementNode } from "./element-node.js";
+import { WriteModifier } from "../enums/write-modifier.js";
+import { getWriteMode } from "../helpers/node-helper.js";
 
 
 

@@ -1,7 +1,7 @@
-import { Configuration } from "src/configuration/configuration.js";
-import { readFile } from "src/helpers/file-system-helper.js";
-import { SourceCodeOrganizer } from "src/source-code/source-code-organizer.js";
 import { test, expect } from "vitest";
+import { readFile } from "../../src/helpers/file-system-helper.js";
+import { SourceCodeOrganizer } from "../../src/source-code/source-code-organizer.js";
+import { Configuration } from "../../src/configuration/configuration.js";
 
 
 

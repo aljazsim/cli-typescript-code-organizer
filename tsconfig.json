@@ -1,22 +1,17 @@
 {
     "compilerOptions": {
-        "sourceRoot": "./",
-        "paths": {
-            "src/*": ["./src/*"],
-            "test/*": ["./test/*"]
-        },
+        "rootDir": "./",
         "outDir": "dist",
+        "target": "ES2022",
+        "module": "NodeNext",
+        "moduleResolution": "nodenext",
         "strict": true,
-        "target": "ESNext",
-        "module": "Node16",
         "sourceMap": true,
         "esModuleInterop": true,
-        "moduleResolution": "node16",
         "resolveJsonModule": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "skipLibCheck": true,
-        "allowJs": true
+        "skipLibCheck": true
     },
     "include": ["src/**/*", "test/**/*"],
     "exclude": [

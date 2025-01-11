@@ -1,26 +1,23 @@
-import { Configuration } from "src/configuration/configuration.js";
-import { ImportConfiguration } from "src/configuration/import-configuration.js";
-import { ImportSourceFilePathQuoteType } from "src/configuration/Import-source-file-path-quote-type.js";
-import { AccessorNode } from "src/elements/accessor-node.js";
-import { ClassNode } from "src/elements/class-node.js";
-import { ElementNodeGroup } from "src/elements/element-node-group.js";
-import { ElementNode } from "src/elements/element-node.js";
-import { FunctionNode } from "src/elements/function-node.js";
-import { GetterNode } from "src/elements/getter-node.js";
-import { ImportNode } from "src/elements/import-node.js";
-import { IndexSignatureNode } from "src/elements/index-signature-node.js";
-import { InterfaceNode } from "src/elements/interface-node.js";
-import { MethodNode } from "src/elements/method-node.js";
-import { MethodSignatureNode } from "src/elements/method-signature-node.js";
-import { PropertyNode } from "src/elements/property-node.js";
-import { PropertySignatureNode } from "src/elements/property-signature-node.js";
-import { SetterNode } from "src/elements/setter-node.js";
-import { TypeAliasNode } from "src/elements/type-alias-node.js";
-import { VariableNode } from "src/elements/variable-node.js";
-import { SourceCode } from "src/source-code/source-code.js";
-
-
-
+import { Configuration } from "../configuration/configuration.js";
+import { ImportConfiguration } from "../configuration/import-configuration.js";
+import { AccessorNode } from "../elements/accessor-node.js";
+import { ClassNode } from "../elements/class-node.js";
+import { ElementNodeGroup } from "../elements/element-node-group.js";
+import { ElementNode } from "../elements/element-node.js";
+import { FunctionNode } from "../elements/function-node.js";
+import { GetterNode } from "../elements/getter-node.js";
+import { ImportNode } from "../elements/import-node.js";
+import { IndexSignatureNode } from "../elements/index-signature-node.js";
+import { InterfaceNode } from "../elements/interface-node.js";
+import { MethodNode } from "../elements/method-node.js";
+import { MethodSignatureNode } from "../elements/method-signature-node.js";
+import { PropertyNode } from "../elements/property-node.js";
+import { PropertySignatureNode } from "../elements/property-signature-node.js";
+import { SetterNode } from "../elements/setter-node.js";
+import { TypeAliasNode } from "../elements/type-alias-node.js";
+import { VariableNode } from "../elements/variable-node.js";
+import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
+import { SourceCode } from "./source-code.js";
 
 
 

@@ -2,11 +2,11 @@
 
 
 
-import { ElementNode } from "src/elements/element-node.js";
-import { AccessModifier } from "src/enums/access-modifier.js";
-import { WriteModifier } from "src/enums/write-modifier.js";
-import { getAccessModifier, getDecorators, getIsAbstract, getIsStatic, getWriteMode } from "src/helpers/node-helper.js";
 import * as ts from "typescript";
+import { ElementNode } from "./element-node.js";
+import { AccessModifier } from "../enums/access-modifier.js";
+import { WriteModifier } from "../enums/write-modifier.js";
+import { getAccessModifier, getDecorators, getIsAbstract, getIsStatic, getWriteMode } from "../helpers/node-helper.js";
 
 export class PropertyNode extends ElementNode
 {

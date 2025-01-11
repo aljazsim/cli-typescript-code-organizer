@@ -1,6 +1,6 @@
-import { ClassMemberConfiguration } from "src/configuration/class-member-configuration.js";
-import { ClassMemberGroupConfiguration } from "src/configuration/class-member-group-configuration.js";
-import { RegionConfiguration } from "src/configuration/region-configuration.js";
+import { ClassMemberConfiguration } from "./class-member-configuration.js";
+import { ClassMemberGroupConfiguration } from "./class-member-group-configuration.js";
+import { RegionConfiguration } from "./region-configuration.js";
 
 
 

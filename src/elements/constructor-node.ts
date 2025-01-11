@@ -1,6 +1,6 @@
-import { ElementNode } from "src/elements/element-node.js";
-import { getDecorators } from "src/helpers/node-helper.js";
 import * as ts from "typescript";
+import { ElementNode } from "./element-node.js";
+import { getDecorators } from "../helpers/node-helper.js";
 
 
 

@@ -1,24 +1,25 @@
-import { AccessorNode } from "src/elements/accessor-node.js";
-import { ClassNode } from "src/elements/class-node.js";
-import { ElementNode } from "src/elements/element-node.js";
-import { EnumNode } from "src/elements/enum-node.js";
-import { ExpressionNode } from "src/elements/expression-node.js";
-import { FunctionNode } from "src/elements/function-node.js";
-import { GetterNode } from "src/elements/getter-node.js";
-import { ImportNode } from "src/elements/import-node.js";
-import { InterfaceNode } from "src/elements/interface-node.js";
-import { MethodNode } from "src/elements/method-node.js";
-import { PropertyNode } from "src/elements/property-node.js";
-import { PropertySignatureNode } from "src/elements/property-signature-node.js";
-import { SetterNode } from "src/elements/setter-node.js";
-import { TypeAliasNode } from "src/elements/type-alias-node.js";
-import { VariableNode } from "src/elements/variable-node.js";
-import { AccessModifier } from "src/enums/access-modifier.js";
-import { WriteModifier } from "src/enums/write-modifier.js";
-import { add, except, remove } from "src/helpers/array-helper.js";
-import { compareStrings } from "src/helpers/comparing-helper.js";
-import { matchRegEx, matchWildcard } from "src/helpers/string-helper.js";
+
 import * as ts from "typescript";
+import { AccessModifier } from "../enums/access-modifier.js";
+import { ElementNode } from "../elements/element-node.js";
+import { ClassNode } from "../elements/class-node.js";
+import { compareStrings } from "./comparing-helper.js";
+import { PropertyNode } from "../elements/property-node.js";
+import { MethodNode } from "../elements/method-node.js";
+import { SetterNode } from "../elements/setter-node.js";
+import { GetterNode } from "../elements/getter-node.js";
+import { AccessorNode } from "../elements/accessor-node.js";
+import { EnumNode } from "../elements/enum-node.js";
+import { ExpressionNode } from "../elements/expression-node.js";
+import { FunctionNode } from "../elements/function-node.js";
+import { ImportNode } from "../elements/import-node.js";
+import { InterfaceNode } from "../elements/interface-node.js";
+import { TypeAliasNode } from "../elements/type-alias-node.js";
+import { VariableNode } from "../elements/variable-node.js";
+import { WriteModifier } from "../enums/write-modifier.js";
+import { PropertySignatureNode } from "../elements/property-signature-node.js";
+import { add, except, remove } from "./array-helper.js";
+import { matchRegEx, matchWildcard } from "./string-helper.js";
 
 
 
