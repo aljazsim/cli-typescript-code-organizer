@@ -1,13 +1,15 @@
 import * as ts from "typescript";
 
-import { getIsExport } from "../helpers/node-helper.js";
+import { add } from "../helpers/array-helper.js";
+import { getDependencies, getIsArrowFunction, getIsExport } from "../helpers/node-helper.js";
 import { ElementNode } from "./element-node.js";
 
 export class VariableNode extends ElementNode
 {
-    // #region Properties (4)
+    // #region Properties (5)
 
-    public readonly isArrowFunction: boolean;
+    public readonly dependencies: string[] = [];
+    public readonly isArrowFunction: boolean = false;
     public readonly isConst: boolean;
     public readonly isExport: boolean;
     public readonly name: string;
@@ -16,33 +18,25 @@ export class VariableNode extends ElementNode
 
     // #region Constructors (1)
 
-    constructor(sourceFile: ts.SourceFile, variableStatement: ts.VariableStatement)
+    constructor(sourceFile: ts.SourceFile, variableDeclaration: ts.VariableDeclaration, isExport: boolean, isConst: boolean)
     {
-        super(sourceFile, variableStatement);
+        super(sourceFile, variableDeclaration);
 
-        this.name = variableStatement.declarationList.declarations.map(d => (<ts.Identifier>d.name).escapedText.toString()).join(",");
+        // this.name = variableDeclaration.declarationList.declarations.map(d => (<ts.Identifier>d.name).escapedText.toString()).join(",");
+        this.name = (<ts.Identifier>variableDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(variableDeclaration.name.pos, variableDeclaration.name.end).trim();
 
-        this.isExport = getIsExport(variableStatement);
-        this.isArrowFunction = this.getIsArrowFunction(variableStatement);
+        this.isExport = isExport;
+        this.isConst = isConst;
 
-        // HACK: can't find a way to do this with AST
-        const sourceCode = variableStatement.getText(sourceFile).trim();
+        this.isArrowFunction = getIsArrowFunction(variableDeclaration);
 
-        this.isConst = sourceCode.startsWith("const ") || sourceCode.startsWith("export const ");
+        if (variableDeclaration.initializer)
+        {
+            // we'll use this when sorting variables to make sure a variable that 
+            // depends on another variable is declared after the dependant variable
+            this.dependencies = getDependencies(sourceFile, variableDeclaration.initializer, [])
+        }
     }
 
     // #endregion Constructors
-
-    // #region Private Methods (1)
-
-    private getIsArrowFunction(variableStatement: ts.VariableStatement)
-    {
-        return variableStatement.declarationList &&
-            variableStatement.declarationList.declarations &&
-            variableStatement.declarationList.declarations.length === 1 &&
-            typeof variableStatement.declarationList.declarations[0].initializer !== "undefined" &&
-            variableStatement.declarationList.declarations[0].initializer.kind === ts.SyntaxKind.ArrowFunction;
-    }
-
-    // #endregion Private Methods
 }

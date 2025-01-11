@@ -10,6 +10,7 @@ import { ImportNode } from "../elements/import-node.js";
 import { InterfaceNode } from "../elements/interface-node.js";
 import { TypeAliasNode } from "../elements/type-alias-node.js";
 import { VariableNode } from "../elements/variable-node.js";
+import { getIsConst, getIsExport } from "../helpers/node-helper.js";
 
 export class SourceCodeAnalyzer
 {
@@ -93,8 +94,15 @@ export class SourceCodeAnalyzer
         }
         else if (ts.isVariableStatement(node))
         {
-            // variable
-            elements.push(new VariableNode(sourceFile, node));
+            const isExport = getIsExport(node);
+            const isConst = getIsConst(node.declarationList);
+
+            // variable statement can have multiple variables -> break them up so we can organize them
+            for (const variableDeclaration of node.declarationList.declarations)
+            {
+                // variable
+                elements.push(new VariableNode(sourceFile, variableDeclaration, isExport, isConst));
+            }
         }
         else if (node.kind == ts.SyntaxKind.SyntaxList)
         {

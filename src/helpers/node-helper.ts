@@ -40,7 +40,7 @@ function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupW
 
 // #endregion Functions
 
-// #region Exported Functions (25)
+// #region Exported Functions (28)
 
 export function getAccessModifier(node: ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.MethodDeclaration | ts.PropertySignature | ts.IndexSignatureDeclaration)
 {
@@ -88,6 +88,23 @@ export function getDecoratorsWithoutParameters(node: ClassNode | PropertyNode | 
     return node.decorators.map((d: string) => d.replace(/\(.*\)/, ""));
 }
 
+export function getDependencies(sourceFile: ts.SourceFile, node: ts.Node, dependencies: string[])
+{
+    if (ts.isIdentifier(node))
+    {
+        add(dependencies, node.escapedText);
+    }
+    else
+    {
+        for (let childNode of node.getChildren(sourceFile))
+        {
+            dependencies = dependencies.concat(getDependencies(sourceFile, childNode, dependencies));
+        }
+    }
+
+    return dependencies.sort();
+}
+
 export function getEnums(nodes: ElementNode[])
 {
     return nodes.filter(n => n instanceof EnumNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
@@ -126,9 +143,30 @@ export function getIsAbstract(node: ts.ClassDeclaration | ts.GetAccessorDeclarat
     return getModifiers(node).find((x) => x.kind === ts.SyntaxKind.AbstractKeyword) !== undefined;
 }
 
+export function getIsArrowFunction(node: ts.PropertyDeclaration | ts.VariableDeclaration)
+{
+    if (node.type)
+    {
+        return ts.isFunctionTypeNode(node.type);
+    }
+    else if (node.initializer)
+    {
+        return node.initializer && node.initializer!.kind === ts.SyntaxKind.ArrowFunction;
+    }
+    else 
+    {
+        return false;
+    }
+}
+
 export function getIsAsync(node: ts.MethodDeclaration | ts.PropertyDeclaration)
 {
     return getModifiers(node).find((x) => x.kind === ts.SyntaxKind.AsyncKeyword) !== undefined;
+}
+
+export function getIsConst(node: ts.VariableDeclarationList)
+{
+    return node.flags === ts.NodeFlags.Const;
 }
 
 export function getIsExport(node: ts.ClassDeclaration | ts.FunctionDeclaration | ts.VariableStatement)
