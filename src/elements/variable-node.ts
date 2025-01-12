@@ -1,12 +1,11 @@
 import * as ts from "typescript";
 
-import { add } from "../helpers/array-helper.js";
-import { getDependencies, getIsArrowFunction, getIsExport } from "../helpers/node-helper.js";
+import { getDependencies, getIsArrowFunction } from "../helpers/node-helper.js";
 import { ElementNode } from "./element-node.js";
 
 export class VariableNode extends ElementNode
 {
-    // #region Properties (5)
+    // #region Properties (3)
 
     public readonly dependencies: string[] = [];
     public readonly isArrowFunction: boolean = false;
