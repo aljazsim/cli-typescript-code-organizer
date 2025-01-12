@@ -1,38 +1,26 @@
-
-
-
-
-// #region Functions (1)
-
 import { getFileNameWithoutExtension, joinPath } from "../../src/helpers/file-system-helper.js";
-import { defaultConfiguration, defaultConfigurationWithGroupingMembersWithDecorators, defaultConfigurationWithoutGroupingImportsBySource, defaultConfigurationWithoutRemovingUnusedImports, defaultConfigurationWithoutSeparatingImportGroups, defaultConfigurationWithoutSortingImportsByName, defaultConfigurationWithoutSortingImportsBySource, defaultConfigurationWithRegionMemberCount, defaultConfigurationWithRegionMemberCountAndCaptionInRegionEnd, defaultConfigurationWithRegions, defaultConfigurationWithSingleQuotesForImports, membersGroupedByIndividualMemberTypeConfigurationFilePath, membersGroupedByIndividualMemberTypeWithArrowPropertiesAsMethodsConfigurationFilePath, membersGroupedByIndividualMemberTypeWithDescSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithoutSortingConfigurationFilePath, membersGroupedByIndividualMemberTypeWithPlaceAboveBelowConfigurationFilePath, membersGroupedByMultipleMemberTypeConfigurationFilePath, membersGroupedByMultipleMemberTypeWithoutGroupingConfigurationFilePath } from "./configuration-helper.js";
+import { getTestConfigurationFilePaths } from "./configuration-helper.js";
 import { OrganizeTestParameters } from "./organize-test-parameters.js";
+
+// #region Exported Functions (1)
 
 export function getOrganizeTestParameters()
 {
-    const configurationFilePaths = [
-        defaultConfiguration,
-        defaultConfigurationWithRegions,
-        defaultConfigurationWithRegionMemberCount,
-        defaultConfigurationWithRegionMemberCountAndCaptionInRegionEnd,
-        defaultConfigurationWithGroupingMembersWithDecorators,
+    const testOutputDirectoryPath = "./test/organize-files/ts-files";
+    const testOutputClassDirectoryPath = `${testOutputDirectoryPath}/class`;
+    const testOutputFunctionDirectoryPath = `${testOutputDirectoryPath}/function`;
+    const testOutputInterfaceDirectoryPath = `${testOutputDirectoryPath}/interface`;
+    const testOutputModuleDirectoryPath = `${testOutputDirectoryPath}/module`;
+    const testOutputTypeDirectoryPath = `${testOutputDirectoryPath}/type`;
+    const testOutputVariableDirectoryPath = `${testOutputDirectoryPath}/variable`;
+    const testInputDirectoryPath = './test/organize-files/ts-files';
+    const testInputClassFilePath = `${testInputDirectoryPath}/class/test-class.ts`;
+    const testInputFunctionFilePath = `${testInputDirectoryPath}/function/test-function.ts`;
+    const testInputInterfaceFilePath = `${testInputDirectoryPath}/interface/test-interface.ts`;
+    const testInputModuleFilePath = `${testInputDirectoryPath}/module/test-module.ts`;
+    const testInputTypeFilePath = `${testInputDirectoryPath}/type/test-type.ts`;
+    const testInputVariableFilePath = `${testInputDirectoryPath}/variable/test-variable.ts`;
 
-        defaultConfigurationWithoutRemovingUnusedImports,
-        defaultConfigurationWithoutSortingImportsBySource,
-        defaultConfigurationWithoutSortingImportsByName,
-        defaultConfigurationWithoutGroupingImportsBySource,
-        defaultConfigurationWithoutSeparatingImportGroups,
-        defaultConfigurationWithSingleQuotesForImports,
-
-        membersGroupedByIndividualMemberTypeConfigurationFilePath,
-        membersGroupedByIndividualMemberTypeWithArrowPropertiesAsMethodsConfigurationFilePath,
-        membersGroupedByIndividualMemberTypeWithDescSortingConfigurationFilePath,
-        membersGroupedByIndividualMemberTypeWithoutSortingConfigurationFilePath,
-        membersGroupedByIndividualMemberTypeWithPlaceAboveBelowConfigurationFilePath,
-
-        membersGroupedByMultipleMemberTypeConfigurationFilePath,
-        membersGroupedByMultipleMemberTypeWithoutGroupingConfigurationFilePath
-    ];
     const tests = [
         { name: "class", inputFilePath: testInputClassFilePath, outputDirectoryPath: testOutputClassDirectoryPath },
         { name: "function", inputFilePath: testInputFunctionFilePath, outputDirectoryPath: testOutputFunctionDirectoryPath },
@@ -45,7 +33,7 @@ export function getOrganizeTestParameters()
 
     for (const test of tests)
     {
-        for (const configurationFilePath of configurationFilePaths)
+        for (const configurationFilePath of getTestConfigurationFilePaths())
         {
             const description = `organize ${test.name}: ${getFileNameWithoutExtension(configurationFilePath).replaceAll("-", " ")}`;
             const inputFilePath = test.inputFilePath;
@@ -59,23 +47,4 @@ export function getOrganizeTestParameters()
     return memberOrganizeParameters;
 }
 
-// #endregion Functions (1)
-
-// #region Variables (16)
-
-const testOutputDirectoryPath = "./test/organize-files/ts-files";
-const testOutputClassDirectoryPath = `${testOutputDirectoryPath}/class`;
-const testOutputFunctionDirectoryPath = `${testOutputDirectoryPath}/function`;
-const testOutputInterfaceDirectoryPath = `${testOutputDirectoryPath}/interface`;
-const testOutputModuleDirectoryPath = `${testOutputDirectoryPath}/module`;
-const testOutputTypeDirectoryPath = `${testOutputDirectoryPath}/type`;
-const testOutputVariableDirectoryPath = `${testOutputDirectoryPath}/variable`;
-const testInputDirectoryPath = './test/organize-files/ts-files';
-const testInputClassFilePath = `${testInputDirectoryPath}/class/test-class.ts`;
-const testInputFunctionFilePath = `${testInputDirectoryPath}/function/test-function.ts`;
-const testInputInterfaceFilePath = `${testInputDirectoryPath}/interface/test-interface.ts`;
-const testInputModuleFilePath = `${testInputDirectoryPath}/module/test-module.ts`;
-const testInputTypeFilePath = `${testInputDirectoryPath}/type/test-type.ts`;
-const testInputVariableFilePath = `${testInputDirectoryPath}/variable/test-variable.ts`;
-
-// #endregion Variables (16)
+// #endregion Exported Functions
