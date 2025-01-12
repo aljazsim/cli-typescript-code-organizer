@@ -365,7 +365,27 @@ Members that match a pattern will then be organized by `sortDirection`. Here's a
 
 ## Using TSCO in VS Code
 
+You can install the [TypeScript Code Organizer](https://marketplace.visualstudio.com/items?itemName=aljazsim.tsco) VS Code extension. It offers exact same functionality as the TypeScript Code Organizer CLI, but built into VS Code. See the Visual Studio Marketplace for instructions.
+
 ## Using TSCO With GIT pre-commit hook
+
+Open a terminal window. Ensure `tsco` is installed globally (see above). Navigate to your project root. Install [Husky](https://typicode.github.io/husky/):
+
+```powershell
+npm install --save-dev husky
+```
+
+Initialize Husky (this will create a pre-commit script in `.husky/` and updates the prepare script in `package.json`):
+
+```powershell
+npx husky init
+```
+
+Open the `.husky/pre-commit` file in a text editor and add the following line (feel free to specify a custom configuration file path and source directory path):
+
+```
+tsco --configuration ./tsco.json --sources ./src
+```
 
 ## Change log
 
