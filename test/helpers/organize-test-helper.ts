@@ -13,6 +13,7 @@ export function getOrganizeTestParameters()
     const testOutputModuleDirectoryPath = `${testOutputDirectoryPath}/module`;
     const testOutputTypeDirectoryPath = `${testOutputDirectoryPath}/type`;
     const testOutputVariableDirectoryPath = `${testOutputDirectoryPath}/variable`;
+    
     const testInputDirectoryPath = './test/organize-files/ts-files';
     const testInputClassFilePath = `${testInputDirectoryPath}/class/test-class.ts`;
     const testInputFunctionFilePath = `${testInputDirectoryPath}/function/test-function.ts`;

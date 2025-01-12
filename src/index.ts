@@ -1,26 +1,31 @@
 import { Configuration } from "./configuration/configuration.js";
-import { displayHelp, displayVersion, initializeConfigurationFile, parseCommandLineArguments, run } from "./index-helper.js";
-
-// #region Variables (2)
+import { displayHelp, displayVersion, initialize as initialize, parseCommandLineArguments, organize, watch } from "./index-helper.js";
 
 const commandLineArguments = parseCommandLineArguments(process.argv);
 const configuration = await Configuration.getConfiguration(commandLineArguments.configurationFilePath);
-
-// #endregion Variables
 
 if (commandLineArguments.version)
 {
     displayVersion();
 }
-else if (commandLineArguments.help)
+else if (commandLineArguments.help || (!commandLineArguments.initialize && !commandLineArguments.organize && !commandLineArguments.watch))
 {
     displayHelp();
 }
-else if (commandLineArguments.initialize)
-{
-    initializeConfigurationFile(commandLineArguments.configurationFilePath, Configuration.getDefaultConfiguration());
-}
 else
 {
-    run(configuration, commandLineArguments.watch);
-}
+    if (commandLineArguments.initialize)
+    {
+        initialize(commandLineArguments.configurationFilePath, Configuration.getDefaultConfiguration());
+    }
+
+    if (commandLineArguments.organize)
+    {
+        await organize(commandLineArguments.sourceDirectoryPath, configuration);
+    }
+
+    if (commandLineArguments.watch)
+    {
+        await watch(commandLineArguments.sourceDirectoryPath, configuration);
+    }
+} 
