@@ -13,7 +13,7 @@ async function organizeSourceCode(sourcesDirectoryPath: string, filePath: string
     const exclude = configuration.files.exclude.map(fp => getFullPath(joinPath(sourcesDirectoryPath, fp)))
     const filePaths = await glob(include, { ignore: exclude });
 
-    filePath == getFullPath(filePath);
+    filePath = getFullPath(filePath);
 
     if (filePaths.some(fp => fp === filePath))
     {

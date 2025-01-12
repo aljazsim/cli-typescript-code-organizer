@@ -240,7 +240,7 @@ export class SourceCodePrinter
         const nodeGroupsSourceCode = new SourceCode();
         const nodeGroupsWithNodes = nodeGroups.filter(ng => ng.getNodeCount() > 0);
 
-        for (let nodeGroup of nodeGroupsWithNodes)
+        for (const nodeGroup of nodeGroupsWithNodes)
         {
             if (nodeGroup.getNodeCount() > 0)
             {

@@ -53,7 +53,7 @@ export class ClassNode extends ElementNode
         this.isStatic = getIsStatic(classDeclaration);
 
         // members
-        for (let member of classDeclaration.members)
+        for (const member of classDeclaration.members)
         {
             if (ts.isClassStaticBlockDeclaration(member))
             {
@@ -99,7 +99,7 @@ export class ClassNode extends ElementNode
 
     public organizeMembers(configuration: ClassConfiguration)
     {
-        let regions: ElementNodeGroup[] = [];
+        const regions: ElementNodeGroup[] = [];
 
         for (const memberGroup of configuration.memberGroups)
         {

@@ -21,7 +21,7 @@ export class SourceCodeAnalyzer
         let elements: ElementNode[] = [];
 
         // traverse top ast nodes
-        for (let node of sourceFile.getChildren(sourceFile))
+        for (const node of sourceFile.getChildren(sourceFile))
         {
             elements = elements.concat(this.traverseSyntaxTree(node, sourceFile, configuration));
         }
@@ -113,7 +113,7 @@ export class SourceCodeAnalyzer
         else if (node.kind == ts.SyntaxKind.SyntaxList)
         {
             // traverse children ast nodes
-            for (let childNode of node.getChildren(sourceFile))
+            for (const childNode of node.getChildren(sourceFile))
             {
                 elements = elements.concat(this.traverseSyntaxTree(childNode, sourceFile, configuration));
             }

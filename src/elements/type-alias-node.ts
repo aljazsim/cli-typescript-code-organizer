@@ -42,7 +42,7 @@ export class TypeAliasNode extends ElementNode
                     this.membersEnd = typeLiteral.members[typeLiteral.members.length - 1].getEnd() - typeAliasDeclaration.getFullStart();
 
                     // members
-                    for (let member of typeLiteral.members)
+                    for (const member of typeLiteral.members)
                     {
                         if (ts.isPropertySignature(member))
                         {
@@ -77,7 +77,7 @@ export class TypeAliasNode extends ElementNode
 
     public organizeMembers(configuration: TypeConfiguration)
     {
-        let regions: ElementNodeGroup[] = [];
+        const regions: ElementNodeGroup[] = [];
 
         for (const memberGroup of configuration.memberGroups)
         {

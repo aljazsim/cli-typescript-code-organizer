@@ -44,8 +44,9 @@ function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupW
 
 export function getAccessModifier(node: ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.MethodDeclaration | ts.PropertySignature | ts.IndexSignatureDeclaration)
 {
+    const accessModifiers: ts.SyntaxKind[] = [ts.SyntaxKind.PrivateKeyword, ts.SyntaxKind.ProtectedKeyword, ts.SyntaxKind.PublicKeyword];
+
     let accessModifier: AccessModifier | null = null;
-    let accessModifiers: ts.SyntaxKind[] = [ts.SyntaxKind.PrivateKeyword, ts.SyntaxKind.ProtectedKeyword, ts.SyntaxKind.PublicKeyword];
     let nodeAccessModifier: ts.Modifier | ts.ModifierLike | undefined;
 
     if (node.modifiers &&
@@ -96,7 +97,7 @@ export function getDependencies(sourceFile: ts.SourceFile, node: ts.Node, depend
     }
     else
     {
-        for (let childNode of node.getChildren(sourceFile))
+        for (const childNode of node.getChildren(sourceFile))
         {
             getDependencies(sourceFile, childNode, dependencies);
         }
@@ -128,7 +129,7 @@ export function getFunctions(nodes: ElementNode[], treatArrowFunctionVariablesAs
     return functions.concat(arrowFunctionVariables).concat(arrowFunctionConstants).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
-export function getHasLeadingComment(node: ts.Node, sourceFile: ts.SourceFile): any
+export function getHasLeadingComment(node: ts.Node, sourceFile: ts.SourceFile)
 {
     return ts.getLeadingCommentRanges(node.getFullText(sourceFile), 0) !== undefined;
 }
@@ -181,7 +182,7 @@ export function getIsExport(node: ts.ClassDeclaration | ts.FunctionDeclaration |
     if (node.modifiers &&
         node.modifiers.length > 0)
     {
-        let tmp = node.modifiers.find((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword);
+        const tmp = node.modifiers.find((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword);
 
         if (tmp &&
             tmp.kind === ts.SyntaxKind.ExportKeyword)
@@ -203,15 +204,11 @@ export function getLeadingComment(node: ts.Node, sourceFile: ts.SourceFile)
     const sourceCode = node.getFullText(sourceFile);
     const commentRanges = ts.getLeadingCommentRanges(sourceCode, 0)
 
-    if (commentRanges && commentRanges.length > 0 && commentRanges[0].hasTrailingNewLine)
-    {
-    }
-
     if (commentRanges && commentRanges.length > 0)
     {
-        let start = commentRanges[0].pos;
-        let end = commentRanges[0].end;
-        let trailingNewLine = commentRanges[0].hasTrailingNewLine;
+        const start = commentRanges[0].pos;
+        const end = commentRanges[0].end;
+        const trailingNewLine = commentRanges[0].hasTrailingNewLine;
 
         return sourceCode.substring(start, end) + (trailingNewLine ? "\r\n" : "");
     }
@@ -310,9 +307,9 @@ export function getTrailingComment(node: ts.Node, sourceFile: ts.SourceFile)
 
     if (commentRanges && commentRanges.length > 0)
     {
-        let start = commentRanges[0].pos;
-        let end = commentRanges[0].end;
-        let trailingNewLine = commentRanges[0].hasTrailingNewLine;
+        const start = commentRanges[0].pos;
+        const end = commentRanges[0].end;
+        const trailingNewLine = commentRanges[0].hasTrailingNewLine;
 
         return sourceCode.substring(start, end) + (trailingNewLine ? "\r\n" : "");
     }
@@ -343,9 +340,9 @@ export function getVariables(nodes: ElementNode[], constant: boolean, exported: 
 
 export function getWriteMode(node: ts.PropertyDeclaration | ts.VariableStatement | ts.IndexedAccessTypeNode | ts.PropertySignature | ts.IndexSignatureDeclaration)
 {
+    const writeModifiers = [ts.SyntaxKind.ConstKeyword, ts.SyntaxKind.ReadonlyKeyword];
+    const nodeWriteModifier = getModifiers(node).find((x) => writeModifiers.indexOf(x.kind) > -1);
     let writeMode = WriteModifier.writable;
-    let writeModifiers = [ts.SyntaxKind.ConstKeyword, ts.SyntaxKind.ReadonlyKeyword];
-    let nodeWriteModifier = getModifiers(node).find((x) => writeModifiers.indexOf(x.kind) > -1);
 
     if (nodeWriteModifier)
     {

@@ -29,12 +29,12 @@ export class SourceCodeOrganizer
         {
             try 
             {
-                let sourceCodeWithoutRegions = new SourceCode(sourceCode);
+                const sourceCodeWithoutRegions = new SourceCode(sourceCode);
                 sourceCodeWithoutRegions.removeRegions(); // strip regions, they will get re-generated
 
-                let sourceFile = ts.createSourceFile(sourceCodeFilePath, sourceCodeWithoutRegions.toString(), ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
-                let elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration);
-                let topLevelGroups = await this.organizeModuleMembers(elements, configuration, sourceFile); // TODO: move this to module node
+                const sourceFile = ts.createSourceFile(sourceCodeFilePath, sourceCodeWithoutRegions.toString(), ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
+                const elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration);
+                const topLevelGroups = await this.organizeModuleMembers(elements, configuration, sourceFile); // TODO: move this to module node
 
                 return SourceCodePrinter.print(topLevelGroups, configuration).toString();
             }
@@ -162,9 +162,9 @@ export class SourceCodeOrganizer
 
         if (configuration.groupImportsBySource)
         {
-            var moduleImports = imports.filter(i => i.isModuleReference);
-            var stringLiteralImports = imports.filter(i => !i.isModuleReference && !i.nameBinding && !i.namedImports && !i.namespace);
-            var fileImports = imports.filter(i => !i.isModuleReference && (i.nameBinding || i.namedImports || i.namespace));
+            const moduleImports = imports.filter(i => i.isModuleReference);
+            const stringLiteralImports = imports.filter(i => !i.isModuleReference && !i.nameBinding && !i.namedImports && !i.namespace);
+            const fileImports = imports.filter(i => !i.isModuleReference && (i.nameBinding || i.namedImports || i.namespace));
 
             if (configuration.separateImportGroups)
             {
@@ -197,7 +197,7 @@ export class SourceCodeOrganizer
         const exportedConstants = getVariables(elements, true, true, configuration.modules.members.treatArrowFunctionConstantsAsMethods ? false : null);
         const variables = getVariables(elements, false, false, configuration.modules.members.treatArrowFunctionVariablesAsMethods ? false : null);
         const exportedVariables = getVariables(elements, false, true, configuration.modules.members.treatArrowFunctionVariablesAsMethods ? false : null);
-        let expressions = getExpressions(elements);
+        const expressions = getExpressions(elements);
 
         if (imports.length > 0)
         {

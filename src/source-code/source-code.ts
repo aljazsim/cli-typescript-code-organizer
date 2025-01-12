@@ -186,7 +186,7 @@ export class SourceCode
     public addRegion(regionCaption: string, regionMemberCount: number, regionConfiguration: RegionConfiguration)
     {
         const indentation = SourceCode.getIndentation(this.sourceCode);
-        let code = this.sourceCode;
+        const code = this.sourceCode;
         let region = "";
         let endregion = "";
 
@@ -213,12 +213,11 @@ export class SourceCode
     public removeConsecutiveEmptyLines()
     {
         const newLine = "\r\n";
-        let emptyLineRegex = new RegExp(`^\\s * $`);
-        let newLineRegex = new RegExp(`\r\n|\r`);
-        let openingBraceRegex = new RegExp(`^.*\{ \\s*$`);
-        let closingBraceRegex = new RegExp(`^\\s *\} \\s*$`);
-
-        let lines: string[] = this.sourceCode.split(newLineRegex);
+        const emptyLineRegex = new RegExp(`^\\s * $`);
+        const newLineRegex = new RegExp(`\r\n|\r`);
+        const openingBraceRegex = new RegExp(`^.*{ \\s*$`);
+        const closingBraceRegex = new RegExp(`^\\s *} \\s*$`);
+        const lines: string[] = this.sourceCode.split(newLineRegex);
 
         for (let i = 0; i < lines.length - 1; i++)
         {
@@ -254,15 +253,15 @@ export class SourceCode
     {
         const newLine = "\n";
         const emptyLine = "";
-        let anythingRegex = ".";
-        let startRegionRegex = "#region";
-        let endRegionRegex = "#endregion";
-        let spaceRegex = "\\s";
+        const anythingRegex = ".";
+        const startRegionRegex = "#region";
+        const endRegionRegex = "#endregion";
+        const spaceRegex = "\\s";
 
-        let startRegionsRegex = new RegExp(`^//${spaceRegex}*${startRegionRegex}${spaceRegex}+${anythingRegex}+$`, "i");
-        let endRegionsRegex = new RegExp(`^//${spaceRegex}*${endRegionRegex}(${spaceRegex}+${anythingRegex}+)?$`, "i");
-        let lines: string[] = this.sourceCode.split(newLine);
-        let lines2: string[] = [];
+        const startRegionsRegex = new RegExp(`^//${spaceRegex}*${startRegionRegex}${spaceRegex}+${anythingRegex}+$`, "i");
+        const endRegionsRegex = new RegExp(`^//${spaceRegex}*${endRegionRegex}(${spaceRegex}+${anythingRegex}+)?$`, "i");
+        const lines: string[] = this.sourceCode.split(newLine);
+        const lines2: string[] = [];
 
         for (let i = 0; i < lines.length; i++)
         {

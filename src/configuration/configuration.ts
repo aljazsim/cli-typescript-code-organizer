@@ -45,7 +45,7 @@ export class Configuration
 
     public static async getConfiguration(configurationFilePath: string | null)
     {
-        let defaultConfiguration = await this.getDefaultConfiguration();
+        const defaultConfiguration = await this.getDefaultConfiguration();
         let configuration = defaultConfiguration;
 
         try
@@ -316,7 +316,7 @@ export class Configuration
         return fixedMemberTypeOrder;
     }
 
-    private static parseClassMemberGroupConfiguration(classMemberGroupConfiguration: any)
+    private static parseClassMemberGroupConfiguration(classMemberGroupConfiguration: ClassMemberGroupConfiguration)
     {
         const sortDirection = classMemberGroupConfiguration.sortDirection === "asc" ? "asc" : (classMemberGroupConfiguration.sortDirection === "desc" ? "desc" : "none");
         const caption = classMemberGroupConfiguration.caption ?? "Region";
@@ -353,7 +353,7 @@ export class Configuration
         }
     }
 
-    private static parseInterfaceMemberGroupConfiguration(interfaceMemberGroupConfiguration: any)
+    private static parseInterfaceMemberGroupConfiguration(interfaceMemberGroupConfiguration: InterfaceMemberGroupConfiguration)
     {
         const sortDirection = interfaceMemberGroupConfiguration.sortDirection === "asc" ? "asc" : (interfaceMemberGroupConfiguration.sortDirection === "desc" ? "desc" : "none");
         const caption = interfaceMemberGroupConfiguration.caption ?? "Region";
@@ -374,7 +374,7 @@ export class Configuration
         return new InterfaceMemberGroupConfiguration(sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
     }
 
-    private static parseModuleMemberGroupConfiguration(moduleMemberGroupConfiguration: any)
+    private static parseModuleMemberGroupConfiguration(moduleMemberGroupConfiguration: ModuleMemberGroupConfiguration)
     {
         const sortDirection = moduleMemberGroupConfiguration.sortDirection === "asc" ? "asc" : (moduleMemberGroupConfiguration.sortDirection === "desc" ? "desc" : "none");
         const caption = moduleMemberGroupConfiguration.caption ?? "Region";
@@ -395,7 +395,7 @@ export class Configuration
         return new ModuleMemberGroupConfiguration(sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
     }
 
-    private static parseTypeMemberGroupConfiguration(typeMemberGroupConfiguration: any)
+    private static parseTypeMemberGroupConfiguration(typeMemberGroupConfiguration: TypeMemberGroupConfiguration)
     {
         const sortDirection = typeMemberGroupConfiguration.sortDirection === "asc" ? "asc" : (typeMemberGroupConfiguration.sortDirection === "desc" ? "desc" : "none");
         const caption = typeMemberGroupConfiguration.caption ?? "Region";

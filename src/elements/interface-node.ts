@@ -41,7 +41,7 @@ export class InterfaceNode extends ElementNode
         }
 
         // members
-        for (let member of interfaceDeclaration.members)
+        for (const member of interfaceDeclaration.members)
         {
             if (ts.isPropertySignature(member))
             {
@@ -81,7 +81,7 @@ export class InterfaceNode extends ElementNode
 
     public organizeMembers(configuration: InterfaceConfiguration)
     {
-        let regions: ElementNodeGroup[] = [];
+        const regions: ElementNodeGroup[] = [];
 
         for (const memberGroup of configuration.memberGroups)
         {

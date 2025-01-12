@@ -34,6 +34,7 @@ export function matchRegEx(regex: string, text: string)
         }
         catch 
         {
+            return false;
         }
     }
 
@@ -50,6 +51,7 @@ export function matchWildcard(pattern: string, text: string)
         }
         catch 
         {
+            return false;
         }
     }
 
