@@ -4,7 +4,7 @@ import Watcher from "watcher";
 import { Configuration } from "./configuration/configuration.js";
 import { getFullPath, joinPath, writeFile } from "./helpers/file-system-helper.js";
 import { SourceCodeOrganizer } from "./source-code/source-code-organizer.js";
-import { config } from "process";
+import { config, exit } from "process";
 
 // #region Functions (8)
 
@@ -81,31 +81,25 @@ export function parseCommandLineArguments(commandLineArguments: string[])
 {
     const defaultSourceDirectoryPath = "./";
     const defaultConfigurationFilePath = "./tsco.json";
-    const sanitizeArgument = (a: string | null | undefined) => a?.trim().replace(/['"]+/g, '').trim();
-    let command = new Command();
+    const getArgument = (args: string[], short: string, long: string) =>
+    {
+        args = args
+            .filter(a => a.startsWith(long) || a.startsWith(short))
+            .map(a => a.replace(long, "").replace(short, ""))
 
-    commandLineArguments = commandLineArguments.filter(arg => arg && arg.trim().length > 0);
-
-    command = command.name("tsco");
-    command = command.description("CLI tool for organizing TypeScript code");
-    command = command.addOption(new Option("-h, --help").default(false, "false"));
-    command = command.addOption(new Option("-i, --initialize").default(false, "false"));
-    command = command.addOption(new Option("-o, --organize").default(false, "false"));
-    command = command.addOption(new Option("-w, --watch").default(false, "false"));
-    command = command.addOption(new Option("-c, --configuration <string>").default("./tsco.json", "./tsco.json"));
-    command = command.addOption(new Option("-s, --sources <string>").default("./", "./"));
-    command.parse(commandLineArguments.filter(a => a !== "-v" && a !== "--version"));
+        return args.length == 1 ? args[0].trim().replace(/['"`]+/g, '').trim() : null;
+    };
 
     return {
-        version: process.argv.some(a => a === "-v" || a === "--version"), // something's up with command version setting
-        help: command.opts().help === true,
+        version: commandLineArguments.some(a => a === "-v" || a === "--version"),
+        help: commandLineArguments.some(a => a === "-v" || a === "--version"),
 
-        initialize: command.opts().initialize === true,
-        organize: command.opts().organize === true,
-        watch: command.opts().watch === true,
+        initialize: commandLineArguments.some(a => a === "-i" || a === "--initialize"),
+        organize: commandLineArguments.some(a => a === "-o" || a === "--organize"),
+        watch: commandLineArguments.some(a => a === "-w" || a === "--watch"),
 
-        sourceDirectoryPath: sanitizeArgument(command.opts().sources) ?? defaultSourceDirectoryPath,
-        configurationFilePath: sanitizeArgument(command.opts().configuration) ?? defaultConfigurationFilePath,
+        sourceDirectoryPath: getArgument(commandLineArguments, "-s", "--sources") ?? defaultSourceDirectoryPath,
+        configurationFilePath: getArgument(commandLineArguments, "-c", "--configuration") ?? defaultConfigurationFilePath,
     };
 }
 

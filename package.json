@@ -32,7 +32,6 @@
         "test": "test"
     },
     "dependencies": {
-        "commander": "^13.0.0",
         "glob": "^11.0.1",
         "watcher": "^2.3.1",
         "wildcard-match": "^5.1.4"
