@@ -388,7 +388,7 @@ Members that match a pattern will then be organized by `sortDirection`. Here's a
 
 ## Ignoring files
 
-In order to prevent a TypeScript file being organized you can add the file to the exclude list or add one of the following comments to the top of the TypeScript file:
+In order to prevent a TypeScript file being organized you can add the file to the exclude list in the configuration file files section or add one of the following comments to the top of the TypeScript file:
 
 ```typescript
 // tsco:ignore
