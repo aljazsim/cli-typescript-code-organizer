@@ -64,6 +64,14 @@ export class SourceCodeAnalyzer
         {
             return true;
         }
+        else if (ts.isBinaryExpression(node) && ts.isIdentifier(node.left) && node.left.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
+        else if (ts.isBinaryExpression(node) && ts.isIdentifier(node.right) && node.right.getText(sourceFile) === identifier)
+        {
+            return true;
+        }
         else if (ts.isQualifiedName(node) && ts.isIdentifier(node.left) && node.left.getText(sourceFile) === identifier)
         {
             return true;
