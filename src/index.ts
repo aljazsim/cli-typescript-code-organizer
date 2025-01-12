@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+
+// tsco: ignore 
 import { Configuration } from "./configuration/configuration.js";
 import { displayHelp, displayVersion, initialize, organize, parseCommandLineArguments, watch } from "./index-helper.js";
 
