@@ -1,0 +1,53 @@
+{
+    "name": "tsco",
+    "version": "1.0.0",
+    "author": "Aljaz Simonic",
+    "license": "MIT",
+    "description": "TypeScript Code Organizer CLI",
+    "homepage": "https://github.com/aljazsim/cli-typescript-class-organizer",
+    "icon": "https://github.com/aljazsim/cli-typescript-class-organizer/raw/master/doc/logo.png",
+    "repository": "https://github.com/aljazsim/cli-typescript-class-organizer.git",
+    "keywords": [
+        "TypeScript",
+        "code",
+        "organize",
+        "organizer",
+        "member",
+        "members",
+        "properties",
+        "methods"
+    ],
+    "scripts": {
+        "build": "npx tsc",
+        "start": "npx tsx ./src/index.ts",
+        "test": "vitest",
+        "lint": "npx eslint",
+        "prepare": "husky"
+    },
+    "type": "module",
+    "main": "./src/index.js",
+    "bin": {
+        "tsco": "./src/index.js"
+    },
+    "directories": {
+        "doc": "doc",
+        "test": "test"
+    },
+    "dependencies": {
+        "glob": "^11.0.1",
+        "watcher": "^2.3.1",
+        "wildcard-match": "^5.1.4"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.18.0",
+        "@types/node": "^22.10.5",
+        "eslint": "^9.18.0",
+        "globals": "^15.14.0",
+        "husky": "^9.1.7",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.7.3",
+        "typescript-eslint": "^8.19.1",
+        "vite-tsconfig-paths": "^5.1.4",
+        "vitest": "^2.1.8"
+    }
+}

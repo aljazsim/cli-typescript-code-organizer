@@ -1,0 +1,77 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#3399ff",
+        "activityBar.background": "#3399ff",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#bf0060",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "commandCenter.border": "#e7e7e799",
+        "sash.hoverBorder": "#3399ff",
+        "statusBar.background": "#007fff",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#3399ff",
+        "statusBarItem.remoteBackground": "#007fff",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "titleBar.activeBackground": "#007fff",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#007fff99",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#007fff",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "node_modules": true,
+        "dist": true,
+        "package-lock.json": true,
+        ".vscode": true,
+        ".gitignore": true,
+        ".editorconfig": true,
+        ".tsconfig": true,
+        "tsconfig.json": true,
+        "eslint.config.js": true,
+        "vitest.config.ts": true,
+        "LICENSE": true,
+        "coverage": true
+    },
+    "search.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "node_modules": true,
+        "dist": true,
+        "package-lock.json": true,
+        ".vscode": true,
+        ".gitignore": true,
+        ".editorconfig": true,
+        ".tsconfig": true,
+        "tsconfig.json": true,
+        "eslint.config.js": true,
+        "vitest.config.ts": true,
+        "LICENSE": true,
+        "coverage": true
+    },
+    "cSpell.words": ["endregion"],
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell",
+            "args": ["-ExecutionPolicy", "Bypass"]
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "typescript.preferences.importModuleSpecifier": "relative"
+}

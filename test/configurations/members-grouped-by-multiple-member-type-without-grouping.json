@@ -1,0 +1,221 @@
+{
+    "imports": {
+        "removeUnusedImports": true,
+        "sortImportsBySource": true,
+        "sortImportsByName": true,
+        "groupImportsBySource": true,
+        "separateImportGroups": true,
+        "quote": "double"
+    },
+    "modules": {
+        "regions": {
+            "addRegions": true,
+            "addMemberCountInRegionName": true,
+            "addRegionCaptionToRegionEnd": true
+        },
+        "members": {
+            "treatArrowFunctionVariablesAsMethods": false,
+            "treatArrowFunctionConstantsAsMethods": false
+        },
+        "memberGroups": [
+            {
+                "sortDirection": "asc",
+                "caption": "Enums",
+                "memberTypes": ["enums"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Interfaces",
+                "memberTypes": ["interfaces"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Classes",
+                "memberTypes": ["classes"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Types",
+                "memberTypes": ["types"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Functions",
+                "memberTypes": ["functions", "exportedFunctions"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Variables",
+                "memberTypes": [
+                    "constants",
+                    "variables",
+                    "exportedConstants",
+                    "exportedVariables"
+                ],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            }
+        ]
+    },
+    "classes": {
+        "regions": {
+            "addRegions": true,
+            "addMemberCountInRegionName": true,
+            "addRegionCaptionToRegionEnd": true
+        },
+        "members": {
+            "addPublicModifierIfMissing": true,
+            "addPrivateModifierIfStartingWithHash": false,
+            "groupMembersWithDecorators": false,
+            "treatArrowFunctionPropertiesAsMethods": false,
+            "treatArrowFunctionReadOnlyPropertiesAsMethods": false
+        },
+        "memberGroups": [
+            {
+                "sortDirection": "asc",
+                "caption": "Properties",
+                "memberTypes": [
+                    "privateStaticReadOnlyProperties",
+                    "privateReadOnlyProperties",
+                    "privateStaticProperties",
+                    "privateProperties",
+                    "protectedStaticReadOnlyProperties",
+                    "protectedReadOnlyProperties",
+                    "protectedStaticProperties",
+                    "protectedProperties",
+                    "publicStaticReadOnlyProperties",
+                    "publicReadOnlyProperties",
+                    "publicStaticProperties",
+                    "publicProperties"
+                ],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Constructors",
+                "memberTypes": ["staticBlockDeclarations", "constructors"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Accessors",
+                "memberTypes": [
+                    "publicStaticAccessors",
+                    "publicAccessors",
+                    "publicAbstractAccessors",
+                    "protectedStaticAccessors",
+                    "protectedAccessors",
+                    "protectedAbstractAccessors",
+                    "privateStaticAccessors",
+                    "privateAccessors"
+                ],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Getters And Setters",
+                "memberTypes": [
+                    "publicStaticGettersAndSetters",
+                    "publicGettersAndSetters",
+                    "publicAbstractGettersAndSetters",
+                    "protectedStaticGettersAndSetters",
+                    "protectedGettersAndSetters",
+                    "protectedAbstractGettersAndSetters",
+                    "privateStaticGettersAndSetters",
+                    "privateGettersAndSetters"
+                ],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Methods",
+                "memberTypes": [
+                    "publicStaticMethods",
+                    "publicMethods",
+                    "publicAbstractMethods",
+                    "protectedStaticMethods",
+                    "protectedMethods",
+                    "protectedAbstractMethods",
+                    "privateStaticMethods",
+                    "privateMethods"
+                ],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            }
+        ]
+    },
+    "interfaces": {
+        "regions": {
+            "addRegions": true,
+            "addMemberCountInRegionName": true,
+            "addRegionCaptionToRegionEnd": true
+        },
+        "members": {
+            "treatArrowFunctionPropertiesAsMethods": false,
+            "treatArrowFunctionReadOnlyPropertiesAsMethods": false
+        },
+        "memberGroups": [
+            {
+                "sortDirection": "asc",
+                "caption": "Properties and indexes",
+                "memberTypes": ["readOnlyProperties", "properties", "indexes"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Methods, getter and setters",
+                "memberTypes": ["methods", "gettersAndSetters"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            }
+        ]
+    },
+    "types": {
+        "regions": {
+            "addRegions": true,
+            "addMemberCountInRegionName": true,
+            "addRegionCaptionToRegionEnd": true
+        },
+        "members": {
+            "treatArrowFunctionPropertiesAsMethods": false
+        },
+        "memberGroups": [
+            {
+                "sortDirection": "asc",
+                "caption": "Properties, indexes and methods",
+                "memberTypes": ["properties", "indexes", "methods"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            }
+        ]
+    }
+}
