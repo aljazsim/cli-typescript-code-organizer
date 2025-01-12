@@ -13,21 +13,22 @@ export function displayHelp()
     console.log("Organizes TypeScript source files.");
     console.log("");
     console.log("Usage:");
-    console.log("tsco [-i] [-w] [-c <configuration file>]");
+    console.log("tsco [-i] [-o] [-w] [-c <configuration file path>] [-s <sources directory path>]");
     console.log("");
     console.log("Options:");
     console.log("-h or --help                                                               displays help");
     console.log("-v or --version                                                            displays version");
     console.log("-i or --initialize                                                         generates configuration file with default values");
     console.log("-o or --organize                                                           organizes TypeScript files in the sources directory recursively");
-    console.log("-w or --watch                                                              watches TypeScript files for changes and organizes file on file add or file change");
-    console.log("-c <configuration file path> or --configuration <configuration file path>  specifies configuration file path (default: ./tsco.json");
+    console.log("-w or --watch                                                              watches sources directory for changes and organizes TypeScript files on file add or file change");
+    console.log("-c <configuration file path> or --configuration <configuration file path>  specifies configuration file path (default: ./tsco.json)");
     console.log("-s <sources directory path> or --sources <sources directory path>          specifies TypeScript sources directory path (default: ./)");
+    console.log("");
     console.log("Examples:");
     console.log("tsco                                                                       displays help since no options specified were specified");
     console.log("tsco -i                                                                    generates configuration file with default values at ./tsco.json");
     console.log("tsco -o                                                                    organizes TypeScript files in ./ recursively using configuration file at ./tsco.json");
-    console.log("tsco -w                                                                    watches TypeScript files in ./ recursively and organizes them on add or change using configuration file at ./tsco.json");
+    console.log("tsco -w                                                                    watches ./ recursively and organizes TypeScript files on add or change using configuration file at ./tsco.json");
     console.log("tsco -i -o -w -c /config.json -s ./src/                                    generates configuration file with default values at ./config.json, organizes TypeScript files in ./src/ recursively using configuration file at ./config.json and keeps monitoring ./src/ for file changes");
 }
 
