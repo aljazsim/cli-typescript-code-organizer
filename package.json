@@ -6,32 +6,32 @@
     "description": "TypeScript Code Organizer CLI",
     "homepage": "https://github.com/aljazsim/cli-typescript-class-organizer",
     "icon": "https://github.com/aljazsim/cli-typescript-class-organizer/raw/master/doc/logo.png",
-    "repository": "https://github.com/aljazsim/cli-typescript-class-organizer.git",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/aljazsim/cli-typescript-class-organizer.git"
+    },
     "keywords": [
         "TypeScript",
         "code",
         "organize",
-        "organizer",
-        "member",
+        "format",
         "members",
         "properties",
-        "methods"
+        "methods",
+        "regions"
     ],
     "scripts": {
         "build": "npx tsc",
         "start": "npx tsx ./src/index.ts",
         "test": "vitest",
         "lint": "npx eslint",
-        "prepare": "husky"
+        "prepare": "husky",
+        "patch-release": "npm version patch && npm publish && git push --follow-tags"
     },
     "type": "module",
     "main": "./src/index.js",
     "bin": {
-        "tsco": "./src/index.js"
-    },
-    "directories": {
-        "doc": "doc",
-        "test": "test"
+        "tscocli": "dist/src/index.js"
     },
     "dependencies": {
         "glob": "^11.0.1",

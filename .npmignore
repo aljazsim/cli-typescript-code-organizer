@@ -1,0 +1,14 @@
+.editorconfig
+.gitignore
+.eslint.config.js
+tsco.json
+tsconfig.json
+vitest.config.ts
+.git
+.husky
+.vscode
+dist/test
+doc
+src
+test
+node_modules
