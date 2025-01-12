@@ -79,7 +79,9 @@ async function organizeSourceCode(filePath: any, configuration: Configuration)
 
 export function parseCommandLineArguments(commandLineArguments: string[])
 {
+    const defaultSourceDirectoryPath = "./";
     const defaultConfigurationFilePath = "./tsco.json";
+    const sanitizeArgument = (a: string | null | undefined) => a?.trim().replace(/['"]+/g, '').trim();
     let command = new Command();
 
     commandLineArguments = commandLineArguments.filter(arg => arg && arg.trim().length > 0);
@@ -102,8 +104,8 @@ export function parseCommandLineArguments(commandLineArguments: string[])
         organize: command.opts().organize === true,
         watch: command.opts().watch === true,
 
-        sourceDirectoryPath: command.opts().sources as string ?? ".",
-        configurationFilePath: command.opts().configuration as string ?? defaultConfigurationFilePath,
+        sourceDirectoryPath: sanitizeArgument(command.opts().sources) ?? defaultSourceDirectoryPath,
+        configurationFilePath: sanitizeArgument(command.opts().configuration) ?? defaultConfigurationFilePath,
     };
 }
 
