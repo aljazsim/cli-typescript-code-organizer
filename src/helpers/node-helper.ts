@@ -98,7 +98,7 @@ export function getDependencies(sourceFile: ts.SourceFile, node: ts.Node, depend
     {
         for (let childNode of node.getChildren(sourceFile))
         {
-            dependencies = dependencies.concat(getDependencies(sourceFile, childNode, dependencies));
+            add(dependencies, getDependencies(sourceFile, childNode, dependencies));
         }
     }
 

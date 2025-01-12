@@ -28,7 +28,7 @@ export class VariableNode extends ElementNode
         {
             // we'll use this when sorting variables to make sure a variable that 
             // depends on another variable is declared after the dependant variable
-            this.dependencies = getDependencies(sourceFile, variableDeclaration.initializer, [])
+            this.dependencies = getDependencies(sourceFile, variableDeclaration.initializer, []);
         }
     }
 

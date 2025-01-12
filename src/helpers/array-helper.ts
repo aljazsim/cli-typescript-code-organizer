@@ -4,7 +4,7 @@ export function add<T>(items: T[] | null | undefined, ...itemsToAdd: any[])
 {
     if (items && itemsToAdd && itemsToAdd.length > 0)
     {
-        itemsToAdd.forEach(ita => items.push(ita));
+        itemsToAdd.forEach(i => items.push(i));
     }
 }
 
