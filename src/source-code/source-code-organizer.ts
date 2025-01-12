@@ -139,12 +139,14 @@ export class SourceCodeOrganizer
 
     private static async organizeImports(imports: ImportNode[], configuration: ImportConfiguration, sourceFile: SourceFile)
     {
+        this.mergeImportsWithSameReferences(imports);
+
         if (configuration.removeUnusedImports)
         {
-            this.mergeImportsWithSameReferences(imports);
             this.removeUnusedImports(imports, sourceFile);
-            this.removeEmptyImports(imports);
         }
+
+        this.removeEmptyImports(imports);
 
         if (configuration.sortImportsBySource)
         {
@@ -292,7 +294,7 @@ export class SourceCodeOrganizer
     {
         for (const import1 of imports.filter(i => i.isEmptyReference))
         {
-            if (import1.isModuleReference || !getFileExtension(import1.source))
+            if (import1.isModuleReference || !getFileExtension(import1.source) || getFileExtension(import1.source) === ".ts" || getFileExtension(import1.source) === ".js")
             {
                 remove(imports, import1);
             }
@@ -310,6 +312,11 @@ export class SourceCodeOrganizer
                     if (!SourceCodeAnalyzer.hasReference(sourceFile, identifier))
                     {
                         remove(import1.namedImports, identifier);
+
+                        if (import1.namedImports?.length === 0)
+                        {
+                            import1.namedImports = null;
+                        }
                     }
                 }
             }

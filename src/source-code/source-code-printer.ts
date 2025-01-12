@@ -34,7 +34,7 @@ export class SourceCodePrinter
         return printedSourceCode;
     }
 
-    public static printVariable(node: VariableNode): SourceCode
+    private static printVariable(node: VariableNode): SourceCode
     {
         let sourceCode = node.sourceCode.trim();
 
