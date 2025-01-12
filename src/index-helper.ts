@@ -5,25 +5,24 @@ import { Configuration } from "./configuration/configuration.js";
 import { getFullPath, joinPath, writeFile } from "./helpers/file-system-helper.js";
 import { SourceCodeOrganizer } from "./source-code/source-code-organizer.js";
 
-// #region Functions (2)
+// #region Functions (1)
 
-async function matchSourceCode(filePath: any, include: string[], exclude: string[])
+async function organizeSourceCode(sourcesDirectoryPath: string, filePath: string, configuration: Configuration)
 {
-    const includedFilePaths = await glob(include, { ignore: exclude });
+    const include = configuration.files.include.map(fp => getFullPath(joinPath(sourcesDirectoryPath, fp)))
+    const exclude = configuration.files.exclude.map(fp => getFullPath(joinPath(sourcesDirectoryPath, fp)))
+    const filePaths = await glob(include, { ignore: exclude });
 
-    if (includedFilePaths.some(fp => getFullPath(fp) === getFullPath(filePath)))
+    filePath == getFullPath(filePath);
+
+    if (filePaths.some(fp => fp === filePath))
     {
-        return true;
+        return await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
     }
     else
     {
         return false;
     }
-}
-
-async function organizeSourceCode(filePath: any, configuration: Configuration)
-{
-    return await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
 }
 
 // #endregion Functions
@@ -81,7 +80,7 @@ export async function organize(sourcesDirectoryPath: string, configuration: Conf
     {
         allFileCount++;
 
-        if (await organizeSourceCode(filePath, configuration))
+        if (await organizeSourceCode(sourcesDirectoryPath, filePath, configuration))
         {
             organizedFileCount++;
         }
@@ -120,16 +119,11 @@ export async function watch(sourcesDirectoryPath: string, configuration: Configu
 {
     console.log("tsco watching files");
 
-    const include = configuration.files.include.map(fp => getFullPath(joinPath(sourcesDirectoryPath, fp)))
-    const exclude = configuration.files.exclude.map(fp => getFullPath(joinPath(sourcesDirectoryPath, fp)))
-
     // watch for file changes
-    const watcher = new Watcher(".", { recursive: true });
+    const watcher = new Watcher(sourcesDirectoryPath, { recursive: true, ignoreInitial: true, debounce: 500, persistent: true });
 
-    watcher.on('add', async (filePath) => matchSourceCode(filePath, include, exclude) || await organizeSourceCode(filePath, configuration));
-    watcher.on('change', async (filePath) => matchSourceCode(filePath, exclude, exclude) || await organizeSourceCode(filePath, configuration));
-
-    await watcher.watch();
+    watcher.on('add', async (filePath) => await organizeSourceCode(sourcesDirectoryPath, filePath, configuration));
+    watcher.on('change', async (filePath) => await organizeSourceCode(sourcesDirectoryPath, filePath, configuration));
 }
 
 // #endregion Exported Functions
