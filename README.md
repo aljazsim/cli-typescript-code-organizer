@@ -91,7 +91,7 @@ Optional parameters:
 
 ### Initializing a configuration file
 
-First you will need to generate a configuration file that will let `tsco` know how you want your TypeScript files organized. If you don't have a configuration file you can generate a [default configuration file](./src/configuration/default-configuration.json) with:
+First you will need to generate a configuration file that will let `tsco` know how you want your TypeScript files organized. If you don't have a configuration file you can generate a [default configuration file](./src/configuration/default-configuration.ts) with:
 
 ```
 tsco --initialize [--configuration <configuration file path>]
