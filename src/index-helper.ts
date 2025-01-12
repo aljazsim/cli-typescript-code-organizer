@@ -72,11 +72,12 @@ export async function organize(sourcesDirectoryPath: string, configuration: Conf
 
     const include = configuration.files.include.map(fp => getFullPath(joinPath(sourcesDirectoryPath, fp)))
     const exclude = configuration.files.exclude.map(fp => getFullPath(joinPath(sourcesDirectoryPath, fp)))
+    const filePaths = await glob(include, { ignore: exclude });
     let allFileCount = 0;
     let organizedFileCount = 0;
 
     // organize files
-    for (const filePath of (await glob(include, { ignore: exclude })).sort())
+    for (const filePath of filePaths.sort())
     {
         allFileCount++;
 

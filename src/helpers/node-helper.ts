@@ -17,7 +17,7 @@ import { TypeAliasNode } from "../elements/type-alias-node.js";
 import { VariableNode } from "../elements/variable-node.js";
 import { AccessModifier } from "../enums/access-modifier.js";
 import { WriteModifier } from "../enums/write-modifier.js";
-import { add, except, remove } from "./array-helper.js";
+import { add, distinct, except, remove } from "./array-helper.js";
 import { compareStrings } from "./comparing-helper.js";
 import { matchRegEx, matchWildcard } from "./string-helper.js";
 
@@ -92,17 +92,17 @@ export function getDependencies(sourceFile: ts.SourceFile, node: ts.Node, depend
 {
     if (ts.isIdentifier(node))
     {
-        add(dependencies, node.escapedText);
+        add(dependencies, node.getText(sourceFile));
     }
     else
     {
         for (let childNode of node.getChildren(sourceFile))
         {
-            add(dependencies, getDependencies(sourceFile, childNode, dependencies));
+            getDependencies(sourceFile, childNode, dependencies);
         }
     }
 
-    return dependencies.sort();
+    return distinct(dependencies).sort();
 }
 
 export function getEnums(nodes: ElementNode[])

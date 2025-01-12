@@ -1,10 +1,10 @@
 // #region Exported Functions (4)
 
-export function add<T>(items: T[] | null | undefined, ...itemsToAdd: any[])
+export function add<T>(items: T[] | null | undefined, itemToAdd: T)
 {
-    if (items && itemsToAdd && itemsToAdd.length > 0)
+    if (items && itemToAdd && itemToAdd)
     {
-        itemsToAdd.forEach(i => items.push(i));
+        items.push(itemToAdd);
     }
 }
 
