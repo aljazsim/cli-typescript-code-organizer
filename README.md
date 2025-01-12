@@ -130,7 +130,7 @@ tsco --organize [--configuration <configuration file path>] [--sources <sources 
 or
 
 ```
-tsco -o [-s <sources directory path>]
+tsco -o [-s <sources directory path>] [-c <configuration file path>]
 ```
 
 If there are files or directories you'd like to explicitly include or exclude, you can do so in the configuration file (see below). Example:
@@ -159,7 +159,7 @@ or
 tsco -w [--configuration <configuration file path>] [--sources <sources directory path>]
 ```
 
-This will monitor the sources directory recursively for new files or file changes. TypScript code will get organized ass soon as `tsco` detects a new file or a file change.
+This will monitor the sources directory recursively for new files or file changes. TypScript code will get organized ass soon as `tsco` detects a new file or a file change. To terminate `tsco` running in watch mode, press `CTRL + C`.
 
 ## Configuration
 
@@ -358,7 +358,7 @@ You can put particular members to the top or bottom of the group by specifying t
 - using a wildcard pattern (e.g. `On*`)
 - using a regular expression (e.g. `On.+Completed`)
 
-Members that match a pattern will then be organized by `sortDirection`. Here's an example of putting Angular lifecycle methods on top of the public method group:
+Members that match a pattern will then be organized by `sortDirection`. Here's an example of putting Angular lifecycle methods on top of the "Public methods" group:
 
 ```json
 {
