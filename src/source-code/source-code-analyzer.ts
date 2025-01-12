@@ -40,39 +40,11 @@ export class SourceCodeAnalyzer
 
     private static findReference(node: ts.Node, sourceFile: ts.SourceFile, identifier: string)
     {
-        if (ts.isTypeReferenceNode(node) && ts.isIdentifier(node.typeName) && node.typeName.getText(sourceFile) === identifier)
+        if (ts.isImportDeclaration(node))
         {
-            return true;
+            return false;
         }
-        else if (ts.isNewExpression(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
-        {
-            return true;
-        }
-        else if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
-        {
-            return true;
-        }
-        else if (ts.isExpressionWithTypeArguments(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
-        {
-            return true;
-        }
-        else if (ts.isElementAccessExpression(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
-        {
-            return true;
-        }
-        else if (ts.isPropertyAccessExpression(node) && ts.isIdentifier(node.expression) && node.expression.getText(sourceFile) === identifier)
-        {
-            return true;
-        }
-        else if (ts.isBinaryExpression(node) && ts.isIdentifier(node.left) && node.left.getText(sourceFile) === identifier)
-        {
-            return true;
-        }
-        else if (ts.isBinaryExpression(node) && ts.isIdentifier(node.right) && node.right.getText(sourceFile) === identifier)
-        {
-            return true;
-        }
-        else if (ts.isQualifiedName(node) && ts.isIdentifier(node.left) && node.left.getText(sourceFile) === identifier)
+        if (ts.isIdentifier(node) && node.getText(sourceFile) === identifier)
         {
             return true;
         }
