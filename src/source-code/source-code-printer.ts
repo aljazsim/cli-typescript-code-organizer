@@ -21,7 +21,7 @@ import { SourceCode } from "./source-code.js";
 
 export class SourceCodePrinter
 {
-    // #region Public Static Methods (2)
+    // #region Public Static Methods (1)
 
     public static print(nodeGroups: ElementNodeGroup[], configuration: Configuration)
     {
@@ -34,21 +34,9 @@ export class SourceCodePrinter
         return printedSourceCode;
     }
 
-    private static printVariable(node: VariableNode): SourceCode
-    {
-        let sourceCode = node.sourceCode.trim();
+    // #endregion Public Static Methods
 
-        sourceCode = `${node.isConst ? "const" : "let"} ${sourceCode};`;
-        sourceCode = `${node.isExport ? "export " : ""}${sourceCode}`;
-        sourceCode = `${node.leadingComment}${sourceCode}`;
-        sourceCode = `${sourceCode}${node.trailingComment}`;
-
-        return new SourceCode(sourceCode);
-    }
-
-    // #endregion Public Static Methods (2)
-
-    // #region Private Static Methods (8)
+    // #region Private Static Methods (9)
 
     private static printClass(node: ClassNode, configuration: Configuration)
     {
@@ -309,5 +297,17 @@ export class SourceCodePrinter
         return nodeSourceCode;
     }
 
-    // #endregion Private Static Methods (8)
+    private static printVariable(node: VariableNode): SourceCode
+    {
+        let sourceCode = node.sourceCode.trim();
+
+        sourceCode = `${node.isConst ? "const" : "let"} ${sourceCode};`;
+        sourceCode = `${node.isExport ? "export " : ""}${sourceCode}`;
+        sourceCode = `${node.leadingComment}${sourceCode}`;
+        sourceCode = `${sourceCode}${node.trailingComment}`;
+
+        return new SourceCode(sourceCode);
+    }
+
+    // #endregion Private Static Methods
 }

@@ -1,4 +1,5 @@
 import * as ts from "typescript";
+
 import { AccessorNode } from "../elements/accessor-node.js";
 import { ClassNode } from "../elements/class-node.js";
 import { ElementNode } from "../elements/element-node.js";
@@ -20,7 +21,26 @@ import { add, except, remove } from "./array-helper.js";
 import { compareStrings } from "./comparing-helper.js";
 import { matchRegEx, matchWildcard } from "./string-helper.js";
 
-// #region Functions (32)
+// #region Functions (1)
+
+function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupWithDecorators: boolean)
+{
+    if (sortDirection !== "none")
+    {
+        nodes = nodes.sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+
+        if (sortDirection === "desc")
+        {
+            nodes = nodes.reverse();
+        }
+    }
+
+    return nodes;
+}
+
+// #endregion Functions
+
+// #region Exported Functions (31)
 
 export function getAccessModifier(node: ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.MethodDeclaration | ts.PropertySignature | ts.IndexSignatureDeclaration)
 {
@@ -376,21 +396,6 @@ export function order(sortDirection: "asc" | "desc" | "none", nodes: ElementNode
     return nodesAbove.concat(nodesMiddle).concat(nodesBelow);
 }
 
-function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupWithDecorators: boolean)
-{
-    if (sortDirection !== "none")
-    {
-        nodes = nodes.sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
-
-        if (sortDirection === "desc")
-        {
-            nodes = nodes.reverse();
-        }
-    }
-
-    return nodes;
-}
-
 export function splitBy<T extends ElementNode>(nodes: T[], patterns: string[])
 {
     const matchingNodes = Array<T[]>();
@@ -415,4 +420,4 @@ export function splitBy<T extends ElementNode>(nodes: T[], patterns: string[])
     return matchingNodes.filter(mn => mn.length > 0);
 }
 
-// #endregion Functions (32)
+// #endregion Exported Functions
