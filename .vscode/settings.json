@@ -34,8 +34,8 @@
         ".editorconfig": true,
         ".tsconfig": true,
         "tsconfig.json": true,
-        "tslint.json": true,
-        "babel.config.js": true,
+        "eslint.config.js": true,
+        "vitest.config.ts": true,
         "LICENSE": true,
         "coverage": true
     },
@@ -54,8 +54,8 @@
         ".editorconfig": true,
         ".tsconfig": true,
         "tsconfig.json": true,
-        "tslint.json": true,
-        "babel.config.js": true,
+        "eslint.config.js": true,
+        "vitest.config.ts": true,
         "LICENSE": true,
         "coverage": true
     },
