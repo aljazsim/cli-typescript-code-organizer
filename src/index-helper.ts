@@ -23,7 +23,7 @@ async function matchSourceCode(filePath: any, include: string[], exclude: string
 
 async function organizeSourceCode(filePath: any, configuration: Configuration)
 {
-    await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
+    return await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
 }
 
 // #endregion Functions
@@ -72,12 +72,21 @@ export async function organize(sourcesDirectoryPath: string, configuration: Conf
 
     const include = configuration.files.include.map(fp => getFullPath(joinPath(sourcesDirectoryPath, fp)))
     const exclude = configuration.files.exclude.map(fp => getFullPath(joinPath(sourcesDirectoryPath, fp)))
+    let allFileCount = 0;
+    let organizedFileCount = 0;
 
     // organize files
-    for (const filePath of await glob(include, { ignore: exclude }))
+    for (const filePath of (await glob(include, { ignore: exclude })).sort())
     {
-        await organizeSourceCode(filePath, configuration);
+        allFileCount++;
+
+        if (await organizeSourceCode(filePath, configuration))
+        {
+            organizedFileCount++;
+        }
     }
+
+    console.log(`tsco organized ${organizedFileCount} files, skipped ${allFileCount - organizedFileCount}`);
 }
 
 export function parseCommandLineArguments(commandLineArguments: string[])

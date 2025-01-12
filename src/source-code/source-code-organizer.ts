@@ -79,10 +79,14 @@ export class SourceCodeOrganizer
             console.log(`tsco organizing ${sourceCodeFilePath}`);
 
             await writeFile(sourceCodeFilePath, organizedSourceCode);
+
+            return true;
         }
         else 
         {
             console.log(`tsco skipping ${sourceCodeFilePath}`);
+
+            return false;
         }
     }
 
