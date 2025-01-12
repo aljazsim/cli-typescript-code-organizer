@@ -37,12 +37,6 @@
         "wildcard-match": "^5.1.4"
     },
     "devDependencies": {
-        "@babel/core": "^7.26.0",
-        "@babel/preset-env": "^7.26.0",
-        "@babel/preset-typescript": "^7.26.0",
-        "@rollup/plugin-node-resolve": "^16.0.0",
-        "@types/figlet": "^1.7.0",
-        "@types/jasmine": "^5.1.5",
         "@types/node": "^22.10.5",
         "ts-node": "^10.9.2",
         "typescript": "^5.7.3",

@@ -1,6 +1,6 @@
-// #region Exported Functions (1)
-
 import { getFullPath } from "../../src/helpers/file-system-helper.js";
+
+// #region Exported Functions (1)
 
 export function getTestConfigurationFilePaths()
 {

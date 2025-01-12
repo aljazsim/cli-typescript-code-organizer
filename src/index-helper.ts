@@ -1,12 +1,34 @@
-import { Command, Option } from "commander";
 import { glob } from "glob";
 import Watcher from "watcher";
+
 import { Configuration } from "./configuration/configuration.js";
 import { getFullPath, joinPath, writeFile } from "./helpers/file-system-helper.js";
 import { SourceCodeOrganizer } from "./source-code/source-code-organizer.js";
-import { config, exit } from "process";
 
-// #region Functions (8)
+// #region Functions (2)
+
+async function matchSourceCode(filePath: any, include: string[], exclude: string[])
+{
+    const includedFilePaths = await glob(include, { ignore: exclude });
+
+    if (includedFilePaths.some(fp => getFullPath(fp) === getFullPath(filePath)))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+async function organizeSourceCode(filePath: any, configuration: Configuration)
+{
+    await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
+}
+
+// #endregion Functions
+
+// #region Exported Functions (6)
 
 export function displayHelp()
 {
@@ -44,20 +66,6 @@ export async function initialize(configurationFilePath: string, configuration: C
     console.log(`tsco configuration file created at ${getFullPath(configurationFilePath)}`);
 }
 
-async function matchSourceCode(filePath: any, include: string[], exclude: string[])
-{
-    const includedFilePaths = await glob(include, { ignore: exclude });
-
-    if (includedFilePaths.some(fp => getFullPath(fp) === getFullPath(filePath)))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
 export async function organize(sourcesDirectoryPath: string, configuration: Configuration)
 {
     console.log("tsco organizing files");
@@ -70,11 +78,6 @@ export async function organize(sourcesDirectoryPath: string, configuration: Conf
     {
         await organizeSourceCode(filePath, configuration);
     }
-}
-
-async function organizeSourceCode(filePath: any, configuration: Configuration)
-{
-    await SourceCodeOrganizer.organizeSourceCodeFile(filePath, configuration);
 }
 
 export function parseCommandLineArguments(commandLineArguments: string[])
@@ -119,4 +122,4 @@ export async function watch(sourcesDirectoryPath: string, configuration: Configu
     await watcher.watch();
 }
 
-// #endregion Functions (8)
+// #endregion Exported Functions
