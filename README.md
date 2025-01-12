@@ -1,6 +1,6 @@
 # TypeScript Code Organizer Command Line Interface
 
-TypeScript Code Organizer Command Line Interface (or `tsco` for short) is a command line tool for organizing TypeScript source code in a workspace. It allows software developers to organize import statements, modules, classes, interfaces and type members and helps them keep their source code more consistent and easier to navigate. It is highly configurable and allows sharing of the configuration across the development team.
+TypeScript Code Organizer Command Line Interface (or `tsco` for short) is a command line tool for organizing TypeScript source code in a project workspace. It allows software developers to organize import statements, modules, classes, interfaces and type members and helps them keep their source code more consistent and easier to navigate. It is highly configurable and allows sharing of the configuration across the development team.
 
 Here is an example of TypeScript code **before organizing**:
 
@@ -59,28 +59,53 @@ Everything from import statements, regions, grouping to sorting can be configure
 In order to install TypeScript Code Organizer ensure you have `npm` installed, open a terminal window and run:
 
 ```
-npm install tsco -g
+npm install -g tsco
 ```
 
 ## Usage
+
+With `tsco` you can:
+
+- display help (`--help` or `-h`)
+- display current version (`--version` or `-v`)
+- initialize your workspace (`--initialize` or `-i`)
+- organize TypeScript files (`--organize` or `-o`)
+- watch TypeScript files for changes (`--watch` or `-w`)
+
+You can run `tsco` in one or more of these three modes, by specifying appropriate flags:
+
+```
+tsco [--help] [--version] [--initialize] [--organize] [--watch] [--configuration <configuration file path>] [--sources <sources directory path>]
+```
+
+You can also use the shorthand notation:
+
+```
+tsco [-h] [-v] [-i] [-o] [-w] [-c <configuration file path>] [-s <sources directory path>]
+```
+
+Optional parameters:
+
+- configuration file path (`--configuration` or `-c`) specifies the location of the `tsco` configuration file (default configuration file path is at `./tsco.json`, or if the file cannot be loaded a default configuration is used)
+- sources directory path (`--sources` or `-s`) specifies the location of TypeScript files (default value is `./`)
 
 ### Initializing a configuration file
 
 First you will need to generate a configuration file that will let `tsco` know how you want your TypeScript files organized. If you don't have a configuration file you can generate a [default configuration file](./src/configuration/default-configuration.json) with:
 
 ```
-tsco --initialize
+tsco --initialize [--configuration <configuration file path>]
 ```
 
 or
 
-```powershell
-tsco -i
+```
+tsco -i [-c <configuration file path>]
 ```
 
-This will create a default configuration file called `tsco.json` in the current directory. The configuration file is a JSON file and can be committed to a repository ensuring identical code organizing settings across the development team. `tsco` will still work without a configuration file using default settings.
+This will create a default configuration file in the specified configuration file path or create a configuration file called `tsco.json` in the current directory. The configuration file is a JSON file and can be committed to a repository ensuring identical code organizing settings across the development team. `tsco` will still work without a configuration file using default settings.
 
-You can also create the configuration file at a different location using:
+Example:
 
 ```
 tsco --initialize --configuration ./some-directory/tsco.json
@@ -88,7 +113,7 @@ tsco --initialize --configuration ./some-directory/tsco.json
 
 or
 
-```powershell
+```
 tsco -i -c ./some-directory/tsco.json
 ```
 
@@ -96,45 +121,45 @@ No TypeScript files will be organized during initialization.
 
 ### Organizing TypeScript files
 
-When running the `tsco` command, it will recursively organize TypeScript files from the current working directory down. Just run the following command in a terminal window:
-
-```powershell
-tsco
-```
-
-If there are files or directories you'd like to explicitly include or exclude, you can do so in the configuration file (see below). If you'd to use a configuration file at a different location, you can specify it with an argument:
+When running the `tsco` command, it will recursively scan the specified sources directory and organize TypeScript files. If no sources directory is specified, `./` will be used. Just run the following command in a terminal window:
 
 ```
-tsco --configuration ./some-directory/tsco.json
+tsco --organize [--configuration <configuration file path>] [--sources <sources directory path>]
 ```
 
 or
 
 ```
-tsco -c ./some-directory/tsco.json
+tsco -o [-s <sources directory path>]
+```
+
+If there are files or directories you'd like to explicitly include or exclude, you can do so in the configuration file (see below). Example:
+
+```
+tsco --configuration ./src/tsco.json --sources ./src
+```
+
+or
+
+```
+tsco -c ./src/tsco.json -s ./src
 ```
 
 ### Monitoring for file changes
 
 If you'd like TypeScript files to be organized every time there is a change, you can run:
 
-```powershell
-tsco --watch
+```
+tsco --watch [--configuration <configuration file path>] [--sources <sources directory path>]
 ```
 
 or
 
-```powershell
-tsco -w
+```
+tsco -w [--configuration <configuration file path>] [--sources <sources directory path>]
 ```
 
-This will first organize all TypeScript files in the workspace and then monitor the workspace for new files or file changes. TypScript code will get organized ass soon as `tsco` detects a new file or a file change.
-
-### Command line arguments
-
-- `--initialize` or `-i` creates a new configuration file with default settings at default location ( `./tsco.json` )
-- `--configuration` or `-c` specifies the configuration file path to be used
-- `--watch` or `-w` monitors the workspace for changes
+This will monitor the sources directory recursively for new files or file changes. TypScript code will get organized ass soon as `tsco` detects a new file or a file change.
 
 ## Configuration
 
@@ -148,7 +173,7 @@ Files configuration section specifies which files are included and which ones ar
 {
     "files": {
         "include": ["./**/*.ts"], <-- file/directory patterns to include
-        "exclude": ["node_modules", "dist", "out"] <-- file/directory patterns to exclude
+        "exclude": ["./**/*.d.ts", "node_modules/**", "dist/**", "out/**"] <-- file/directory patterns to exclude
     }
 }
 ```
@@ -207,8 +232,8 @@ Class organization configuration specifies how class level elements (properties,
         },
         "members": {
             "addPublicModifierIfMissing": true, <-- inserts public access modifier if no access modifier specified when set to true
-            "addPrivateModifierIfStartingWithHash": false, <-- inserts private access modifier if member starts wit '#' when set to true
-            "groupMembersWithDecorators": false,  <-- groups members with same decorators when set to true
+            "addPrivateModifierIfStartingWithHash": false, <-- inserts private access modifier if member starts with '#' when set to true
+            "groupMembersWithDecorators": false,  <-- groups members with same decorators when set to true (decorators are treated as part of the member name when sorting)
             "treatArrowFunctionPropertiesAsMethods": false, <-- treats arrow function properties as methods when set to true
             "treatArrowFunctionReadOnlyPropertiesAsMethods": true <-- treats arrow function readonly properties as methods when set to true
         },
@@ -221,7 +246,7 @@ Class organization configuration specifies how class level elements (properties,
 
 ### Interface Organization Configuration Section
 
-Interface organization configuration specifies how interface level elements (properties, indexes, accessors, getters, setters and methods) will be organized. Here's an example of the default interface organization configuration section:
+Interface organization configuration specifies how interface level elements (readonly properties, properties, indexes, getters and setters and methods) will be organized. Here's an example of the default interface organization configuration section:
 
 ```json
 {
@@ -244,9 +269,7 @@ Interface organization configuration specifies how interface level elements (pro
 
 ### Type Organization Configuration Section
 
-Type organization configuration specifies how type level elements (properties, indexes, and methods) will be organized.
-
-Here's an example of the default type organization configuration section:
+Type organization configuration specifies how type level elements (properties, indexes, and methods) will be organized. Here's an example of the default type organization configuration section:
 
 ```json
 {
@@ -363,6 +386,20 @@ Members that match a pattern will then be organized by `sortDirection`. Here's a
 }
 ```
 
+## Ignoring files
+
+In order to prevent a TypeScript file being organized you can add the file to the exclude list or add one of the following comments to the top of the TypeScript file:
+
+```typescript
+// tsco:ignore
+```
+
+or
+
+```typescript
+// <auto-generated />
+```
+
 ## Using TSCO in VS Code
 
 You can install the [TypeScript Code Organizer](https://marketplace.visualstudio.com/items?itemName=aljazsim.tsco) VS Code extension. It offers exact same functionality as the TypeScript Code Organizer CLI, but built into VS Code. See the Visual Studio Marketplace for instructions.
@@ -371,13 +408,13 @@ You can install the [TypeScript Code Organizer](https://marketplace.visualstudio
 
 Open a terminal window. Ensure `tsco` is installed globally (see above). Navigate to your project root. Install [Husky](https://typicode.github.io/husky/):
 
-```powershell
+```
 npm install --save-dev husky
 ```
 
 Initialize Husky (this will create a pre-commit script in `.husky/` and updates the prepare script in `package.json`):
 
-```powershell
+```
 npx husky init
 ```
 
