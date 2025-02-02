@@ -59,7 +59,7 @@ Everything from import statements, regions, grouping to sorting can be configure
 In order to install TypeScript Code Organizer ensure you have `npm` installed, open a terminal window and run:
 
 ```
-npm install -g tsco
+npm install -g tsco-cli
 ```
 
 ## Usage
@@ -136,13 +136,13 @@ tsco -o [-s <sources directory path>] [-c <configuration file path>]
 If there are files or directories you'd like to explicitly include or exclude, you can do so in the configuration file (see below). Example:
 
 ```
-tsco --configuration ./src/tsco.json --sources ./src
+tsco --organize --configuration ./src/tsco.json --sources ./src
 ```
 
 or
 
 ```
-tsco -c ./src/tsco.json -s ./src
+tsco -o -c ./src/tsco.json -s ./src
 ```
 
 ### Monitoring for file changes
@@ -421,7 +421,7 @@ npx husky init
 Open the `.husky/pre-commit` file in a text editor and add the following line (feel free to specify a custom configuration file path and source directory path):
 
 ```
-tsco --configuration ./tsco.json --sources ./src
+tsco --organize
 ```
 
 ## Change log
@@ -430,6 +430,6 @@ tsco --configuration ./tsco.json --sources ./src
 
 - Skipping version 1.0.0 to keep version in sync with TypeScript Code Organizer VS Code Extension
 
-### 2.0.0
+### 2.0.3
 
 - Initial release

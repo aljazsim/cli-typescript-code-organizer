@@ -1,6 +1,6 @@
 .editorconfig
 .gitignore
-.eslint.config.js
+eslint.config.js
 tsco.json
 tsconfig.json
 vitest.config.ts
