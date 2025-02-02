@@ -426,4 +426,10 @@ tsco --configuration ./tsco.json --sources ./src
 
 ## Change log
 
-1.0.0 - Initial release
+### 1.0.0
+
+- Skipping version 1.0.0 to keep version in sync with TypeScript Code Organizer VS Code Extension
+
+### 2.0.0
+
+- Initial release

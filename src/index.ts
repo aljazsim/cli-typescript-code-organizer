@@ -2,7 +2,7 @@
 
 // tsco: ignore 
 import { Configuration } from "./configuration/configuration.js";
-import { displayHelp, displayVersion, initialize, organize, parseCommandLineArguments, watch } from "./index-helper.js";
+import { displayHelp, displayVersion, initialize, organizeFiles, parseCommandLineArguments, watch } from "./index-helper.js";
 
 // #region Variables (2)
 
@@ -28,7 +28,7 @@ else
 
     if (commandLineArguments.organize)
     {
-        await organize(commandLineArguments.sourceDirectoryPath, configuration);
+        await organizeFiles(commandLineArguments.sourceDirectoryPath, configuration);
     }
 
     if (commandLineArguments.watch)

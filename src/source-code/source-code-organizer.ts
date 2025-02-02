@@ -8,7 +8,7 @@ import { ImportNode } from "../elements/import-node.js";
 import { ModuleMemberType } from "../enums/module-member-type.js";
 import { distinct, remove } from "../helpers/array-helper.js";
 import { compareStrings } from "../helpers/comparing-helper.js";
-import { getFileExtension, readFile, writeFile } from "../helpers/file-system-helper.js";
+import { getFileExtension } from "../helpers/file-system-helper.js";
 import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
 import { SourceCodeAnalyzer } from "./source-code-analyzer.js";
 import { SourceCodePrinter } from "./source-code-printer.js";
@@ -16,7 +16,7 @@ import { SourceCode } from "./source-code.js";
 
 export class SourceCodeOrganizer
 {
-    // #region Public Static Methods (2)
+    // #region Public Static Methods (1)
 
     public static async organizeSourceCode(sourceCodeFilePath: string, sourceCode: string, configuration: Configuration)
     {
@@ -49,43 +49,6 @@ export class SourceCodeOrganizer
         }
 
         return sourceCode;
-    }
-
-    public static async organizeSourceCodeFile(sourceCodeFilePath: string, configuration: Configuration)
-    {
-        let sourceCode = "";
-        let organizedSourceCode = "";
-
-        try 
-        {
-            sourceCode = await readFile(sourceCodeFilePath);
-        }
-        catch
-        {
-            return;
-        }
-
-        try 
-        {
-            organizedSourceCode = await this.organizeSourceCode(sourceCodeFilePath, sourceCode, configuration);
-        }
-        catch
-        {
-            return;
-        }
-
-        if (organizedSourceCode !== sourceCode)
-        {
-            await writeFile(sourceCodeFilePath, organizedSourceCode);
-
-            console.log(`tsco organized ${sourceCodeFilePath}`);
-
-            return true;
-        }
-        else 
-        {
-            return false;
-        }
     }
 
     // #endregion Public Static Methods
