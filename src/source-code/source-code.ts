@@ -13,11 +13,9 @@ export class SourceCode
 
     private readonly newLine = "\r\n";
 
-
-
     // #endregion Properties
 
-    // #region Constructors (6)
+    // #region Constructors (1)
 
     constructor(private sourceCode = "")
     {
