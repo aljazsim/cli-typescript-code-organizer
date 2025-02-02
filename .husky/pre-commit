@@ -1,6 +1,6 @@
 # organize code
 
-tsco
+tsco --organize --configuration ./tsco.json --sources ./src
 
 # format code
 
