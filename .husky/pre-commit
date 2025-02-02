@@ -1,3 +1,5 @@
+pwd
+
 # organize code
 
 tsco --organize --configuration ../tsco.json --sources ../src
