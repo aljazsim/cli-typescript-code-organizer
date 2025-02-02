@@ -4,11 +4,11 @@
     "author": "Aljaz Simonic",
     "license": "MIT",
     "description": "TypeScript Code Organizer CLI",
-    "homepage": "https://github.com/aljazsim/cli-typescript-class-organizer",
-    "icon": "https://github.com/aljazsim/cli-typescript-class-organizer/raw/master/doc/logo.png",
+    "homepage": "https://github.com/aljazsim/cli-typescript-code-organizer",
+    "icon": "https://github.com/aljazsim/cli-typescript-code-organizer/raw/master/doc/logo.png",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/aljazsim/cli-typescript-class-organizer.git"
+        "url": "git+https://github.com/aljazsim/cli-typescript-code-organizer.git"
     },
     "keywords": [
         "TypeScript",
