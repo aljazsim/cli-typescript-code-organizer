@@ -136,13 +136,13 @@ tsco -o [-s <sources directory path>] [-c <configuration file path>]
 If there are files or directories you'd like to explicitly include or exclude, you can do so in the configuration file (see below). Example:
 
 ```
-tsco --configuration ./src/tsco.json --sources ./src
+tsco --organize --configuration ./src/tsco.json --sources ./src
 ```
 
 or
 
 ```
-tsco -c ./src/tsco.json -s ./src
+tsco -o -c ./src/tsco.json -s ./src
 ```
 
 ### Monitoring for file changes
@@ -430,6 +430,6 @@ tsco --organize --configuration ./tsco.json --sources ./src
 
 - Skipping version 1.0.0 to keep version in sync with TypeScript Code Organizer VS Code Extension
 
-### 2.0.0
+### 2.0.3
 
 - Initial release

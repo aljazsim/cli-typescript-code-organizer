@@ -1,8 +1,10 @@
-echo pwd
+pwd
+
+echo message 1>&2
 
 # organize code
 
-# tsco --organize --configuration ../tsco.json --sources ../src
+# tsco --organize --configuration ./tsco.json --sources ./src
 
 # format code
 
