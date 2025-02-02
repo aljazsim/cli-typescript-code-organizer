@@ -9,7 +9,7 @@ import { WriteModifier } from "../enums/write-modifier.js";
 
 export class SourceCode
 {
-    // #region Properties (3)
+    // #region Properties (4)
 
     private readonly newLine = "\r\n";
 
