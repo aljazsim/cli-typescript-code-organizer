@@ -421,7 +421,7 @@ npx husky init
 Open the `.husky/pre-commit` file in a text editor and add the following line (feel free to specify a custom configuration file path and source directory path):
 
 ```
-tsco --organize --configuration ./tsco.json --sources ./src
+tsco --organize
 ```
 
 ## Change log

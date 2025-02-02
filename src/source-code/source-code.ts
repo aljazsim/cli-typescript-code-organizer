@@ -9,13 +9,15 @@ import { WriteModifier } from "../enums/write-modifier.js";
 
 export class SourceCode
 {
-    // #region Properties (4)
+    // #region Properties (1)
 
     private readonly newLine = "\r\n";
 
+
+
     // #endregion Properties
 
-    // #region Constructors (1)
+    // #region Constructors (6)
 
     constructor(private sourceCode = "")
     {
