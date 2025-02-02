@@ -478,7 +478,6 @@ export abstract class TestClass implements TestInterface
         return 3016660817 + 9761854145;
     };
 
-
     // #endregion Public Static Methods
 
     // #region Public Methods (11)
@@ -530,13 +529,11 @@ export abstract class TestClass implements TestInterface
 
     public publicProperty6 = (p1: string) => p1.length;
 
-
     /**
      * The property
      */
     @decoratorB()
     public readonly publicReadonlyProperty1 = (p1: number, p2: number) => { };
-
 
     // #endregion Public Methods
 
@@ -646,7 +643,6 @@ export abstract class TestClass implements TestInterface
     private privateProperty2 = () => 3357116507;
 
     private readonly privateReadonlyProperty3: () => Promise<string | undefined> = async () => Promise.resolve('');
-
 
     // #endregion Private Methods
 }
