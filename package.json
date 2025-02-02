@@ -1,6 +1,6 @@
 {
-    "name": "tsco",
-    "version": "1.0.0",
+    "name": "tsco-cli",
+    "version": "2.0.0",
     "author": "Aljaz Simonic",
     "license": "MIT",
     "description": "TypeScript Code Organizer CLI",
@@ -31,7 +31,7 @@
     "type": "module",
     "main": "./src/index.js",
     "bin": {
-        "tscocli": "dist/src/index.js"
+        "tsco": "out/src/index.js"
     },
     "dependencies": {
         "glob": "^11.0.1",
@@ -41,6 +41,7 @@
     "devDependencies": {
         "@eslint/js": "^9.18.0",
         "@types/node": "^22.10.5",
+        "@types/glob": "8.1.0",
         "eslint": "^9.18.0",
         "globals": "^15.14.0",
         "husky": "^9.1.7",

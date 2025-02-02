@@ -7,7 +7,7 @@ vitest.config.ts
 .git
 .husky
 .vscode
-dist/test
+out/test
 doc
 src
 test
