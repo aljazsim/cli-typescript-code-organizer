@@ -59,7 +59,7 @@ Everything from import statements, regions, grouping to sorting can be configure
 In order to install TypeScript Code Organizer ensure you have `npm` installed, open a terminal window and run:
 
 ```
-npm install -g tsco
+npm install -g tsco-cli
 ```
 
 ## Usage

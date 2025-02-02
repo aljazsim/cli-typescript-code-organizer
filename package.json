@@ -1,6 +1,6 @@
 {
     "name": "tsco-cli",
-    "version": "2.0.0",
+    "version": "2.0.2",
     "author": "Aljaz Simonic",
     "license": "MIT",
     "description": "TypeScript Code Organizer CLI",
@@ -31,7 +31,7 @@
     "type": "module",
     "main": "./src/index.js",
     "bin": {
-        "tsco": "out/src/index.js"
+        "tsco": "./out/src/index.js"
     },
     "dependencies": {
         "glob": "^11.0.1",
