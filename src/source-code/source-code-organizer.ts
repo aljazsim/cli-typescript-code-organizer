@@ -16,7 +16,7 @@ import { SourceCode } from "./source-code.js";
 
 export class SourceCodeOrganizer
 {
-    // #region Public Static Methods (2)
+    // #region Public Static Methods (1)
 
     public static async organizeSourceCode(sourceCodeFilePath: string, sourceCode: string, configuration: Configuration)
     {

@@ -1,10 +1,11 @@
 import { glob } from "glob";
 import Watcher from "watcher";
+
 import { Configuration } from "./configuration/configuration.js";
 import { getFullPath, joinPath, readFile, writeFile } from "./helpers/file-system-helper.js";
 import { SourceCodeOrganizer } from "./source-code/source-code-organizer.js";
 
-// #region Functions (7)
+// #region Exported Functions (8)
 
 export function displayHelp()
 {
@@ -33,6 +34,22 @@ export function displayHelp()
 export function displayVersion()
 {
     console.log("1.0.0");
+}
+
+export async function getFilePaths(sourcesDirectoryPath: string, configuration: Configuration, filePath: string | null = null)
+{
+    const include = configuration.files.include.map(fp => joinPath(sourcesDirectoryPath, fp))
+    const exclude = configuration.files.exclude.map(fp => joinPath(sourcesDirectoryPath, fp))
+    const filePaths = (await glob(include, { ignore: exclude })).map(fp => getFullPath(fp)).sort();
+
+    if (filePath)
+    {
+        return filePaths.map(fp => getFullPath(fp)).filter(fp => fp.toLowerCase() === getFullPath(filePath).toLowerCase());
+    }
+    else
+    {
+        return filePaths.sort();
+    }
 }
 
 export async function initialize(configurationFilePath: string, configuration: Configuration)
@@ -88,24 +105,6 @@ export async function organizeFiles(sourcesDirectoryPath: string, configuration:
     console.log(`tsco organized ${organizedFileCount} files, skipped ${allFileCount - organizedFileCount}`);
 }
 
-
-
-export async function getFilePaths(sourcesDirectoryPath: string, configuration: Configuration, filePath: string | null = null)
-{
-    const include = configuration.files.include.map(fp => joinPath(sourcesDirectoryPath, fp))
-    const exclude = configuration.files.exclude.map(fp => joinPath(sourcesDirectoryPath, fp))
-    const filePaths = (await glob(include, { ignore: exclude })).map(fp => getFullPath(fp)).sort();
-
-    if (filePath)
-    {
-        return filePaths.map(fp => getFullPath(fp)).filter(fp => fp.toLowerCase() === getFullPath(filePath).toLowerCase());
-    }
-    else
-    {
-        return filePaths.sort();
-    }
-}
-
 export function parseCommandLineArguments(commandLineArguments: string[])
 {
     const defaultSourceDirectoryPath = process.cwd();
@@ -143,4 +142,4 @@ export async function watch(sourcesDirectoryPath: string, configuration: Configu
     watcher.on('change', async (filePath) => await organizeFile(sourcesDirectoryPath, filePath, configuration));
 }
 
-// #endregion Functions (7)
+// #endregion Exported Functions
