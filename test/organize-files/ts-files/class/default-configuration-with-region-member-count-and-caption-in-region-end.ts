@@ -8,7 +8,7 @@ import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "./te
 
 export abstract class TestClass implements TestInterface
 {
-    // #region Properties (57)
+    // #region Properties (55)
 
     // this is a comment
     private static readonly privateStaticReadonlyProperty1 = "nt4r2igy03";
@@ -19,7 +19,6 @@ export abstract class TestClass implements TestInterface
     @decoratorC(7960805480)
     private readonly privateReadonlyProperty1: string | undefined = "ohqx31vc3a";
     private readonly privateReadonlyProperty2 = "jwm4jkf16m";
-    private readonly privateReadonlyProperty3: () => Promise<string | undefined> = async () => Promise.resolve('');
     @decoratorC(7573192855)
     private readonly privateReadonlyProperty4: String = "709w42symh";
 
@@ -74,11 +73,6 @@ export abstract class TestClass implements TestInterface
     @decoratorB()
     public static readonly publicStaticReadonlyProperty3: Number;
 
-    /**
-     * The property
-     */
-    @decoratorB()
-    public readonly publicReadonlyProperty1 = (p1: number, p2: number) => { };
     public readonly publicReadonlyProperty2 = "uialqi4dkc";
     public readonly publicReadonlyProperty3: String = "16";
     public readonly publicReadonlyProperty4: string = "NULL";
@@ -409,7 +403,7 @@ export abstract class TestClass implements TestInterface
 
     // #endregion Public Static Methods
 
-    // #region Public Methods (12)
+    // #region Public Methods (13)
 
     public abstract publicAbstractMethod1(): void;
 
@@ -462,6 +456,12 @@ export abstract class TestClass implements TestInterface
     public publicMethod9(): void
     {
     }
+
+    /**
+     * The property
+     */
+    @decoratorB()
+    public readonly publicReadonlyProperty1 = (p1: number, p2: number) => { };
 
     // #endregion Public Methods
 
@@ -532,7 +532,7 @@ export abstract class TestClass implements TestInterface
 
     // #endregion Private Static Methods
 
-    // #region Private Methods (3)
+    // #region Private Methods (4)
 
     private privateMethod1()
     {
@@ -549,6 +549,8 @@ export abstract class TestClass implements TestInterface
     private privateMethod3()
     {
     }
+
+    private readonly privateReadonlyProperty3: () => Promise<string | undefined> = async () => Promise.resolve('');
 
     // #endregion Private Methods
 }

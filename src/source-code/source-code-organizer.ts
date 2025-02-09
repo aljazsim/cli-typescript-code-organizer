@@ -266,12 +266,12 @@ export class SourceCodeOrganizer
                         regions.push(new ElementNodeGroup(memberGroup.caption, [], order(sortDirection, memberGroups.flatMap(mg => mg.nodes), placeAbove, placeBelow, false), isRegion, configuration.modules.regions));
                     }
                 }
+            }
 
-                if (expressions.length > 0)
-                {
-                    // expressions go to the end because of dependencies
-                    regions.push(new ElementNodeGroup(null, [], expressions, false, null));
-                }
+            if (expressions.length > 0)
+            {
+                // expressions go to the end because of dependencies
+                regions.push(new ElementNodeGroup(null, [], expressions, false, null));
             }
         }
 

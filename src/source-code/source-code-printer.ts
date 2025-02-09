@@ -6,6 +6,7 @@ import { ElementNodeGroup } from "../elements/element-node-group.js";
 import { ElementNode } from "../elements/element-node.js";
 import { FunctionNode } from "../elements/function-node.js";
 import { GetterNode } from "../elements/getter-node.js";
+import { GetterSignatureNode } from "../elements/getter-signature-node.js";
 import { ImportNode } from "../elements/import-node.js";
 import { IndexSignatureNode } from "../elements/index-signature-node.js";
 import { InterfaceNode } from "../elements/interface-node.js";
@@ -14,9 +15,11 @@ import { MethodSignatureNode } from "../elements/method-signature-node.js";
 import { PropertyNode } from "../elements/property-node.js";
 import { PropertySignatureNode } from "../elements/property-signature-node.js";
 import { SetterNode } from "../elements/setter-node.js";
+import { SetterSignatureNode } from "../elements/setter-signature-node.js";
 import { TypeAliasNode } from "../elements/type-alias-node.js";
 import { VariableNode } from "../elements/variable-node.js";
 import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
+import { WriteModifier } from "../enums/write-modifier.js";
 import { SourceCode } from "./source-code.js";
 
 export class SourceCodePrinter
@@ -196,6 +199,8 @@ export class SourceCodePrinter
 
             if ((node instanceof PropertySignatureNode && node.hasLeadingComment) ||
                 (node instanceof IndexSignatureNode && node.hasLeadingComment) ||
+                (node instanceof GetterSignatureNode && node.hasLeadingComment) ||
+                (node instanceof SetterSignatureNode && node.hasLeadingComment) ||
                 (node instanceof MethodSignatureNode && node.hasLeadingComment) ||
                 (node instanceof PropertyNode && node.hasLeadingComment) ||
                 (node instanceof AccessorNode && node.hasLeadingComment) ||
@@ -214,7 +219,9 @@ export class SourceCodePrinter
                 node instanceof GetterNode ||
                 node instanceof SetterNode ||
                 node instanceof FunctionNode ||
-                node instanceof MethodNode)
+                node instanceof MethodNode ||
+                (node instanceof PropertyNode && node.writeMode !== WriteModifier.readOnly && node.isArrowFunction && configuration.classes.members.treatArrowFunctionPropertiesAsMethods) ||
+                (node instanceof PropertyNode && node.writeMode === WriteModifier.readOnly && node.isArrowFunction && configuration.classes.members.treatArrowFunctionReadOnlyPropertiesAsMethods))
             {
                 if (nodeGroup.nodes.indexOf(node) > 0)
                 {
@@ -244,14 +251,16 @@ export class SourceCodePrinter
         {
             if (nodeGroup.getNodeCount() > 0)
             {
-                nodeGroupsSourceCode.add(this.printNodeGroup(nodeGroup, configuration));
+                const sourceCode = this.printNodeGroup(nodeGroup, configuration);
 
                 if (nodeGroupsWithNodes.length > 1 &&
-                    nodeGroupsWithNodes.indexOf(nodeGroup) < nodeGroupsWithNodes.length - 1)
+                    nodeGroupsWithNodes.indexOf(nodeGroup) > 0)
                 {
-                    // add empty line after non-last node group end
-                    nodeGroupsSourceCode.addNewLineAfter();
+                    // add empty line before non-first group
+                    sourceCode.addNewLineBefore();
                 }
+
+                nodeGroupsSourceCode.add(sourceCode);
             }
         }
 

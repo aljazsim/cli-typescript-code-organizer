@@ -12,6 +12,7 @@ import { MethodNode } from "./method-node.js";
 import { PropertyNode } from "./property-node.js";
 import { SetterNode } from "./setter-node.js";
 import { StaticBlockDeclarationNode } from "./static-block-declaration-node.js";
+import { WriteModifier } from "../enums/write-modifier.js";
 
 export class ClassNode extends ElementNode
 {
@@ -36,7 +37,7 @@ export class ClassNode extends ElementNode
 
     // #region Constructors (1)
 
-    constructor(sourceFile: ts.SourceFile, classDeclaration: ts.ClassDeclaration, treatArrowFunctionPropertiesAsMethods: boolean)
+    constructor(sourceFile: ts.SourceFile, classDeclaration: ts.ClassDeclaration, treatArrowFunctionPropertiesAsMethods: boolean, treatArrowFunctionReadOnlyPropertiesAsMethods: boolean)
     {
         super(sourceFile, classDeclaration);
 
@@ -70,13 +71,16 @@ export class ClassNode extends ElementNode
             }
             else if (ts.isPropertyDeclaration(member))
             {
-                if (treatArrowFunctionPropertiesAsMethods && member.initializer?.kind === ts.SyntaxKind.ArrowFunction)
+                const property = new PropertyNode(sourceFile, member);
+
+                if (treatArrowFunctionPropertiesAsMethods && property.isArrowFunction && property.writeMode == WriteModifier.writable ||
+                    treatArrowFunctionReadOnlyPropertiesAsMethods && property.isArrowFunction && property.writeMode == WriteModifier.readOnly)
                 {
-                    this.methods.push(new PropertyNode(sourceFile, member));
+                    this.methods.push(property);
                 }
                 else
                 {
-                    this.properties.push(new PropertyNode(sourceFile, member));
+                    this.properties.push(property);
                 }
             }
             else if (ts.isGetAccessorDeclaration(member))

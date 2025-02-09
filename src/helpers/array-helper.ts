@@ -17,9 +17,9 @@ export function distinct<T>(items: T[])
 
 export function except<T>(items1: T[] | null | undefined, items2: T[] | null | undefined)
 {
-    if (items1 && items1.length && items2 && items2.length)
+    if (items1 && items1.length > 0 && items2 && items2.length > 0)
     {
-        return items1.filter(item => !items2.includes(item));
+        return items1.filter(item => !items2!.includes(item));
     }
     else
     {
@@ -29,13 +29,13 @@ export function except<T>(items1: T[] | null | undefined, items2: T[] | null | u
 
 export function intersect<T>(items1: T[] | null | undefined, items2: T[] | null | undefined)
 {
-    if (items1 && items1.length && items2 && items2.length)
+    if (items1 && items1.length > 0 && items2 && items2.length > 0)
     {
-        return items1.filter(item => items2.includes(item));
+        return items1.filter(item => items2!.includes(item));
     }
     else
     {
-        return items1 ?? [];
+        return [];
     }
 }
 

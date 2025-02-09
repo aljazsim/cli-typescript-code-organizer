@@ -19,7 +19,6 @@ export abstract class TestClass implements TestInterface
     @decoratorC(7573192855)
     private readonly privateReadonlyProperty4: String = "709w42symh";
     private readonly privateReadonlyProperty2 = "jwm4jkf16m";
-    private readonly privateReadonlyProperty3: () => Promise<string | undefined> = async () => Promise.resolve('');
 
     private static _privateStaticGetterSetter1: string;
     private static _privateStaticGetterSetter2: string;
@@ -71,11 +70,6 @@ export abstract class TestClass implements TestInterface
     public static readonly publicStaticReadonlyProperty3: Number;
     public static readonly publicStaticReadonlyProperty2: string;
 
-    /**
-     * The property
-     */
-    @decoratorB()
-    public readonly publicReadonlyProperty1 = (p1: number, p2: number) => { };
     public readonly publicReadonlyProperty2 = "uialqi4dkc";
     public readonly publicReadonlyProperty3: String = "16";
     public readonly publicReadonlyProperty4: string = "NULL";
@@ -364,6 +358,12 @@ export abstract class TestClass implements TestInterface
     {
     }
 
+    /**
+     * The property
+     */
+    @decoratorB()
+    public readonly publicReadonlyProperty1 = (p1: number, p2: number) => { };
+
     public abstract publicAbstractMethod1(): void;
 
     // yup, a comment
@@ -486,4 +486,6 @@ export abstract class TestClass implements TestInterface
     {
         console.log("wduyuaeemi");
     }
+
+    private readonly privateReadonlyProperty3: () => Promise<string | undefined> = async () => Promise.resolve('');
 }
