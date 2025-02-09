@@ -6,7 +6,7 @@ import { ElementNodeGroup } from "../elements/element-node-group.js";
 import { ElementNode } from "../elements/element-node.js";
 import { ImportNode } from "../elements/import-node.js";
 import { ModuleMemberType } from "../enums/module-member-type.js";
-import { distinct, remove } from "../helpers/array-helper.js";
+import { distinct, except, intersect, remove } from "../helpers/array-helper.js";
 import { compareStrings } from "../helpers/comparing-helper.js";
 import { getFileExtension } from "../helpers/file-system-helper.js";
 import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
@@ -169,14 +169,24 @@ export class SourceCodeOrganizer
             regions.push(await this.organizeImports(imports.map(i => i as ImportNode), configuration.imports, sourceFile));
         }
 
-        if (elements.some(e =>
-            e instanceof VariableNode && e.dependencies.length > 0 ||
-            e instanceof ClassNode && e.dependencies.length > 0))
+        const vars = Array<string>()
+            .concat(variables.map(v => v.name))
+            .concat(exportedVariables.map(v => v.name))
+            .concat(constants.map(v => v.name))
+            .concat(exportedConstants.map(v => v.name));
+
+        if (variables.map(v => v as VariableNode).some(v => intersect(vars, v.dependencies).length > 0) ||
+            exportedVariables.map(v => v as VariableNode).some(v => intersect(vars, v.dependencies).length > 0) ||
+            constants.map(v => v as VariableNode).some(v => intersect(vars, v.dependencies).length > 0) ||
+            exportedConstants.map(v => v as VariableNode).some(v => intersect(vars, v.dependencies).length > 0) ||
+            classes.map(v => v as ClassNode).some(v => intersect(vars, v.dependencies).length > 0))
         {
-            // dependencies between module members have been discovered -> skip module element sorting to prevent breaking dependency order
-            regions.push(new ElementNodeGroup(null, [], elements.filter(e => !(e instanceof ImportNode)), false, null));
+            // dependencies between module members -> skip module element sorting to prevent breaking dependency order
+            regions.push(new ElementNodeGroup(null, [], except(elements, imports), false, null));
+
+            console.log(`tsco skip module sorting in ${sourceFile.fileName}, because dependencies between module members were found`);
         }
-        else 
+        else
         {
 
             for (const memberGroup of configuration.modules.memberGroups)
@@ -256,14 +266,15 @@ export class SourceCodeOrganizer
                         regions.push(new ElementNodeGroup(memberGroup.caption, [], order(sortDirection, memberGroups.flatMap(mg => mg.nodes), placeAbove, placeBelow, false), isRegion, configuration.modules.regions));
                     }
                 }
-            }
 
-            if (expressions.length > 0)
-            {
-                // expressions go to the end because of dependencies
-                regions.push(new ElementNodeGroup(null, [], expressions, false, null));
+                if (expressions.length > 0)
+                {
+                    // expressions go to the end because of dependencies
+                    regions.push(new ElementNodeGroup(null, [], expressions, false, null));
+                }
             }
         }
+
 
         return regions;
     }

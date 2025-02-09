@@ -6,7 +6,7 @@
             "request": "launch",
             "name": "Debug",
             "program": "${workspaceFolder}/src/index.ts",
-            "preLaunchTask": "tsc: build - tsconfig.json",
+            "preLaunchTask": "tsc: build",
             "outFiles": ["${workspaceFolder}/out/**/*.js"],
             "args": ["--organize"]
         }

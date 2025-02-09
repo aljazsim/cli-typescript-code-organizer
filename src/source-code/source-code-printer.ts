@@ -216,10 +216,10 @@ export class SourceCodePrinter
                 node instanceof FunctionNode ||
                 node instanceof MethodNode)
             {
-                if (nodeGroup.nodes.indexOf(node) < nodeGroup.nodes.length - 1)
+                if (nodeGroup.nodes.indexOf(node) > 0)
                 {
-                    // separate elements that end with '}' with an additional empty line
-                    nodeSourceCode.addNewLineAfter();
+                    // separate elements with an additional empty line
+                    nodeSourceCode.addNewLineBefore();
                 }
             }
 
