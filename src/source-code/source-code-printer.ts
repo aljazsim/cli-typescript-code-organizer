@@ -244,7 +244,6 @@ export class SourceCodePrinter
 
                 if (index > 0 && !(nodeGroup.nodes[index - 1] instanceof VariableNode))
                 {
-
                     // separate variables from non-variables with an additional empty line
                     nodeSourceCode.addNewLineBefore();
                 }
