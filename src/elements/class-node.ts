@@ -2,7 +2,7 @@ import * as ts from "typescript";
 
 import { ClassConfiguration } from "../configuration/class-configuration.js";
 import { ClassMemberType } from "../enums/class-member-type.js";
-import { getDecorators, getIsAbstract, getIsStatic, isPrivate, isProtected, isPublic, isReadOnly, isWritable, order } from "../helpers/node-helper.js";
+import { getDecorators, getDependencies, getIsAbstract, getIsStatic, isPrivate, isProtected, isPublic, isReadOnly, isWritable, order } from "../helpers/node-helper.js";
 import { AccessorNode } from "./accessor-node.js";
 import { ConstructorNode } from "./constructor-node.js";
 import { ElementNodeGroup } from "./element-node-group.js";
@@ -19,6 +19,7 @@ export class ClassNode extends ElementNode
 
     public readonly accessors: AccessorNode[] = [];
     public readonly constructors: ConstructorNode[] = [];
+    public readonly dependencies: string[] = [];
     public readonly decorators: string[];
     public readonly getters: GetterNode[] = [];
     public readonly isAbstract: boolean;
@@ -89,6 +90,18 @@ export class ClassNode extends ElementNode
             else if (ts.isMethodDeclaration(member))
             {
                 this.methods.push(new MethodNode(sourceFile, member));
+            }
+        }
+
+        if (classDeclaration.modifiers)
+        {
+            // check if there's and dependencies on properties within decorators
+            for (const decorator of classDeclaration.modifiers.filter(m => ts.isDecorator(m)))
+            {
+                for (const dependency of getDependencies(sourceFile, decorator, []))
+                {
+                    this.dependencies.push(dependency);
+                }
             }
         }
     }

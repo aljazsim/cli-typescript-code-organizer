@@ -8,12 +8,15 @@ export function getOrganizeSpecialCaseTestParameters()
 {
     const specialTestCaseOutputDirectoryPath = "./test/organize-files/special-cases";
     const specialTestCase1tOutput = `${specialTestCaseOutputDirectoryPath}/special-test-case-1`;
+    const specialTestCase2tOutput = `${specialTestCaseOutputDirectoryPath}/special-test-case-2`;
 
     const specialTestCaseInputDirectoryPath = './test/organize-files/special-cases';
     const specialTestCase1Input = `${specialTestCaseInputDirectoryPath}/special-test-case-1/special-test-case-1.ts`;
+    const specialTestCase2Input = `${specialTestCaseInputDirectoryPath}/special-test-case-2/special-test-case-2.ts`;
 
     const tests = [
         { name: "Special Test Case 1", inputFilePath: specialTestCase1Input, outputDirectoryPath: specialTestCase1tOutput },
+        { name: "Special Test Case 2", inputFilePath: specialTestCase2Input, outputDirectoryPath: specialTestCase2tOutput },
     ];
     const memberOrganizeParameters: OrganizeTestParameters[] = [];
 

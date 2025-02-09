@@ -13,6 +13,8 @@ import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInte
 import { SourceCodeAnalyzer } from "./source-code-analyzer.js";
 import { SourceCodePrinter } from "./source-code-printer.js";
 import { SourceCode } from "./source-code.js";
+import { VariableNode } from "../elements/variable-node.js";
+import { ClassNode } from "../elements/class-node.js";
 
 export class SourceCodeOrganizer
 {
@@ -167,89 +169,100 @@ export class SourceCodeOrganizer
             regions.push(await this.organizeImports(imports.map(i => i as ImportNode), configuration.imports, sourceFile));
         }
 
-        for (const memberGroup of configuration.modules.memberGroups)
+        if (elements.some(e =>
+            e instanceof VariableNode && e.dependencies.length > 0 ||
+            e instanceof ClassNode && e.dependencies.length > 0))
         {
-            const sortDirection = memberGroup.sortDirection;
-            const placeAbove = memberGroup.placeAbove;
-            const placeBelow = memberGroup.placeBelow;
-            const memberGroups: ElementNodeGroup[] = [];
-
-            for (const memberType of memberGroup.memberTypes)
-            {
-                let elementNodes = Array<ElementNode>();
-
-                if (memberType === ModuleMemberType.enums)
-                {
-                    elementNodes = enums;
-                }
-                else if (memberType === ModuleMemberType.types)
-                {
-                    elementNodes = types;
-                }
-                else if (memberType === ModuleMemberType.interfaces)
-                {
-                    elementNodes = interfaces;
-                }
-                else if (memberType === ModuleMemberType.classes)
-                {
-                    elementNodes = classes;
-                }
-                else if (memberType === ModuleMemberType.functions)
-                {
-                    elementNodes = functions;
-                }
-                else if (memberType === ModuleMemberType.exportedFunctions)
-                {
-                    elementNodes = exportedFunctions;
-                }
-                else if (memberType === ModuleMemberType.constants)
-                {
-                    elementNodes = constants;
-                }
-                else if (memberType === ModuleMemberType.exportedConstants)
-                {
-                    elementNodes = exportedConstants;
-                }
-                else if (memberType === ModuleMemberType.variables)
-                {
-                    elementNodes = variables;
-                }
-                else if (memberType === ModuleMemberType.exportedVariables)
-                {
-                    elementNodes = exportedVariables;
-                }
-
-                if (elementNodes.length > 0)
-                {
-                    memberGroups.push(new ElementNodeGroup(null, [], order(sortDirection, elementNodes, placeAbove, placeBelow, false), false, null));
-                }
-            }
-
-            if (memberGroups.length > 0)
-            {
-                const isRegion = enums.length + types.length + interfaces.length + classes.length > 1 ||
-                    functions.length > 0 ||
-                    exportedFunctions.length > 0 ||
-                    constants.length > 0 ||
-                    exportedConstants.length > 0 ||
-                    variables.length > 0 ||
-                    exportedVariables.length > 0;
-
-                if (memberGroup.memberTypesGrouped)
-                {
-                    regions.push(new ElementNodeGroup(memberGroup.caption, memberGroups, [], isRegion, configuration.modules.regions));
-                }
-                else 
-                {
-                    regions.push(new ElementNodeGroup(memberGroup.caption, [], order(sortDirection, memberGroups.flatMap(mg => mg.nodes), placeAbove, placeBelow, false), isRegion, configuration.modules.regions));
-                }
-            }
+            // dependencies between module members have been discovered -> skip module element sorting to prevent breaking dependency order
+            regions.push(new ElementNodeGroup(null, [], elements.filter(e => !(e instanceof ImportNode)), false, null));
         }
-
-        if (expressions.length > 0)
+        else 
         {
-            // expressions go to the end because of dependencies
-            regions.push(new ElementNodeGroup(null, [], expressions, false, null));
+
+            for (const memberGroup of configuration.modules.memberGroups)
+            {
+                const sortDirection = memberGroup.sortDirection;
+                const placeAbove = memberGroup.placeAbove;
+                const placeBelow = memberGroup.placeBelow;
+                const memberGroups: ElementNodeGroup[] = [];
+
+                for (const memberType of memberGroup.memberTypes)
+                {
+                    let elementNodes = Array<ElementNode>();
+
+                    if (memberType === ModuleMemberType.enums)
+                    {
+                        elementNodes = enums;
+                    }
+                    else if (memberType === ModuleMemberType.types)
+                    {
+                        elementNodes = types;
+                    }
+                    else if (memberType === ModuleMemberType.interfaces)
+                    {
+                        elementNodes = interfaces;
+                    }
+                    else if (memberType === ModuleMemberType.classes)
+                    {
+                        elementNodes = classes;
+                    }
+                    else if (memberType === ModuleMemberType.functions)
+                    {
+                        elementNodes = functions;
+                    }
+                    else if (memberType === ModuleMemberType.exportedFunctions)
+                    {
+                        elementNodes = exportedFunctions;
+                    }
+                    else if (memberType === ModuleMemberType.constants)
+                    {
+                        elementNodes = constants;
+                    }
+                    else if (memberType === ModuleMemberType.exportedConstants)
+                    {
+                        elementNodes = exportedConstants;
+                    }
+                    else if (memberType === ModuleMemberType.variables)
+                    {
+                        elementNodes = variables;
+                    }
+                    else if (memberType === ModuleMemberType.exportedVariables)
+                    {
+                        elementNodes = exportedVariables;
+                    }
+
+                    if (elementNodes.length > 0)
+                    {
+                        memberGroups.push(new ElementNodeGroup(null, [], order(sortDirection, elementNodes, placeAbove, placeBelow, false), false, null));
+                    }
+                }
+
+                if (memberGroups.length > 0)
+                {
+                    const isRegion = enums.length + types.length + interfaces.length + classes.length > 1 ||
+                        functions.length > 0 ||
+                        exportedFunctions.length > 0 ||
+                        constants.length > 0 ||
+                        exportedConstants.length > 0 ||
+                        variables.length > 0 ||
+                        exportedVariables.length > 0;
+
+                    if (memberGroup.memberTypesGrouped)
+                    {
+                        regions.push(new ElementNodeGroup(memberGroup.caption, memberGroups, [], isRegion, configuration.modules.regions));
+                    }
+                    else 
+                    {
+                        regions.push(new ElementNodeGroup(memberGroup.caption, [], order(sortDirection, memberGroups.flatMap(mg => mg.nodes), placeAbove, placeBelow, false), isRegion, configuration.modules.regions));
+                    }
+                }
+            }
+
+            if (expressions.length > 0)
+            {
+                // expressions go to the end because of dependencies
+                regions.push(new ElementNodeGroup(null, [], expressions, false, null));
+            }
         }
 
         return regions;

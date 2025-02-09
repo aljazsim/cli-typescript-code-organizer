@@ -7,8 +7,8 @@
             "name": "Debug",
             "program": "${workspaceFolder}/src/index.ts",
             "preLaunchTask": "tsc: build - tsconfig.json",
-            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-            "args": [""]
+            "outFiles": ["${workspaceFolder}/out/**/*.js"],
+            "args": ["--organize"]
         }
     ]
 }
