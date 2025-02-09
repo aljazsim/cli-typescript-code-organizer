@@ -4,7 +4,7 @@ import { ElementNode } from "./element-node.js";
 
 export class GetterSignatureNode extends ElementNode
 {
-    // #region Properties (2)
+    // #region Properties (1)
 
     public readonly name: string;
 

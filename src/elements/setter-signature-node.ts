@@ -4,7 +4,7 @@ import { ElementNode } from "./element-node.js";
 
 export class SetterSignatureNode extends ElementNode
 {
-    // #region Properties (2)
+    // #region Properties (1)
 
     public readonly name: string;
 

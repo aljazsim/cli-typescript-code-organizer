@@ -2,9 +2,11 @@ import ts, { SourceFile } from "typescript";
 
 import { Configuration } from "../configuration/configuration.js";
 import { ImportConfiguration } from "../configuration/import-configuration.js";
+import { ClassNode } from "../elements/class-node.js";
 import { ElementNodeGroup } from "../elements/element-node-group.js";
 import { ElementNode } from "../elements/element-node.js";
 import { ImportNode } from "../elements/import-node.js";
+import { VariableNode } from "../elements/variable-node.js";
 import { ModuleMemberType } from "../enums/module-member-type.js";
 import { distinct, except, intersect, remove } from "../helpers/array-helper.js";
 import { compareStrings } from "../helpers/comparing-helper.js";
@@ -13,8 +15,6 @@ import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInte
 import { SourceCodeAnalyzer } from "./source-code-analyzer.js";
 import { SourceCodePrinter } from "./source-code-printer.js";
 import { SourceCode } from "./source-code.js";
-import { VariableNode } from "../elements/variable-node.js";
-import { ClassNode } from "../elements/class-node.js";
 
 export class SourceCodeOrganizer
 {
@@ -188,7 +188,6 @@ export class SourceCodeOrganizer
         }
         else
         {
-
             for (const memberGroup of configuration.modules.memberGroups)
             {
                 const sortDirection = memberGroup.sortDirection;
@@ -274,7 +273,6 @@ export class SourceCodeOrganizer
                 regions.push(new ElementNodeGroup(null, [], expressions, false, null));
             }
         }
-
 
         return regions;
     }

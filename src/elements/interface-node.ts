@@ -5,10 +5,10 @@ import { InterfaceMemberType } from "../enums/interface-member-type.js";
 import { isReadOnly, isWritable, order } from "../helpers/node-helper.js";
 import { ElementNodeGroup } from "./element-node-group.js";
 import { ElementNode } from "./element-node.js";
+import { GetterSignatureNode } from "./getter-signature-node.js";
 import { IndexSignatureNode } from "./index-signature-node.js";
 import { MethodSignatureNode } from "./method-signature-node.js";
 import { PropertySignatureNode } from "./property-signature-node.js";
-import { GetterSignatureNode } from "./getter-signature-node.js";
 import { SetterSignatureNode } from "./setter-signature-node.js";
 
 export class InterfaceNode extends ElementNode

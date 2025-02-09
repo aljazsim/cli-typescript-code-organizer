@@ -1,4 +1,4 @@
-// #region Exported Functions (4)
+// #region Exported Functions (5)
 
 export function add<T>(items: T[] | null | undefined, itemToAdd: T)
 {

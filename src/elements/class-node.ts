@@ -2,6 +2,7 @@ import * as ts from "typescript";
 
 import { ClassConfiguration } from "../configuration/class-configuration.js";
 import { ClassMemberType } from "../enums/class-member-type.js";
+import { WriteModifier } from "../enums/write-modifier.js";
 import { getDecorators, getDependencies, getIsAbstract, getIsStatic, isPrivate, isProtected, isPublic, isReadOnly, isWritable, order } from "../helpers/node-helper.js";
 import { AccessorNode } from "./accessor-node.js";
 import { ConstructorNode } from "./constructor-node.js";
@@ -12,16 +13,15 @@ import { MethodNode } from "./method-node.js";
 import { PropertyNode } from "./property-node.js";
 import { SetterNode } from "./setter-node.js";
 import { StaticBlockDeclarationNode } from "./static-block-declaration-node.js";
-import { WriteModifier } from "../enums/write-modifier.js";
 
 export class ClassNode extends ElementNode
 {
-    // #region Properties (13)
+    // #region Properties (14)
 
     public readonly accessors: AccessorNode[] = [];
     public readonly constructors: ConstructorNode[] = [];
-    public readonly dependencies: string[] = [];
     public readonly decorators: string[];
+    public readonly dependencies: string[] = [];
     public readonly getters: GetterNode[] = [];
     public readonly isAbstract: boolean;
     public readonly isStatic: boolean;
