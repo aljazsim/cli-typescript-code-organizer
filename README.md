@@ -313,42 +313,42 @@ Member types are dependant on where are they being used: modules, classes, inter
 
 #### Module Member Types
 
-Structures   | Functions           | Variables
------------- | ------------------- | -------------------
-`enums`      | `functions`         | `constants`
-`types`      | `exportedFunctions` | `exportedConstants`
-`interfaces` |                     | `variables`
-`classes`    |                     | `exportedVariables`
+| Structures   | Functions           | Variables           |
+| ------------ | ------------------- | ------------------- |
+| `enums`      | `functions`         | `constants`         |
+| `types`      | `exportedFunctions` | `exportedConstants` |
+| `interfaces` |                     | `variables`         |
+| `classes`    |                     | `exportedVariables` |
 
 #### Class Member Types
 
-Properties                          | Constructors              | Accessors                    | Getters and Setters                  | Methods
------------------------------------ | ------------------------- | ---------------------------- | ------------------------------------ | --------------------------
-`privateStaticReadOnlyProperties`   | `staticBlockDeclarations` | `publicStaticAccessors`      | `publicAbstractGettersAndSetters`    | `publicStaticMethods`
-`privateReadOnlyProperties`         | `constructors`            | `publicAccessors`            | `publicGettersAndSetters`            | `publicMethods`
-`privateStaticProperties`           |                           | `publicAbstractAccessors`    | `publicStaticGettersAndSetters`      | `publicAbstractMethods`
-`privateProperties`                 |                           | `protectedStaticAccessors`   | `protectedStaticGettersAndSetters`   | `protectedStaticMethods`
-`protectedStaticReadOnlyProperties` |                           | `protectedAccessors`         | `protectedGettersAndSetters`         | `protectedMethods`
-`protectedReadOnlyProperties`       |                           | `protectedAbstractAccessors` | `protectedAbstractGettersAndSetters` | `protectedAbstractMethods`
-`protectedStaticProperties`         |                           | `privateStaticAccessors`     | `privateStaticGettersAndSetters`     | `privateStaticMethods`
-`protectedProperties`               |                           | `privateAccessors`           | `privateGettersAndSetters`           | `privateMethods`
-`publicStaticReadOnlyProperties`    |                           |                              |                                      |
-`publicReadOnlyProperties`          |                           |                              |                                      |
-`publicStaticProperties`            |                           |                              |                                      |
-`publicProperties`                  |                           |                              |                                      |
+| Properties                          | Constructors              | Accessors                    | Getters and Setters                  | Methods                    |
+| ----------------------------------- | ------------------------- | ---------------------------- | ------------------------------------ | -------------------------- |
+| `privateStaticReadOnlyProperties`   | `staticBlockDeclarations` | `publicStaticAccessors`      | `publicAbstractGettersAndSetters`    | `publicStaticMethods`      |
+| `privateReadOnlyProperties`         | `constructors`            | `publicAccessors`            | `publicGettersAndSetters`            | `publicMethods`            |
+| `privateStaticProperties`           |                           | `publicAbstractAccessors`    | `publicStaticGettersAndSetters`      | `publicAbstractMethods`    |
+| `privateProperties`                 |                           | `protectedStaticAccessors`   | `protectedStaticGettersAndSetters`   | `protectedStaticMethods`   |
+| `protectedStaticReadOnlyProperties` |                           | `protectedAccessors`         | `protectedGettersAndSetters`         | `protectedMethods`         |
+| `protectedReadOnlyProperties`       |                           | `protectedAbstractAccessors` | `protectedAbstractGettersAndSetters` | `protectedAbstractMethods` |
+| `protectedStaticProperties`         |                           | `privateStaticAccessors`     | `privateStaticGettersAndSetters`     | `privateStaticMethods`     |
+| `protectedProperties`               |                           | `privateAccessors`           | `privateGettersAndSetters`           | `privateMethods`           |
+| `publicStaticReadOnlyProperties`    |                           |                              |                                      |
+| `publicReadOnlyProperties`          |                           |                              |                                      |
+| `publicStaticProperties`            |                           |                              |                                      |
+| `publicProperties`                  |                           |                              |                                      |
 
 #### Interface Member Types
 
-Properties           | Indexes   | Getters and Setters | Methods
--------------------- | --------- | ------------------- | ---------
-`readOnlyProperties` | `indexes` | `gettersAndSetters` | `methods`
-`properties`         |           |                     |
+| Properties           | Indexes   | Getters and Setters | Methods   |
+| -------------------- | --------- | ------------------- | --------- |
+| `readOnlyProperties` | `indexes` | `gettersAndSetters` | `methods` |
+| `properties`         |           |                     |
 
 #### Type Member Types
 
-Properties   | Indexes   | Methods
------------- | --------- | ---------
-`properties` | `indexes` | `methods`
+| Properties   | Indexes   | Methods   |
+| ------------ | --------- | --------- |
+| `properties` | `indexes` | `methods` |
 
 ### Moving certain member types to the top or bottom of a group
 
@@ -400,6 +400,16 @@ or
 // <auto-generated />
 ```
 
+### Declaration dependencies
+
+If `tsco` detects module member declaration dependencies it will skip organizing module members as it might cause a compile error after compilation. In example below declaration of variable a1 depends on the declaration of variable a3. If a1 were declared first we would get a compile error. Any class, interface or type members would still get organized, same goes for import statements.
+
+```typescript
+const a3 = 5;
+const a1 = a3;
+const a2 = 4;
+```
+
 ## Using TSCO in VS Code
 
 You can install the [TypeScript Code Organizer](https://marketplace.visualstudio.com/items?itemName=aljazsim.tsco) VS Code extension. It offers exact same functionality as the TypeScript Code Organizer CLI, but built into VS Code. See the Visual Studio Marketplace for instructions.
@@ -433,3 +443,11 @@ tsco --organize
 ### 2.0.3
 
 - Initial release
+
+### 2.0.7
+
+- fix issue with missing typescript dependency
+- fix module formatting issue
+- fix issue with import statements with  comments
+- fix issue with sorting members with dependencies
+- fix organizing imports with type aliases
