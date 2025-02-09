@@ -40,7 +40,7 @@ function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupW
 
 // #endregion Functions
 
-// #region Exported Functions (31)
+// #region Exported Functions (30)
 
 export function getAccessModifier(node: ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.MethodDeclaration | ts.PropertySignature | ts.IndexSignatureDeclaration)
 {
