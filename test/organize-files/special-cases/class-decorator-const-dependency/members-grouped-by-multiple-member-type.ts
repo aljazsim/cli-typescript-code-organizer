@@ -18,3 +18,6 @@ export class SalesRoutingModule
 
     // #endregion Properties
 }
+
+const p1 = "";
+let p2 = 12;
