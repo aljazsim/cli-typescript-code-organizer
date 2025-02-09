@@ -1,23 +1,26 @@
 import * as ts from "typescript";
 
-import { getHasLeadingComment } from "../helpers/node-helper.js";
+import { getLeadingComment, getTrailingComment } from "../helpers/node-helper.js";
 
 export abstract class ElementNode
 {
     // #region Properties (3)
 
-    public readonly hasLeadingComment: boolean;
     public abstract readonly name: string;
     public readonly sourceCode: string;
+    public readonly leadingComment: string | null;
+    public readonly trailingComment: string | null;
 
     // #endregion Properties
 
     // #region Constructors (1)
 
-    constructor(sourceFile: ts.SourceFile, public readonly node: ts.Node)
+    constructor(sourceFile: ts.SourceFile, public readonly node: ts.Node, leadingComment: string | null = null, trailingComment: string | null = null)
     {
         this.sourceCode = ElementNode.getSourceCode(sourceFile, node.getFullStart(), node.getEnd());
-        this.hasLeadingComment = getHasLeadingComment(node, sourceFile);
+
+        this.leadingComment = leadingComment ?? getLeadingComment(node, sourceFile);
+        this.trailingComment = trailingComment ?? getTrailingComment(node, sourceFile);
     }
 
     // #endregion Constructors
