@@ -85,7 +85,7 @@ export class SourceCodePrinter
     {
         const source = node.source;
         const quote = configuration.quote === ImportSourceFilePathQuoteType.Single ? "'" : '"';
-        const namedImports = (node.namedImports ?? []).filter(ni => ni && ni.trim().length > 0);
+        const namedImports = (node.namedImports ?? []).filter(ni => ni && ni.name.trim().length > 0);
         const nameBinding = node.nameBinding;
         const namespace = node.namespace;
 
@@ -97,7 +97,7 @@ export class SourceCodePrinter
             }
             else if (namedImports.length > 0)
             {
-                return new SourceCode(`import ${nameBinding}, { ${namedImports.join(", ")} } from ${quote}${source}${quote};`);
+                return new SourceCode(`import ${nameBinding}, { ${namedImports.map(ni => (ni.type ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ")} } from ${quote}${source}${quote};`);
             }
             else
             {
@@ -110,7 +110,7 @@ export class SourceCodePrinter
         }
         else if (namedImports.length > 0)
         {
-            return new SourceCode(`import { ${namedImports.join(", ")} } from ${quote}${source}${quote};`);
+            return new SourceCode(`import { ${namedImports.map(ni => (ni.type ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ")} } from ${quote}${source}${quote};`);
         }
         else
         {

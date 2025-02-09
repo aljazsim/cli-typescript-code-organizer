@@ -10,7 +10,9 @@ export function add<T>(items: T[] | null | undefined, itemToAdd: T)
 
 export function distinct<T>(items: T[])
 {
-    return items.filter((value, index, array) => array.indexOf(value) === index);
+    return items.map(i => JSON.stringify(i))
+        .filter((value, index, array) => array.indexOf(value) === index)
+        .map(i => JSON.parse(i) as T);
 }
 
 export function except<T>(items1: T[] | null | undefined, items2: T[] | null | undefined)

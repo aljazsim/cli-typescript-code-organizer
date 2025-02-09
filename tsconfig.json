@@ -17,6 +17,7 @@
     "exclude": [
         "node_modules/**/*",
         "test/ignore-files/ts-files/**/*",
-        "test/organize-files/ts-files/**/*"
+        "test/organize-files/ts-files/**/*",
+        "test/organize-files/special-cases/**/*"
     ]
 }

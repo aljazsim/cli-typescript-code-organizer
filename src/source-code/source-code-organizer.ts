@@ -120,7 +120,7 @@ export class SourceCodeOrganizer
 
         if (configuration.sortImportsByName)
         {
-            imports.filter(i => i.namedImports).forEach(i => i.namedImports = i.namedImports!.sort((a, b) => compareStrings(a, b)));
+            imports.filter(i => i.namedImports).forEach(i => i.namedImports = i.namedImports!.sort((a, b) => compareStrings(a.name, b.name)));
         }
 
         if (configuration.groupImportsBySource)
@@ -274,7 +274,7 @@ export class SourceCodeOrganizer
             {
                 for (const identifier of import1.namedImports)
                 {
-                    if (!SourceCodeAnalyzer.hasReference(sourceFile, identifier))
+                    if (!SourceCodeAnalyzer.hasReference(sourceFile, identifier.name))
                     {
                         remove(import1.namedImports, identifier);
 
