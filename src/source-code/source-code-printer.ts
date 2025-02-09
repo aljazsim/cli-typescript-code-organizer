@@ -91,34 +91,42 @@ export class SourceCodePrinter
         const namedImports = (node.namedImports ?? []).filter(ni => ni && ni.name.trim().length > 0);
         const nameBinding = node.nameBinding;
         const namespace = node.namespace;
+        let sourceCode = ""
 
         if (nameBinding)
         {
             if (namespace)
             {
-                return new SourceCode(`import ${nameBinding}, * as ${namespace} from ${quote}${source}${quote};`);
+                sourceCode = `import ${nameBinding}, * as ${namespace} from ${quote}${source}${quote};`;
             }
             else if (namedImports.length > 0)
             {
-                return new SourceCode(`import ${nameBinding}, { ${namedImports.map(ni => (ni.type ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ")} } from ${quote}${source}${quote};`);
+                sourceCode = `import ${nameBinding}, { ${namedImports.map(ni => (ni.type ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ")} } from ${quote}${source}${quote};`;
             }
             else
             {
-                return new SourceCode(`import ${nameBinding} from ${quote}${source}${quote};`);
+                sourceCode = `import ${nameBinding} from ${quote}${source}${quote};`;
             }
         }
         else if (namespace)
         {
-            return new SourceCode(`import * as ${namespace} from ${quote}${source}${quote};`);
+            sourceCode = `import * as ${namespace} from ${quote}${source}${quote};`;
         }
         else if (namedImports.length > 0)
         {
-            return new SourceCode(`import { ${namedImports.map(ni => (ni.type ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ")} } from ${quote}${source}${quote};`);
+            sourceCode = `import { ${namedImports.map(ni => (ni.type ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ")} } from ${quote}${source}${quote};`;
         }
         else
         {
-            return new SourceCode(`import ${quote}${source}${quote};`);
+            sourceCode = `import ${quote}${source}${quote};`;
         }
+
+        if (node.leadingComment)
+        {
+            sourceCode = node.leadingComment + sourceCode;
+        }
+
+        return new SourceCode(sourceCode);
     }
 
     private static printInterface(node: InterfaceNode, configuration: Configuration)
@@ -197,14 +205,14 @@ export class SourceCodePrinter
         {
             const nodeSourceCode = this.printNode(node, configuration);
 
-            if ((node instanceof PropertySignatureNode && node.hasLeadingComment) ||
-                (node instanceof IndexSignatureNode && node.hasLeadingComment) ||
-                (node instanceof GetterSignatureNode && node.hasLeadingComment) ||
-                (node instanceof SetterSignatureNode && node.hasLeadingComment) ||
-                (node instanceof MethodSignatureNode && node.hasLeadingComment) ||
-                (node instanceof PropertyNode && node.hasLeadingComment) ||
-                (node instanceof AccessorNode && node.hasLeadingComment) ||
-                (node instanceof VariableNode && node.leadingComment.length > 0))
+            if ((node instanceof PropertySignatureNode && node.leadingComment) ||
+                (node instanceof IndexSignatureNode && node.leadingComment) ||
+                (node instanceof GetterSignatureNode && node.leadingComment) ||
+                (node instanceof SetterSignatureNode && node.leadingComment) ||
+                (node instanceof MethodSignatureNode && node.leadingComment) ||
+                (node instanceof PropertyNode && node.leadingComment) ||
+                (node instanceof AccessorNode && node.leadingComment) ||
+                (node instanceof VariableNode && node.leadingComment))
             {
                 if (nodeGroup.nodes.indexOf(node) > 0)
                 {
@@ -312,8 +320,8 @@ export class SourceCodePrinter
 
         sourceCode = `${node.isConst ? "const" : "let"} ${sourceCode};`;
         sourceCode = `${node.isExport ? "export " : ""}${sourceCode}`;
-        sourceCode = `${node.leadingComment}${sourceCode}`;
-        sourceCode = `${sourceCode}${node.trailingComment}`;
+        sourceCode = `${node.leadingComment ?? ""}${sourceCode}`;
+        sourceCode = `${sourceCode}${node.trailingComment ?? ""}`;
 
         return new SourceCode(sourceCode);
     }
