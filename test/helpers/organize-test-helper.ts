@@ -8,9 +8,9 @@ export function getOrganizeSpecialCaseTestParameters()
 {
     const specialTestCaseDirectoryPath = "./test/organize-files/special-cases";
     const specialTestCases = [
-        "special-test-case-1",
-        "special-test-case-2",
-        "special-test-case-3"
+        "import-with-type",
+        "class-decorator-const-dependency",
+        "variable-dependency"
     ];
 
     const tests = [];
