@@ -230,6 +230,18 @@ export class SourceCodePrinter
                 }
             }
 
+            if (node instanceof VariableNode)
+            {
+                const index = nodeGroup.nodes.indexOf(node);
+
+                if (index > 0 && !(nodeGroup.nodes[index - 1] instanceof VariableNode))
+                {
+
+                    // separate variables from non-variables with an additional empty line
+                    nodeSourceCode.addNewLineBefore();
+                }
+            }
+
             nodeGroupSourceCode.add(nodeSourceCode);
         }
 
@@ -249,19 +261,16 @@ export class SourceCodePrinter
 
         for (const nodeGroup of nodeGroupsWithNodes)
         {
-            if (nodeGroup.getNodeCount() > 0)
+            const sourceCode = this.printNodeGroup(nodeGroup, configuration);
+
+            if (nodeGroupsWithNodes.length > 1 &&
+                nodeGroupsWithNodes.indexOf(nodeGroup) > 0)
             {
-                const sourceCode = this.printNodeGroup(nodeGroup, configuration);
-
-                if (nodeGroupsWithNodes.length > 1 &&
-                    nodeGroupsWithNodes.indexOf(nodeGroup) > 0)
-                {
-                    // add empty line before non-first group
-                    sourceCode.addNewLineBefore();
-                }
-
-                nodeGroupsSourceCode.add(sourceCode);
+                // add empty line before non-first group
+                sourceCode.addNewLineBefore();
             }
+
+            nodeGroupsSourceCode.add(sourceCode);
         }
 
         return nodeGroupsSourceCode;
