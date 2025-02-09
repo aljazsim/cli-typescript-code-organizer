@@ -1,0 +1,9 @@
+export class MyClass {
+    // #region Public Getters And Setters (1)
+
+    get [Symbol.toStringTag]() {
+        return 'MyClass';
+    }
+
+    // #endregion
+}

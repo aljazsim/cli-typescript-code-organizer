@@ -10,31 +10,19 @@ export function getOrganizeSpecialCaseTestParameters()
     const specialTestCases = [
         "import-with-type",
         "class-decorator-const-dependency",
-        "variable-dependency"
+        "variable-dependency",
+        "indexer"
     ];
-
-    const tests = [];
-
-    for (const testCase of specialTestCases)
-    {
-        tests.push(
-            {
-                name: testCase,
-                inputFilePath: `${specialTestCaseDirectoryPath}/${testCase}/${testCase}.ts`,
-                outputDirectoryPath: `${specialTestCaseDirectoryPath}/${testCase}`
-            });
-    }
 
     const memberOrganizeParameters: OrganizeTestParameters[] = [];
 
-    for (const test of tests)
+    for (const test of specialTestCases)
     {
         for (const configurationFilePath of getTestConfigurationFilePaths())
         {
-            const description = `organize ${test.name}: ${getFileNameWithoutExtension(configurationFilePath).replaceAll("-", " ")}`;
-            const inputFilePath = test.inputFilePath;
-            const outputDirectoryPath = test.outputDirectoryPath;
-            const outputFilePath = joinPath(outputDirectoryPath, getFileNameWithoutExtension(configurationFilePath) + ".ts");
+            const description = `organize ${test}: ${getFileNameWithoutExtension(configurationFilePath).replaceAll("-", " ")}`;
+            const inputFilePath = `${specialTestCaseDirectoryPath}/${test}/${test}.ts`;
+            const outputFilePath = `${specialTestCaseDirectoryPath}/${test}/${getFileNameWithoutExtension(configurationFilePath)}.ts`;
 
             memberOrganizeParameters.push(new OrganizeTestParameters(description, configurationFilePath, inputFilePath, outputFilePath));
         }
