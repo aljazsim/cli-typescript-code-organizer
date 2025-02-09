@@ -1,6 +1,6 @@
 import * as ts from "typescript";
 
-import { getHasLeadingComment } from "../helpers/node-helper.js";
+import { getHasLeadingComment, getLeadingComment, getTrailingComment } from "../helpers/node-helper.js";
 
 export abstract class ElementNode
 {
@@ -9,6 +9,8 @@ export abstract class ElementNode
     public readonly hasLeadingComment: boolean;
     public abstract readonly name: string;
     public readonly sourceCode: string;
+    public readonly leadingComment: string | null;
+    public readonly trailingComment: string | null;
 
     // #endregion Properties
 
@@ -17,7 +19,10 @@ export abstract class ElementNode
     constructor(sourceFile: ts.SourceFile, public readonly node: ts.Node)
     {
         this.sourceCode = ElementNode.getSourceCode(sourceFile, node.getFullStart(), node.getEnd());
+
         this.hasLeadingComment = getHasLeadingComment(node, sourceFile);
+        this.leadingComment = getLeadingComment(node, sourceFile);
+        this.trailingComment = getTrailingComment(node, sourceFile);
     }
 
     // #endregion Constructors

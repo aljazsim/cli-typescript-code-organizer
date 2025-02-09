@@ -11,7 +11,8 @@ export function getOrganizeSpecialCaseTestParameters()
         "import-with-type",
         "class-decorator-const-dependency",
         "variable-dependency",
-        "indexer"
+        "indexer",
+        "import-with-comment"
     ];
 
     const memberOrganizeParameters: OrganizeTestParameters[] = [];

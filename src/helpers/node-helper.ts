@@ -210,7 +210,7 @@ export function getLeadingComment(node: ts.Node, sourceFile: ts.SourceFile)
         const end = commentRanges[0].end;
         const trailingNewLine = commentRanges[0].hasTrailingNewLine;
 
-        return sourceCode.substring(start, end) + (trailingNewLine ? "\r\n" : "");
+        return sourceCode.substring(start, end).trimStart() + (trailingNewLine ? "\r\n" : "");
     }
     else
     {
@@ -311,7 +311,7 @@ export function getTrailingComment(node: ts.Node, sourceFile: ts.SourceFile)
         const end = commentRanges[0].end;
         const trailingNewLine = commentRanges[0].hasTrailingNewLine;
 
-        return sourceCode.substring(start, end) + (trailingNewLine ? "\r\n" : "");
+        return sourceCode.substring(start, end).trimEnd() + (trailingNewLine ? "\r\n" : "");
     }
     else
     {

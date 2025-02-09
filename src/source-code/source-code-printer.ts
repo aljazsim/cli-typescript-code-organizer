@@ -91,34 +91,42 @@ export class SourceCodePrinter
         const namedImports = (node.namedImports ?? []).filter(ni => ni && ni.name.trim().length > 0);
         const nameBinding = node.nameBinding;
         const namespace = node.namespace;
+        let sourceCode = ""
 
         if (nameBinding)
         {
             if (namespace)
             {
-                return new SourceCode(`import ${nameBinding}, * as ${namespace} from ${quote}${source}${quote};`);
+                sourceCode = `import ${nameBinding}, * as ${namespace} from ${quote}${source}${quote};`;
             }
             else if (namedImports.length > 0)
             {
-                return new SourceCode(`import ${nameBinding}, { ${namedImports.map(ni => (ni.type ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ")} } from ${quote}${source}${quote};`);
+                sourceCode = `import ${nameBinding}, { ${namedImports.map(ni => (ni.type ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ")} } from ${quote}${source}${quote};`;
             }
             else
             {
-                return new SourceCode(`import ${nameBinding} from ${quote}${source}${quote};`);
+                sourceCode = `import ${nameBinding} from ${quote}${source}${quote};`;
             }
         }
         else if (namespace)
         {
-            return new SourceCode(`import * as ${namespace} from ${quote}${source}${quote};`);
+            sourceCode = `import * as ${namespace} from ${quote}${source}${quote};`;
         }
         else if (namedImports.length > 0)
         {
-            return new SourceCode(`import { ${namedImports.map(ni => (ni.type ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ")} } from ${quote}${source}${quote};`);
+            sourceCode = `import { ${namedImports.map(ni => (ni.type ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ")} } from ${quote}${source}${quote};`;
         }
         else
         {
-            return new SourceCode(`import ${quote}${source}${quote};`);
+            sourceCode = `import ${quote}${source}${quote};`;
         }
+
+        if (node.leadingComment)
+        {
+            sourceCode = node.leadingComment + sourceCode;
+        }
+
+        return new SourceCode(sourceCode);
     }
 
     private static printInterface(node: InterfaceNode, configuration: Configuration)
