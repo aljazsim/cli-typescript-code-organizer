@@ -37,22 +37,15 @@ export interface TestInterface
 
     // a getter
     get publicGetter2(): number;
-
     get publicGetter4(): any;
-
     get publicGetterSetter1(): number;
-
     set publicGetterSetter1(size: number);
-
     set publicSetter1(value: any);
-
     set publicSetter2(value: any);
-
     set publicSetter3(value: number);
 
     // a setter
     set publicSetter4(value: any);
-
     set publicSetter5(size: number);
 
     // #endregion

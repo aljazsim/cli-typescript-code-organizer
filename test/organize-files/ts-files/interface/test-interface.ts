@@ -1,72 +1,68 @@
 export interface TestInterface
 {
-    readonly publicReadonlyProperty3: String;
+    // #region Properties (18)
 
-
-
-
-    publicProperty2: string;
-
-    // a setter
-    set publicSetter4(value: any);
-
-
-
-
-    readonly publicReadonlyProperty4: string;
-
-    readonly publicReadonlyProperty9: string;
-    set publicGetterSetter1(size: number);
-    publicProperty8: boolean;
-
-    readonly publicReadonlyProperty8: number;
-    publicMethod7(): string;
-
-    // a getter
-    get publicGetter2(): number;
-    publicProperty1: string;
-
+    readonly publicReadonlyProperty1: (p1: number, p2: number) => void;
     readonly publicReadonlyProperty2: string | undefined;
+    readonly publicReadonlyProperty3: String;
+    readonly publicReadonlyProperty4: string;
+    readonly publicReadonlyProperty5: string;
+    readonly publicReadonlyProperty6: string | undefined;
+    readonly publicReadonlyProperty7: string;
+    readonly publicReadonlyProperty8: number;
+    readonly publicReadonlyProperty9: string;
 
+    publicProperty1: string;
+    publicProperty2: string;
+    publicProperty3: string | undefined;
+    publicProperty4: string;
+    publicProperty5: number;
+    publicProperty6: (p1: string) => number;
 
     // a property
     publicProperty7: string;
-
-    // a method
-    publicMethod4(): number;
-    readonly publicReadonlyProperty6: string | undefined;
-    publicMethod6(): any;
-
-    publicProperty3: string | undefined;
-
-    publicProperty5: number;
-
-
-
-
+    publicProperty8: boolean;
     publicProperty9: string | null;
+
+    // #endregion Properties
+
+    // #region Indexes (1)
 
     // an index
     [key: string]: any;
-    readonly publicReadonlyProperty1: (p1: number, p2: number) => void;
-    publicMethod5(): number | undefined;
+
+    // #endregion Indexes
+
+    // #region Getters And Setters (9)
+
+    // a getter
+    get publicGetter2(): number;
+    get publicGetter4(): any;
     get publicGetterSetter1(): number;
-    readonly publicReadonlyProperty5: string;
+    set publicGetterSetter1(size: number);
     set publicSetter1(value: any);
-
     set publicSetter2(value: any);
-    publicMethod1(): number;
-    publicMethod3(): () => number;
     set publicSetter3(value: number);
-    publicMethod8(): Promise<boolean>;
-    publicProperty6: (p1: string) => number;
-    publicMethod2(): void;
 
-    publicProperty4: string;
+    // a setter
+    set publicSetter4(value: any);
     set publicSetter5(size: number);
-    readonly publicReadonlyProperty7: string;
+
+    // #endregion Getters And Setters
+
+    // #region Methods (9)
+
+    publicMethod1(): number;
+    publicMethod2(): void;
+    publicMethod3(): () => number;
+
+    // a method
+    publicMethod4(): number;
+    publicMethod5(): number | undefined;
+    publicMethod6(): any;
+    publicMethod7(): string;
+    publicMethod8(): Promise<boolean>;
     publicMethod9(): void;
 
-
-    get publicGetter4(): any;
+    // #endregion Methods
 }

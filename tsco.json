@@ -6,7 +6,8 @@
             "node_modules/**",
             "dist/**",
             "out/**",
-            "test/**/ts-files/**"
+            "test/**/ts-files/**",
+            "test/**/special-cases/**"
         ]
     },
     "imports": {

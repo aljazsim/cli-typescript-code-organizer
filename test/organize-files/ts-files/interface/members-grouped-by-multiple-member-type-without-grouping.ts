@@ -31,13 +31,9 @@ export interface TestInterface
 
     // a getter
     get publicGetter2(): number;
-
     get publicGetter4(): any;
-
     get publicGetterSetter1(): number;
-
     set publicGetterSetter1(size: number);
-
     publicMethod1(): number;
     publicMethod2(): void;
     publicMethod3(): () => number;
@@ -50,14 +46,11 @@ export interface TestInterface
     publicMethod8(): Promise<boolean>;
     publicMethod9(): void;
     set publicSetter1(value: any);
-
     set publicSetter2(value: any);
-
     set publicSetter3(value: number);
 
     // a setter
     set publicSetter4(value: any);
-
     set publicSetter5(size: number);
 
     // #endregion Methods, getter and setters

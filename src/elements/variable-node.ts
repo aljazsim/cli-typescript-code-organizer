@@ -19,7 +19,6 @@ export class VariableNode extends ElementNode
     {
         super(sourceFile, variableDeclaration);
 
-        // this.name = variableDeclaration.declarationList.declarations.map(d => (<ts.Identifier>d.name).escapedText.toString()).join(",");
         this.name = (<ts.Identifier>variableDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(variableDeclaration.name.pos, variableDeclaration.name.end).trim();
 
         this.isArrowFunction = getIsArrowFunction(variableDeclaration);

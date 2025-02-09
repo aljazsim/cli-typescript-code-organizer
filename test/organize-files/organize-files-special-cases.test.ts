@@ -26,7 +26,7 @@ for (const otp of getOrganizeSpecialCaseTestParameters())
 
         const expectedOrganizedSourceCode = await readFile(expectedOrganizedSourceCodeFilePath);
 
-        if (organizedSourceCode === expectedOrganizedSourceCode)
+        if (organizedSourceCode == expectedOrganizedSourceCode)
         {
             if (await fileExists(organizedSourceCodeFilePath))
             {

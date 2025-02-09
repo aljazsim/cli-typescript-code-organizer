@@ -6,12 +6,12 @@ let a01;
 /**
  * The variable
  */
-export let a09 = a12;
-export const a15 = a05;
+export let a09 = "a12";
+export const a15 = "a05";
 export let a03: number = 6751147137;
 // a variable
 let a14: (p1: string) => number;
 let a13 = null;
 export const a06 = () => "poiuopiuopuip";
 export let a02: any;
-const a08 = a11;
+const a08 = "a11";

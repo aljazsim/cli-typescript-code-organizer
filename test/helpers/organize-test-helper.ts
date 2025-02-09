@@ -6,25 +6,23 @@ import { OrganizeTestParameters } from "./organize-test-parameters.js";
 
 export function getOrganizeSpecialCaseTestParameters()
 {
-    const specialTestCaseOutputDirectoryPath = "./test/organize-files/special-cases";
-    const specialTestCase1tOutput = `${specialTestCaseOutputDirectoryPath}/special-test-case-1`;
-
-    const specialTestCaseInputDirectoryPath = './test/organize-files/special-cases';
-    const specialTestCase1Input = `${specialTestCaseInputDirectoryPath}/special-test-case-1/special-test-case-1.ts`;
-
-    const tests = [
-        { name: "Special Test Case 1", inputFilePath: specialTestCase1Input, outputDirectoryPath: specialTestCase1tOutput },
+    const specialTestCaseDirectoryPath = "./test/organize-files/special-cases";
+    const specialTestCases = [
+        "import-with-type",
+        "class-decorator-const-dependency",
+        "variable-dependency",
+        "indexer"
     ];
+
     const memberOrganizeParameters: OrganizeTestParameters[] = [];
 
-    for (const test of tests)
+    for (const test of specialTestCases)
     {
         for (const configurationFilePath of getTestConfigurationFilePaths())
         {
-            const description = `organize ${test.name}: ${getFileNameWithoutExtension(configurationFilePath).replaceAll("-", " ")}`;
-            const inputFilePath = test.inputFilePath;
-            const outputDirectoryPath = test.outputDirectoryPath;
-            const outputFilePath = joinPath(outputDirectoryPath, getFileNameWithoutExtension(configurationFilePath) + ".ts");
+            const description = `organize ${test}: ${getFileNameWithoutExtension(configurationFilePath).replaceAll("-", " ")}`;
+            const inputFilePath = `${specialTestCaseDirectoryPath}/${test}/${test}.ts`;
+            const outputFilePath = `${specialTestCaseDirectoryPath}/${test}/${getFileNameWithoutExtension(configurationFilePath)}.ts`;
 
             memberOrganizeParameters.push(new OrganizeTestParameters(description, configurationFilePath, inputFilePath, outputFilePath));
         }

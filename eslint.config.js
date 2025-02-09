@@ -7,5 +7,5 @@ export default [
     { languageOptions: { globals: globals.browser } },
     pluginJs.configs.recommended,
     ...tseslint.configs.recommended,
-    { ignores: ["**/ts-files/**/*", "coverage/", "out/"] }
+    { ignores: ["**/special-cases/**/*", "**/ts-files/**/*", "coverage/", "out/"] }
 ];
