@@ -129,11 +129,6 @@ export function getFunctions(nodes: ElementNode[], treatArrowFunctionVariablesAs
     return functions.concat(arrowFunctionVariables).concat(arrowFunctionConstants).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
-export function getHasLeadingComment(node: ts.Node, sourceFile: ts.SourceFile)
-{
-    return ts.getLeadingCommentRanges(node.getFullText(sourceFile), 0) !== undefined;
-}
-
 export function getImports(nodes: ElementNode[])
 {
     return nodes.filter(n => n instanceof ImportNode);
@@ -214,7 +209,7 @@ export function getLeadingComment(node: ts.Node, sourceFile: ts.SourceFile)
     }
     else
     {
-        return "";
+        return null;
     }
 }
 
@@ -315,7 +310,7 @@ export function getTrailingComment(node: ts.Node, sourceFile: ts.SourceFile)
     }
     else
     {
-        return "";
+        return null;
     }
 }
 

@@ -205,14 +205,14 @@ export class SourceCodePrinter
         {
             const nodeSourceCode = this.printNode(node, configuration);
 
-            if ((node instanceof PropertySignatureNode && node.hasLeadingComment) ||
-                (node instanceof IndexSignatureNode && node.hasLeadingComment) ||
-                (node instanceof GetterSignatureNode && node.hasLeadingComment) ||
-                (node instanceof SetterSignatureNode && node.hasLeadingComment) ||
-                (node instanceof MethodSignatureNode && node.hasLeadingComment) ||
-                (node instanceof PropertyNode && node.hasLeadingComment) ||
-                (node instanceof AccessorNode && node.hasLeadingComment) ||
-                (node instanceof VariableNode && node.leadingComment.length > 0))
+            if ((node instanceof PropertySignatureNode && node.leadingComment) ||
+                (node instanceof IndexSignatureNode && node.leadingComment) ||
+                (node instanceof GetterSignatureNode && node.leadingComment) ||
+                (node instanceof SetterSignatureNode && node.leadingComment) ||
+                (node instanceof MethodSignatureNode && node.leadingComment) ||
+                (node instanceof PropertyNode && node.leadingComment) ||
+                (node instanceof AccessorNode && node.leadingComment) ||
+                (node instanceof VariableNode && node.leadingComment))
             {
                 if (nodeGroup.nodes.indexOf(node) > 0)
                 {
@@ -320,8 +320,8 @@ export class SourceCodePrinter
 
         sourceCode = `${node.isConst ? "const" : "let"} ${sourceCode};`;
         sourceCode = `${node.isExport ? "export " : ""}${sourceCode}`;
-        sourceCode = `${node.leadingComment}${sourceCode}`;
-        sourceCode = `${sourceCode}${node.trailingComment}`;
+        sourceCode = `${node.leadingComment ?? ""}${sourceCode}`;
+        sourceCode = `${sourceCode}${node.trailingComment ?? ""}`;
 
         return new SourceCode(sourceCode);
     }
