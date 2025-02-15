@@ -32,6 +32,7 @@ export class SourceCodeOrganizer
             try 
             {
                 const sourceCodeWithoutRegions = new SourceCode(sourceCode);
+                
                 sourceCodeWithoutRegions.removeRegions(); // strip regions, they will get re-generated
 
                 const sourceFile = ts.createSourceFile(sourceCodeFilePath, sourceCodeWithoutRegions.toString(), ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);

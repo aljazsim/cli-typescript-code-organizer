@@ -4,6 +4,7 @@ import { AccessorNode } from "../elements/accessor-node.js";
 import { ClassNode } from "../elements/class-node.js";
 import { ElementNodeGroup } from "../elements/element-node-group.js";
 import { ElementNode } from "../elements/element-node.js";
+import { ExpressionNode } from "../elements/expression-node.js";
 import { FunctionNode } from "../elements/function-node.js";
 import { GetterNode } from "../elements/getter-node.js";
 import { GetterSignatureNode } from "../elements/getter-signature-node.js";
@@ -70,15 +71,15 @@ export class SourceCodePrinter
 
         if (beforeMembers.length > 0)
         {
-            nodeSourceCode.add(beforeMembers);
+            nodeSourceCode.addAfter(beforeMembers);
             nodeSourceCode.addNewLineAfter();
         }
 
-        nodeSourceCode.add(members);
+        nodeSourceCode.addAfter(members);
 
         if (afterMembers.length > 0)
         {
-            nodeSourceCode.add(afterMembers);
+            nodeSourceCode.addAfter(afterMembers);
         }
 
         return nodeSourceCode;
@@ -138,15 +139,15 @@ export class SourceCodePrinter
 
         if (beforeMembers.length > 0)
         {
-            nodeSourceCode.add(beforeMembers);
+            nodeSourceCode.addAfter(beforeMembers);
             nodeSourceCode.addNewLineAfter();
         }
 
-        nodeSourceCode.add(members);
+        nodeSourceCode.addAfter(members);
 
         if (afterMembers.length > 0)
         {
-            nodeSourceCode.add(afterMembers);
+            nodeSourceCode.addAfter(afterMembers);
         }
 
         return nodeSourceCode;
@@ -198,7 +199,7 @@ export class SourceCodePrinter
         const nodeGroupNodeCount = nodeGroup.getNodeCount();
 
         // print subgroups
-        nodeGroupSourceCode.add(this.printNodeGroups(nodeGroup.nodeSubGroups, configuration));
+        nodeGroupSourceCode.addAfter(this.printNodeGroups(nodeGroup.nodeSubGroups, configuration));
 
         // print nodes within a group
         for (const node of nodeGroup.nodes)
@@ -229,7 +230,8 @@ export class SourceCodePrinter
                 node instanceof FunctionNode ||
                 node instanceof MethodNode ||
                 (node instanceof PropertyNode && node.writeMode !== WriteModifier.readOnly && node.isArrowFunction && configuration.classes.members.treatArrowFunctionPropertiesAsMethods) ||
-                (node instanceof PropertyNode && node.writeMode === WriteModifier.readOnly && node.isArrowFunction && configuration.classes.members.treatArrowFunctionReadOnlyPropertiesAsMethods))
+                (node instanceof PropertyNode && node.writeMode === WriteModifier.readOnly && node.isArrowFunction && configuration.classes.members.treatArrowFunctionReadOnlyPropertiesAsMethods) ||
+                node instanceof ExpressionNode)
             {
                 if (nodeGroup.nodes.indexOf(node) > 0)
                 {
@@ -249,7 +251,7 @@ export class SourceCodePrinter
                 }
             }
 
-            nodeGroupSourceCode.add(nodeSourceCode);
+            nodeGroupSourceCode.addAfter(nodeSourceCode);
         }
 
         if (nodeGroup.isRegion && nodeGroup.regionConfiguration?.addRegions)
@@ -277,7 +279,7 @@ export class SourceCodePrinter
                 sourceCode.addNewLineBefore();
             }
 
-            nodeGroupsSourceCode.add(sourceCode);
+            nodeGroupsSourceCode.addAfter(sourceCode);
         }
 
         return nodeGroupsSourceCode;
@@ -308,15 +310,15 @@ export class SourceCodePrinter
 
         if (beforeMembers.length > 0)
         {
-            nodeSourceCode.add(beforeMembers);
+            nodeSourceCode.addAfter(beforeMembers);
             nodeSourceCode.addNewLineAfter();
         }
 
-        nodeSourceCode.add(members);
+        nodeSourceCode.addAfter(members);
 
         if (afterMembers.length > 0)
         {
-            nodeSourceCode.add(afterMembers);
+            nodeSourceCode.addAfter(afterMembers);
         }
 
         return nodeSourceCode;
