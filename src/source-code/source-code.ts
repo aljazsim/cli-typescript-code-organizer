@@ -23,7 +23,7 @@ export class SourceCode
 
     // #endregion Constructors
 
-    // #region Public Methods (12)
+    // #region Public Methods (13)
 
     public addAfter(newSourceCode: string | SourceCode)
     {
