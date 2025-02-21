@@ -155,7 +155,8 @@ export class SourceCodeOrganizer
         const imports = getImports(elements);
         const interfaces = getInterfaces(elements);
         const classes = getClasses(elements, false);
-        const types = getTypeAliases(elements);
+        const types = getTypeAliases(elements, false);        
+        const exportedTypes = getTypeAliases(elements, true);
         const enums = getEnums(elements);
         const functions = getFunctions(elements, configuration.modules.members.treatArrowFunctionVariablesAsMethods, configuration.modules.members.treatArrowFunctionConstantsAsMethods, false);
         const exportedFunctions = getFunctions(elements, configuration.modules.members.treatArrowFunctionVariablesAsMethods, configuration.modules.members.treatArrowFunctionConstantsAsMethods, true);
@@ -208,6 +209,10 @@ export class SourceCodeOrganizer
                     {
                         elementNodes = types;
                     }
+                    else if (memberType === ModuleMemberType.exportedTypes)
+                    {
+                        elementNodes = exportedTypes;
+                    }
                     else if (memberType === ModuleMemberType.interfaces)
                     {
                         elementNodes = interfaces;
@@ -249,7 +254,7 @@ export class SourceCodeOrganizer
 
                 if (memberGroups.length > 0)
                 {
-                    const isRegion = enums.length + types.length + interfaces.length + classes.length > 1 ||
+                    const isRegion = enums.length + types.length + exportedTypes.length + interfaces.length + classes.length > 1 ||
                         functions.length > 0 ||
                         exportedFunctions.length > 0 ||
                         constants.length > 0 ||
