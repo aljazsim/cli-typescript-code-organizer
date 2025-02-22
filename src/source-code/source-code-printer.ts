@@ -93,6 +93,17 @@ export class SourceCodePrinter
         const nameBinding = node.nameBinding;
         const namespace = node.namespace;
         let sourceCode = ""
+        let namedImportsSourceCode = "";
+
+        if (namedImports.length > 0)
+        {
+            const allTypeOnly = namedImports.every(ni => ni.typeOnly);
+
+            namedImportsSourceCode += allTypeOnly ? "type " : "";
+            namedImportsSourceCode += "{ ";
+            namedImportsSourceCode += namedImports.map(ni => (ni.typeOnly && !allTypeOnly ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ");
+            namedImportsSourceCode += " }";
+        }
 
         if (nameBinding)
         {
@@ -102,7 +113,7 @@ export class SourceCodePrinter
             }
             else if (namedImports.length > 0)
             {
-                sourceCode = `import ${nameBinding}, { ${namedImports.map(ni => (ni.type ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ")} } from ${quote}${source}${quote};`;
+                sourceCode = `import ${nameBinding}, ${namedImportsSourceCode} from ${quote}${source}${quote};`;
             }
             else
             {
@@ -115,7 +126,7 @@ export class SourceCodePrinter
         }
         else if (namedImports.length > 0)
         {
-            sourceCode = `import { ${namedImports.map(ni => (ni.type ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ")} } from ${quote}${source}${quote};`;
+            sourceCode = `import ${namedImportsSourceCode} from ${quote}${source}${quote};`;
         }
         else
         {

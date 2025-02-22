@@ -8,7 +8,7 @@ import { ElementNode } from "../elements/element-node.js";
 import { ImportNode } from "../elements/import-node.js";
 import { VariableNode } from "../elements/variable-node.js";
 import { ModuleMemberType } from "../enums/module-member-type.js";
-import { distinct, except, intersect, remove } from "../helpers/array-helper.js";
+import { except, intersect, remove } from "../helpers/array-helper.js";
 import { compareStrings } from "../helpers/comparing-helper.js";
 import { getFileExtension } from "../helpers/file-system-helper.js";
 import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
@@ -32,7 +32,7 @@ export class SourceCodeOrganizer
             try 
             {
                 const sourceCodeWithoutRegions = new SourceCode(sourceCode);
-                
+
                 sourceCodeWithoutRegions.removeRegions(); // strip regions, they will get re-generated
 
                 const sourceFile = ts.createSourceFile(sourceCodeFilePath, sourceCodeWithoutRegions.toString(), ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
@@ -96,7 +96,29 @@ export class SourceCodeOrganizer
                         (!firstImport.namespace && !secondImport.namespace))
                     {
                         firstImport.nameBinding = firstImport.nameBinding ?? secondImport.nameBinding;
-                        firstImport.namedImports = distinct((firstImport.namedImports ?? []).concat(secondImport.namedImports ?? []));
+                        firstImport.namedImports = firstImport.namedImports ?? [];
+
+                        for (const secondNamedImport of secondImport.namedImports ?? [])
+                        {
+                            const match = firstImport.namedImports.find(ni => ni.name === secondNamedImport.name);
+
+                            if (!match)
+                            {
+                                firstImport.namedImports.push(secondNamedImport);
+                            }
+                            else 
+                            {
+                                if (!match.typeOnly && secondNamedImport.typeOnly)
+                                {
+                                    match.typeOnly = true;
+                                }
+
+                                if (match.alias == null && !secondNamedImport.alias)
+                                {
+                                    match.alias = secondNamedImport.alias;
+                                }
+                            }
+                        }
 
                         remove(imports, secondImport);
                     }
