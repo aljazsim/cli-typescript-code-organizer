@@ -317,6 +317,7 @@ Member types are dependant on where are they being used: modules, classes, inter
 | ------------ | ------------------- | ------------------- |
 | `enums`      | `functions`         | `constants`         |
 | `types`      | `exportedFunctions` | `exportedConstants` |
+| `exportedTypes` |                  |                     |
 | `interfaces` |                     | `variables`         |
 | `classes`    |                     | `exportedVariables` |
 

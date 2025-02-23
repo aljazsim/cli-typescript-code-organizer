@@ -45,7 +45,7 @@
             {
                 "sortDirection": "desc",
                 "caption": "Types",
-                "memberTypes": ["types"],
+                "memberTypes": ["types", "exportedTypes"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []

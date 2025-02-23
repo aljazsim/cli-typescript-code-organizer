@@ -2,6 +2,7 @@ export enum ModuleMemberType
 {
     enums = "enums",
     types = "types",
+    exportedTypes = "exportedTypes",
     interfaces = "interfaces",
     classes = "classes",
     functions = "functions",

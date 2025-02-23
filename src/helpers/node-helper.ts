@@ -170,7 +170,7 @@ export function getIsConst(node: ts.VariableDeclarationList)
     return node.flags === ts.NodeFlags.Const;
 }
 
-export function getIsExport(node: ts.ClassDeclaration | ts.FunctionDeclaration | ts.VariableStatement)
+export function getIsExport(node: Pick<ts.ClassDeclaration | ts.FunctionDeclaration | ts.VariableStatement | ts.TypeAliasDeclaration, "modifiers">)
 {
     let isExport = false;
 
@@ -314,9 +314,12 @@ export function getTrailingComment(node: ts.Node, sourceFile: ts.SourceFile)
     }
 }
 
-export function getTypeAliases(nodes: ElementNode[])
+export function getTypeAliases(nodes: ElementNode[], exported: boolean)
 {
-    return nodes.filter(n => n instanceof TypeAliasNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
+    return nodes.filter(n => n instanceof TypeAliasNode)
+        .map(t => t as TypeAliasNode)
+        .filter(f => f.isExport === exported)
+        .sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
 export function getVariables(nodes: ElementNode[], constant: boolean, exported: boolean, arrowFunctionVariables: boolean | null)
