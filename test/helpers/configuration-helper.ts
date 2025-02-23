@@ -20,6 +20,8 @@ export function getTestConfigurationFilePaths()
     const defaultConfigurationWithoutGroupingImportsBySource = "default-configuration-without-grouping-imports-by-source.json";
     const defaultConfigurationWithoutSeparatingImportGroups = "default-configuration-without-separating-import-groups.json";
     const defaultConfigurationWithSingleQuotesForImports = "default-configuration-with-single-quotes-for-imports.json";
+    const defaultConfigurationWithAlwaysExpandingImports = "default-configuration-with-always-expanding-imports.json";
+    const defaultConfigurationWithExpandingImportsIfMoreThanOne = "default-configuration-with-expanding-imports-if-more-than-one.json";
 
     //  individual members configuration variations
     const membersGroupedByIndividualMemberTypeConfigurationFilePath = "members-grouped-by-individual-member-type.json";
@@ -45,6 +47,8 @@ export function getTestConfigurationFilePaths()
         defaultConfigurationWithoutGroupingImportsBySource,
         defaultConfigurationWithoutSeparatingImportGroups,
         defaultConfigurationWithSingleQuotesForImports,
+        defaultConfigurationWithAlwaysExpandingImports,
+        defaultConfigurationWithExpandingImportsIfMoreThanOne,
 
         membersGroupedByIndividualMemberTypeConfigurationFilePath,
         membersGroupedByIndividualMemberTypeWithArrowPropertiesAsMethodsConfigurationFilePath,

@@ -19,6 +19,7 @@ import { SetterNode } from "../elements/setter-node.js";
 import { SetterSignatureNode } from "../elements/setter-signature-node.js";
 import { TypeAliasNode } from "../elements/type-alias-node.js";
 import { VariableNode } from "../elements/variable-node.js";
+import { ImportExpand } from "../enums/import-expand.js";
 import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
 import { WriteModifier } from "../enums/write-modifier.js";
 import { SourceCode } from "./source-code.js";
@@ -85,6 +86,9 @@ export class SourceCodePrinter
         return nodeSourceCode;
     }
 
+    private static readonly newLine = "\r\n";
+
+
     private static printImport(node: ImportNode, configuration: ImportConfiguration)
     {
         const source = node.source;
@@ -97,12 +101,13 @@ export class SourceCodePrinter
 
         if (namedImports.length > 0)
         {
+            const expand = configuration.expand === ImportExpand.Always || configuration.expand === ImportExpand.WhenMoreThanOneNamedImport && namedImports.length > 1;
             const allTypeOnly = namedImports.every(ni => ni.typeOnly);
 
             namedImportsSourceCode += allTypeOnly ? "type " : "";
-            namedImportsSourceCode += "{ ";
-            namedImportsSourceCode += namedImports.map(ni => (ni.typeOnly && !allTypeOnly ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ");
-            namedImportsSourceCode += " }";
+            namedImportsSourceCode += `{${expand ? this.newLine : " "}`;
+            namedImportsSourceCode += namedImports.map(ni => (expand ? "    " : "") + (ni.typeOnly && !allTypeOnly ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(`,${expand ? this.newLine : " "}`);
+            namedImportsSourceCode += `${expand ? this.newLine : " "}}`;
         }
 
         if (nameBinding)

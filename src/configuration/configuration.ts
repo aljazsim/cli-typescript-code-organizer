@@ -1,5 +1,6 @@
 import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
 import { ClassMemberType } from "../enums/class-member-type.js";
+import { ImportExpand } from "../enums/import-expand.js";
 import { InterfaceMemberType } from "../enums/interface-member-type.js";
 import { ModuleMemberType } from "../enums/module-member-type.js";
 import { TypeMemberType } from "../enums/type-member-type.js";
@@ -78,7 +79,8 @@ export class Configuration
                     configuration.imports?.sortImportsByName ?? defaultConfiguration.imports.sortImportsByName,
                     configuration.imports?.groupImportsBySource ?? defaultConfiguration.imports.groupImportsBySource,
                     configuration.imports?.separateImportGroups ?? defaultConfiguration.imports.separateImportGroups,
-                    this.parseImportSourceFilePathQuoteType(configuration.imports?.quote) ?? defaultConfiguration.imports.quote
+                    this.parseImportSourceFilePathQuoteType(configuration.imports?.quote) ?? defaultConfiguration.imports.quote,
+                    this.parseImportExpand(configuration.imports?.expand) ?? defaultConfiguration.imports.expand
                 ),
             new ModuleConfiguration
                 (
@@ -159,7 +161,8 @@ export class Configuration
                     defaultConfiguration.imports.sortImportsByName,
                     defaultConfiguration.imports.groupImportsBySource,
                     defaultConfiguration.imports.separateImportGroups,
-                    this.parseImportSourceFilePathQuoteType(defaultConfiguration.imports.quote) ?? ImportSourceFilePathQuoteType.Double
+                    this.parseImportSourceFilePathQuoteType(defaultConfiguration.imports.quote) ?? ImportSourceFilePathQuoteType.Double,
+                    this.parseImportExpand(defaultConfiguration.imports.expand) ?? ImportExpand.Never
                 ),
             new ModuleConfiguration
                 (
@@ -348,6 +351,26 @@ export class Configuration
         else if (quoteType === ImportSourceFilePathQuoteType.Single)
         {
             return ImportSourceFilePathQuoteType.Single;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private static parseImportExpand(importExpand: string)
+    {
+        if (importExpand === ImportExpand.Never)
+        {
+            return ImportExpand.Never;
+        }
+        else if (importExpand === ImportExpand.Always)
+        {
+            return ImportExpand.Always;
+        }
+        else if (importExpand === ImportExpand.WhenMoreThanOneNamedImport)
+        {
+            return ImportExpand.WhenMoreThanOneNamedImport;
         }
         else
         {

@@ -1,3 +1,4 @@
+import { ImportExpand } from "../enums/import-expand.js";
 import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
 
 export class ImportConfiguration
@@ -10,7 +11,9 @@ export class ImportConfiguration
         public readonly sortImportsByName: boolean,
         public readonly groupImportsBySource: boolean,
         public readonly separateImportGroups: boolean,
-        public readonly quote: ImportSourceFilePathQuoteType)
+        public readonly quote: ImportSourceFilePathQuoteType,
+        public readonly expand: ImportExpand,
+    )
     {
     }
 
