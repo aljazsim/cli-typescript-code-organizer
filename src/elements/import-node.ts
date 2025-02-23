@@ -5,7 +5,7 @@ import { ElementNode } from "./element-node.js";
 
 export class ImportNode extends ElementNode
 {
-    // #region Properties (6)
+    // #region Properties (7)
 
     public readonly name: string;
 
