@@ -111,19 +111,22 @@ export function parseCommandLineArguments(commandLineArguments: string[])
     const defaultConfigurationFilePath = "./tsco.json";
     const getArgument = (args: string[], short: string, long: string) =>
     {
-        // Get the argument index
+        // get argument index
         const argIndex = args.findIndex(a => a.startsWith(long) || a.startsWith(short));
-        
-        // If not found, return null
-        if (argIndex === -1) return null;
 
-        // Get the argument value
-        // ? If the arg index is not the last index and the next arg does not start with a dash, return the next arg
-        // : Otherwise, return the current arg
-        const argValue = args[argIndex + 1] && !args[argIndex + 1].startsWith("-") ? args[argIndex + 1] : args[argIndex];
-        
-        // Return the argument value
-        return argValue.trim().replace(/['"`]+/g, '').trim();
+        // see if there is an argument value after the argument (and not the next argument)
+        if (argIndex >= 0 &&
+            argIndex + 1 < args.length)
+        {
+            if (args[argIndex + 1] &&
+                args[argIndex + 1].length > 0 &&
+                !args[argIndex + 1].startsWith("-"))
+            {
+                return args[argIndex + 1].trim().replace(/['"`]+/g, '').trim();
+            }
+        }
+
+        return null;
     };
 
     return {
