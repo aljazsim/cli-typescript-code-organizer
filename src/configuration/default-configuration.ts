@@ -35,7 +35,7 @@ export const defaultConfiguration: Configuration =
             {
                 sortDirection: "asc",
                 caption: "Enums",
-                memberTypes: [ModuleMemberType.enums],
+                memberTypes: [ModuleMemberType.enums, ModuleMemberType.exportedEnums],
                 memberTypesGrouped: true,
                 placeAbove: [],
                 placeBelow: []

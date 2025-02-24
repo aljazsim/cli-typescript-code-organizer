@@ -1,11 +1,13 @@
 import ts from "typescript";
 
 import { ElementNode } from "./element-node.js";
+import { getIsExport } from "../helpers/node-helper.js";
 
 export class EnumNode extends ElementNode
 {
     // #region Properties (1)
 
+    public readonly isExport: boolean;
     public readonly name: string;
 
     // #endregion Properties
@@ -17,6 +19,8 @@ export class EnumNode extends ElementNode
         super(sourceFile, enumDeclaration);
 
         this.name = (<ts.Identifier>enumDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(enumDeclaration.name.pos, enumDeclaration.name.end).trim();
+
+        this.isExport = getIsExport(enumDeclaration);
     }
 
     // #endregion Constructors

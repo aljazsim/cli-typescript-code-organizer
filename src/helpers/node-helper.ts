@@ -106,9 +106,12 @@ export function getDependencies(sourceFile: ts.SourceFile, node: ts.Node, depend
     return distinct(dependencies).sort();
 }
 
-export function getEnums(nodes: ElementNode[])
+export function getEnums(nodes: ElementNode[], exported: boolean)
 {
-    return nodes.filter(n => n instanceof EnumNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
+    return nodes.filter(n => n instanceof EnumNode)
+        .map(t => t as EnumNode)
+        .filter(f => f.isExport === exported)
+        .sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 
 export function getExpressions(nodes: ElementNode[])

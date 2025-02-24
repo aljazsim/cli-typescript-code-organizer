@@ -299,7 +299,7 @@ Specifies how members are grouped together when organizing modules, classes, int
         {
                 "sortDirection": "asc", <-- member group sorting direction (can be "asc" for ascending, "desc" for descending or "none" for no sorting)
                 "caption": "Enums", <-- member group caption (will be used as a region name when using regions)
-                "memberTypes": ["enums"], <-- member group module members (see tables below)
+                "memberTypes": ["enums", "exportedEnums"], <-- member group module members (see tables below)
                 "memberTypesGrouped": true, <-- member groups will be grouped by member type when set to true or merged with other member types when set to false (only works if there's more than one member type specified in the member types)
                 "placeAbove": [], <-- member name patterns for placing particular members on top of the member group (supports exact match, wildcard patterns and regex)
                 "placeBelow": [] <-- member name patterns for placing particular members on bottom of the member group (supports exact match, wildcard patterns and regex)
@@ -318,6 +318,7 @@ Member types are dependant on where are they being used: modules, classes, inter
 | `enums`      | `functions`         | `constants`         |
 | `types`      | `exportedFunctions` | `exportedConstants` |
 | `exportedTypes` |                  |                     |
+| `exportedEnums` |                  |                     |
 | `interfaces` |                     | `variables`         |
 | `classes`    |                     | `exportedVariables` |
 

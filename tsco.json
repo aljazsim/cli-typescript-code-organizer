@@ -32,7 +32,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Enums",
-                "memberTypes": ["enums"],
+                "memberTypes": ["enums", "exportedEnums"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []
