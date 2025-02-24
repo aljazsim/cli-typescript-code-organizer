@@ -11,13 +11,13 @@ import { PropertySignatureNode } from "./property-signature-node.js";
 
 export class TypeAliasNode extends ElementNode
 {
-    // #region Properties (6)
+    // #region Properties (7)
 
     public readonly indexes: IndexSignatureNode[] = [];
+    public readonly isExport: boolean;
     public readonly membersEnd: number = 0;
     public readonly membersStart: number = 0;
     public readonly methods: MethodSignatureNode[] = [];
-    public readonly isExport: boolean;
     public readonly name: string;
     public readonly properties: PropertySignatureNode[] = [];
 

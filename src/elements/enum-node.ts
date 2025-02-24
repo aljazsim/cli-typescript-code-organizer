@@ -1,11 +1,11 @@
 import ts from "typescript";
 
-import { ElementNode } from "./element-node.js";
 import { getIsExport } from "../helpers/node-helper.js";
+import { ElementNode } from "./element-node.js";
 
 export class EnumNode extends ElementNode
 {
-    // #region Properties (1)
+    // #region Properties (2)
 
     public readonly isExport: boolean;
     public readonly name: string;
