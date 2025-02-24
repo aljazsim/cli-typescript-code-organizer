@@ -7,6 +7,7 @@ export enum ModuleMemberType
     interfaces = "interfaces",
     exportedInterfaces = "exportedInterfaces",
     classes = "classes",
+    exportedClasses = "exportedClasses",
     functions = "functions",
     exportedFunctions = "exportedFunctions",
     constants = "constants",

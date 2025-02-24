@@ -48,7 +48,7 @@
             {
                 "sortDirection": "asc",
                 "caption": "Classes",
-                "memberTypes": ["classes"],
+                "memberTypes": ["classes", "exportedClasses"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []

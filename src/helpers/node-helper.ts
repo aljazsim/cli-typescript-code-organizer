@@ -74,9 +74,12 @@ export function getAccessModifier(node: ts.PropertyDeclaration | ts.GetAccessorD
     return accessModifier;
 }
 
-export function getClasses(nodes: ElementNode[], groupWithDecorators: boolean)
+export function getClasses(nodes: ElementNode[], groupWithDecorators: boolean, exported: boolean)
 {
-    return nodes.filter(n => n instanceof ClassNode).sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
+    return nodes.filter(n => n instanceof ClassNode)
+        .map(c => c as ClassNode)
+        .filter(c => c.isExport === exported)
+        .sort((a, b) => compareStrings(getName(a, groupWithDecorators), getName(b, groupWithDecorators)));
 }
 
 export function getDecorators(node: ts.ClassDeclaration | ts.AccessorDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.PropertyDeclaration | ts.MethodDeclaration | ts.IndexedAccessTypeNode | ts.ConstructorDeclaration | ts.EnumDeclaration | ts.FunctionDeclaration | ts.IndexSignatureDeclaration | ts.MethodSignature | ts.PropertySignature | ts.TypeAliasDeclaration, sourceFile: ts.SourceFile)

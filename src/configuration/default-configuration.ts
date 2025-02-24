@@ -51,7 +51,7 @@ export const defaultConfiguration: Configuration =
             {
                 sortDirection: "asc",
                 caption: "Classes",
-                memberTypes: [ModuleMemberType.classes],
+                memberTypes: [ModuleMemberType.classes, ModuleMemberType.exportedClasses],
                 memberTypesGrouped: true,
                 placeAbove: [],
                 placeBelow: []

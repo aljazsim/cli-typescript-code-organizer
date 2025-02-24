@@ -322,6 +322,7 @@ Member types are dependant on where are they being used: modules, classes, inter
 | `interfaces` |                     | `variables`         |
 | `exportedInterfaces` |             |                     |
 | `classes`    |                     | `exportedVariables` |
+| `exportedClasses` |                |                     |
 
 #### Class Member Types
 
