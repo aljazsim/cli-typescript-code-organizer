@@ -43,7 +43,7 @@ export const defaultConfiguration: Configuration =
             {
                 sortDirection: "asc",
                 caption: "Interfaces",
-                memberTypes: [ModuleMemberType.interfaces],
+                memberTypes: [ModuleMemberType.interfaces, ModuleMemberType.exportedInterfaces],
                 memberTypesGrouped: true,
                 placeAbove: [],
                 placeBelow: []

@@ -29,7 +29,7 @@
             {
                 "sortDirection": "none",
                 "caption": "Interfaces",
-                "memberTypes": ["interfaces"],
+                "memberTypes": ["interfaces", "exportedInterfaces"],
                 "memberTypesGrouped": true,
                 "placeAbove": [],
                 "placeBelow": []

@@ -137,8 +137,13 @@ export function getImports(nodes: ElementNode[])
     return nodes.filter(n => n instanceof ImportNode);
 }
 
-export function getInterfaces(nodes: ElementNode[])
+export function getInterfaces(nodes: ElementNode[], exported: boolean)
 {
+    return nodes.filter(n => n instanceof InterfaceNode)
+        .map(t => t as InterfaceNode)
+        .filter(f => f.isExport === exported)
+        .sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
+
     return nodes.filter(n => n instanceof InterfaceNode).sort((a, b) => compareStrings(getName(a, false), getName(b, false)));
 }
 

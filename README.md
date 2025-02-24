@@ -320,6 +320,7 @@ Member types are dependant on where are they being used: modules, classes, inter
 | `exportedTypes` |                  |                     |
 | `exportedEnums` |                  |                     |
 | `interfaces` |                     | `variables`         |
+| `exportedInterfaces` |             |                     |
 | `classes`    |                     | `exportedVariables` |
 
 #### Class Member Types

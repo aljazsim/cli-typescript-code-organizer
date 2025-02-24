@@ -2,7 +2,7 @@ import * as ts from "typescript";
 
 import { InterfaceConfiguration } from "../configuration/interface-configuration.js";
 import { InterfaceMemberType } from "../enums/interface-member-type.js";
-import { isReadOnly, isWritable, order } from "../helpers/node-helper.js";
+import { getIsExport, isReadOnly, isWritable, order } from "../helpers/node-helper.js";
 import { ElementNodeGroup } from "./element-node-group.js";
 import { ElementNode } from "./element-node.js";
 import { GetterSignatureNode } from "./getter-signature-node.js";
@@ -13,10 +13,11 @@ import { SetterSignatureNode } from "./setter-signature-node.js";
 
 export class InterfaceNode extends ElementNode
 {
-    // #region Properties (8)
+    // #region Properties (9)
 
     public readonly getters: GetterSignatureNode[] = [];
     public readonly indexes: IndexSignatureNode[] = [];
+    public readonly isExport: boolean;
     public readonly membersEnd: number = 0;
     public readonly membersStart: number = 0;
     public readonly methods: (MethodSignatureNode | PropertySignatureNode)[] = [];
@@ -73,6 +74,8 @@ export class InterfaceNode extends ElementNode
                 this.methods.push(new MethodSignatureNode(sourceFile, member));
             }
         }
+
+        this.isExport = getIsExport(interfaceDeclaration);
     }
 
     // #endregion Constructors
