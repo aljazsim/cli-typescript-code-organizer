@@ -1,4 +1,5 @@
 import wcmatch from "wildcard-match";
+import { space } from "../source-code/source-code-constants.js";
 
 // #region Exported Functions (3)
 
@@ -7,7 +8,7 @@ export function convertPascalCaseToTitleCase(value: string)
     if (value &&
         value.length > 1)
     {
-        value = value.replace(/(?:^|\.?)([A-Z])/g, (x, y) => " " + y);
+        value = value.replace(/(?:^|\.?)([A-Z])/g, (x, y) => space + y);
         value = value[0].toUpperCase() + value.substring(1);
     }
 

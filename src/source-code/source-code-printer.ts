@@ -22,7 +22,7 @@ import { VariableNode } from "../elements/variable-node.js";
 import { ImportExpand } from "../enums/import-expand.js";
 import { ImportSourceFilePathQuoteType } from "../enums/import-source-file-path-quote-type.js";
 import { WriteModifier } from "../enums/write-modifier.js";
-import { doubleQuote, indentation, newLine, singleQuote } from "./source-code-constants.js";
+import { doubleQuote, newLine, singleQuote, space } from "./source-code-constants.js";
 import { SourceCode } from "./source-code.js";
 
 export class SourceCodePrinter
@@ -89,6 +89,7 @@ export class SourceCodePrinter
 
     private static printImport(node: ImportNode, configuration: ImportConfiguration)
     {
+        const indentation = "    ";
         const source = node.source;
         const quote = configuration.quote === ImportSourceFilePathQuoteType.Single ? singleQuote : doubleQuote;
         const namedImports = (node.namedImports ?? []).filter(ni => ni && ni.name.trim().length > 0);
@@ -103,9 +104,9 @@ export class SourceCodePrinter
             const allTypeOnly = namedImports.every(ni => ni.typeOnly);
 
             namedImportsSourceCode += allTypeOnly ? "type " : "";
-            namedImportsSourceCode += `{${expand ? newLine : " "}`;
-            namedImportsSourceCode += namedImports.map(ni => (expand ? indentation : "") + (ni.typeOnly && !allTypeOnly ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(`,${expand ? newLine : " "}`);
-            namedImportsSourceCode += `${expand ? newLine : " "}}`;
+            namedImportsSourceCode += `{${expand ? newLine : space}`;
+            namedImportsSourceCode += namedImports.map(ni => (expand ? indentation : "") + (ni.typeOnly && !allTypeOnly ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(`,${expand ? newLine : space}`);
+            namedImportsSourceCode += `${expand ? newLine : space}}`;
         }
 
         if (nameBinding)

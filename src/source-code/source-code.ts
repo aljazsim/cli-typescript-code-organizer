@@ -6,7 +6,7 @@ import { PropertyNode } from "../elements/property-node.js";
 import { SetterNode } from "../elements/setter-node.js";
 import { AccessModifier } from "../enums/access-modifier.js";
 import { WriteModifier } from "../enums/write-modifier.js";
-import { anythingRegex, endRegion, newLine, newLineRegex, spacesRegex, startRegion } from "./source-code-constants.js";
+import { anythingRegex, endRegion, newLine, newLineRegex, space, spacesRegex, startRegion } from "./source-code-constants.js";
 
 export class SourceCode
 {
@@ -80,7 +80,7 @@ export class SourceCode
         const getStatic = (isStatic: boolean) => isStatic ? "static " : "";
         const getAbstract = (isAbstract: boolean) => isAbstract ? "abstract " : "";
         const getReadOnly = (writeMode: WriteModifier) => writeMode === WriteModifier.readOnly ? "readonly " : "";
-        const getString = (strings: string[]) => ["private"].concat(strings).filter(s => s !== "").map(s => s.trim()).join(" ");
+        const getString = (strings: string[]) => ["private"].concat(strings).filter(s => s !== "").map(s => s.trim()).join(space);
         const getRegex = (strings: string[]) => new RegExp(strings.filter(s => s !== "").map(s => s.trim()).join(spacesRegex));
         const removeHash = (name: string) => name.substring(1);
 
@@ -134,7 +134,7 @@ export class SourceCode
         const getStatic = (isStatic: boolean) => isStatic ? "static " : "";
         const getAbstract = (isAbstract: boolean) => isAbstract ? "abstract " : "";
         const getReadOnly = (writeMode: WriteModifier) => writeMode === WriteModifier.readOnly ? "readonly " : "";
-        const getString = (strings: string[]) => ["public"].concat(strings).filter(s => s !== "").map(s => s.trim()).join(" ");
+        const getString = (strings: string[]) => ["public"].concat(strings).filter(s => s !== "").map(s => s.trim()).join(space);
         const getRegex = (strings: string[]) => new RegExp(strings.filter(s => s !== "").map(s => s.trim()).join(spacesRegex));
 
         if (!node.name.startsWith("#") && node.accessModifier === null)
@@ -189,7 +189,7 @@ export class SourceCode
 
         regionStart += indentation;
         regionStart += `// ${startRegion} `;
-        regionStart += regionCaption + " ";
+        regionStart += regionCaption + space;
         regionStart += regionConfiguration.addMemberCountInRegionName ? `(${regionMemberCount})` : "";
         regionStart = regionStart.trimEnd();
 

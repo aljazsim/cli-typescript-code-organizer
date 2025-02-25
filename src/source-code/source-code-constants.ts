@@ -5,7 +5,6 @@ const crlf = `${cr}${lf}`;
 
 export const newLine = crlf;
 export const space = " ";
-export const indentation = `${space}${space}${space}${space}`;
 
 export const singleQuote = "'";
 export const doubleQuote = "\"";
