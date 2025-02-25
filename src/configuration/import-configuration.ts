@@ -12,7 +12,7 @@ export class ImportConfiguration
         public readonly groupImportsBySource: boolean,
         public readonly separateImportGroups: boolean,
         public readonly quote: ImportSourceFilePathQuoteType,
-        public readonly expand: ImportExpand,
+        public readonly expand: ImportExpand
     )
     {
     }
