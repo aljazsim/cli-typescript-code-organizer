@@ -1,7 +1,14 @@
 {
     "files": {
-        "include": ["./**/import-with-type.ts"],
-        "exclude": ["./**/*.d.ts", "node_modules/**", "dist/**", "out/**"]
+        "include": ["./**/*.ts"],
+        "exclude": [
+            "./**/*.d.ts",
+            "node_modules/**",
+            "dist/**",
+            "out/**",
+            "test/**/ts-files/**",
+            "test/**/special-cases/**"
+        ]
     },
     "imports": {
         "removeUnusedImports": true,
