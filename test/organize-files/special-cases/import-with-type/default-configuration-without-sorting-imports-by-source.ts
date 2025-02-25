@@ -1,8 +1,8 @@
-import { DateTime, type Duration } from "luxon";
-import type { A, B } from "@c/api";
 import { v4 as uuidv4 } from "uuid";
-import type { E } from "@c/api/v3";
+import type { A, B } from "@c/api";
 import { type C, D } from "@c/api/v2";
+import { DateTime, type Duration } from "luxon";
+import type { E } from "@c/api/v3";
 
 export function gen(): string
 {

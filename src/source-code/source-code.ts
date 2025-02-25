@@ -6,15 +6,10 @@ import { PropertyNode } from "../elements/property-node.js";
 import { SetterNode } from "../elements/setter-node.js";
 import { AccessModifier } from "../enums/access-modifier.js";
 import { WriteModifier } from "../enums/write-modifier.js";
+import { anythingRegex, emptyString, endRegion, newLine, newLineRegex, spacesRegex, startRegion } from "./source-code-constants.js";
 
 export class SourceCode
 {
-    // #region Properties (1)
-
-    private readonly newLine = "\r\n";
-
-    // #endregion Properties
-
     // #region Constructors (1)
 
     constructor(private sourceCode = "")
@@ -63,7 +58,7 @@ export class SourceCode
 
     public addNewLineAfter()
     {
-        this.addAfter(this.newLine);
+        this.addAfter(newLine);
     }
 
     public addNewLineAfterIf(condition: boolean)
@@ -76,12 +71,11 @@ export class SourceCode
 
     public addNewLineBefore()
     {
-        this.addBefore(this.newLine);
+        this.addBefore(newLine);
     }
 
     public addPrivateModifierIfStartingWithHash(node: PropertyNode | MethodNode | AccessorNode | GetterNode | SetterNode)
     {
-        const spacesRegex = "\\s*";
         const getAsync = (isAsync: boolean) => isAsync ? "async " : "";
         const getStatic = (isStatic: boolean) => isStatic ? "static " : "";
         const getAbstract = (isAbstract: boolean) => isAbstract ? "abstract " : "";
@@ -136,7 +130,6 @@ export class SourceCode
 
     public addPublicModifierIfMissing(node: PropertyNode | MethodNode | AccessorNode | GetterNode | SetterNode)
     {
-        const spacesRegex = "\\s*";
         const getAsync = (isAsync: boolean) => isAsync ? "async " : "";
         const getStatic = (isStatic: boolean) => isStatic ? "static " : "";
         const getAbstract = (isAbstract: boolean) => isAbstract ? "abstract " : "";
@@ -191,49 +184,46 @@ export class SourceCode
     {
         const indentation = SourceCode.getIndentation(this.sourceCode);
         const code = this.sourceCode;
-        let region = "";
-        let endregion = "";
+        let regionStart = "";
+        let regionEnd = "";
 
-        region += indentation;
-        region += "// #region ";
-        region += regionCaption + " ";
-        region += regionConfiguration.addMemberCountInRegionName ? `(${regionMemberCount})` : "";
-        region = region.trimEnd();
+        regionStart += indentation;
+        regionStart += `// ${startRegion} `;
+        regionStart += regionCaption + " ";
+        regionStart += regionConfiguration.addMemberCountInRegionName ? `(${regionMemberCount})` : "";
+        regionStart = regionStart.trimEnd();
 
-        endregion += indentation;
-        endregion += "// #endregion ";
-        endregion += regionConfiguration.addRegionCaptionToRegionEnd ? regionCaption : "";
-        endregion = endregion.trimEnd();
+        regionEnd += indentation;
+        regionEnd += `// ${endRegion} `;
+        regionEnd += regionConfiguration.addRegionCaptionToRegionEnd ? regionCaption : "";
+        regionEnd = regionEnd.trimEnd();
 
-        this.sourceCode = region;
+        this.sourceCode = regionStart;
         this.addNewLineAfter();
         this.addNewLineAfter();
         this.addAfter(code);
         this.addNewLineAfter();
-        this.addAfter(endregion);
+        this.addAfter(regionEnd);
         this.addNewLineAfter();
     }
 
     public removeConsecutiveEmptyLines()
     {
-        const newLine = "\r\n";
-        const emptyLineRegex = new RegExp(`^\\s*$`);
-        const newLineRegex = new RegExp(`\r\n|\r`);
-        const openingBraceRegex = new RegExp(`^.*{\\s*$`);
-        const closingBraceRegex = new RegExp(`^\\s*}\\s*$`);
-        const lines: string[] = this.sourceCode.split(newLineRegex);
+        const openingBraceRegex = new RegExp(`^.*{${spacesRegex}$`);
+        const closingBraceRegex = new RegExp(`^${spacesRegex}}${spacesRegex}$`);
+        const lines: string[] = this.sourceCode.split(new RegExp(newLineRegex));
 
         for (let i = 0; i < lines.length - 1; i++)
         {
             if (openingBraceRegex.test(lines[i]) &&
-                emptyLineRegex.test(lines[i + 1]))
+                lines[i + 1].trim() === emptyString)
             {
                 // remove empty line after {
                 lines.splice(i + 1, 1);
 
                 i--;
             }
-            else if (emptyLineRegex.test(lines[i]) &&
+            else if (lines[i].trim() === emptyString &&
                 closingBraceRegex.test(lines[i + 1]))
             {
                 // remove empty line before }
@@ -241,8 +231,8 @@ export class SourceCode
 
                 i--;
             }
-            else if (emptyLineRegex.test(lines[i]) &&
-                emptyLineRegex.test(lines[i + 1]))
+            else if (lines[i].trim() === emptyString &&
+                lines[i + 1].trim() === emptyString)
             {
                 lines.splice(i, 1);
 
@@ -255,16 +245,9 @@ export class SourceCode
 
     public removeRegions()
     {
-        const newLine = "\n";
-        const emptyLine = "";
-        const anythingRegex = ".";
-        const startRegionRegex = "#region";
-        const endRegionRegex = "#endregion";
-        const spaceRegex = "\\s";
-
-        const startRegionsRegex = new RegExp(`^//${spaceRegex}*${startRegionRegex}${spaceRegex}+${anythingRegex}+$`, "i");
-        const endRegionsRegex = new RegExp(`^//${spaceRegex}*${endRegionRegex}(${spaceRegex}+${anythingRegex}+)?$`, "i");
-        const lines: string[] = this.sourceCode.split(newLine);
+        const startRegionsRegex = new RegExp(`^//${spacesRegex}${startRegion}${spacesRegex}${anythingRegex}$`, "i");
+        const endRegionsRegex = new RegExp(`^//${spacesRegex}${endRegion}(${spacesRegex}${anythingRegex})?$`, "i");
+        const lines: string[] = this.sourceCode.split(new RegExp(newLineRegex));
         const lines2: string[] = [];
 
         for (let i = 0; i < lines.length; i++)
@@ -277,13 +260,13 @@ export class SourceCode
             else
             {
                 while (lines.length > i &&
-                    lines[i] === emptyLine)
+                    lines[i].trim() === emptyString)
                 {
                     i++;
                 }
 
                 while (lines2.length > 0 &&
-                    lines2[lines2.length - 1] === emptyLine)
+                    lines2[lines2.length - 1].trim() === emptyString)
                 {
                     lines2.pop();
                 }
@@ -309,7 +292,7 @@ export class SourceCode
 
     private static getIndentation(sourceCode: string)
     {
-        const sourceCodeLines = sourceCode.split("\n");
+        const sourceCodeLines = sourceCode.split(new RegExp(newLineRegex));
 
         if (sourceCodeLines.length === 0)
         {

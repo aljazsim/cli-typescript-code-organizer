@@ -1,5 +1,5 @@
 import { ImportExpand } from "../enums/import-expand.js";
-import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
+import { ImportSourceFilePathQuoteType } from "../enums/import-source-file-path-quote-type.js";
 
 export class ImportConfiguration
 {

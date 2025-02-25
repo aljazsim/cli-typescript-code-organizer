@@ -1,6 +1,6 @@
-import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
 import { ClassMemberType } from "../enums/class-member-type.js";
 import { ImportExpand } from "../enums/import-expand.js";
+import { ImportSourceFilePathQuoteType } from "../enums/import-source-file-path-quote-type.js";
 import { InterfaceMemberType } from "../enums/interface-member-type.js";
 import { ModuleMemberType } from "../enums/module-member-type.js";
 import { TypeMemberType } from "../enums/type-member-type.js";
@@ -231,7 +231,7 @@ export class Configuration
 
     // #endregion Public Static Methods
 
-    // #region Private Static Methods (9)
+    // #region Private Static Methods (10)
 
     private static fixClassMemberMemberGroup(defaultMemberTypeOrder: ClassMemberGroupConfiguration[], memberTypeOrder: ClassMemberGroupConfiguration[]): ClassMemberGroupConfiguration[]
     {
@@ -342,22 +342,6 @@ export class Configuration
         return new ClassMemberGroupConfiguration(sortDirection, caption, memberTypes, memberTypesGrouped, placeAbove, placeBelow);
     }
 
-    private static parseImportSourceFilePathQuoteType(quoteType: string)
-    {
-        if (quoteType === ImportSourceFilePathQuoteType.Double)
-        {
-            return ImportSourceFilePathQuoteType.Double;
-        }
-        else if (quoteType === ImportSourceFilePathQuoteType.Single)
-        {
-            return ImportSourceFilePathQuoteType.Single;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
     private static parseImportExpand(importExpand: string)
     {
         if (importExpand === ImportExpand.Never)
@@ -371,6 +355,22 @@ export class Configuration
         else if (importExpand === ImportExpand.WhenMoreThanOneNamedImport)
         {
             return ImportExpand.WhenMoreThanOneNamedImport;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private static parseImportSourceFilePathQuoteType(quoteType: string)
+    {
+        if (quoteType === ImportSourceFilePathQuoteType.Double)
+        {
+            return ImportSourceFilePathQuoteType.Double;
+        }
+        else if (quoteType === ImportSourceFilePathQuoteType.Single)
+        {
+            return ImportSourceFilePathQuoteType.Single;
         }
         else
         {

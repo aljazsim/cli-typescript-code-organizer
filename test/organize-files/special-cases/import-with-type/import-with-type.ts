@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
-import { A, } from "@c/api";
+import { type A } from "@c/api";
 import type { B } from "@c/api";
 import { D } from "@c/api/v2";
-import { C } from "@c/api/v2";
+import type { C } from "@c/api/v2";
 import { DateTime } from "luxon";
 import { type Duration } from "luxon";
 import { type E } from "@c/api/v3";
