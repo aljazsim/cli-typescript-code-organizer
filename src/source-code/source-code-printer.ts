@@ -22,7 +22,7 @@ import { VariableNode } from "../elements/variable-node.js";
 import { ImportExpand } from "../enums/import-expand.js";
 import { ImportSourceFilePathQuoteType } from "../enums/import-source-file-path-quote-type.js";
 import { WriteModifier } from "../enums/write-modifier.js";
-import { doubleQuote, emptyString, indentation, newLine, singleQuote } from "./source-code-constants.js";
+import { doubleQuote, indentation, newLine, singleQuote } from "./source-code-constants.js";
 import { SourceCode } from "./source-code.js";
 
 export class SourceCodePrinter
@@ -102,7 +102,7 @@ export class SourceCodePrinter
             const expand = configuration.expand === ImportExpand.Always || configuration.expand === ImportExpand.WhenMoreThanOneNamedImport && namedImports.length > 1;
             const allTypeOnly = namedImports.every(ni => ni.typeOnly);
 
-            namedImportsSourceCode += allTypeOnly ? "type " : emptyString;
+            namedImportsSourceCode += allTypeOnly ? "type " : "";
             namedImportsSourceCode += `{${expand ? newLine : " "}`;
             namedImportsSourceCode += namedImports.map(ni => (expand ? indentation : "") + (ni.typeOnly && !allTypeOnly ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(`,${expand ? newLine : " "}`);
             namedImportsSourceCode += `${expand ? newLine : " "}}`;

@@ -3,7 +3,6 @@ const lf = "\n";
 const cr = "\r";
 const crlf = `${cr}${lf}`;
 
-export const emptyString = "";
 export const newLine = crlf;
 export const space = " ";
 export const indentation = `${space}${space}${space}${space}`;

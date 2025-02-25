@@ -6,7 +6,7 @@ import { PropertyNode } from "../elements/property-node.js";
 import { SetterNode } from "../elements/setter-node.js";
 import { AccessModifier } from "../enums/access-modifier.js";
 import { WriteModifier } from "../enums/write-modifier.js";
-import { anythingRegex, emptyString, endRegion, newLine, newLineRegex, spacesRegex, startRegion } from "./source-code-constants.js";
+import { anythingRegex, endRegion, newLine, newLineRegex, spacesRegex, startRegion } from "./source-code-constants.js";
 
 export class SourceCode
 {
@@ -216,14 +216,14 @@ export class SourceCode
         for (let i = 0; i < lines.length - 1; i++)
         {
             if (openingBraceRegex.test(lines[i]) &&
-                lines[i + 1].trim() === emptyString)
+                lines[i + 1].trim() === "")
             {
                 // remove empty line after {
                 lines.splice(i + 1, 1);
 
                 i--;
             }
-            else if (lines[i].trim() === emptyString &&
+            else if (lines[i].trim() === "" &&
                 closingBraceRegex.test(lines[i + 1]))
             {
                 // remove empty line before }
@@ -231,8 +231,8 @@ export class SourceCode
 
                 i--;
             }
-            else if (lines[i].trim() === emptyString &&
-                lines[i + 1].trim() === emptyString)
+            else if (lines[i].trim() === "" &&
+                lines[i + 1].trim() === "")
             {
                 lines.splice(i, 1);
 
@@ -260,13 +260,13 @@ export class SourceCode
             else
             {
                 while (lines.length > i &&
-                    lines[i].trim() === emptyString)
+                    lines[i].trim() === "")
                 {
                     i++;
                 }
 
                 while (lines2.length > 0 &&
-                    lines2[lines2.length - 1].trim() === emptyString)
+                    lines2[lines2.length - 1].trim() === "")
                 {
                     lines2.pop();
                 }
