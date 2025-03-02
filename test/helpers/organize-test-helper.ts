@@ -14,7 +14,9 @@ export function getOrganizeSpecialCaseTestParameters()
         "indexer",
         "import-with-comment",
         "empty-lines-in-code",
-        "declare-module"
+        "declare-module",
+        "file-header",
+        "file-header-2"
     ];
 
     const memberOrganizeParameters: OrganizeTestParameters[] = [];

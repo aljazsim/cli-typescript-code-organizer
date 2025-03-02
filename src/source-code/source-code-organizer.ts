@@ -11,7 +11,7 @@ import { ModuleMemberType } from "../enums/module-member-type.js";
 import { except, intersect, remove } from "../helpers/array-helper.js";
 import { compareStrings } from "../helpers/comparing-helper.js";
 import { getFileExtension } from "../helpers/file-system-helper.js";
-import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
+import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getFileHeader, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
 import { SourceCodeAnalyzer } from "./source-code-analyzer.js";
 import { spacesRegex } from "./source-code-constants.js";
 import { SourceCodePrinter } from "./source-code-printer.js";
@@ -38,9 +38,10 @@ export class SourceCodeOrganizer
 
                 const sourceFile = ts.createSourceFile(sourceCodeFilePath, sourceCodeWithoutRegions.toString(), ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
                 const elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration);
+                const fileHeader = getFileHeader(elements);
                 const topLevelGroups = await this.organizeModuleMembers(elements, configuration, sourceFile); // TODO: move this to module node
 
-                return SourceCodePrinter.print(topLevelGroups, configuration).toString();
+                return SourceCodePrinter.print(fileHeader, topLevelGroups, configuration).toString();
             }
             catch (error)
             {

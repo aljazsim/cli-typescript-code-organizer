@@ -44,6 +44,14 @@ export class SourceCode
         }
     }
 
+    public replace(oldValue: string, newValue: string)
+    {
+        while (this.sourceCode.indexOf(oldValue) >= 0)
+        {
+            this.sourceCode = this.sourceCode.replace(oldValue, newValue);
+        }
+    }
+
     public addComment(comment: string)
     {
         if (comment && comment.length > 0)

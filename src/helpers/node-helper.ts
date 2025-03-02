@@ -17,7 +17,7 @@ import { TypeAliasNode } from "../elements/type-alias-node.js";
 import { VariableNode } from "../elements/variable-node.js";
 import { AccessModifier } from "../enums/access-modifier.js";
 import { WriteModifier } from "../enums/write-modifier.js";
-import { newLine } from "../source-code/source-code-constants.js";
+import { newLine, newLineRegex } from "../source-code/source-code-constants.js";
 import { add, distinct, except, remove } from "./array-helper.js";
 import { compareStrings } from "./comparing-helper.js";
 import { matchRegEx, matchWildcard } from "./string-helper.js";
@@ -169,6 +169,36 @@ export function getIsAsync(node: ts.MethodDeclaration | ts.PropertyDeclaration)
 export function getIsConst(node: ts.VariableDeclarationList)
 {
     return (node.flags & ts.NodeFlags.Const) === ts.NodeFlags.Const;
+}
+
+export function getFileHeader(nodes: ElementNode[])
+{
+    const multilineCommentStart = "/*";
+    const multilineCommentMiddle = "*";
+    const multilineCommentEnd = "*/";
+    const singleLineCommentStart = "//";
+
+    if (nodes.length > 0 && nodes[0].leadingComment)
+    {
+        const leadingComment = nodes[0].leadingComment;
+        const lines = leadingComment.trim().split(new RegExp(newLineRegex));
+
+        if (lines.length >= 3)
+        {
+            const firstLine = lines[0].trim();
+            const firstLineOk = firstLine.startsWith(multilineCommentStart) || firstLine.startsWith(singleLineCommentStart);
+            const midLinesOk = lines.slice(1, -1).every(l => l.trim().startsWith(multilineCommentMiddle) || l.trim().startsWith(singleLineCommentStart));
+            const lastLine = lines[lines.length - 1].trim();
+            const lastLineOk = lastLine.endsWith(multilineCommentEnd) || lastLine.endsWith(singleLineCommentStart)
+
+            if (firstLineOk && midLinesOk && lastLineOk)
+            {
+                return leadingComment;
+            }
+        }
+    }
+
+    return null;
 }
 
 export function getIsExport(node: ts.ClassDeclaration | ts.FunctionDeclaration | ts.VariableStatement)

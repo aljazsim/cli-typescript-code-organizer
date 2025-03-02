@@ -22,22 +22,69 @@ import { VariableNode } from "../elements/variable-node.js";
 import { ImportExpand } from "../enums/import-expand.js";
 import { ImportSourceFilePathQuoteType } from "../enums/import-source-file-path-quote-type.js";
 import { WriteModifier } from "../enums/write-modifier.js";
-import { doubleQuote, newLine, singleQuote, space } from "./source-code-constants.js";
+import { doubleQuote, newLine, newLineRegex, singleQuote, space } from "./source-code-constants.js";
 import { SourceCode } from "./source-code.js";
 
 export class SourceCodePrinter
 {
     // #region Public Static Methods (1)
 
-    public static print(nodeGroups: ElementNodeGroup[], configuration: Configuration)
+    public static print(fileHeader: string | null, nodeGroups: ElementNodeGroup[], configuration: Configuration)
     {
         const printedSourceCode = this.printNodeGroups(nodeGroups, configuration);
+
+        if (fileHeader)
+        {
+            printedSourceCode.replace(fileHeader, "");
+            printedSourceCode.addBefore(this.printComment(fileHeader));
+        }
 
         printedSourceCode.removeConsecutiveEmptyLines();
         printedSourceCode.trim();
         printedSourceCode.addNewLineAfter();
 
         return printedSourceCode;
+    }
+
+    private static printComment(fileHeader: string, indentation = "")
+    {
+        const multilineComment = "*";
+        const multilineCommentStart = new RegExp(`^/\\${multilineComment}+$`);
+        const multilineCommentEnd = new RegExp(`^\\${multilineComment}+/$`);
+        const singlelineComment = "//";
+
+        const lines = fileHeader.trimStart().split(new RegExp(newLineRegex)).map(l => l.trim());
+        let commentStart = "";
+
+        for (let i = 0; i < lines.length; i++)
+        {
+            lines[i] = lines[i].trim();
+
+            if (multilineCommentStart.test(lines[i]))
+            {
+                commentStart = lines[i];
+            }
+            else if (multilineCommentEnd.test(lines[i]))
+            {
+                // clone multiline comment start and convert it to multiline comment end (to keep them the same length)
+                lines[i] = " " + commentStart.replace("/", '') + "/";
+            }
+            else if (lines[i].startsWith(multilineComment))
+            {
+                lines[i] = " " + multilineComment + " " + lines[i].substring(multilineComment.length).trim();
+            }
+            else if (lines[i].startsWith(singlelineComment))
+            {
+                lines[i] = singlelineComment + " " + lines[i].substring(singlelineComment.length).trim();
+            }
+
+            if (lines[i] !== "")
+            {
+                lines[i] = indentation + lines[i];
+            }
+        }
+
+        return lines.join(newLine);
     }
 
     // #endregion Public Static Methods
