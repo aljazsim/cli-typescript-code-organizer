@@ -24,8 +24,6 @@ for (const otp of getOrganizeTestParameters())
             await writeFile(expectedOrganizedSourceCodeFilePath, organizedSourceCode, false);
         }
 
-
-
         const expectedOrganizedSourceCode = await readFile(expectedOrganizedSourceCodeFilePath);
 
         if (organizedSourceCode == expectedOrganizedSourceCode)

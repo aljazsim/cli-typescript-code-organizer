@@ -18,7 +18,7 @@ export class SourceCode
 
     // #endregion Constructors
 
-    // #region Public Methods (13)
+    // #region Public Methods (15)
 
     public addAfter(newSourceCode: string | SourceCode)
     {
@@ -41,14 +41,6 @@ export class SourceCode
         else
         {
             this.sourceCode = newSourceCode + this.sourceCode;
-        }
-    }
-
-    public replace(oldValue: string, newValue: string)
-    {
-        while (this.sourceCode.indexOf(oldValue) >= 0)
-        {
-            this.sourceCode = this.sourceCode.replace(oldValue, newValue);
         }
     }
 
@@ -276,7 +268,6 @@ export class SourceCode
                 multilineCommentEnd.test(line.trim()) ||
                 multilineCommentMiddle.test(line.trim()))
             {
-
                 lines.splice(0, 1);
                 commentLines.push(line);
             }
@@ -284,11 +275,9 @@ export class SourceCode
             {
                 lines.splice(0, 1);
                 commentLines.push(line);
-
             }
             else
             {
-
                 break;
             }
         }
@@ -334,6 +323,14 @@ export class SourceCode
         }
 
         this.sourceCode = lines2.join(newLine);
+    }
+
+    public replace(oldValue: string, newValue: string)
+    {
+        while (this.sourceCode.indexOf(oldValue) >= 0)
+        {
+            this.sourceCode = this.sourceCode.replace(oldValue, newValue);
+        }
     }
 
     public toString()

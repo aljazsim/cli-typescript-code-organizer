@@ -45,51 +45,9 @@ export class SourceCodePrinter
         return printedSourceCode;
     }
 
-    private static printComment(fileHeader: string, indentation = "")
-    {
-        const multilineComment = "*";
-        const multilineCommentStart = new RegExp(`^/\\${multilineComment}+$`);
-        const multilineCommentEnd = new RegExp(`^\\${multilineComment}+/$`);
-        const singlelineComment = "//";
-
-        const lines = fileHeader.trimStart().split(new RegExp(newLineRegex)).map(l => l.trim());
-
-        for (let i = 0; i < lines.length; i++)
-        {
-            if (multilineCommentStart.test(lines[i]))
-            {
-                // do nothing
-            }
-            else if (multilineCommentEnd.test(lines[i]))
-            {
-                lines[i] = " " + lines[i].trim();
-            }
-            else if (lines[i].startsWith(multilineComment))
-            {
-                lines[i] = " " + multilineComment + " " + lines[i].substring(multilineComment.length).trim();
-            }
-            else if (lines[i].startsWith(singlelineComment))
-            {
-                lines[i] = singlelineComment + " " + lines[i].substring(singlelineComment.length).trim();
-            }
-
-            if (lines[i] !== "")
-            {
-                lines[i] = indentation + lines[i];
-            }
-        }
-
-        if (lines[lines.length - 1] !== "")
-        {
-            lines.push("");
-        }
-
-        return lines.join(newLine);
-    }
-
     // #endregion Public Static Methods
 
-    // #region Private Static Methods (9)
+    // #region Private Static Methods (10)
 
     private static printClass(node: ClassNode, configuration: Configuration)
     {
@@ -132,6 +90,48 @@ export class SourceCodePrinter
         }
 
         return nodeSourceCode;
+    }
+
+    private static printComment(fileHeader: string, indentation = "")
+    {
+        const multilineComment = "*";
+        const multilineCommentStart = new RegExp(`^/\\${multilineComment}+$`);
+        const multilineCommentEnd = new RegExp(`^\\${multilineComment}+/$`);
+        const singlelineComment = "//";
+
+        const lines = fileHeader.trimStart().split(new RegExp(newLineRegex)).map(l => l.trim());
+
+        for (let i = 0; i < lines.length; i++)
+        {
+            if (multilineCommentStart.test(lines[i]))
+            {
+                // do nothing
+            }
+            else if (multilineCommentEnd.test(lines[i]))
+            {
+                lines[i] = " " + lines[i].trim();
+            }
+            else if (lines[i].startsWith(multilineComment))
+            {
+                lines[i] = " " + multilineComment + " " + lines[i].substring(multilineComment.length).trim();
+            }
+            else if (lines[i].startsWith(singlelineComment))
+            {
+                lines[i] = singlelineComment + " " + lines[i].substring(singlelineComment.length).trim();
+            }
+
+            if (lines[i] !== "")
+            {
+                lines[i] = indentation + lines[i];
+            }
+        }
+
+        if (lines[lines.length - 1] !== "")
+        {
+            lines.push("");
+        }
+
+        return lines.join(newLine);
     }
 
     private static printImport(node: ImportNode, configuration: ImportConfiguration)
