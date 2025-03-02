@@ -4,6 +4,7 @@ Imports: You will need to add ../ for every folder deep the file is.
 Loggers: if using more than 1 they will have to be comma seperated in the requestHooks line. 
 */
 import * as dotenv from "dotenv";
+
 import {
     Selector
 } from "testcafe";

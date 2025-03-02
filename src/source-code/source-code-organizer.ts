@@ -153,21 +153,29 @@ export class SourceCodeOrganizer
 
         if (configuration.groupImportsBySource)
         {
-            const moduleImports = imports.filter(i => i.isModuleReference);
+            const atNamespaceImports = imports.filter(i => i.isModuleReference && i.namespace && i.source.startsWith("@"));
+            const namespaceImports = imports.filter(i => i.isModuleReference && i.namespace && !i.source.startsWith("@"));
+
+            const atModuleImports = imports.filter(i => i.isModuleReference && !i.namespace && i.source.startsWith("@"));
+            const moduleImports = imports.filter(i => i.isModuleReference && !i.namespace && !i.source.startsWith("@"));
+
             const stringLiteralImports = imports.filter(i => !i.isModuleReference && !i.nameBinding && !i.namedImports && !i.namespace);
             const fileImports = imports.filter(i => !i.isModuleReference && (i.nameBinding || i.namedImports || i.namespace));
 
             if (configuration.separateImportGroups)
             {
+                const atNamespaceImportGroup = new ElementNodeGroup("@ Namespace Imports", [], atNamespaceImports, false, null);
+                const namespaceImportGroup = new ElementNodeGroup("Namespace Imports", [], namespaceImports, false, null);
+                const atModuleImportGroup = new ElementNodeGroup("@ Module Imports", [], atModuleImports, false, null);
                 const moduleImportGroup = new ElementNodeGroup("Module Imports", [], moduleImports, false, null);
                 const stringLiteralImportGroup = new ElementNodeGroup("String Literal Imports", [], stringLiteralImports, false, null);
                 const fileImportGroup = new ElementNodeGroup("File Imports", [], fileImports, false, null);
 
-                return new ElementNodeGroup("Imports", [moduleImportGroup, stringLiteralImportGroup, fileImportGroup], [], false, null);
+                return new ElementNodeGroup("Imports", [atNamespaceImportGroup, namespaceImportGroup, atModuleImportGroup, moduleImportGroup, stringLiteralImportGroup, fileImportGroup], [], false, null);
             }
             else
             {
-                imports = moduleImports.concat(stringLiteralImports).concat(fileImports);
+                imports = atNamespaceImports.concat(namespaceImports).concat(atModuleImports).concat(moduleImports).concat(stringLiteralImports).concat(fileImports);
             }
         }
 
@@ -182,7 +190,7 @@ export class SourceCodeOrganizer
         const exportedInterfaces = getInterfaces(elements, true);
         const classes = getClasses(elements, false, false);
         const exportedClasses = getClasses(elements, false, true);
-        const types = getTypeAliases(elements, false);        
+        const types = getTypeAliases(elements, false);
         const exportedTypes = getTypeAliases(elements, true);
         const enums = getEnums(elements, false);
         const exportedEnums = getEnums(elements, true);
