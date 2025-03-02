@@ -1,15 +1,4 @@
 {
-    "files": {
-        "include": ["./**/*.ts"],
-        "exclude": [
-            "./**/*.d.ts",
-            "node_modules/**",
-            "dist/**",
-            "out/**",
-            "test/**/ts-files/**",
-            "test/**/special-cases/**"
-        ]
-    },
     "imports": {
         "removeUnusedImports": true,
         "sortImportsBySource": true,
@@ -17,13 +6,13 @@
         "groupImportsBySource": true,
         "separateImportGroups": true,
         "quote": "double",
-        "expand": "never"
+        "expand": "always"
     },
     "modules": {
         "regions": {
-            "addRegions": true,
-            "addMemberCountInRegionName": true,
-            "addRegionCaptionToRegionEnd": true
+            "addRegions": false,
+            "addMemberCountInRegionName": false,
+            "addRegionCaptionToRegionEnd": false
         },
         "members": {
             "treatArrowFunctionVariablesAsMethods": false,
@@ -95,9 +84,9 @@
     },
     "classes": {
         "regions": {
-            "addRegions": true,
-            "addMemberCountInRegionName": true,
-            "addRegionCaptionToRegionEnd": true
+            "addRegions": false,
+            "addMemberCountInRegionName": false,
+            "addRegionCaptionToRegionEnd": false
         },
         "members": {
             "addPublicModifierIfMissing": true,
@@ -267,9 +256,9 @@
     },
     "interfaces": {
         "regions": {
-            "addRegions": true,
-            "addMemberCountInRegionName": true,
-            "addRegionCaptionToRegionEnd": true
+            "addRegions": false,
+            "addMemberCountInRegionName": false,
+            "addRegionCaptionToRegionEnd": false
         },
         "members": {
             "treatArrowFunctionPropertiesAsMethods": false,
@@ -312,9 +301,9 @@
     },
     "types": {
         "regions": {
-            "addRegions": true,
-            "addMemberCountInRegionName": true,
-            "addRegionCaptionToRegionEnd": true
+            "addRegions": false,
+            "addMemberCountInRegionName": false,
+            "addRegionCaptionToRegionEnd": false
         },
         "members": {
             "treatArrowFunctionPropertiesAsMethods": true

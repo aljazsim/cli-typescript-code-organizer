@@ -17,6 +17,7 @@ import { TypeAliasNode } from "../elements/type-alias-node.js";
 import { VariableNode } from "../elements/variable-node.js";
 import { AccessModifier } from "../enums/access-modifier.js";
 import { WriteModifier } from "../enums/write-modifier.js";
+import { newLine } from "../source-code/source-code-constants.js";
 import { add, distinct, except, remove } from "./array-helper.js";
 import { compareStrings } from "./comparing-helper.js";
 import { matchRegEx, matchWildcard } from "./string-helper.js";
@@ -205,7 +206,7 @@ export function getLeadingComment(node: ts.Node, sourceFile: ts.SourceFile)
         const end = commentRanges[0].end;
         const trailingNewLine = commentRanges[0].hasTrailingNewLine;
 
-        return sourceCode.substring(start, end).trimStart() + (trailingNewLine ? "\r\n" : "");
+        return sourceCode.substring(start, end).trimStart() + (trailingNewLine ? newLine : "");
     }
     else
     {
@@ -306,7 +307,7 @@ export function getTrailingComment(node: ts.Node, sourceFile: ts.SourceFile)
         const end = commentRanges[0].end;
         const trailingNewLine = commentRanges[0].hasTrailingNewLine;
 
-        return sourceCode.substring(start, end).trimEnd() + (trailingNewLine ? "\r\n" : "");
+        return sourceCode.substring(start, end).trimEnd() + (trailingNewLine ? newLine : "");
     }
     else
     {
