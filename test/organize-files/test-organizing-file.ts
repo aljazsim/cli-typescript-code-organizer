@@ -1,8 +1,8 @@
-
 import { Configuration } from "../../src/configuration/configuration.js";
 import { deleteFile, fileExists, readFile, writeFile } from "../../src/helpers/file-system-helper.js";
 import { SourceCodeOrganizer } from "../../src/source-code/source-code-organizer.js";
 
+// #region Exported Functions (1)
 
 export async function testOrganizingFile(sourceCodeFilePath: string, configurationFilePath: string, expectedFilePath: string)
 {
@@ -19,7 +19,6 @@ export async function testOrganizingFile(sourceCodeFilePath: string, configurati
         await writeFile(expectedFilePath, organized, false);
     }
 
-
     const expected = await readFile(expectedFilePath);
 
     if (organized == expected)
@@ -33,9 +32,9 @@ export async function testOrganizingFile(sourceCodeFilePath: string, configurati
     else
     {
         await writeFile(organizedFilePath, organized, true);
-
     }
-
 
     return { organizedSourceCode: organized, expectedOrganizedSourceCode: expected }
 }
+
+// #endregion Exported Functions

@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+
 import { getOrganizeSpecialCaseTestParameters } from "../helpers/organize-test-helper.js";
 import { testOrganizingFile } from "./test-organizing-file.js";
 
