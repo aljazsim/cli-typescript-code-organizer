@@ -457,3 +457,7 @@ tsco --organize
 - fix issue with parsing command line arguments (courtesy of [Carlos Jesús Huchim Ahumada](https://github.com/huchim))
 - fix issue with removing empty lines in code expressions
 - fix issue with using typed imports
+
+### 2.0.9
+
+- add setting for expanding/collapsing imports
