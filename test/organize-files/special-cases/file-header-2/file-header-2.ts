@@ -1,7 +1,8 @@
 
 
      //
-   //    Copyright (c) 2025. My Corporation.                                                                 //
+   //    Copyright (c) 2025. My Corporation.                                                        
+ //
 
 
 import type { IType1 } from "./IType1.ts";

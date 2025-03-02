@@ -33,9 +33,8 @@ export class SourceCodePrinter
     {
         const printedSourceCode = this.printNodeGroups(nodeGroups, configuration);
 
-        if (fileHeader)
+        if (fileHeader && fileHeader.length > 0)
         {
-            printedSourceCode.replace(fileHeader, "");
             printedSourceCode.addBefore(this.printComment(fileHeader));
         }
 
@@ -54,7 +53,6 @@ export class SourceCodePrinter
         const singlelineComment = "//";
 
         const lines = fileHeader.trimStart().split(new RegExp(newLineRegex)).map(l => l.trim());
-        let commentStart = "";
 
         for (let i = 0; i < lines.length; i++)
         {
@@ -62,12 +60,11 @@ export class SourceCodePrinter
 
             if (multilineCommentStart.test(lines[i]))
             {
-                commentStart = lines[i];
+                // do nothing
             }
             else if (multilineCommentEnd.test(lines[i]))
             {
-                // clone multiline comment start and convert it to multiline comment end (to keep them the same length)
-                lines[i] = " " + commentStart.replace("/", '') + "/";
+                lines[i] = " " + lines[i].trim();
             }
             else if (lines[i].startsWith(multilineComment))
             {
@@ -83,6 +80,8 @@ export class SourceCodePrinter
                 lines[i] = indentation + lines[i];
             }
         }
+
+        lines.push("");
 
         return lines.join(newLine);
     }
