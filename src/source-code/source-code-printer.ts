@@ -19,8 +19,10 @@ import { SetterNode } from "../elements/setter-node.js";
 import { SetterSignatureNode } from "../elements/setter-signature-node.js";
 import { TypeAliasNode } from "../elements/type-alias-node.js";
 import { VariableNode } from "../elements/variable-node.js";
-import { ImportSourceFilePathQuoteType } from "../enums/Import-source-file-path-quote-type.js";
+import { ImportExpand } from "../enums/import-expand.js";
+import { ImportSourceFilePathQuoteType } from "../enums/import-source-file-path-quote-type.js";
 import { WriteModifier } from "../enums/write-modifier.js";
+import { doubleQuote, newLine, singleQuote, space } from "./source-code-constants.js";
 import { SourceCode } from "./source-code.js";
 
 export class SourceCodePrinter
@@ -87,8 +89,9 @@ export class SourceCodePrinter
 
     private static printImport(node: ImportNode, configuration: ImportConfiguration)
     {
+        const indentation = "    ";
         const source = node.source;
-        const quote = configuration.quote === ImportSourceFilePathQuoteType.Single ? "'" : '"';
+        const quote = configuration.quote === ImportSourceFilePathQuoteType.Single ? singleQuote : doubleQuote;
         const namedImports = (node.namedImports ?? []).filter(ni => ni && ni.name.trim().length > 0);
         const nameBinding = node.nameBinding;
         const namespace = node.namespace;
@@ -97,12 +100,13 @@ export class SourceCodePrinter
 
         if (namedImports.length > 0)
         {
+            const expand = configuration.expand === ImportExpand.Always || configuration.expand === ImportExpand.WhenMoreThanOneNamedImport && namedImports.length > 1;
             const allTypeOnly = namedImports.every(ni => ni.typeOnly);
 
             namedImportsSourceCode += allTypeOnly ? "type " : "";
-            namedImportsSourceCode += "{ ";
-            namedImportsSourceCode += namedImports.map(ni => (ni.typeOnly && !allTypeOnly ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(", ");
-            namedImportsSourceCode += " }";
+            namedImportsSourceCode += `{${expand ? newLine : space}`;
+            namedImportsSourceCode += namedImports.map(ni => (expand ? indentation : "") + (ni.typeOnly && !allTypeOnly ? "type " : "") + (ni.alias ? (ni.alias + " as ") : "") + ni.name).join(`,${expand ? newLine : space}`);
+            namedImportsSourceCode += `${expand ? newLine : space}}`;
         }
 
         if (nameBinding)
