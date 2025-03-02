@@ -56,8 +56,6 @@ export class SourceCodePrinter
 
         for (let i = 0; i < lines.length; i++)
         {
-            lines[i] = lines[i].trim();
-
             if (multilineCommentStart.test(lines[i]))
             {
                 // do nothing
@@ -81,7 +79,10 @@ export class SourceCodePrinter
             }
         }
 
-        lines.push("");
+        if (lines[lines.length - 1] !== "")
+        {
+            lines.push("");
+        }
 
         return lines.join(newLine);
     }

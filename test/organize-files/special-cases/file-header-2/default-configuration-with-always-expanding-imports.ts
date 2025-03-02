@@ -1,6 +1,6 @@
-/*******************************************************************************
- * Copyright (c) 2025. My Corporation.
- */
+// 
+// Copyright (c) 2025. My Corporation.
+// 
 
 import type {
     IType1
@@ -14,10 +14,12 @@ import {
 } from "./TokenEnum.ts";
 import {
     createWorker
-} from "./helpers/WorkerCreator";
+} from "./helpers/WorkerCreator.ts";
 
-export class Token extends TokenEnum implements IType1, IType2 {
-    public push(item: string) {
+export class Token extends TokenEnum implements IType1, IType2
+{
+    public push(item: string)
+    {
         return convertToType1(item) + createWorker(item);
     }
 }
