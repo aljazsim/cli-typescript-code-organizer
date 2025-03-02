@@ -190,9 +190,10 @@ Import statement organization configuration section specifies how TypeScript imp
         "sortImportsByName": true, <-- sorts imported references within individual import statement
         "groupImportsBySource": true, <-- groups imports statements by: module imports, non-TypeScript file imports, TypeScript file imports
         "separateImportGroups": true, <-- separates imports statement groups with a new line (only works if groupImportsBySource os set to true)
-        "quote": "double" <-- "double" uses double quotes and "single" uses single quotes when specifying import sources
+        "quote": "double", <-- "double" uses double quotes and "single" uses single quotes when specifying import sources
+        "expand": "never" <-- "never" keeps imports on the same line, "always" puts every named import on a separate line and "whenMoreThanOneNamedImport" keeps single named import in one line and expands it when more than one named import
     },
-    }
+}
 ```
 
 ### Module Organization Configuration Section
