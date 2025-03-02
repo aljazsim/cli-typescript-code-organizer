@@ -22,7 +22,15 @@
             {
                 "sortDirection": "asc",
                 "caption": "Enums",
-                "memberTypes": ["enums", "exportedEnums"],
+                "memberTypes": ["enums"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Exported Enums",
+                "memberTypes": ["exportedEnums"],
                 "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
@@ -30,7 +38,15 @@
             {
                 "sortDirection": "asc",
                 "caption": "Interfaces",
-                "memberTypes": ["interfaces", "exportedInterfaces"],
+                "memberTypes": ["interfaces"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Exported Interfaces",
+                "memberTypes": ["exportedInterfaces"],
                 "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
@@ -38,7 +54,15 @@
             {
                 "sortDirection": "asc",
                 "caption": "Classes",
-                "memberTypes": ["classes", "exportedClasses"],
+                "memberTypes": ["classes"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Exported Classes",
+                "memberTypes": ["exportedClasses"],
                 "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
@@ -46,7 +70,15 @@
             {
                 "sortDirection": "asc",
                 "caption": "Types",
-                "memberTypes": ["types", "exportedTypes"],
+                "memberTypes": ["types"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Exported Types",
+                "memberTypes": ["exportedTypes"],
                 "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []

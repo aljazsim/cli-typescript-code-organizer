@@ -14,21 +14,21 @@ interface Interface01 {
  // #endregion Methods, getter and setters
 }
 
-export interface Interface02 { }
-
-export interface Interface03 { }
-
 interface Interface04 { }
 
 interface Interface05 { }
 
-export interface Interface06 { }
-
-export interface Interface07 { }
-
 interface Interface08 { }
 
 interface Interface09 { }
+
+export interface Interface02 { }
+
+export interface Interface03 { }
+
+export interface Interface06 { }
+
+export interface Interface07 { }
 
 export interface Interface10 { }
 
@@ -38,21 +38,9 @@ export interface Interface10 { }
 
 class Class01 { }
 
-export class Class02 { }
-
 class Class03 { }
 
-export class Class04 { }
-
 class Class05 { }
-
-export class Class06 {
- // #region Methods (1)
-
- public method2() { }
-
- // #endregion Methods
-}
 
 class Class07 {
  // #region Properties (1)
@@ -74,11 +62,23 @@ class Class07 {
  // #endregion Getters And Setters
 }
 
+class Class10 { }
+
+export class Class02 { }
+
+export class Class04 { }
+
+export class Class06 {
+ // #region Methods (1)
+
+ public method2() { }
+
+ // #endregion Methods
+}
+
 export class Class08 { }
 
 export class Class09 { }
-
-class Class10 { }
 
 // #endregion Classes
 
@@ -96,12 +96,6 @@ type Type02 = {
 
 type Type03 = {};
 
-export type Type04 = {};
-
-export type Type05 = {};
-
-export type Type06 = {};
-
 type Type07 = {
  // #region Properties, indexes and methods (3)
 
@@ -113,9 +107,15 @@ type Type07 = {
  // #endregion Properties, indexes and methods
 };
 
-export type Type08 = {};
-
 type Type09 = {};
+
+export type Type04 = {};
+
+export type Type05 = {};
+
+export type Type06 = {};
+
+export type Type08 = {};
 
 export type Type10 = {};
 

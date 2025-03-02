@@ -14,21 +14,21 @@ interface Interface01 {
  // #endregion
 }
 
-export interface Interface02 { }
-
-export interface Interface03 { }
-
 interface Interface04 { }
 
 interface Interface05 { }
 
-export interface Interface06 { }
-
-export interface Interface07 { }
-
 interface Interface08 { }
 
 interface Interface09 { }
+
+export interface Interface02 { }
+
+export interface Interface03 { }
+
+export interface Interface06 { }
+
+export interface Interface07 { }
 
 export interface Interface10 { }
 
@@ -38,21 +38,9 @@ export interface Interface10 { }
 
 class Class01 { }
 
-export class Class02 { }
-
 class Class03 { }
 
-export class Class04 { }
-
 class Class05 { }
-
-export class Class06 {
- // #region Public Methods
-
- public method2() { }
-
- // #endregion
-}
 
 class Class07 {
  // #region Properties
@@ -74,11 +62,23 @@ class Class07 {
  // #endregion
 }
 
+class Class10 { }
+
+export class Class02 { }
+
+export class Class04 { }
+
+export class Class06 {
+ // #region Public Methods
+
+ public method2() { }
+
+ // #endregion
+}
+
 export class Class08 { }
 
 export class Class09 { }
-
-class Class10 { }
 
 // #endregion
 
@@ -96,12 +96,6 @@ type Type02 = {
 
 type Type03 = {};
 
-export type Type04 = {};
-
-export type Type05 = {};
-
-export type Type06 = {};
-
 type Type07 = {
  // #region Properties
 
@@ -117,9 +111,15 @@ type Type07 = {
  // #endregion
 };
 
-export type Type08 = {};
-
 type Type09 = {};
+
+export type Type04 = {};
+
+export type Type05 = {};
+
+export type Type06 = {};
+
+export type Type08 = {};
 
 export type Type10 = {};
 

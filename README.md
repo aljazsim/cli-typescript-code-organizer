@@ -313,16 +313,16 @@ Member types are dependant on where are they being used: modules, classes, inter
 
 #### Module Member Types
 
-| Structures   | Functions           | Variables           |
-| ------------ | ------------------- | ------------------- |
-| `enums`      | `functions`         | `constants`         |
-| `types`      | `exportedFunctions` | `exportedConstants` |
-| `exportedTypes` |                  |                     |
-| `exportedEnums` |                  |                     |
-| `interfaces` |                     | `variables`         |
-| `exportedInterfaces` |             |                     |
-| `classes`    |                     | `exportedVariables` |
-| `exportedClasses` |                |                     |
+| Structures           | Functions           | Variables           |
+| -------------------- | ------------------- | ------------------- |
+| `enums`              | `functions`         | `constants`         |
+| `exportedEnums`      | `exportedFunctions` | `exportedConstants` |
+| `types`              |                     | `variables`         |
+| `exportedTypes`      |                     | `exportedVariables` |
+| `interfaces`         |                     |                     |
+| `exportedInterfaces` |                     |                     |
+| `classes`            |                     |                     |
+| `exportedClasses`    |                     |                     |
 
 #### Class Member Types
 
@@ -462,7 +462,8 @@ tsco --organize
 - fix issue with removing empty lines in code expressions
 - fix issue with using typed imports
 
-### 2.0.9
+### 2.0.10
 
 - add setting for expanding/collapsing imports
 - fix issue with declaring modules
+- add support for exported enums, exported interfaces, exported classes and exported types (courtesy of [Carlos Jesús Huchim Ahumada](https://github.com/huchim))
