@@ -16,7 +16,8 @@
         "sortImportsByName": true,
         "groupImportsBySource": true,
         "separateImportGroups": true,
-        "quote": "double"
+        "quote": "double",
+        "expand": "never"
     },
     "modules": {
         "regions": {

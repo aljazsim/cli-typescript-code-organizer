@@ -17,6 +17,7 @@ import { TypeAliasNode } from "../elements/type-alias-node.js";
 import { VariableNode } from "../elements/variable-node.js";
 import { AccessModifier } from "../enums/access-modifier.js";
 import { WriteModifier } from "../enums/write-modifier.js";
+import { newLine } from "../source-code/source-code-constants.js";
 import { add, distinct, except, remove } from "./array-helper.js";
 import { compareStrings } from "./comparing-helper.js";
 import { matchRegEx, matchWildcard } from "./string-helper.js";
@@ -40,7 +41,7 @@ function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupW
 
 // #endregion Functions
 
-// #region Exported Functions (30)
+// #region Exported Functions (31)
 
 export function getAccessModifier(node: ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.MethodDeclaration | ts.PropertySignature | ts.IndexSignatureDeclaration)
 {
@@ -178,7 +179,26 @@ export function getIsAsync(node: ts.MethodDeclaration | ts.PropertyDeclaration)
 
 export function getIsConst(node: ts.VariableDeclarationList)
 {
-    return node.flags === ts.NodeFlags.Const;
+    return (node.flags & ts.NodeFlags.Const) === ts.NodeFlags.Const;
+}
+
+export function getIsDeclaration(node: ts.VariableStatement)
+{
+    let isExport = false;
+
+    if (node.modifiers &&
+        node.modifiers.length > 0)
+    {
+        const tmp = node.modifiers.find((modifier) => modifier.kind === ts.SyntaxKind.DeclareKeyword);
+
+        if (tmp &&
+            tmp.kind === ts.SyntaxKind.DeclareKeyword)
+        {
+            isExport = true;
+        }
+    }
+
+    return isExport;
 }
 
 export function getIsExport(node: Pick<ts.ClassDeclaration | ts.FunctionDeclaration | ts.VariableStatement | ts.TypeAliasDeclaration, "modifiers">)
@@ -216,7 +236,7 @@ export function getLeadingComment(node: ts.Node, sourceFile: ts.SourceFile)
         const end = commentRanges[0].end;
         const trailingNewLine = commentRanges[0].hasTrailingNewLine;
 
-        return sourceCode.substring(start, end).trimStart() + (trailingNewLine ? "\r\n" : "");
+        return sourceCode.substring(start, end).trimStart() + (trailingNewLine ? newLine : "");
     }
     else
     {
@@ -317,7 +337,7 @@ export function getTrailingComment(node: ts.Node, sourceFile: ts.SourceFile)
         const end = commentRanges[0].end;
         const trailingNewLine = commentRanges[0].hasTrailingNewLine;
 
-        return sourceCode.substring(start, end).trimEnd() + (trailingNewLine ? "\r\n" : "");
+        return sourceCode.substring(start, end).trimEnd() + (trailingNewLine ? newLine : "");
     }
     else
     {

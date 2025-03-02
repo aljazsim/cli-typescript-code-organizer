@@ -1,4 +1,4 @@
-import type { B, A } from "@c/api";
+import type { A, B } from "@c/api";
 import { D, type C } from "@c/api/v2";
 import type { E } from "@c/api/v3";
 import { DateTime, type Duration } from "luxon";

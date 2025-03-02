@@ -13,7 +13,10 @@ export function getOrganizeSpecialCaseTestParameters()
         "variable-dependency",
         "indexer",
         "import-with-comment",
-        "empty-lines-in-code"
+        "empty-lines-in-code",
+        "declare-module",
+        "file-header",
+        "file-header-2"
     ];
 
     const memberOrganizeParameters: OrganizeTestParameters[] = [];
