@@ -461,3 +461,4 @@ tsco --organize
 ### 2.0.9
 
 - add setting for expanding/collapsing imports
+- fix issue with declaring modules

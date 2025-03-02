@@ -341,12 +341,15 @@ export class SourceCodePrinter
 
     private static printVariable(node: VariableNode): SourceCode
     {
-        let sourceCode = node.sourceCode.trim();
+        let sourceCode = "";
 
-        sourceCode = `${node.isConst ? "const" : "let"} ${sourceCode};`;
-        sourceCode = `${node.isExport ? "export " : ""}${sourceCode}`;
-        sourceCode = `${node.leadingComment ?? ""}${sourceCode}`;
-        sourceCode = `${sourceCode}${node.trailingComment ?? ""}`;
+        sourceCode += node.leadingComment ?? "";
+        sourceCode += node.isExport ? "export " : "";
+        sourceCode += node.isDeclaration ? "declare " : "";
+        sourceCode += node.isConst ? "const " : "let ";
+        sourceCode += node.sourceCode.trim();
+        sourceCode += ";";
+        sourceCode += node.trailingComment ?? "";
 
         return new SourceCode(sourceCode);
     }
