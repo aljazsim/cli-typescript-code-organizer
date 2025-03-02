@@ -36,11 +36,13 @@ export class SourceCodeOrganizer
 
                 sourceCodeWithoutRegions.removeRegions(); // strip regions, they will get re-generated
 
+                const fileHeader = sourceCodeWithoutRegions.removeFileHeader();
+
                 const sourceFile = ts.createSourceFile(sourceCodeFilePath, sourceCodeWithoutRegions.toString(), ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
                 const elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration);
                 const topLevelGroups = await this.organizeModuleMembers(elements, configuration, sourceFile); // TODO: move this to module node
 
-                return SourceCodePrinter.print(topLevelGroups, configuration).toString();
+                return SourceCodePrinter.print(fileHeader, topLevelGroups, configuration).toString();
             }
             catch (error)
             {

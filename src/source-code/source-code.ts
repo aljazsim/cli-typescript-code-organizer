@@ -18,7 +18,7 @@ export class SourceCode
 
     // #endregion Constructors
 
-    // #region Public Methods (13)
+    // #region Public Methods (15)
 
     public addAfter(newSourceCode: string | SourceCode)
     {
@@ -243,6 +243,55 @@ export class SourceCode
         this.sourceCode = lines.join(newLine);
     }
 
+    public removeFileHeader()
+    {
+        const singleLineCommentStart = "//";
+        const multilineComment = "*";
+        const multilineCommentStart = new RegExp(`^/\\${multilineComment}+$`);
+        const multilineCommentMiddle = new RegExp(`^\\${multilineComment}.*$`);
+        const multilineCommentEnd = new RegExp(`^\\${multilineComment}+/$`);
+        const singlelineCommentStart = new RegExp(`^${singleLineCommentStart}.*$`);
+
+        const lines = this.sourceCode.split(new RegExp(newLineRegex));
+        const commentLines = [];
+
+        while (lines.length > 0)
+        {
+            const line = lines[0];
+
+            if (line.trim() === "")
+            {
+                lines.splice(0, 1);
+                commentLines.push(line);
+            }
+            else if (multilineCommentStart.test(line.trim()) ||
+                multilineCommentEnd.test(line.trim()) ||
+                multilineCommentMiddle.test(line.trim()))
+            {
+                lines.splice(0, 1);
+                commentLines.push(line);
+            }
+            else if (singlelineCommentStart.test(line.trim()))
+            {
+                lines.splice(0, 1);
+                commentLines.push(line);
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if (lines.length >= 3)
+        {
+            this.sourceCode = lines.join(newLine);
+
+            return commentLines.join(newLine);
+        }
+
+        return null;
+    }
+
     public removeRegions()
     {
         const startRegionsRegex = new RegExp(`^//${spacesRegex}${startRegion}${spacesRegex}${anythingRegex}$`, "i");
@@ -274,6 +323,14 @@ export class SourceCode
         }
 
         this.sourceCode = lines2.join(newLine);
+    }
+
+    public replace(oldValue: string, newValue: string)
+    {
+        while (this.sourceCode.indexOf(oldValue) >= 0)
+        {
+            this.sourceCode = this.sourceCode.replace(oldValue, newValue);
+        }
     }
 
     public toString()
