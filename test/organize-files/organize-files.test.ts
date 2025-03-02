@@ -1,10 +1,10 @@
+import { fail } from "assert";
 import { expect, test } from "vitest";
 
 import { Configuration } from "../../src/configuration/configuration.js";
 import { deleteFile, fileExists, readFile, writeFile } from "../../src/helpers/file-system-helper.js";
 import { SourceCodeOrganizer } from "../../src/source-code/source-code-organizer.js";
 import { getOrganizeTestParameters } from "../helpers/organize-test-helper.js";
-import { fail } from "assert";
 
 for (const otp of getOrganizeTestParameters())
 {
@@ -18,7 +18,6 @@ for (const otp of getOrganizeTestParameters())
 
         try
         {
-
             // act
             const organizedSourceCodeFilePath = expectedOrganizedSourceCodeFilePath + ".invalid";
             const organizedSourceCode = await SourceCodeOrganizer.organizeSourceCode(sourceCodeFilePath, sourceCode, configuration);
