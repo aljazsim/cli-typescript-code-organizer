@@ -168,7 +168,7 @@ export function getIsAsync(node: ts.MethodDeclaration | ts.PropertyDeclaration)
 
 export function getIsConst(node: ts.VariableDeclarationList)
 {
-    return node.flags === ts.NodeFlags.Const;
+    return (node.flags & ts.NodeFlags.Const) === ts.NodeFlags.Const;
 }
 
 export function getIsExport(node: ts.ClassDeclaration | ts.FunctionDeclaration | ts.VariableStatement)
@@ -182,6 +182,25 @@ export function getIsExport(node: ts.ClassDeclaration | ts.FunctionDeclaration |
 
         if (tmp &&
             tmp.kind === ts.SyntaxKind.ExportKeyword)
+        {
+            isExport = true;
+        }
+    }
+
+    return isExport;
+}
+
+export function getIsDeclaration(node: ts.VariableStatement)
+{
+    let isExport = false;
+
+    if (node.modifiers &&
+        node.modifiers.length > 0)
+    {
+        const tmp = node.modifiers.find((modifier) => modifier.kind === ts.SyntaxKind.DeclareKeyword);
+
+        if (tmp &&
+            tmp.kind === ts.SyntaxKind.DeclareKeyword)
         {
             isExport = true;
         }
