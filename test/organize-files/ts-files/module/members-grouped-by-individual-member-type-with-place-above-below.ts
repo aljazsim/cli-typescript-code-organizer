@@ -1,4 +1,4 @@
-// #region Interfaces (10)
+// #region Interfaces (5)
 
 interface Interface01 {
  // #region Properties (1)
@@ -14,45 +14,37 @@ interface Interface01 {
  // #endregion Methods
 }
 
-export interface Interface02 { }
-
-export interface Interface03 { }
-
 interface Interface04 { }
 
 interface Interface05 { }
-
-export interface Interface06 { }
-
-export interface Interface07 { }
 
 interface Interface08 { }
 
 interface Interface09 { }
 
-export interface Interface10 { }
-
 // #endregion Interfaces
 
-// #region Classes (10)
+// #region Exported Interfaces (5)
+
+export interface Interface02 { }
+
+export interface Interface03 { }
+
+export interface Interface06 { }
+
+export interface Interface07 { }
+
+export interface Interface10 { }
+
+// #endregion Exported Interfaces
+
+// #region Classes (5)
 
 class Class01 { }
 
-export class Class02 { }
-
 class Class03 { }
 
-export class Class04 { }
-
 class Class05 { }
-
-export class Class06 {
- // #region Public Methods (1)
-
- public method2() { }
-
- // #endregion Public Methods
-}
 
 class Class07 {
  // #region Public Properties (1)
@@ -74,15 +66,31 @@ class Class07 {
  // #endregion Public Getters And Setters
 }
 
-export class Class08 { }
-
-export class Class09 { }
-
 class Class10 { }
 
 // #endregion Classes
 
-// #region Types (10)
+// #region Exported Classes (5)
+
+export class Class02 { }
+
+export class Class04 { }
+
+export class Class06 {
+ // #region Public Methods (1)
+
+ public method2() { }
+
+ // #endregion Public Methods
+}
+
+export class Class08 { }
+
+export class Class09 { }
+
+// #endregion Exported Classes
+
+// #region Types (5)
 
 type Type01 = {};
 
@@ -92,12 +100,6 @@ type Type02 = {
 
 type Type03 = {};
 
-export type Type04 = {};
-
-export type Type05 = {};
-
-export type Type06 = {};
-
 type Type07 = {
  property1: string
 
@@ -105,13 +107,23 @@ type Type07 = {
  method1(): void;
 };
 
-export type Type08 = {};
-
 type Type09 = {};
+
+// #endregion Types
+
+// #region Exported Types (5)
+
+export type Type04 = {};
+
+export type Type05 = {};
+
+export type Type06 = {};
+
+export type Type08 = {};
 
 export type Type10 = {};
 
-// #endregion Types
+// #endregion Exported Types
 
 // #region Functions (5)
 

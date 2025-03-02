@@ -1,3 +1,4 @@
+import { fail } from "assert";
 import { expect, test } from "vitest";
 
 import { Configuration } from "../../src/configuration/configuration.js";
@@ -15,30 +16,39 @@ for (const otp of getOrganizeTestParameters())
         const sourceCode = await readFile(sourceCodeFilePath);
         const expectedOrganizedSourceCodeFilePath = otp.output;
 
-        // act
-        const organizedSourceCodeFilePath = expectedOrganizedSourceCodeFilePath + ".invalid";
-        const organizedSourceCode = await SourceCodeOrganizer.organizeSourceCode(sourceCodeFilePath, sourceCode, configuration);
-
-        if (!(await fileExists(expectedOrganizedSourceCodeFilePath)))
+        try
         {
-            await writeFile(expectedOrganizedSourceCodeFilePath, organizedSourceCode, false);
-        }
+            // act
+            const organizedSourceCodeFilePath = expectedOrganizedSourceCodeFilePath + ".invalid";
+            const organizedSourceCode = await SourceCodeOrganizer.organizeSourceCode(sourceCodeFilePath, sourceCode, configuration);
 
-        const expectedOrganizedSourceCode = await readFile(expectedOrganizedSourceCodeFilePath);
-
-        if (organizedSourceCode == expectedOrganizedSourceCode)
-        {
-            if (await fileExists(organizedSourceCodeFilePath))
+            if (!(await fileExists(expectedOrganizedSourceCodeFilePath)))
             {
-                await deleteFile(organizedSourceCodeFilePath);
+                await writeFile(expectedOrganizedSourceCodeFilePath, organizedSourceCode, false);
+            }
+            else
+            {
+                const expectedOrganizedSourceCode = await readFile(expectedOrganizedSourceCodeFilePath);
+
+                if (organizedSourceCode == expectedOrganizedSourceCode)
+                {
+                    if (await fileExists(organizedSourceCodeFilePath))
+                    {
+                        await deleteFile(organizedSourceCodeFilePath);
+                    }
+                }
+                else
+                {
+                    await writeFile(organizedSourceCodeFilePath, organizedSourceCode, true);
+                }
+
+                // assert
+                expect(organizedSourceCode).toBe(expectedOrganizedSourceCode);
             }
         }
-        else
+        catch (error)
         {
-            await writeFile(organizedSourceCodeFilePath, organizedSourceCode, true);
+            fail(error as string | Error);
         }
-
-        // assert
-        expect(organizedSourceCode).toBe(expectedOrganizedSourceCode);
     });
 }

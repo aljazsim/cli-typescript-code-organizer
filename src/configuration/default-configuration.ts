@@ -37,7 +37,7 @@ export const defaultConfiguration: Configuration =
             {
                 sortDirection: "asc",
                 caption: "Enums",
-                memberTypes: [ModuleMemberType.enums],
+                memberTypes: [ModuleMemberType.enums, ModuleMemberType.exportedEnums],
                 memberTypesGrouped: true,
                 placeAbove: [],
                 placeBelow: []
@@ -45,7 +45,7 @@ export const defaultConfiguration: Configuration =
             {
                 sortDirection: "asc",
                 caption: "Interfaces",
-                memberTypes: [ModuleMemberType.interfaces],
+                memberTypes: [ModuleMemberType.interfaces, ModuleMemberType.exportedInterfaces],
                 memberTypesGrouped: true,
                 placeAbove: [],
                 placeBelow: []
@@ -53,7 +53,7 @@ export const defaultConfiguration: Configuration =
             {
                 sortDirection: "asc",
                 caption: "Classes",
-                memberTypes: [ModuleMemberType.classes],
+                memberTypes: [ModuleMemberType.classes, ModuleMemberType.exportedClasses],
                 memberTypesGrouped: true,
                 placeAbove: [],
                 placeBelow: []
@@ -61,7 +61,7 @@ export const defaultConfiguration: Configuration =
             {
                 sortDirection: "asc",
                 caption: "Types",
-                memberTypes: [ModuleMemberType.types],
+                memberTypes: [ModuleMemberType.types, ModuleMemberType.exportedTypes],
                 memberTypesGrouped: true,
                 placeAbove: [],
                 placeBelow: []

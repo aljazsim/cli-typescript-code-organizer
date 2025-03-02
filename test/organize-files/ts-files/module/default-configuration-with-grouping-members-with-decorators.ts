@@ -4,37 +4,29 @@ interface Interface01 {
  method1(): string
 }
 
-export interface Interface02 { }
-
-export interface Interface03 { }
-
 interface Interface04 { }
 
 interface Interface05 { }
-
-export interface Interface06 { }
-
-export interface Interface07 { }
 
 interface Interface08 { }
 
 interface Interface09 { }
 
+export interface Interface02 { }
+
+export interface Interface03 { }
+
+export interface Interface06 { }
+
+export interface Interface07 { }
+
 export interface Interface10 { }
 
 class Class01 { }
 
-export class Class02 { }
-
 class Class03 { }
 
-export class Class04 { }
-
 class Class05 { }
-
-export class Class06 {
- public method2() { }
-}
 
 class Class07 {
  public property1: string | null = null;
@@ -44,11 +36,19 @@ class Class07 {
  public get getZero() { return 0 }
 }
 
+class Class10 { }
+
+export class Class02 { }
+
+export class Class04 { }
+
+export class Class06 {
+ public method2() { }
+}
+
 export class Class08 { }
 
 export class Class09 { }
-
-class Class10 { }
 
 type Type01 = {};
 
@@ -58,12 +58,6 @@ type Type02 = {
 
 type Type03 = {};
 
-export type Type04 = {};
-
-export type Type05 = {};
-
-export type Type06 = {};
-
 type Type07 = {
  property1: string
 
@@ -71,9 +65,15 @@ type Type07 = {
  method2(): number;
 };
 
-export type Type08 = {};
-
 type Type09 = {};
+
+export type Type04 = {};
+
+export type Type05 = {};
+
+export type Type06 = {};
+
+export type Type08 = {};
 
 export type Type10 = {};
 

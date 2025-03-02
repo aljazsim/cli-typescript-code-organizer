@@ -29,8 +29,24 @@
             },
             {
                 "sortDirection": "asc",
+                "caption": "Exported Enums",
+                "memberTypes": ["exportedEnums"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
                 "caption": "Interfaces",
                 "memberTypes": ["interfaces"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Exported Interfaces",
+                "memberTypes": ["exportedInterfaces"],
                 "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []
@@ -45,8 +61,24 @@
             },
             {
                 "sortDirection": "asc",
+                "caption": "Exported Classes",
+                "memberTypes": ["exportedClasses"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
                 "caption": "Types",
                 "memberTypes": ["types"],
+                "memberTypesGrouped": false,
+                "placeAbove": [],
+                "placeBelow": []
+            },
+            {
+                "sortDirection": "asc",
+                "caption": "Exported Types",
+                "memberTypes": ["exportedTypes"],
                 "memberTypesGrouped": false,
                 "placeAbove": [],
                 "placeBelow": []

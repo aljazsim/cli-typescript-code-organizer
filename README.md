@@ -299,7 +299,7 @@ Specifies how members are grouped together when organizing modules, classes, int
         {
                 "sortDirection": "asc", <-- member group sorting direction (can be "asc" for ascending, "desc" for descending or "none" for no sorting)
                 "caption": "Enums", <-- member group caption (will be used as a region name when using regions)
-                "memberTypes": ["enums"], <-- member group module members (see tables below)
+                "memberTypes": ["enums", "exportedEnums"], <-- member group module members (see tables below)
                 "memberTypesGrouped": true, <-- member groups will be grouped by member type when set to true or merged with other member types when set to false (only works if there's more than one member type specified in the member types)
                 "placeAbove": [], <-- member name patterns for placing particular members on top of the member group (supports exact match, wildcard patterns and regex)
                 "placeBelow": [] <-- member name patterns for placing particular members on bottom of the member group (supports exact match, wildcard patterns and regex)
@@ -313,12 +313,16 @@ Member types are dependant on where are they being used: modules, classes, inter
 
 #### Module Member Types
 
-| Structures   | Functions           | Variables           |
-| ------------ | ------------------- | ------------------- |
-| `enums`      | `functions`         | `constants`         |
-| `types`      | `exportedFunctions` | `exportedConstants` |
-| `interfaces` |                     | `variables`         |
-| `classes`    |                     | `exportedVariables` |
+| Structures           | Functions           | Variables           |
+| -------------------- | ------------------- | ------------------- |
+| `enums`              | `functions`         | `constants`         |
+| `exportedEnums`      | `exportedFunctions` | `exportedConstants` |
+| `types`              |                     | `variables`         |
+| `exportedTypes`      |                     | `exportedVariables` |
+| `interfaces`         |                     |                     |
+| `exportedInterfaces` |                     |                     |
+| `classes`            |                     |                     |
+| `exportedClasses`    |                     |                     |
 
 #### Class Member Types
 
@@ -458,7 +462,8 @@ tsco --organize
 - fix issue with removing empty lines in code expressions
 - fix issue with using typed imports
 
-### 2.0.9
+### 2.0.10
 
 - add setting for expanding/collapsing imports
 - fix issue with declaring modules
+- add support for exported enums, exported interfaces, exported classes and exported types (courtesy of [Carlos Jesús Huchim Ahumada](https://github.com/huchim))

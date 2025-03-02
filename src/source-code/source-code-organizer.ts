@@ -178,10 +178,14 @@ export class SourceCodeOrganizer
     {
         const regions: ElementNodeGroup[] = [];
         const imports = getImports(elements);
-        const interfaces = getInterfaces(elements);
-        const classes = getClasses(elements, false);
-        const types = getTypeAliases(elements);
-        const enums = getEnums(elements);
+        const interfaces = getInterfaces(elements, false);
+        const exportedInterfaces = getInterfaces(elements, true);
+        const classes = getClasses(elements, false, false);
+        const exportedClasses = getClasses(elements, false, true);
+        const types = getTypeAliases(elements, false);        
+        const exportedTypes = getTypeAliases(elements, true);
+        const enums = getEnums(elements, false);
+        const exportedEnums = getEnums(elements, true);
         const functions = getFunctions(elements, configuration.modules.members.treatArrowFunctionVariablesAsMethods, configuration.modules.members.treatArrowFunctionConstantsAsMethods, false);
         const exportedFunctions = getFunctions(elements, configuration.modules.members.treatArrowFunctionVariablesAsMethods, configuration.modules.members.treatArrowFunctionConstantsAsMethods, true);
         const constants = getVariables(elements, true, false, configuration.modules.members.treatArrowFunctionConstantsAsMethods ? false : null);
@@ -205,7 +209,8 @@ export class SourceCodeOrganizer
             exportedVariables.map(v => v as VariableNode).some(v => intersect(vars, v.dependencies).length > 0) ||
             constants.map(v => v as VariableNode).some(v => intersect(vars, v.dependencies).length > 0) ||
             exportedConstants.map(v => v as VariableNode).some(v => intersect(vars, v.dependencies).length > 0) ||
-            classes.map(v => v as ClassNode).some(v => intersect(vars, v.dependencies).length > 0))
+            classes.map(v => v as ClassNode).some(v => intersect(vars, v.dependencies).length > 0) ||
+            exportedClasses.map(v => v as ClassNode).some(v => intersect(vars, v.dependencies).length > 0))
         {
             // dependencies between module members -> skip module element sorting to prevent breaking dependency order
             regions.push(new ElementNodeGroup(null, [], except(elements, imports), false, null));
@@ -233,13 +238,29 @@ export class SourceCodeOrganizer
                     {
                         elementNodes = types;
                     }
+                    else if (memberType === ModuleMemberType.exportedTypes)
+                    {
+                        elementNodes = exportedTypes;
+                    }
+                    else if (memberType === ModuleMemberType.exportedEnums)
+                    {
+                        elementNodes = exportedEnums;
+                    }
                     else if (memberType === ModuleMemberType.interfaces)
                     {
                         elementNodes = interfaces;
                     }
+                    else if (memberType === ModuleMemberType.exportedInterfaces)
+                    {
+                        elementNodes = exportedInterfaces;
+                    }
                     else if (memberType === ModuleMemberType.classes)
                     {
                         elementNodes = classes;
+                    }
+                    else if (memberType === ModuleMemberType.exportedClasses)
+                    {
+                        elementNodes = exportedClasses;
                     }
                     else if (memberType === ModuleMemberType.functions)
                     {
@@ -274,7 +295,7 @@ export class SourceCodeOrganizer
 
                 if (memberGroups.length > 0)
                 {
-                    const isRegion = enums.length + types.length + interfaces.length + classes.length > 1 ||
+                    const isRegion = enums.length + exportedEnums.length + types.length + exportedTypes.length + interfaces.length + exportedInterfaces.length + exportedClasses.length + classes.length > 1 ||
                         functions.length > 0 ||
                         exportedFunctions.length > 0 ||
                         constants.length > 0 ||
