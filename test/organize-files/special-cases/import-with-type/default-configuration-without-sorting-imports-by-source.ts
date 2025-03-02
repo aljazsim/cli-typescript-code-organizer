@@ -1,12 +1,18 @@
-import { v4 as uuidv4 } from "uuid";
+import * as modulator from "modulator";
+import * as mode from "mode";
+
 import type { A, B } from "@c/api";
 import { type C, D } from "@c/api/v2";
-import { DateTime, type Duration } from "luxon";
 import type { E } from "@c/api/v3";
 
-export function gen(): string
+import { v4 as uuidv4 } from "uuid";
+import { DateTime, type Duration } from "luxon";
+
+import { Hash } from "./crypto/hash";
+
+export function gen(): Hash
 {
-    return uuidv4();
+    return new Hash(modulator.encode(mode.convert(uuidv4())));
 }
 
 export function sum(a: A, b: B, c: C, d: D, e: E) { }

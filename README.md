@@ -467,3 +467,4 @@ tsco --organize
 - add setting for expanding/collapsing imports
 - fix issue with declaring modules
 - add support for exported enums, exported interfaces, exported classes and exported types (courtesy of [Carlos Jesús Huchim Ahumada](https://github.com/huchim))
+- add improved import statement grouping
