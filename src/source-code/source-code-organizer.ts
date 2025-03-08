@@ -10,7 +10,7 @@ import { VariableNode } from "../elements/variable-node.js";
 import { ModuleMemberType } from "../enums/module-member-type.js";
 import { except, intersect, remove } from "../helpers/array-helper.js";
 import { compareStrings } from "../helpers/comparing-helper.js";
-import { getFileExtension } from "../helpers/file-system-helper.js";
+import { directoryExists, getDirectoryPath, getFileExtension, getFilePathWithoutExtension, getFiles, getFullPath, getRelativePath, joinPath } from "../helpers/file-system-helper.js";
 import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
 import { SourceCodeAnalyzer } from "./source-code-analyzer.js";
 import { spacesRegex } from "./source-code-constants.js";
@@ -40,7 +40,7 @@ export class SourceCodeOrganizer
 
                 const sourceFile = ts.createSourceFile(sourceCodeFilePath, sourceCodeWithoutRegions.toString(), ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
                 const elements = SourceCodeAnalyzer.getNodes(sourceFile, configuration);
-                const topLevelGroups = await this.organizeModuleMembers(elements, configuration, sourceFile); // TODO: move this to module node
+                const topLevelGroups = await this.organizeModuleMembers(elements, configuration, sourceFile, sourceCodeFilePath); // TODO: move this to module node
 
                 return SourceCodePrinter.print(fileHeader, topLevelGroups, configuration).toString();
             }
@@ -59,7 +59,7 @@ export class SourceCodeOrganizer
 
     // #endregion Public Static Methods
 
-    // #region Private Static Methods (5)
+    // #region Private Static Methods (6)
 
     private static mergeImportsWithSameReferences(imports: ImportNode[])
     {
@@ -130,7 +130,7 @@ export class SourceCodeOrganizer
         }
     }
 
-    private static async organizeImports(imports: ImportNode[], configuration: ImportConfiguration, sourceFile: SourceFile)
+    private static async organizeImports(imports: ImportNode[], configuration: ImportConfiguration, sourceFile: SourceFile, sourceFilePath: string)
     {
         this.mergeImportsWithSameReferences(imports);
 
@@ -140,6 +140,8 @@ export class SourceCodeOrganizer
         }
 
         this.removeEmptyImports(imports);
+
+        await this.updateImportSourceCasings(sourceFilePath, imports);
 
         if (configuration.sortImportsBySource)
         {
@@ -185,7 +187,7 @@ export class SourceCodeOrganizer
         return new ElementNodeGroup("Imports", [], imports, false, null);
     }
 
-    private static async organizeModuleMembers(elements: ElementNode[], configuration: Configuration, sourceFile: SourceFile)
+    private static async organizeModuleMembers(elements: ElementNode[], configuration: Configuration, sourceFile: SourceFile, sourceFilePath: string)
     {
         const regions: ElementNodeGroup[] = [];
         const imports = getImports(elements);
@@ -207,7 +209,7 @@ export class SourceCodeOrganizer
 
         if (imports.length > 0)
         {
-            regions.push(await this.organizeImports(imports.map(i => i as ImportNode), configuration.imports, sourceFile));
+            regions.push(await this.organizeImports(imports.map(i => i as ImportNode), configuration.imports, sourceFile, sourceFilePath));
         }
 
         const vars = Array<string>()
@@ -379,6 +381,52 @@ export class SourceCodeOrganizer
                 if (!SourceCodeAnalyzer.hasReference(sourceFile, import1.nameBinding))
                 {
                     import1.nameBinding = null;
+                }
+            }
+        }
+    }
+
+    private static async updateImportSourceCasings(filePath: string, imports: ImportNode[])
+    {
+        const directoryPath = getDirectoryPath(getFullPath(filePath));
+
+        for (const import1 of imports.filter(i => !i.isModuleReference))
+        {
+            let sourceFilePath = getFullPath(joinPath(directoryPath, import1.source));
+            const sourceFilePathExtension = getFileExtension(sourceFilePath);
+
+            if (sourceFilePathExtension === "")
+            {
+                sourceFilePath = `${sourceFilePath}.ts`;
+            }
+            else if (sourceFilePathExtension.toLowerCase() === ".js")
+            {
+                sourceFilePath = `${getFilePathWithoutExtension(sourceFilePath)}.ts`;
+            }
+
+            if (await directoryExists(getDirectoryPath(sourceFilePath)))
+            {
+                const filePaths = await getFiles(getDirectoryPath(sourceFilePath));
+
+                if (filePaths.length > 0)
+                {
+                    const filePathMatchesCaseInsensitive = filePaths.filter(fp => fp.toLowerCase() === sourceFilePath.toLowerCase());
+
+                    if (filePathMatchesCaseInsensitive.length === 1)
+                    {
+                        if (sourceFilePathExtension === "")
+                        {
+                            import1.source = getFilePathWithoutExtension(getRelativePath(directoryPath, filePathMatchesCaseInsensitive[0]));
+                        }
+                        else if (sourceFilePathExtension.toLowerCase() === ".js")
+                        {
+                            import1.source = getFilePathWithoutExtension(getRelativePath(directoryPath, filePathMatchesCaseInsensitive[0])) + ".js";
+                        }
+                        else
+                        {
+                            import1.source = getRelativePath(directoryPath, filePathMatchesCaseInsensitive[0]);
+                        }
+                    }
                 }
             }
         }
