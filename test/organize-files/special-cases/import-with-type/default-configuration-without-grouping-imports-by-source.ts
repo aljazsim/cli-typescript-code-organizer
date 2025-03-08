@@ -1,5 +1,8 @@
 import { default as data } from "../data.json";
+import * as defaultConfigurationWithRegions from "../file-header/default-configuration-with-regions.ts";
 import { Hash } from "./crypto/hash";
+import * as defaultConfigurationWithRegionMemberCount from "./default-configuration-with-region-member-count";
+import * as defaultConfiguration from "./default-configuration.js";
 import * as file1 from "./file/file1";
 import { file2 } from "./file/file2";
 import type { A, B } from "@c/api";
@@ -10,6 +13,15 @@ import { DateTime, type Duration } from "luxon";
 import * as mode from "mode";
 import * as modulator from "modulator";
 import { v4 as uuidv4 } from "uuid";
+
+function getConfigurations()
+{
+    return [
+        defaultConfiguration,
+        defaultConfigurationWithRegions,
+        defaultConfigurationWithRegionMemberCount
+    ];
+}
 
 export function gen(file1: file1, file2: file2): Hash
 {

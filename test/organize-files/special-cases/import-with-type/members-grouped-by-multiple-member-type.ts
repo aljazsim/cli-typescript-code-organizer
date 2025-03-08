@@ -10,13 +10,25 @@ import type { E } from "@c/api/v3";
 import { DateTime, type Duration } from "luxon";
 import { v4 as uuidv4 } from "uuid";
 
+import * as defaultConfigurationWithRegions from "../file-header/default-configuration-with-regions.ts";
+import * as defaultConfigurationWithRegionMemberCount from "./default-configuration-with-region-member-count";
+import * as defaultConfiguration from "./default-configuration.js";
 import * as file1 from "./file/file1";
 
 import { default as data } from "../data.json";
 import { Hash } from "./crypto/hash";
 import { file2 } from "./file/file2";
 
-// #region Functions (3)
+// #region Functions (4)
+
+function getConfigurations()
+{
+    return [
+        defaultConfiguration,
+        defaultConfigurationWithRegions,
+        defaultConfigurationWithRegionMemberCount
+    ];
+}
 
 export function gen(file1: file1, file2: file2): Hash
 {
