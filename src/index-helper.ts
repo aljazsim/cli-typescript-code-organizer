@@ -22,7 +22,7 @@ export function displayHelp()
     console.log("-w or --watch                                                              watches sources directory for changes and organizes TypeScript files on file add or file change");
     console.log("-c <configuration file path> or --configuration <configuration file path>  specifies configuration file path (default: ./tsco.json)");
     console.log("-s <sources directory path> or --sources <sources directory path>          specifies TypeScript sources directory path (default: ./)");
-    console.log("-f <source file path> or --file <source filepath>                          specifies TypeScript source file path");
+    console.log("-f <source file path> or --file <source filepath>                          specifies TypeScript source file path (file path still has to match include/exclude pattern)");
     console.log("");
     console.log("Examples:");
     console.log("tsco                                                                       displays help since no options specified were specified");
@@ -96,6 +96,7 @@ export async function organizeFiles(sourcesDirectoryPath: string, sourceFilePath
     for (const filePath of await getFilePaths(sourcesDirectoryPath, configuration, sourceFilePath))
     {
         allFileCount++;
+
 
         if (await organizeFile(sourcesDirectoryPath, filePath, configuration))
         {

@@ -1,6 +1,12 @@
+#!/bin/sh
+
 # organize code
 
-tsco --organize
+git diff HEAD^ HEAD --name-only -- '***.ts' | while read filename; do
+  echo "Organizing: $filename"
+  tsco --organize --file "$filename"
+done
+
 
 # format code
 
