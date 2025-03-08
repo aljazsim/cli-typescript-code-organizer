@@ -97,7 +97,6 @@ export async function organizeFiles(sourcesDirectoryPath: string, sourceFilePath
     {
         allFileCount++;
 
-
         if (await organizeFile(sourcesDirectoryPath, filePath, configuration))
         {
             organizedFileCount++;
