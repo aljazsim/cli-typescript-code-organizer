@@ -75,19 +75,20 @@ With `tsco` you can:
 You can run `tsco` in one or more of these three modes, by specifying appropriate flags:
 
 ```
-tsco [--help] [--version] [--initialize] [--organize] [--watch] [--configuration <configuration file path>] [--sources <sources directory path>]
+tsco [--help] [--version] [--initialize] [--organize] [--watch] [--configuration <configuration file path>] [--sources <sources directory path>] [--file <source file path>]
 ```
 
 You can also use the shorthand notation:
 
 ```
-tsco [-h] [-v] [-i] [-o] [-w] [-c <configuration file path>] [-s <sources directory path>]
+tsco [-h] [-v] [-i] [-o] [-w] [-c <configuration file path>] [-s <sources directory path>] [-f <source file path>]
 ```
 
 Optional parameters:
 
 - configuration file path (`--configuration` or `-c`) specifies the location of the `tsco` configuration file (default configuration file path is at `./tsco.json`, or if the file cannot be loaded a default configuration is used)
 - sources directory path (`--sources` or `-s`) specifies the location of TypeScript files (default value is `./`)
+- file path (`--file` for `-f`) specifies the location of a particular TypeScript file (when using this parameter, the file still has to match include/exclude patterns in the configuration file)
 
 ### Initializing a configuration file
 
@@ -124,13 +125,13 @@ No TypeScript files will be organized during initialization.
 When running the `tsco` command, it will recursively scan the specified sources directory and organize TypeScript files. If no sources directory is specified, `./` will be used. Just run the following command in a terminal window:
 
 ```
-tsco --organize [--configuration <configuration file path>] [--sources <sources directory path>]
+tsco --organize [--configuration <configuration file path>] [--sources <sources directory path>] [--file <source file path>]
 ```
 
 or
 
 ```
-tsco -o [-s <sources directory path>] [-c <configuration file path>]
+tsco -o [-s <sources directory path>] [-c <configuration file path>] [-f <source file path>]
 ```
 
 If there are files or directories you'd like to explicitly include or exclude, you can do so in the configuration file (see below). Example:
@@ -439,6 +440,16 @@ Open the `.husky/pre-commit` file in a text editor and add the following line (f
 tsco --organize
 ```
 
+If your GIT repository is very large and you only want to organize TypeScript files with changes, use the following script:
+
+```
+#!/bin/sh
+
+git diff HEAD^ HEAD --name-only -- '***.ts' | while read filename; do
+  tsco --organize --file "$filename"
+done
+```
+
 ## Change log
 
 ### 1.0.0
@@ -466,10 +477,11 @@ tsco --organize
 ### 2.0.10
 
 - add setting for expanding/collapsing imports
-- fix issue with declaring modules
 - add support for exported enums, exported interfaces, exported classes and exported types (courtesy of [Carlos Jesús Huchim Ahumada](https://github.com/huchim))
 - add improved import statement grouping
+- fix issue with declaring modules
 
 ## 2.0.12
 - add missing file namespace import grouping
+- add support for specifying a single TypeScript file path
 - fix issue with file name casing

@@ -28,7 +28,7 @@ else
 
     if (commandLineArguments.organize)
     {
-        await organizeFiles(commandLineArguments.sourceDirectoryPath, configuration);
+        await organizeFiles(commandLineArguments.sourceDirectoryPath, commandLineArguments.sourceFilePath, configuration);
     }
 
     if (commandLineArguments.watch)

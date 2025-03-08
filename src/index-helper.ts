@@ -12,7 +12,7 @@ export function displayHelp()
     console.log("Organizes TypeScript source files.");
     console.log("");
     console.log("Usage:");
-    console.log("tsco [-i] [-o] [-w] [-c <configuration file path>] [-s <sources directory path>]");
+    console.log("tsco [-i] [-o] [-w] [-c <configuration file path>] [-s <sources directory path>] [-f <source file path>]");
     console.log("");
     console.log("Options:");
     console.log("-h or --help                                                               displays help");
@@ -22,6 +22,7 @@ export function displayHelp()
     console.log("-w or --watch                                                              watches sources directory for changes and organizes TypeScript files on file add or file change");
     console.log("-c <configuration file path> or --configuration <configuration file path>  specifies configuration file path (default: ./tsco.json)");
     console.log("-s <sources directory path> or --sources <sources directory path>          specifies TypeScript sources directory path (default: ./)");
+    console.log("-f <source file path> or --file <source filepath>                          specifies TypeScript source file path (file path still has to match include/exclude pattern)");
     console.log("");
     console.log("Examples:");
     console.log("tsco                                                                       displays help since no options specified were specified");
@@ -48,7 +49,7 @@ export async function getFilePaths(sourcesDirectoryPath: string, configuration: 
     }
     else
     {
-        return filePaths.sort();
+        return filePaths;
     }
 }
 
@@ -84,7 +85,7 @@ export async function organizeFile(sourcesDirectoryPath: string, filePath: strin
     }
 }
 
-export async function organizeFiles(sourcesDirectoryPath: string, configuration: Configuration)
+export async function organizeFiles(sourcesDirectoryPath: string, sourceFilePath: string | null, configuration: Configuration)
 {
     console.log(`tsco organizing files in ${sourcesDirectoryPath}`);
 
@@ -92,7 +93,7 @@ export async function organizeFiles(sourcesDirectoryPath: string, configuration:
     let organizedFileCount = 0;
 
     // organize files
-    for (const filePath of await getFilePaths(sourcesDirectoryPath, configuration))
+    for (const filePath of await getFilePaths(sourcesDirectoryPath, configuration, sourceFilePath))
     {
         allFileCount++;
 
@@ -138,6 +139,7 @@ export function parseCommandLineArguments(commandLineArguments: string[])
         watch: commandLineArguments.some(a => a === "-w" || a === "--watch"),
 
         sourceDirectoryPath: getArgument(commandLineArguments, "-s", "--sources") ?? defaultSourceDirectoryPath,
+        sourceFilePath: getArgument(commandLineArguments, "-f", "--file"),
         configurationFilePath: getArgument(commandLineArguments, "-c", "--configuration") ?? defaultConfigurationFilePath,
     };
 }
