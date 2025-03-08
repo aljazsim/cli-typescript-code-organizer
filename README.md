@@ -472,3 +472,4 @@ tsco --organize
 
 ## 2.0.12
 - add missing file namespace import grouping
+- fix issue with file name casing
