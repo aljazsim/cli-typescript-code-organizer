@@ -160,7 +160,9 @@ export class SourceCodeOrganizer
             const moduleImports = imports.filter(i => i.isModuleReference && !i.namespace && !i.source.startsWith("@"));
 
             const stringLiteralImports = imports.filter(i => !i.isModuleReference && !i.nameBinding && !i.namedImports && !i.namespace);
-            const fileImports = imports.filter(i => !i.isModuleReference && (i.nameBinding || i.namedImports || i.namespace));
+
+            const fileNamespaceImports = imports.filter(i => !i.isModuleReference && !i.nameBinding && !i.namedImports && i.namespace);
+            const fileImports = imports.filter(i => !i.isModuleReference && (i.nameBinding || i.namedImports) && !i.namespace);
 
             if (configuration.separateImportGroups)
             {
@@ -169,13 +171,14 @@ export class SourceCodeOrganizer
                 const atModuleImportGroup = new ElementNodeGroup("@ Module Imports", [], atModuleImports, false, null);
                 const moduleImportGroup = new ElementNodeGroup("Module Imports", [], moduleImports, false, null);
                 const stringLiteralImportGroup = new ElementNodeGroup("String Literal Imports", [], stringLiteralImports, false, null);
+                const fileNamespaceImportGroup = new ElementNodeGroup("File Namespace Imports", [], fileNamespaceImports, false, null);
                 const fileImportGroup = new ElementNodeGroup("File Imports", [], fileImports, false, null);
 
-                return new ElementNodeGroup("Imports", [atNamespaceImportGroup, namespaceImportGroup, atModuleImportGroup, moduleImportGroup, stringLiteralImportGroup, fileImportGroup], [], false, null);
+                return new ElementNodeGroup("Imports", [atNamespaceImportGroup, namespaceImportGroup, atModuleImportGroup, moduleImportGroup, stringLiteralImportGroup, fileNamespaceImportGroup, fileImportGroup], [], false, null);
             }
             else
             {
-                imports = atNamespaceImports.concat(namespaceImports).concat(atModuleImports).concat(moduleImports).concat(stringLiteralImports).concat(fileImports);
+                imports = atNamespaceImports.concat(namespaceImports).concat(atModuleImports).concat(moduleImports).concat(stringLiteralImports).concat(fileNamespaceImports).concat(fileImports);
             }
         }
 
