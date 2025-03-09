@@ -41,7 +41,7 @@ function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupW
 
 // #endregion Functions
 
-// #region Exported Functions (31)
+// #region Exported Functions (33)
 
 export function getAccessModifier(node: ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.MethodDeclaration | ts.PropertySignature | ts.IndexSignatureDeclaration)
 {
@@ -324,6 +324,17 @@ export function getName(node: ElementNode, groupWithDecorators: boolean): string
     }
 
     return `${nodeDecorators.join(", ")} ${nodeName}`.trim();
+}
+
+export function getNodeDependencies(nodes: ElementNode[])
+{
+    return distinct(nodes.flatMap(n => n.dependencies)).sort();
+}
+
+export function getNodeNames(nodes: ElementNode[])
+{
+    // anonymous constants can have more than one comma separated name
+    return nodes.map(n => n.name).flatMap(name => name.split(","));
 }
 
 export function getTrailingComment(node: ts.Node, sourceFile: ts.SourceFile)

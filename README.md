@@ -408,7 +408,7 @@ or
 
 ### Declaration dependencies
 
-If `tsco` detects module member declaration dependencies it will skip organizing module members as it might cause a compile error after compilation. In example below declaration of variable a1 depends on the declaration of variable a3. If a1 were declared first we would get a compile error. Any class, interface or type members would still get organized, same goes for import statements.
+If `tsco` detects module member declaration dependencies and tries to resolve them when organizing module members. In example below declaration of variable a1 depends on the declaration of variable a3. If variable a1 were declared first we would get a compile error. 
 
 ```typescript
 const a3 = 5;
@@ -484,4 +484,6 @@ done
 ## 2.0.12
 - add missing file namespace import grouping
 - add support for specifying a single TypeScript file path
+- add checking relative import source casing
+- add support for declaration dependency order resolution
 - fix issue with file name casing
