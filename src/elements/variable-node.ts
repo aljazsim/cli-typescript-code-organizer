@@ -18,7 +18,18 @@ export class VariableNode extends ElementNode
     {
         super(sourceFile, variableDeclaration, leadingComment, trailingComment);
 
-        this.name = (<ts.Identifier>variableDeclaration.name).escapedText?.toString() ?? sourceFile.getFullText().substring(variableDeclaration.name.pos, variableDeclaration.name.end).trim();
+        if (ts.isIdentifier(variableDeclaration.name) && variableDeclaration.name.escapedText)
+        {
+            this.name = variableDeclaration.name.escapedText!.toString();
+        }
+        else if (ts.isObjectBindingPattern(variableDeclaration.name))
+        {
+            this.name = variableDeclaration.name.elements.map(e => (<ts.Identifier>e.name).escapedText!.toString()).join(",");
+        }
+        else
+        {
+            this.name = sourceFile.getFullText().substring(variableDeclaration.name.pos, variableDeclaration.name.end).trim();
+        }
 
         this.isArrowFunction = getIsArrowFunction(variableDeclaration);
 

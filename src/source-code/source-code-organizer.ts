@@ -419,7 +419,7 @@ export class SourceCodeOrganizer
             {
                 for (const dependency of nodes[i].dependencies.sort())
                 {
-                    const dependencyIndex = nodes.findIndex(n => n.name === dependency);
+                    const dependencyIndex = nodes.findIndex(n => getNodeNames([n]).indexOf(dependency) >= 0);
 
                     if (dependencyIndex > i)
                     {

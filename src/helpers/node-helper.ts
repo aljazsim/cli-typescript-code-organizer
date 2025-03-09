@@ -333,7 +333,8 @@ export function getNodeDependencies(nodes: ElementNode[])
 
 export function getNodeNames(nodes: ElementNode[])
 {
-    return nodes.map(n => n.name);
+    // anonymous constants can have more than one comma separated name
+    return nodes.map(n => n.name).flatMap(name => name.split(","));
 }
 
 export function getTrailingComment(node: ts.Node, sourceFile: ts.SourceFile)
