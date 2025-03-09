@@ -45,7 +45,7 @@ export class SourceCodeOrganizer
             }
             catch (error)
             {
-                logError(error);
+                logError(`tsco could not organize ${sourceCodeFilePath}: ${error}`);
             }
         }
         else
