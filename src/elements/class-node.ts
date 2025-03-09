@@ -16,7 +16,7 @@ import { StaticBlockDeclarationNode } from "./static-block-declaration-node.js";
 
 export class ClassNode extends ElementNode
 {
-    // #region Properties (15)
+    // #region Properties (14)
 
     public readonly accessors: AccessorNode[] = [];
     public readonly constructors: ConstructorNode[] = [];

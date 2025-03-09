@@ -341,7 +341,7 @@ export class SourceCodeOrganizer
                 // this file contains a script -> leave variables and expressions alone, but organize imports, enums/interfaces/classes/types/functions
                 regions.push(new ElementNodeGroup(null, [], except(elements, [...imports, ...objectElements, ...functions, ...exportedFunctions]), false, null));
 
-                log(`tsco skipping variable sorting in ${sourceFile.fileName}, because expression code was found`);
+                log(`tsco skipping variable sorting in ${sourceFile.fileName}, because expressions were found`);
             }
             else
             {

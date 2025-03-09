@@ -5,7 +5,7 @@ import { ElementNode } from "./element-node.js";
 
 export class VariableNode extends ElementNode
 {
-    // #region Properties (3)
+    // #region Properties (2)
 
     public readonly isArrowFunction: boolean = false;
     public readonly name: string;

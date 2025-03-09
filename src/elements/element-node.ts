@@ -4,14 +4,13 @@ import { getLeadingComment, getTrailingComment } from "../helpers/node-helper.js
 
 export abstract class ElementNode
 {
-    // #region Properties (4)
+    // #region Properties (5)
 
+    public readonly dependencies: string[] = [];
     public readonly leadingComment: string | null;
     public abstract readonly name: string;
     public readonly sourceCode: string;
     public readonly trailingComment: string | null;
-    public readonly dependencies: string[] = [];
-
 
     // #endregion Properties
 
