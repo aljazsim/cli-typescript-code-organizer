@@ -45,7 +45,7 @@ export class SourceCodeOrganizer
             }
             catch (error)
             {
-                logError(error);
+                logError(`tsco could not organize ${sourceCodeFilePath}: ${error}`);
             }
         }
         else
@@ -453,6 +453,8 @@ export class SourceCodeOrganizer
     private static async updateImportSourceCasings(filePath: string, imports: ImportNode[])
     {
         const directoryPath = getDirectoryPath(getFullPath(filePath));
+        const typeScript = "ts";
+        const javaScript = "js"
 
         for (const import1 of imports.filter(i => !i.isModuleReference))
         {
@@ -461,11 +463,11 @@ export class SourceCodeOrganizer
 
             if (sourceFilePathExtension === "")
             {
-                sourceFilePath = `${sourceFilePath}.ts`;
+                sourceFilePath = `${sourceFilePath}.${typeScript}`;
             }
-            else if (sourceFilePathExtension.toLowerCase() === ".js")
+            else if (sourceFilePathExtension.toLowerCase() === `.${javaScript}`)
             {
-                sourceFilePath = `${getFilePathWithoutExtension(sourceFilePath)}.ts`;
+                sourceFilePath = `${getFilePathWithoutExtension(sourceFilePath)}.${typeScript}`;
             }
 
             if (await directoryExists(getDirectoryPath(sourceFilePath)))
@@ -482,9 +484,9 @@ export class SourceCodeOrganizer
                         {
                             import1.source = getFilePathWithoutExtension(getRelativePath(directoryPath, filePathMatchesCaseInsensitive[0]));
                         }
-                        else if (sourceFilePathExtension.toLowerCase() === ".js")
+                        else if (sourceFilePathExtension.toLowerCase() === `.${javaScript}`)
                         {
-                            import1.source = getFilePathWithoutExtension(getRelativePath(directoryPath, filePathMatchesCaseInsensitive[0])) + ".js";
+                            import1.source = getFilePathWithoutExtension(getRelativePath(directoryPath, filePathMatchesCaseInsensitive[0])) + `.${javaScript}`;
                         }
                         else
                         {
