@@ -6,7 +6,7 @@ import { ElementNodeGroup } from "../elements/element-node-group.js";
 import { ElementNode } from "../elements/element-node.js";
 import { ImportNode } from "../elements/import-node.js";
 import { ModuleMemberType } from "../enums/module-member-type.js";
-import { except, intersect, remove } from "../helpers/array-helper.js";
+import { distinct, except, intersect, remove } from "../helpers/array-helper.js";
 import { compareStrings } from "../helpers/comparing-helper.js";
 import { directoryExists, getDirectoryPath, getFileExtension, getFilePathWithoutExtension, getFiles, getFullPath, getRelativePath, joinPath } from "../helpers/file-system-helper.js";
 import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getNodeDependencies, getNodeNames, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
@@ -417,7 +417,9 @@ export class SourceCodeOrganizer
 
             for (let i = 0; i < nodes.length; i++)
             {
-                for (const dependency of nodes[i].dependencies.sort())
+                const dependencies = distinct(nodes[i].dependencies.sort());
+
+                for (const dependency of dependencies)
                 {
                     const dependencyIndex = nodes.findIndex(n => getNodeNames([n]).indexOf(dependency) >= 0);
 

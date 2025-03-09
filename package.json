@@ -1,6 +1,6 @@
 {
     "name": "tsco-cli",
-    "version": "2.0.10",
+    "version": "2.0.12",
     "author": "Aljaz Simonic",
     "license": "MIT",
     "description": "TypeScript Code Organizer CLI",
