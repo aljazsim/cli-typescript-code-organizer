@@ -41,6 +41,4 @@ export class VariableNode extends ElementNode
             }
         }
     }
-
-    // #endregion Constructors
 }
