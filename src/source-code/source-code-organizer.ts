@@ -11,11 +11,13 @@ import { ModuleMemberType } from "../enums/module-member-type.js";
 import { except, intersect, remove } from "../helpers/array-helper.js";
 import { compareStrings } from "../helpers/comparing-helper.js";
 import { directoryExists, getDirectoryPath, getFileExtension, getFilePathWithoutExtension, getFiles, getFullPath, getRelativePath, joinPath } from "../helpers/file-system-helper.js";
-import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
+import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getNodeDependencies, getNodeNames, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
 import { SourceCodeAnalyzer } from "./source-code-analyzer.js";
 import { spacesRegex } from "./source-code-constants.js";
 import { SourceCodePrinter } from "./source-code-printer.js";
 import { SourceCode } from "./source-code.js";
+import { resolve } from "path";
+import { log, logError } from "./source-code-logger.js";
 
 export class SourceCodeOrganizer
 {
@@ -46,12 +48,12 @@ export class SourceCodeOrganizer
             }
             catch (error)
             {
-                console.error(error);
+                logError(error);
             }
         }
         else
         {
-            console.log(`tsco ignoring ${sourceCodeFilePath}`);
+            log(`tsco ignoring ${sourceCodeFilePath}`);
         }
 
         return sourceCode;
@@ -199,6 +201,7 @@ export class SourceCodeOrganizer
         const exportedTypes = getTypeAliases(elements, true);
         const enums = getEnums(elements, false);
         const exportedEnums = getEnums(elements, true);
+
         const functions = getFunctions(elements, configuration.modules.members.treatArrowFunctionVariablesAsMethods, configuration.modules.members.treatArrowFunctionConstantsAsMethods, false);
         const exportedFunctions = getFunctions(elements, configuration.modules.members.treatArrowFunctionVariablesAsMethods, configuration.modules.members.treatArrowFunctionConstantsAsMethods, true);
         const constants = getVariables(elements, true, false, configuration.modules.members.treatArrowFunctionConstantsAsMethods ? false : null);
@@ -206,29 +209,29 @@ export class SourceCodeOrganizer
         const variables = getVariables(elements, false, false, configuration.modules.members.treatArrowFunctionVariablesAsMethods ? false : null);
         const exportedVariables = getVariables(elements, false, true, configuration.modules.members.treatArrowFunctionVariablesAsMethods ? false : null);
         const expressions = getExpressions(elements);
+        const objectElements = [
+            ...interfaces,
+            ...exportedInterfaces,
+            ...classes,
+            ...exportedClasses,
+            ...types,
+            ...exportedTypes,
+            ...enums,
+            ...exportedEnums,
+            ...functions]
 
         if (imports.length > 0)
         {
             regions.push(await this.organizeImports(imports.map(i => i as ImportNode), configuration.imports, sourceFile, sourceFilePath));
         }
 
-        const vars = Array<string>()
-            .concat(variables.map(v => v.name))
-            .concat(exportedVariables.map(v => v.name))
-            .concat(constants.map(v => v.name))
-            .concat(exportedConstants.map(v => v.name));
 
-        if (variables.map(v => v as VariableNode).some(v => intersect(vars, v.dependencies).length > 0) ||
-            exportedVariables.map(v => v as VariableNode).some(v => intersect(vars, v.dependencies).length > 0) ||
-            constants.map(v => v as VariableNode).some(v => intersect(vars, v.dependencies).length > 0) ||
-            exportedConstants.map(v => v as VariableNode).some(v => intersect(vars, v.dependencies).length > 0) ||
-            classes.map(v => v as ClassNode).some(v => intersect(vars, v.dependencies).length > 0) ||
-            exportedClasses.map(v => v as ClassNode).some(v => intersect(vars, v.dependencies).length > 0))
+        if (intersect(getNodeDependencies([...classes, ...exportedClasses]), getNodeNames([...variables, ...exportedVariables, ...constants, ...exportedConstants])).length > 0)
         {
-            // dependencies between module members -> skip module element sorting to prevent breaking dependency order
+            // dependencies between module members -> skip module element sorting to prevent breaking declaration dependency order
             regions.push(new ElementNodeGroup(null, [], except(elements, imports), false, null));
 
-            console.log(`tsco skip module sorting in ${sourceFile.fileName}, because dependencies between module members were found`);
+            log(`tsco skipping module sorting in ${sourceFile.fileName}, because declaration dependencies between classes and variables were found`);
         }
         else
         {
@@ -247,6 +250,10 @@ export class SourceCodeOrganizer
                     {
                         elementNodes = enums;
                     }
+                    else if (memberType === ModuleMemberType.exportedEnums)
+                    {
+                        elementNodes = exportedEnums;
+                    }
                     else if (memberType === ModuleMemberType.types)
                     {
                         elementNodes = types;
@@ -254,10 +261,6 @@ export class SourceCodeOrganizer
                     else if (memberType === ModuleMemberType.exportedTypes)
                     {
                         elementNodes = exportedTypes;
-                    }
-                    else if (memberType === ModuleMemberType.exportedEnums)
-                    {
-                        elementNodes = exportedEnums;
                     }
                     else if (memberType === ModuleMemberType.interfaces)
                     {
@@ -283,20 +286,24 @@ export class SourceCodeOrganizer
                     {
                         elementNodes = exportedFunctions;
                     }
-                    else if (memberType === ModuleMemberType.constants)
+                    else if (memberType === ModuleMemberType.constants && expressions.length === 0)
                     {
+                        // don't create variable group if there are expressions
                         elementNodes = constants;
                     }
-                    else if (memberType === ModuleMemberType.exportedConstants)
+                    else if (memberType === ModuleMemberType.exportedConstants && expressions.length === 0)
                     {
+                        // don't create variable group if there are expressions
                         elementNodes = exportedConstants;
                     }
-                    else if (memberType === ModuleMemberType.variables)
+                    else if (memberType === ModuleMemberType.variables && expressions.length === 0)
                     {
+                        // don't create variable group if there are expressions
                         elementNodes = variables;
                     }
-                    else if (memberType === ModuleMemberType.exportedVariables)
+                    else if (memberType === ModuleMemberType.exportedVariables && expressions.length === 0)
                     {
+                        // don't create variable group if there are expressions
                         elementNodes = exportedVariables;
                     }
 
@@ -308,7 +315,9 @@ export class SourceCodeOrganizer
 
                 if (memberGroups.length > 0)
                 {
-                    const isRegion = enums.length + exportedEnums.length + types.length + exportedTypes.length + interfaces.length + exportedInterfaces.length + exportedClasses.length + classes.length > 1 ||
+                    // if there's only 1 enum/interface/class/type -> no need for a region
+                    // if there's at least 1 function/variable -> create a region
+                    const isRegion = objectElements.length > 1 ||
                         functions.length > 0 ||
                         exportedFunctions.length > 0 ||
                         constants.length > 0 ||
@@ -329,12 +338,70 @@ export class SourceCodeOrganizer
 
             if (expressions.length > 0)
             {
-                // expressions go to the end because of dependencies
-                regions.push(new ElementNodeGroup(null, [], expressions, false, null));
+                // this file contains a script -> leave variables and expressions alone, but organize imports, enums/interfaces/classes/types/functions
+                regions.push(new ElementNodeGroup(null, [], except(elements, [...imports, ...objectElements, ...functions, ...exportedFunctions]), false, null));
+
+                log(`tsco skipping variable sorting in ${sourceFile.fileName}, because expression code was found`);
+            }
+            else
+            {
+                // this file contains no executable code ->  deal with declaration dependency order
+                this.resolveDeclarationDependenciesOrder(regions);
             }
         }
 
+
         return regions;
+    }
+
+    private static resolveDeclarationDependenciesOrder(nodeGroups: ElementNodeGroup[])
+    {
+        for (const nodeGroup of nodeGroups)
+        {
+            this.resolveDeclarationDependenciesOrderWithinGroup(nodeGroup.nodes);
+            this.resolveDeclarationDependenciesOrder(nodeGroup.nodeSubGroups);
+        }
+    }
+
+    private static resolveDeclarationDependenciesOrderWithinGroup(nodes: ElementNode[])
+    {
+        const maxIterations = 1000; // there might be a declaration dependency cycle
+
+        for (let iteration = 0; iteration < maxIterations; iteration++)
+        {
+            let dependenciesDetected = false;
+
+            for (let i = 0; i < nodes.length; i++)
+            {
+                for (const dependency of nodes[i].dependencies.sort())
+                {
+                    const dependencyIndex = nodes.findIndex(n => n.name === dependency);
+
+                    if (dependencyIndex > i)
+                    {
+                        const node = nodes[i];
+                        const dependencyNode = nodes[dependencyIndex];
+
+                        for (let j = dependencyIndex; j > i; j--)
+                        {
+                            nodes[j] = nodes[j - 1];
+                        }
+
+                        nodes[i] = dependencyNode;
+                        nodes[i + 1] = node;
+
+                        dependenciesDetected = true;
+
+                        break;
+                    }
+                }
+            }
+
+            if (!dependenciesDetected)
+            {
+                break;
+            }
+        }
     }
 
     private static removeEmptyImports(imports: ImportNode[])

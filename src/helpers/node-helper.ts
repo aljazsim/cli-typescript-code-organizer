@@ -43,6 +43,16 @@ function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupW
 
 // #region Exported Functions (31)
 
+export function getNodeNames(nodes: ElementNode[])
+{
+    return nodes.map(n => n.name);
+}
+
+export function getNodeDependencies(nodes: ElementNode[])
+{
+    return distinct(nodes.flatMap(n => n.dependencies)).sort();
+}
+
 export function getAccessModifier(node: ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.MethodDeclaration | ts.PropertySignature | ts.IndexSignatureDeclaration)
 {
     const accessModifiers: ts.SyntaxKind[] = [ts.SyntaxKind.PrivateKeyword, ts.SyntaxKind.ProtectedKeyword, ts.SyntaxKind.PublicKeyword];

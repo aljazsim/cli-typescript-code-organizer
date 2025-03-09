@@ -21,7 +21,6 @@ export class ClassNode extends ElementNode
     public readonly accessors: AccessorNode[] = [];
     public readonly constructors: ConstructorNode[] = [];
     public readonly decorators: string[];
-    public readonly dependencies: string[] = [];
     public readonly getters: GetterNode[] = [];
     public readonly isAbstract: boolean;
     public readonly isExport: boolean;

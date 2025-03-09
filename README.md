@@ -484,4 +484,6 @@ done
 ## 2.0.12
 - add missing file namespace import grouping
 - add support for specifying a single TypeScript file path
+- add checking relative import source casing
+- add support for declaration dependency order resolution
 - fix issue with file name casing

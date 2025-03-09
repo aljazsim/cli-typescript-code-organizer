@@ -7,7 +7,6 @@ export class VariableNode extends ElementNode
 {
     // #region Properties (3)
 
-    public readonly dependencies: string[] = [];
     public readonly isArrowFunction: boolean = false;
     public readonly name: string;
 
@@ -25,9 +24,10 @@ export class VariableNode extends ElementNode
 
         if (variableDeclaration.initializer)
         {
-            // we'll use this when sorting variables to make sure a variable that 
-            // depends on another variable is declared after the dependant variable
-            this.dependencies = getDependencies(sourceFile, variableDeclaration.initializer, []);
+            for (const dependency of getDependencies(sourceFile, variableDeclaration.initializer, []))
+            {
+                this.dependencies.push(dependency);
+            }
         }
     }
 

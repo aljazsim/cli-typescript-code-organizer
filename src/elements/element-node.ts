@@ -10,6 +10,8 @@ export abstract class ElementNode
     public abstract readonly name: string;
     public readonly sourceCode: string;
     public readonly trailingComment: string | null;
+    public readonly dependencies: string[] = [];
+
 
     // #endregion Properties
 
