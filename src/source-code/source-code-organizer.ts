@@ -2,11 +2,9 @@ import ts, { SourceFile } from "typescript";
 
 import { Configuration } from "../configuration/configuration.js";
 import { ImportConfiguration } from "../configuration/import-configuration.js";
-import { ClassNode } from "../elements/class-node.js";
 import { ElementNodeGroup } from "../elements/element-node-group.js";
 import { ElementNode } from "../elements/element-node.js";
 import { ImportNode } from "../elements/import-node.js";
-import { VariableNode } from "../elements/variable-node.js";
 import { ModuleMemberType } from "../enums/module-member-type.js";
 import { except, intersect, remove } from "../helpers/array-helper.js";
 import { compareStrings } from "../helpers/comparing-helper.js";
@@ -14,10 +12,9 @@ import { directoryExists, getDirectoryPath, getFileExtension, getFilePathWithout
 import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getNodeDependencies, getNodeNames, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
 import { SourceCodeAnalyzer } from "./source-code-analyzer.js";
 import { spacesRegex } from "./source-code-constants.js";
+import { log, logError } from "./source-code-logger.js";
 import { SourceCodePrinter } from "./source-code-printer.js";
 import { SourceCode } from "./source-code.js";
-import { resolve } from "path";
-import { log, logError } from "./source-code-logger.js";
 
 export class SourceCodeOrganizer
 {
@@ -61,7 +58,7 @@ export class SourceCodeOrganizer
 
     // #endregion Public Static Methods
 
-    // #region Private Static Methods (6)
+    // #region Private Static Methods (8)
 
     private static mergeImportsWithSameReferences(imports: ImportNode[])
     {
@@ -225,7 +222,6 @@ export class SourceCodeOrganizer
             regions.push(await this.organizeImports(imports.map(i => i as ImportNode), configuration.imports, sourceFile, sourceFilePath));
         }
 
-
         if (intersect(getNodeDependencies([...classes, ...exportedClasses]), getNodeNames([...variables, ...exportedVariables, ...constants, ...exportedConstants])).length > 0)
         {
             // dependencies between module members -> skip module element sorting to prevent breaking declaration dependency order
@@ -350,8 +346,56 @@ export class SourceCodeOrganizer
             }
         }
 
-
         return regions;
+    }
+
+    private static removeEmptyImports(imports: ImportNode[])
+    {
+        for (const import1 of imports.filter(i => i.isEmptyReference))
+        {
+            if (import1.isModuleReference || !getFileExtension(import1.source) || getFileExtension(import1.source) === ".ts" || getFileExtension(import1.source) === ".js")
+            {
+                remove(imports, import1);
+            }
+        }
+    }
+
+    private static removeUnusedImports(imports: ImportNode[], sourceFile: ts.SourceFile)
+    {
+        for (const import1 of imports)
+        {
+            if (import1.namedImports && import1.namedImports.length > 0)
+            {
+                for (const identifier of import1.namedImports)
+                {
+                    if (!SourceCodeAnalyzer.hasReference(sourceFile, identifier.name))
+                    {
+                        remove(import1.namedImports, identifier);
+
+                        if (import1.namedImports?.length === 0)
+                        {
+                            import1.namedImports = null;
+                        }
+                    }
+                }
+            }
+
+            if (import1.namespace)
+            {
+                if (!SourceCodeAnalyzer.hasReference(sourceFile, import1.namespace))
+                {
+                    import1.namespace = null;
+                }
+            }
+
+            if (import1.nameBinding)
+            {
+                if (!SourceCodeAnalyzer.hasReference(sourceFile, import1.nameBinding))
+                {
+                    import1.nameBinding = null;
+                }
+            }
+        }
     }
 
     private static resolveDeclarationDependenciesOrder(nodeGroups: ElementNodeGroup[])
@@ -400,55 +444,6 @@ export class SourceCodeOrganizer
             if (!dependenciesDetected)
             {
                 break;
-            }
-        }
-    }
-
-    private static removeEmptyImports(imports: ImportNode[])
-    {
-        for (const import1 of imports.filter(i => i.isEmptyReference))
-        {
-            if (import1.isModuleReference || !getFileExtension(import1.source) || getFileExtension(import1.source) === ".ts" || getFileExtension(import1.source) === ".js")
-            {
-                remove(imports, import1);
-            }
-        }
-    }
-
-    private static removeUnusedImports(imports: ImportNode[], sourceFile: ts.SourceFile)
-    {
-        for (const import1 of imports)
-        {
-            if (import1.namedImports && import1.namedImports.length > 0)
-            {
-                for (const identifier of import1.namedImports)
-                {
-                    if (!SourceCodeAnalyzer.hasReference(sourceFile, identifier.name))
-                    {
-                        remove(import1.namedImports, identifier);
-
-                        if (import1.namedImports?.length === 0)
-                        {
-                            import1.namedImports = null;
-                        }
-                    }
-                }
-            }
-
-            if (import1.namespace)
-            {
-                if (!SourceCodeAnalyzer.hasReference(sourceFile, import1.namespace))
-                {
-                    import1.namespace = null;
-                }
-            }
-
-            if (import1.nameBinding)
-            {
-                if (!SourceCodeAnalyzer.hasReference(sourceFile, import1.nameBinding))
-                {
-                    import1.nameBinding = null;
-                }
             }
         }
     }
