@@ -1,5 +1,5 @@
 export class MyClass {
-    get [Symbol.toStringTag]() {
+    public get [Symbol.toStringTag]() {
         return 'MyClass';
     }
 }

@@ -18,7 +18,8 @@ export function getOrganizeSpecialCaseTestParameters()
         "file-header",
         "file-header-2",
         "multiline-comments",
-        "anonymous-const"
+        "anonymous-const",
+        "public-modifier"
     ];
 
     const memberOrganizeParameters: OrganizeTestParameters[] = [];
