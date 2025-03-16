@@ -16,6 +16,12 @@ export function convertPascalCaseToTitleCase(value: string)
     return value;
 }
 
+
+export function escapeRegex(regex: string)
+{
+    return regex.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+
 export function matchRegEx(regex: string, text: string)
 {
     if (regex && regex.length > 0)
