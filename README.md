@@ -482,6 +482,7 @@ done
 - fix issue with declaring modules
 
 ### 2.0.12
+
 - add missing file namespace import grouping
 - add support for specifying a single TypeScript file path
 - add checking relative import source casing
@@ -489,4 +490,5 @@ done
 - fix issue with file name casing
 
 ### 2.0.13
+
 - fix issue with access modifiers not being correctly updated

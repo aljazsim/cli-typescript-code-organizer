@@ -56,7 +56,7 @@ export class Configuration
             {
                 configuration = JSON.parse(await readFile(configurationFilePath));
 
-                log(`tsco using configuration ${configurationFilePath}`);
+                log(`tsco using configuration file ${configurationFilePath}`);
             }
             else
             {
