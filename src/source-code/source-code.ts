@@ -1,4 +1,3 @@
-import { writeFile } from "fs";
 import { RegionConfiguration } from "../configuration/region-configuration.js";
 import { AccessorNode } from "../elements/accessor-node.js";
 import { GetterNode } from "../elements/getter-node.js";
@@ -7,9 +6,8 @@ import { PropertyNode } from "../elements/property-node.js";
 import { SetterNode } from "../elements/setter-node.js";
 import { AccessModifier } from "../enums/access-modifier.js";
 import { WriteModifier } from "../enums/write-modifier.js";
-import { anythingRegex, endRegion, newLine, newLineRegex, space, spacesRegex, startRegion } from "./source-code-constants.js";
-import { log } from "./source-code-logger.js";
 import { escapeRegex } from "../helpers/string-helper.js";
+import { anythingRegex, endRegion, newLine, newLineRegex, space, spacesRegex, startRegion } from "./source-code-constants.js";
 
 export class SourceCode
 {
