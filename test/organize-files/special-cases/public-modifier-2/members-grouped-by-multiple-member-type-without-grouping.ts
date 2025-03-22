@@ -10,8 +10,10 @@ import { CSharpSymbol } from "./CSharpSymbol";
 import { CSharpSymbolType } from "./CSharpSymbolType";
 
 export class CSharpFile {
-    public children: CSharpSymbol[] = [];ing;    children: CSharpSymbol[] = [];
-    readonly filePath: string;
+    // #region Properties (7)
+
+    public children: CSharpSymbol[] = [];
+    public readonly filePath: string;
     public readonly name: string;
     public readonly namespace = undefined;
     public readonly parent = undefined;

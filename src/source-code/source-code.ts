@@ -119,13 +119,13 @@ export class SourceCode
             if (regex && replaceWith)
             {
                 const codeDecoratorsEndIndex = node.decorators.length === 0 ? 0 : (node.sourceCode.lastIndexOf(node.decorators[node.decorators.length - 1]) + node.decorators[node.decorators.length - 1].length);
-                const codeDecorators = node.sourceCode.substring(0, codeDecoratorsEndIndex);
-                const codeAfterDecorators = node.sourceCode.substring(codeDecoratorsEndIndex);
+                const codeAfterDecorators = node.sourceCode.substring(codeDecoratorsEndIndex).trim();
+                const codeDecorators = node.sourceCode.substring(0, node.sourceCode.length - codeAfterDecorators.length);
                 const newNodeSourceCode = codeDecorators + codeAfterDecorators.replace(regex, replaceWith);
 
-                const sourceCodeBeforeEndIndex = this.sourceCode.indexOf(node.sourceCode);
-                const sourceCodeBefore = this.sourceCode.substring(0, sourceCodeBeforeEndIndex);
-                const sourceCodeAfter = this.sourceCode.substring(sourceCodeBeforeEndIndex + node.sourceCode.length);
+                const sourceCodeStartIndex = this.sourceCode.indexOf(node.sourceCode.trim()); // indexOf doesn't work correctly if there's a newline character in there
+                const sourceCodeBefore = this.sourceCode.substring(0, sourceCodeStartIndex);
+                const sourceCodeAfter = this.sourceCode.substring(sourceCodeStartIndex + node.sourceCode.trim().length);
 
                 this.sourceCode = sourceCodeBefore + newNodeSourceCode + sourceCodeAfter; // replace node declaration
                 this.sourceCode.replaceAll(`this.${node.name}`, `this.${removeHash(node.name)}`); // replace all references
@@ -176,13 +176,13 @@ export class SourceCode
             if (regex && replaceWith)
             {
                 const codeDecoratorsEndIndex = node.decorators.length === 0 ? 0 : (node.sourceCode.lastIndexOf(node.decorators[node.decorators.length - 1]) + node.decorators[node.decorators.length - 1].length);
-                const codeDecorators = node.sourceCode.substring(0, codeDecoratorsEndIndex);
-                const codeAfterDecorators = node.sourceCode.substring(codeDecoratorsEndIndex);
-                const newNodeSourceCode = codeDecorators + codeAfterDecorators.replace(regex, replaceWith);
+                const codeAfterDecorators = node.sourceCode.substring(codeDecoratorsEndIndex).trim();
+                const codeDecorators = node.sourceCode.substring(0, node.sourceCode.length - codeAfterDecorators.length);
+                const newNodeSourceCode = (codeDecorators + codeAfterDecorators.replace(regex, replaceWith)).trim();
 
-                const sourceCodeStartIndex = this.sourceCode.indexOf(node.sourceCode);
+                const sourceCodeStartIndex = this.sourceCode.indexOf(node.sourceCode.trim()); // indexOf doesn't work correctly if there's a newline character in there
                 const sourceCodeBefore = this.sourceCode.substring(0, sourceCodeStartIndex);
-                const sourceCodeAfter = this.sourceCode.substring(sourceCodeStartIndex + node.sourceCode.length);
+                const sourceCodeAfter = this.sourceCode.substring(sourceCodeStartIndex + node.sourceCode.trim().length);
 
                 this.sourceCode = sourceCodeBefore + newNodeSourceCode + sourceCodeAfter;
             }

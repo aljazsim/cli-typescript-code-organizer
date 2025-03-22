@@ -10,7 +10,7 @@ import { CSharpSymbol } from "./CSharpSymbol";
 import { CSharpSymbolType } from "./CSharpSymbolType";
 
 export class CSharpFile {
-    public readonly filePath: string;Only Properties (1)
+    // #region Public Static ReadOnly Properties (1)
 
     public static readonly zeroPosition = new vscode.Position(0, 0);
 
@@ -22,7 +22,7 @@ export class CSharpFile {
     public readonly parent = undefined;
     public readonly namespace = undefined;
     public readonly name: string;
-    readonly filePath: string;
+    public readonly filePath: string;
 
     // #endregion Public ReadOnly Properties
 

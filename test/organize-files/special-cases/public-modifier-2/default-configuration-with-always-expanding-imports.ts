@@ -19,9 +19,9 @@ import {
 } from "./CSharpSymbolType";
 
 export class CSharpFile {
-    public readonly filePath: string;Position = new vscode.Position(0, 0);
+    public static readonly zeroPosition = new vscode.Position(0, 0);
 
-    readonly filePath: string;
+    public readonly filePath: string;
     public readonly name: string;
     public readonly namespace = undefined;
     public readonly parent = undefined;
