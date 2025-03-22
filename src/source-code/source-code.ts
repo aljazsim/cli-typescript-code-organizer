@@ -123,8 +123,9 @@ export class SourceCode
                 const codeAfterDecorators = node.sourceCode.substring(codeDecoratorsEndIndex);
                 const newNodeSourceCode = codeDecorators + codeAfterDecorators.replace(regex, replaceWith);
 
-                const sourceCodeBefore = this.sourceCode.substring(0, this.sourceCode.indexOf(node.sourceCode));
-                const sourceCodeAfter = this.sourceCode.substring(this.sourceCode.indexOf(node.sourceCode) + node.sourceCode.length);
+                const sourceCodeBeforeEndIndex = this.sourceCode.indexOf(node.sourceCode);
+                const sourceCodeBefore = this.sourceCode.substring(0, sourceCodeBeforeEndIndex);
+                const sourceCodeAfter = this.sourceCode.substring(sourceCodeBeforeEndIndex + node.sourceCode.length);
 
                 this.sourceCode = sourceCodeBefore + newNodeSourceCode + sourceCodeAfter; // replace node declaration
                 this.sourceCode.replaceAll(`this.${node.name}`, `this.${removeHash(node.name)}`); // replace all references
@@ -179,8 +180,9 @@ export class SourceCode
                 const codeAfterDecorators = node.sourceCode.substring(codeDecoratorsEndIndex);
                 const newNodeSourceCode = codeDecorators + codeAfterDecorators.replace(regex, replaceWith);
 
-                const sourceCodeBefore = this.sourceCode.substring(0, this.sourceCode.indexOf(node.sourceCode));
-                const sourceCodeAfter = this.sourceCode.substring(this.sourceCode.indexOf(node.sourceCode) + node.sourceCode.length);
+                const sourceCodeStartIndex = this.sourceCode.indexOf(node.sourceCode);
+                const sourceCodeBefore = this.sourceCode.substring(0, sourceCodeStartIndex);
+                const sourceCodeAfter = this.sourceCode.substring(sourceCodeStartIndex + node.sourceCode.length);
 
                 this.sourceCode = sourceCodeBefore + newNodeSourceCode + sourceCodeAfter;
             }
