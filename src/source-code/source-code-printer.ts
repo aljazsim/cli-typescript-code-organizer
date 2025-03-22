@@ -23,6 +23,7 @@ import { ImportExpand } from "../enums/import-expand.js";
 import { ImportSourceFilePathQuoteType } from "../enums/import-source-file-path-quote-type.js";
 import { WriteModifier } from "../enums/write-modifier.js";
 import { doubleQuote, newLine, newLineRegex, singleQuote, space } from "./source-code-constants.js";
+import { resolveDeclarationDependenciesOrder } from "./source-code-dependency-resolver.js";
 import { SourceCode } from "./source-code.js";
 
 export class SourceCodePrinter
@@ -52,7 +53,11 @@ export class SourceCodePrinter
     private static printClass(node: ClassNode, configuration: Configuration)
     {
         const beforeMembers = node.sourceCode.substring(0, node.membersStart).trim();
-        const members = this.printNodeGroups(node.organizeMembers(configuration.classes), configuration);
+        const nodes = node.organizeMembers(configuration.classes);
+
+        resolveDeclarationDependenciesOrder(nodes);
+
+        const members = this.printNodeGroups(nodes, configuration);
         const afterMembers = node.sourceCode.substring(node.membersEnd).trim();
         const nodeSourceCode = new SourceCode();
 

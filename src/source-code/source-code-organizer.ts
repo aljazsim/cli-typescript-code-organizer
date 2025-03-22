@@ -6,7 +6,7 @@ import { ElementNodeGroup } from "../elements/element-node-group.js";
 import { ElementNode } from "../elements/element-node.js";
 import { ImportNode } from "../elements/import-node.js";
 import { ModuleMemberType } from "../enums/module-member-type.js";
-import { distinct, except, intersect, remove } from "../helpers/array-helper.js";
+import { except, intersect, remove } from "../helpers/array-helper.js";
 import { compareStrings } from "../helpers/comparing-helper.js";
 import { directoryExists, getDirectoryPath, getFileExtension, getFilePathWithoutExtension, getFiles, getFullPath, getRelativePath, joinPath } from "../helpers/file-system-helper.js";
 import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getNodeDependencies, getNodeNames, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
@@ -15,6 +15,7 @@ import { spacesRegex } from "./source-code-constants.js";
 import { log, logError } from "./source-code-logger.js";
 import { SourceCodePrinter } from "./source-code-printer.js";
 import { SourceCode } from "./source-code.js";
+import { resolveDeclarationDependenciesOrder } from "./source-code-dependency-resolver.js";
 
 export class SourceCodeOrganizer
 {
@@ -342,7 +343,7 @@ export class SourceCodeOrganizer
             else
             {
                 // this file contains no executable code ->  deal with declaration dependency order
-                this.resolveDeclarationDependenciesOrder(regions);
+                resolveDeclarationDependenciesOrder(regions);
             }
         }
 
@@ -398,57 +399,7 @@ export class SourceCodeOrganizer
         }
     }
 
-    private static resolveDeclarationDependenciesOrder(nodeGroups: ElementNodeGroup[])
-    {
-        for (const nodeGroup of nodeGroups)
-        {
-            this.resolveDeclarationDependenciesOrderWithinGroup(nodeGroup.nodes);
-            this.resolveDeclarationDependenciesOrder(nodeGroup.nodeSubGroups);
-        }
-    }
 
-    private static resolveDeclarationDependenciesOrderWithinGroup(nodes: ElementNode[])
-    {
-        const maxIterations = 1000; // there might be a declaration dependency cycle
-
-        for (let iteration = 0; iteration < maxIterations; iteration++)
-        {
-            let dependenciesDetected = false;
-
-            for (let i = 0; i < nodes.length; i++)
-            {
-                const dependencies = distinct(nodes[i].dependencies.sort());
-
-                for (const dependency of dependencies)
-                {
-                    const dependencyIndex = nodes.findIndex(n => getNodeNames([n]).indexOf(dependency) >= 0);
-
-                    if (dependencyIndex > i)
-                    {
-                        const node = nodes[i];
-                        const dependencyNode = nodes[dependencyIndex];
-
-                        for (let j = dependencyIndex; j > i; j--)
-                        {
-                            nodes[j] = nodes[j - 1];
-                        }
-
-                        nodes[i] = dependencyNode;
-                        nodes[i + 1] = node;
-
-                        dependenciesDetected = true;
-
-                        break;
-                    }
-                }
-            }
-
-            if (!dependenciesDetected)
-            {
-                break;
-            }
-        }
-    }
 
     private static async updateImportSourceCasings(filePath: string, imports: ImportNode[])
     {
