@@ -22,6 +22,7 @@ export function getOrganizeSpecialCaseTestParameters()
         "public-modifier",
         "public-modifier-2",
         "public-modifier-3",
+        "public-modifier-4",
     ];
 
     const memberOrganizeParameters: OrganizeTestParameters[] = [];
