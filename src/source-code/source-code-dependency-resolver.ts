@@ -3,14 +3,7 @@ import { ElementNode } from "../elements/element-node.js";
 import { distinct } from "../helpers/array-helper.js";
 import { getNodeNames } from "../helpers/node-helper.js";
 
-export function resolveDeclarationDependenciesOrder(nodeGroups: ElementNodeGroup[])
-{
-    for (const nodeGroup of nodeGroups)
-    {
-        resolveDeclarationDependenciesOrderWithinGroup(nodeGroup.nodes);
-        resolveDeclarationDependenciesOrder(nodeGroup.nodeSubGroups);
-    }
-}
+// #region Functions (1)
 
 function resolveDeclarationDependenciesOrderWithinGroup(nodes: ElementNode[])
 {
@@ -54,3 +47,18 @@ function resolveDeclarationDependenciesOrderWithinGroup(nodes: ElementNode[])
         }
     }
 }
+
+// #endregion Functions
+
+// #region Exported Functions (1)
+
+export function resolveDeclarationDependenciesOrder(nodeGroups: ElementNodeGroup[])
+{
+    for (const nodeGroup of nodeGroups)
+    {
+        resolveDeclarationDependenciesOrderWithinGroup(nodeGroup.nodes);
+        resolveDeclarationDependenciesOrder(nodeGroup.nodeSubGroups);
+    }
+}
+
+// #endregion Exported Functions

@@ -4,14 +4,14 @@ import { getLeadingComment, getTrailingComment } from "../helpers/node-helper.js
 
 export abstract class ElementNode
 {
-    // #region Properties (5)
+    // #region Properties (6)
 
     public readonly dependencies: string[] = [];
+    public readonly indentation: string = "";
     public readonly leadingComment: string | null;
     public abstract readonly name: string;
     public readonly sourceCode: string;
     public readonly trailingComment: string | null;
-    public readonly indentation: string = "";
 
     // #endregion Properties
 
@@ -32,31 +32,22 @@ export abstract class ElementNode
 
     // #endregion Constructors
 
-    // #region Private Static Methods (1)
+    // #region Protected Methods (2)
 
-
-    // #endregion Private Static Methods
-    private getIndentation(sourceFile: ts.SourceFile, node: ts.Node)
+    protected getClosingBraceIndex(sourceFile: ts.SourceFile, node: ts.ClassDeclaration | ts.InterfaceDeclaration | ts.TypeLiteralNode)
     {
-        const space = " ";
-        const tab = "\t";
+        const closingBrace = "}";
         const sourceCode = sourceFile.getText();
-        const startIndex = sourceCode.indexOf(node.getText(sourceFile));
-        let indentation = "";
 
-        for (let i = startIndex - 1; i > 0; i--)
+        for (let i = node.getEnd(); i > node.getStart(sourceFile); i--)
         {
-            if (sourceCode[i] === space || sourceCode[i] === tab)
+            if (sourceCode[i] === closingBrace)
             {
-                indentation = sourceCode[i] + indentation;
-            }
-            else
-            {
-                break;
+                return i
             }
         }
 
-        return indentation;
+        throw new Error("Closing brace not found");
     }
 
     protected getOpeningBraceIndex(sourceFile: ts.SourceFile, node: ts.ClassDeclaration | ts.InterfaceDeclaration | ts.TypeLiteralNode)
@@ -82,20 +73,32 @@ export abstract class ElementNode
         throw new Error("Opening brace not found");
     }
 
-    protected getClosingBraceIndex(sourceFile: ts.SourceFile, node: ts.ClassDeclaration | ts.InterfaceDeclaration | ts.TypeLiteralNode)
-    {
-        const closingBrace = "}";
-        const sourceCode = sourceFile.getText();
+    // #endregion Protected Methods
 
-        for (let i = node.getEnd(); i > node.getStart(sourceFile); i--)
+    // #region Private Methods (1)
+
+    private getIndentation(sourceFile: ts.SourceFile, node: ts.Node)
+    {
+        const space = " ";
+        const tab = "\t";
+        const sourceCode = sourceFile.getText();
+        const startIndex = sourceCode.indexOf(node.getText(sourceFile));
+        let indentation = "";
+
+        for (let i = startIndex - 1; i > 0; i--)
         {
-            if (sourceCode[i] === closingBrace)
+            if (sourceCode[i] === space || sourceCode[i] === tab)
             {
-                return i
+                indentation = sourceCode[i] + indentation;
+            }
+            else
+            {
+                break;
             }
         }
 
-        throw new Error("Closing brace not found");
+        return indentation;
     }
-}
 
+    // #endregion Private Methods
+}

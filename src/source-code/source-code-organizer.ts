@@ -12,10 +12,10 @@ import { directoryExists, getDirectoryPath, getFileExtension, getFilePathWithout
 import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getNodeDependencies, getNodeNames, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
 import { SourceCodeAnalyzer } from "./source-code-analyzer.js";
 import { spacesRegex } from "./source-code-constants.js";
+import { resolveDeclarationDependenciesOrder } from "./source-code-dependency-resolver.js";
 import { log, logError } from "./source-code-logger.js";
 import { SourceCodePrinter } from "./source-code-printer.js";
 import { SourceCode } from "./source-code.js";
-import { resolveDeclarationDependenciesOrder } from "./source-code-dependency-resolver.js";
 
 export class SourceCodeOrganizer
 {
@@ -59,7 +59,7 @@ export class SourceCodeOrganizer
 
     // #endregion Public Static Methods
 
-    // #region Private Static Methods (8)
+    // #region Private Static Methods (6)
 
     private static mergeImportsWithSameReferences(imports: ImportNode[])
     {
@@ -398,8 +398,6 @@ export class SourceCodeOrganizer
             }
         }
     }
-
-
 
     private static async updateImportSourceCasings(filePath: string, imports: ImportNode[])
     {
