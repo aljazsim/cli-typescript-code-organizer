@@ -1,68 +1,78 @@
+//
+// Test interface
+//
 export interface TestInterface
 {
-    // #region Properties (18)
+    readonly publicReadonlyProperty3: String;// trailing comment
 
-    readonly publicReadonlyProperty1: (p1: number, p2: number) => void;
-    readonly publicReadonlyProperty2: string | undefined;
-    readonly publicReadonlyProperty3: String;
-    readonly publicReadonlyProperty4: string;
-    readonly publicReadonlyProperty5: string;
-    readonly publicReadonlyProperty6: string | undefined;
-    readonly publicReadonlyProperty7: string;
-    readonly publicReadonlyProperty8: number;
-    readonly publicReadonlyProperty9: string;
 
-    publicProperty1: string;
+
+
+    /*
+     * Leading comment
+     */
     publicProperty2: string;
-    publicProperty3: string | undefined;
-    publicProperty4: string;
-    publicProperty5: number;
-    publicProperty6: (p1: string) => number;
-
-    // a property
-    publicProperty7: string;
-    publicProperty8: boolean;
-    publicProperty9: string | null;
-
-    // #endregion Properties
-
-    // #region Indexes (1)
-
-    // an index
-    [key: string]: any;
-
-    // #endregion Indexes
-
-    // #region Getters And Setters (9)
-
-    // a getter
-    get publicGetter2(): number;
-    get publicGetter4(): any;
-    get publicGetterSetter1(): number;
-    set publicGetterSetter1(size: number);
-    set publicSetter1(value: any);
-    set publicSetter2(value: any);
-    set publicSetter3(value: number);
 
     // a setter
     set publicSetter4(value: any);
-    set publicSetter5(size: number);
 
-    // #endregion Getters And Setters
 
-    // #region Methods (9)
 
-    publicMethod1(): number;
-    publicMethod2(): void;
-    publicMethod3(): () => number;
+
+    readonly publicReadonlyProperty4: string;
+
+    readonly publicReadonlyProperty9: string;
+    set publicGetterSetter1(size: number);
+    publicProperty8: boolean;
+
+    readonly publicReadonlyProperty8: number;
+    publicMethod7(): string;
+
+    // a getter
+    get publicGetter2(): number;
+    publicProperty1: string;
+
+    readonly publicReadonlyProperty2: string | undefined;
+
+
+    // a property
+    publicProperty7: string;
 
     // a method
     publicMethod4(): number;
+    readonly publicReadonlyProperty6: string | undefined;
+    publicMethod6(): any; // aaa
+
+    publicProperty3: string | undefined;
+
+    publicProperty5: number;
+
+
+
+
+    publicProperty9: string | null;
+
+    // an index
+    [key: string]: any; // bbb
+    readonly publicReadonlyProperty1: (p1: number, p2: number) => void;
     publicMethod5(): number | undefined;
-    publicMethod6(): any;
-    publicMethod7(): string;
+    get publicGetterSetter1(): number;
+    readonly publicReadonlyProperty5: string;
+    set publicSetter1(value: any);
+
+    set publicSetter2(value: any);
+    publicMethod1(): number;
+    publicMethod3(): () => number;
+    set publicSetter3(value: number);
     publicMethod8(): Promise<boolean>;
+    publicProperty6: (p1: string) => number;
+    publicMethod2(): void;
+
+    publicProperty4: string;
+    set publicSetter5(size: number);
+    readonly publicReadonlyProperty7: string;
     publicMethod9(): void;
 
-    // #endregion Methods
-}
+
+    get publicGetter4(): any;
+} // interface

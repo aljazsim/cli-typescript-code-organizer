@@ -1,3 +1,6 @@
+// 
+// Test interface
+// 
 export interface TestInterface
 {
     // #region Properties (18)
@@ -8,7 +11,7 @@ export interface TestInterface
     readonly publicReadonlyProperty6: string | undefined;
     readonly publicReadonlyProperty5: string;
     readonly publicReadonlyProperty4: string;
-    readonly publicReadonlyProperty3: String;
+    readonly publicReadonlyProperty3: String; // trailing comment
     readonly publicReadonlyProperty2: string | undefined;
     readonly publicReadonlyProperty1: (p1: number, p2: number) => void;
 
@@ -21,6 +24,10 @@ export interface TestInterface
     publicProperty5: number;
     publicProperty4: string;
     publicProperty3: string | undefined;
+
+    /*
+     * Leading comment
+     */
     publicProperty2: string;
     publicProperty1: string;
 
@@ -29,7 +36,7 @@ export interface TestInterface
     // #region Indexes (1)
 
     // an index
-    [key: string]: any;
+    [key: string]: any; // bbb
 
     // #endregion Indexes
 
@@ -56,7 +63,7 @@ export interface TestInterface
     publicMethod9(): void;
     publicMethod8(): Promise<boolean>;
     publicMethod7(): string;
-    publicMethod6(): any;
+    publicMethod6(): any; // aaa
     publicMethod5(): number | undefined;
 
     // a method
@@ -66,4 +73,4 @@ export interface TestInterface
     publicMethod1(): number;
 
     // #endregion Methods
-}
+} // interface
