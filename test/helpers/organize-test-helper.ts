@@ -13,6 +13,7 @@ export function getOrganizeSpecialCaseTestParameters()
         "variable-dependency",
         "indexer",
         "import-with-comment",
+        "imports-without-references",
         "empty-lines-in-code",
         "declare-module",
         "file-header",
