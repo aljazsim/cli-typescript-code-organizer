@@ -1,5 +1,4 @@
-export class CSharpPatterns
-{
+export class CSharpPatterns {
     private static readonly _nullArr = "\\??(\\[\\]\\??)*";
 
     public static readonly name = "[a-zA-Z][a-zA-Z0-9_]+";
@@ -28,8 +27,7 @@ export class CSharpPatterns
     public static readonly usingDirectiveRegExp = new RegExp(`^(?<directive>[ \\t]*(?<g>global\\s+)?using\\s+(?<s>static\\s+)?((?<name>${CSharpPatterns.name})\\s*=\\s*)?(?<namespace>${CSharpPatterns.namespace})\\s*;[\\r\\n]*)`, "gm");
     public static readonly xmlCommentRegExp = new RegExp("^(?<text>[ \\t]*(///.*?[\\r\\n]*)+)$", "gm");
 
-    public static isMatch(target: string, pattern: string): boolean
-    {
+    public static isMatch(target: string, pattern: string): boolean {
         return target.match(pattern) !== null;
     }
 }

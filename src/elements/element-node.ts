@@ -24,7 +24,7 @@ export abstract class ElementNode
         this.leadingComment = leadingComment ?? getLeadingComment(node, sourceFile);
         this.trailingComment = trailingComment ?? getTrailingComment(node, sourceFile);
 
-        this.sourceCode = node.getText(sourceFile).trim();
+        this.sourceCode = node.getText(sourceFile);
         this.sourceCode = this.sourceCode.replace(leadingComment ?? "", "");
         this.sourceCode = this.sourceCode.replace(trailingComment ?? "", "");
         this.sourceCode = this.indentation + this.sourceCode.trim();
@@ -41,9 +41,10 @@ export abstract class ElementNode
         const space = " ";
         const tab = "\t";
         const sourceCode = sourceFile.getText();
+        const startIndex = sourceCode.indexOf(node.getText(sourceFile));
         let indentation = "";
 
-        for (let i = node.getStart(sourceFile) - 1; i > 0; i--)
+        for (let i = startIndex - 1; i > 0; i--)
         {
             if (sourceCode[i] === space || sourceCode[i] === tab)
             {
@@ -53,7 +54,6 @@ export abstract class ElementNode
             {
                 break;
             }
-
         }
 
         return indentation;

@@ -1,5 +1,4 @@
-export class CSharpPatterns
-{
+export class CSharpPatterns {
     // #region Properties (26)
 
     private static readonly _nullArr = "\\??(\\[\\]\\??)*";
@@ -33,8 +32,7 @@ export class CSharpPatterns
 
     // #region Methods (1)
 
-    public static isMatch(target: string, pattern: string): boolean
-    {
+    public static isMatch(target: string, pattern: string): boolean {
         return target.match(pattern) !== null;
     }
 
