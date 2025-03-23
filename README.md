@@ -493,3 +493,4 @@ done
 
 - fix issue with access modifiers not being correctly updated
 - fix issue with leading and trailing comments being lost
+- fix issue with unused imports not being removed correctly
