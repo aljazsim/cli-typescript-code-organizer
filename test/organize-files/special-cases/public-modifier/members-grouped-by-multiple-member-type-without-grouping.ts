@@ -16,12 +16,14 @@ import { CSharpPatterns } from "./CSharpPatterns";
 import { CSharpSymbolType } from "./CSharpSymbolType";
 
 export class CSharpSymbol {
-    public accessModifier = CSharpAccessModifier.none; } = {};er = CSharpAccessModifier.none;
+    // #region Properties (24)
+
+    public accessModifier = CSharpAccessModifier.none;
     public assignment: string | undefined;
     public assignmentRange: vscode.Range | undefined;
     private body = "";
     public children: CSharpSymbol[] = [];
-    readonly data: { [key: string]: any } = {};
+    public readonly data: { [key: string]: any } = {};
     private documentSymbol!: vscode.DocumentSymbol;
     private footer = "";
     private fullName!: string;

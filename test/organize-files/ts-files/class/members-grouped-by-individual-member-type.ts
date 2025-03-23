@@ -3,9 +3,11 @@ import ts, { SourceFile } from "typescript";
 import "../../../configurations/default-configuration-with-no-regions.json";
 import "./missing-file.json";
 
-import { TestInterface } from "../interface/test-interface";
+import { TestInterface } from "../interface/test-interface"; // an import trailing comment
+// an import leading comment
 import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "./test-decorators";
 
+// the test class
 export abstract class TestClass implements TestInterface
 {
     // #region Private Static ReadOnly Properties (2)
@@ -200,7 +202,7 @@ export abstract class TestClass implements TestInterface
     @decoratorD()
     public abstract accessor publicAbstractAccessor2: boolean | undefined;
     @decoratorD()
-    public abstract accessor publicAbstractAccessor3: string;
+    public abstract accessor publicAbstractAccessor3: string; // accessor
     public abstract accessor publicAbstractAccessor4: boolean | undefined;
 
     // #endregion Public Abstract Accessors
@@ -307,10 +309,13 @@ export abstract class TestClass implements TestInterface
     {
     }
 
+    /*
+     * Leading space
+     */
     public get publicGetter4(): any
     {
         return 2;
-    }
+    } // trailing space
 
     @decoratorE()
     public get publicGetterSetter1(): string
@@ -639,4 +644,4 @@ export abstract class TestClass implements TestInterface
     }
 
     // #endregion Private Methods
-}
+} // end

@@ -24,7 +24,7 @@ export type TestType = {
     /**
      * Comment!
      */
-    [index: string]: any;
+    [index: string]: any; // trailing comment
     /**
      * Property documentation
      * @returns a value
@@ -52,4 +52,4 @@ export type TestType = {
     property8: number;
 
 
-};
+};                       // bla bla

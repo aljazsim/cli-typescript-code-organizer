@@ -23,6 +23,7 @@ import { ImportExpand } from "../enums/import-expand.js";
 import { ImportSourceFilePathQuoteType } from "../enums/import-source-file-path-quote-type.js";
 import { WriteModifier } from "../enums/write-modifier.js";
 import { doubleQuote, newLine, newLineRegex, singleQuote, space } from "./source-code-constants.js";
+import { resolveDeclarationDependenciesOrder } from "./source-code-dependency-resolver.js";
 import { SourceCode } from "./source-code.js";
 
 export class SourceCodePrinter
@@ -52,7 +53,11 @@ export class SourceCodePrinter
     private static printClass(node: ClassNode, configuration: Configuration)
     {
         const beforeMembers = node.sourceCode.substring(0, node.membersStart).trim();
-        const members = this.printNodeGroups(node.organizeMembers(configuration.classes), configuration);
+        const nodes = node.organizeMembers(configuration.classes);
+
+        resolveDeclarationDependenciesOrder(nodes);
+
+        const members = this.printNodeGroups(nodes, configuration);
         const afterMembers = node.sourceCode.substring(node.membersEnd).trim();
         const nodeSourceCode = new SourceCode();
 
@@ -87,6 +92,17 @@ export class SourceCodePrinter
         if (afterMembers.length > 0)
         {
             nodeSourceCode.addAfter(afterMembers);
+        }
+
+        // add comments
+        if (node.leadingComment)
+        {
+            nodeSourceCode.addBefore(node.indentation + node.leadingComment);
+        }
+
+        if (node.trailingComment)
+        {
+            nodeSourceCode.addAfter(" " + node.trailingComment);
         }
 
         return nodeSourceCode;
@@ -184,9 +200,15 @@ export class SourceCodePrinter
             sourceCode = `import ${quote}${source}${quote};`;
         }
 
+        // add comments
         if (node.leadingComment)
         {
             sourceCode = node.leadingComment + sourceCode;
+        }
+
+        if (node.trailingComment)
+        {
+            sourceCode = sourceCode + " " + node.trailingComment;
         }
 
         return new SourceCode(sourceCode);
@@ -210,6 +232,17 @@ export class SourceCodePrinter
         if (afterMembers.length > 0)
         {
             nodeSourceCode.addAfter(afterMembers);
+        }
+
+        // add comments
+        if (node.leadingComment)
+        {
+            nodeSourceCode.addBefore(node.indentation + node.leadingComment);
+        }
+
+        if (node.trailingComment)
+        {
+            nodeSourceCode.addAfter(" " + node.trailingComment);
         }
 
         return nodeSourceCode;
@@ -360,6 +393,10 @@ export class SourceCodePrinter
         // remove trailing empty lines
         sourceCode = sourceCode.trimEnd();
 
+        // add comments
+        sourceCode = (node.leadingComment ? (node.indentation + node.leadingComment) : "") + sourceCode;
+        sourceCode = sourceCode + (node.trailingComment ? (" " + node.trailingComment) : "");
+
         return new SourceCode(sourceCode);
     }
 
@@ -383,6 +420,17 @@ export class SourceCodePrinter
             nodeSourceCode.addAfter(afterMembers);
         }
 
+        // add comments
+        if (node.leadingComment)
+        {
+            nodeSourceCode.addBefore(node.indentation + node.leadingComment);
+        }
+
+        if (node.trailingComment)
+        {
+            nodeSourceCode.addAfter(" " + node.trailingComment);
+        }
+
         return nodeSourceCode;
     }
 
@@ -396,7 +444,7 @@ export class SourceCodePrinter
         sourceCode += node.isConst ? "const " : "let ";
         sourceCode += node.sourceCode.trim();
         sourceCode += ";";
-        sourceCode += node.trailingComment ?? "";
+        sourceCode += node.trailingComment ? (" " + node.trailingComment) : "";
 
         return new SourceCode(sourceCode);
     }

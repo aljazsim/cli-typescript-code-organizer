@@ -35,7 +35,7 @@ export type TestType = {
     /**
      * Comment!
      */
-    [index: string]: any;
+    [index: string]: any; // trailing comment
 
     // comment
     [index: number]: any;
@@ -48,4 +48,4 @@ export type TestType = {
      * Method documentation.
      */
     method3(): void;
-};
+}; // bla bla

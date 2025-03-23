@@ -16,7 +16,9 @@ import { CSharpPatterns } from "./CSharpPatterns";
 import { CSharpSymbolType } from "./CSharpSymbolType";
 
 export class CSharpSymbol {
-    public accessModifier = CSharpAccessModifier.none;    private readonly link: { before: CSharpSymbol | undefined, after: CSharpSymbol | undefined } = { before: undefined, after: undefined };
+    // #region Private Readonly Properties (1)
+
+    private readonly link: { before: CSharpSymbol | undefined, after: CSharpSymbol | undefined } = { before: undefined, after: undefined };
 
     // #endregion Private Readonly Properties
 
@@ -54,7 +56,7 @@ export class CSharpSymbol {
     public children: CSharpSymbol[] = [];
     public assignmentRange: vscode.Range | undefined;
     public assignment: string | undefined;
-    accessModifier = CSharpAccessModifier.none;
+    public accessModifier = CSharpAccessModifier.none;
 
     // #endregion Public Properties
 
