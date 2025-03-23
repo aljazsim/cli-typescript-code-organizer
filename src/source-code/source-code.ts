@@ -19,6 +19,15 @@ export class SourceCode
 
     // #endregion Constructors
 
+    // #region Public Getters And Setters (1)
+
+    public get length()
+    {
+        return this.sourceCode.length;
+    }
+
+    // #endregion Public Getters And Setters
+
     // #region Public Methods (15)
 
     public addAfter(newSourceCode: string | SourceCode)

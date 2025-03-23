@@ -41,7 +41,11 @@ export class SourceCodePrinter
 
         printedSourceCode.removeConsecutiveEmptyLines();
         printedSourceCode.trim();
-        printedSourceCode.addNewLineAfter();
+
+        if (printedSourceCode.length > 0)
+        {
+            printedSourceCode.addNewLineAfter();
+        }
 
         return printedSourceCode;
     }

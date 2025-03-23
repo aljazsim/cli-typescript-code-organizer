@@ -59,7 +59,7 @@ export class SourceCodeOrganizer
 
     // #endregion Public Static Methods
 
-    // #region Private Static Methods (6)
+    // #region Private Static Methods (5)
 
     private static mergeImportsWithSameReferences(imports: ImportNode[])
     {
@@ -138,8 +138,6 @@ export class SourceCodeOrganizer
         {
             this.removeUnusedImports(imports, sourceFile);
         }
-
-        this.removeEmptyImports(imports);
 
         await this.updateImportSourceCasings(sourceFilePath, imports);
 
@@ -350,32 +348,21 @@ export class SourceCodeOrganizer
         return regions;
     }
 
-    private static removeEmptyImports(imports: ImportNode[])
-    {
-        for (const import1 of imports.filter(i => i.isEmptyReference))
-        {
-            if (import1.isModuleReference || !getFileExtension(import1.source) || getFileExtension(import1.source) === ".ts" || getFileExtension(import1.source) === ".js")
-            {
-                remove(imports, import1);
-            }
-        }
-    }
-
     private static removeUnusedImports(imports: ImportNode[], sourceFile: ts.SourceFile)
     {
-        for (const import1 of imports)
+        for (const import1 of [...imports])
         {
             if (import1.namedImports && import1.namedImports.length > 0)
             {
-                for (const identifier of import1.namedImports)
+                for (const identifier of [...import1.namedImports])
                 {
                     if (!SourceCodeAnalyzer.hasReference(sourceFile, identifier.name))
                     {
                         remove(import1.namedImports, identifier);
 
-                        if (import1.namedImports?.length === 0)
+                        if (import1.isEmptyReference)
                         {
-                            import1.namedImports = null;
+                            remove(imports, import1);
                         }
                     }
                 }
@@ -386,6 +373,11 @@ export class SourceCodeOrganizer
                 if (!SourceCodeAnalyzer.hasReference(sourceFile, import1.namespace))
                 {
                     import1.namespace = null;
+
+                    if (import1.isEmptyReference)
+                    {
+                        remove(imports, import1);
+                    }
                 }
             }
 
@@ -394,6 +386,11 @@ export class SourceCodeOrganizer
                 if (!SourceCodeAnalyzer.hasReference(sourceFile, import1.nameBinding))
                 {
                     import1.nameBinding = null;
+
+                    if (import1.isEmptyReference)
+                    {
+                        remove(imports, import1);
+                    }
                 }
             }
         }

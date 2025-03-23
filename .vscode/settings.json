@@ -36,10 +36,10 @@
         ".editorconfig": true,
         ".tsconfig": true,
         "tsconfig.json": true,
-        "eslint.config.js": true,
         "vitest.config.ts": true,
         "LICENSE": true,
-        "coverage": true
+        "coverage": true,
+        "eslint.config.mjs": true
     },
     "search.exclude": {
         "**/.git": true,
@@ -58,10 +58,10 @@
         ".editorconfig": true,
         ".tsconfig": true,
         "tsconfig.json": true,
-        "eslint.config.js": true,
         "vitest.config.ts": true,
         "LICENSE": true,
-        "coverage": true
+        "coverage": true,
+        "eslint.config.mjs": true
     },
     "cSpell.words": ["Ahumada", "endregion", "Huchim", "Jesús"],
     "terminal.integrated.profiles.windows": {
