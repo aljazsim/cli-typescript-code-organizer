@@ -59,7 +59,7 @@ export class SourceCodeOrganizer
 
     // #endregion Public Static Methods
 
-    // #region Private Static Methods (6)
+    // #region Private Static Methods (5)
 
     private static mergeImportsWithSameReferences(imports: ImportNode[])
     {
