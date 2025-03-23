@@ -139,8 +139,6 @@ export class SourceCodeOrganizer
             this.removeUnusedImports(imports, sourceFile);
         }
 
-        this.removeEmptyImports(imports);
-
         await this.updateImportSourceCasings(sourceFilePath, imports);
 
         if (configuration.sortImportsBySource)
@@ -350,25 +348,9 @@ export class SourceCodeOrganizer
         return regions;
     }
 
-    private static removeEmptyImports(imports: ImportNode[])
-    {
-        for (const import1 of imports.filter(i => i.isEmptyReference))
-        {
-            const extension = getFileExtension(import1.source);
-
-            if (extension !== ".json" &&
-                extension !== ".css" &&
-                extension !== ".scss" &&
-                extension !== ".less")
-            {
-                remove(imports, import1);
-            }
-        }
-    }
-
     private static removeUnusedImports(imports: ImportNode[], sourceFile: ts.SourceFile)
     {
-        for (const import1 of imports)
+        for (const import1 of [...imports])
         {
             if (import1.namedImports && import1.namedImports.length > 0)
             {
@@ -378,9 +360,9 @@ export class SourceCodeOrganizer
                     {
                         remove(import1.namedImports, identifier);
 
-                        if (import1.namedImports?.length === 0)
+                        if (import1.isEmptyReference)
                         {
-                            import1.namedImports = null;
+                            remove(imports, import1);
                         }
                     }
                 }
@@ -391,6 +373,11 @@ export class SourceCodeOrganizer
                 if (!SourceCodeAnalyzer.hasReference(sourceFile, import1.namespace))
                 {
                     import1.namespace = null;
+
+                    if (import1.isEmptyReference)
+                    {
+                        remove(imports, import1);
+                    }
                 }
             }
 
@@ -399,6 +386,11 @@ export class SourceCodeOrganizer
                 if (!SourceCodeAnalyzer.hasReference(sourceFile, import1.nameBinding))
                 {
                     import1.nameBinding = null;
+
+                    if (import1.isEmptyReference)
+                    {
+                        remove(imports, import1);
+                    }
                 }
             }
         }

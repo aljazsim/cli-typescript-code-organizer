@@ -16,25 +16,25 @@ export async function testOrganizingFile(sourceCodeFilePath: string, configurati
 
     if (!(await fileExists(expectedFilePath)))
     {
-        await writeFile(expectedFilePath, organized, false);
+        await writeFile(expectedFilePath, organized);
+
+        return { organizedSourceCode: organized, expectedOrganizedSourceCode: organized }
     }
-
-    const expected = await readFile(expectedFilePath);
-
-    if (organized == expected)
+    else 
     {
-        if (await fileExists(organizedFilePath))
+        const expected = await readFile(expectedFilePath);
+
+        if (organized == expected)
         {
             await deleteFile(organizedFilePath);
         }
-    }
+        else
+        {
+            await writeFile(organizedFilePath, organized);
+        }
 
-    else
-    {
-        await writeFile(organizedFilePath, organized, true);
+        return { organizedSourceCode: organized, expectedOrganizedSourceCode: expected }
     }
-
-    return { organizedSourceCode: organized, expectedOrganizedSourceCode: expected }
 }
 
 // #endregion Exported Functions
