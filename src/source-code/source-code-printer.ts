@@ -444,7 +444,7 @@ export class SourceCodePrinter
         sourceCode += node.isConst ? "const " : "let ";
         sourceCode += node.sourceCode.trim();
         sourceCode += ";";
-        sourceCode += node.trailingComment ?? "";
+        sourceCode += node.trailingComment ? (" " + node.trailingComment) : "";
 
         return new SourceCode(sourceCode);
     }

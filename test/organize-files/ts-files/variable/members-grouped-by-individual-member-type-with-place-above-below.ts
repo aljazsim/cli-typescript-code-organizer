@@ -10,7 +10,7 @@ const a11 = 2963139131;
 
 let a01;
 let a04 = () => 4978875552;
-let a13 = null;
+let a13 = null; // trailing comment
 
 // a variable
 let a14: (p1: string) => number;
