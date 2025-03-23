@@ -3,15 +3,17 @@ Imports: You will need to add ../ for every folder deep the file is.
 
 Loggers: if using more than 1 they will have to be comma seperated in the requestHooks line. 
 */
-import * as dotenv from 'dotenv';
-import { Selector } from 'testcafe';
-import Admin from '../admin-variables';
-import App from '../app-variables';
-import { Form } from '../infrastructure/app/form-tab';
-import logger from '../logger-variables';
-import { TestCafe } from '../roles';
-import { DeleteForm } from '../infrastructure/admin/form-builder/toolbar/delete-form';
-import { SaveForm } from '../infrastructure/admin/form-builder/toolbar/save-form';
+import * as dotenv from "dotenv";
+
+import { Selector } from "testcafe";
+
+import Admin from "../admin-variables";
+import App from "../app-variables";
+import { DeleteForm } from "../infrastructure/admin/form-builder/toolbar/delete-form";
+import { SaveForm } from "../infrastructure/admin/form-builder/toolbar/save-form";
+import { Form } from "../infrastructure/app/form-tab";
+import logger from "../logger-variables";
+import { TestCafe } from "../roles";
 
 // Folders for this Suite
 const folder = Admin.Navigation.AdvancedForms;

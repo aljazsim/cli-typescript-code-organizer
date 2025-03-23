@@ -365,6 +365,10 @@ export class SourceCodePrinter
         // remove trailing empty lines
         sourceCode = sourceCode.trimEnd();
 
+        // add comments
+        sourceCode = (node.leadingComment ? (node.indentation + node.leadingComment) : "") + sourceCode;
+        sourceCode = sourceCode + (node.trailingComment ? (" " + node.trailingComment) : "");
+
         return new SourceCode(sourceCode);
     }
 
