@@ -15,7 +15,7 @@ const a08 = "a11";
 export let a09 = "a12";
 const a11 = 2963139131;
 export let a12 = function (): string { return "aaa"; };
-let a13 = null;
+let a13 = null; // trailing comment
 
 // a variable
 let a14: (p1: string) => number;

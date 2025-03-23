@@ -3,9 +3,11 @@ import ts, { SourceFile } from "typescript";
 import "./missing-file.json";
 import "../../../configurations/default-configuration-with-no-regions.json";
 
+// an import leading comment
 import { decoratorA, decoratorB, decoratorC, decoratorD, decoratorE } from "./test-decorators";
-import { TestInterface } from "../interface/test-interface";
+import { TestInterface } from "../interface/test-interface"; // an import trailing comment
 
+// the test class
 export abstract class TestClass implements TestInterface
 {
     // this is a comment
@@ -128,7 +130,7 @@ export abstract class TestClass implements TestInterface
     @decoratorD()
     public abstract accessor publicAbstractAccessor2: boolean | undefined;
     @decoratorD()
-    public abstract accessor publicAbstractAccessor3: string;
+    public abstract accessor publicAbstractAccessor3: string; // accessor
     public abstract accessor publicAbstractAccessor4: boolean | undefined;
 
     protected static accessor protectedStaticAccessor1: boolean | undefined;
@@ -219,10 +221,13 @@ export abstract class TestClass implements TestInterface
     {
     }
 
+    /*
+     * Leading space
+     */
     public get publicGetter4(): any
     {
         return 2;
-    }
+    } // trailing space
 
     @decoratorE()
     public get publicGetterSetter1(): string
@@ -489,4 +494,4 @@ export abstract class TestClass implements TestInterface
     }
 
     private readonly privateReadonlyProperty3: () => Promise<string | undefined> = async () => Promise.resolve('');
-}
+} // end

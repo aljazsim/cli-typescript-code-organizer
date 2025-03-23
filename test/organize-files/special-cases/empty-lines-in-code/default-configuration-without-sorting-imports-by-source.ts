@@ -9,11 +9,11 @@ import { Selector } from "testcafe";
 
 import Admin from "../admin-variables";
 import App from "../app-variables";
+import { DeleteForm } from "../infrastructure/admin/form-builder/toolbar/delete-form";
+import { SaveForm } from "../infrastructure/admin/form-builder/toolbar/save-form";
 import { Form } from "../infrastructure/app/form-tab";
 import logger from "../logger-variables";
 import { TestCafe } from "../roles";
-import { DeleteForm } from "../infrastructure/admin/form-builder/toolbar/delete-form";
-import { SaveForm } from "../infrastructure/admin/form-builder/toolbar/save-form";
 
 // Folders for this Suite
 const folder = Admin.Navigation.AdvancedForms;

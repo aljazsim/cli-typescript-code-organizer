@@ -25,7 +25,7 @@ const a11 = 2963139131;
 // #region Variables (2)
 
 let a01;
-let a13 = null;
+let a13 = null; // trailing comment
 
 // #endregion Variables
 
