@@ -353,7 +353,12 @@ export class SourceCodeOrganizer
     {
         for (const import1 of imports.filter(i => i.isEmptyReference))
         {
-            if (import1.isModuleReference || !getFileExtension(import1.source) || getFileExtension(import1.source) === ".ts" || getFileExtension(import1.source) === ".js")
+            const extension = getFileExtension(import1.source);
+
+            if (extension !== ".json" &&
+                extension !== ".css" &&
+                extension !== ".scss" &&
+                extension !== ".less")
             {
                 remove(imports, import1);
             }
@@ -366,7 +371,7 @@ export class SourceCodeOrganizer
         {
             if (import1.namedImports && import1.namedImports.length > 0)
             {
-                for (const identifier of import1.namedImports)
+                for (const identifier of [...import1.namedImports])
                 {
                     if (!SourceCodeAnalyzer.hasReference(sourceFile, identifier.name))
                     {

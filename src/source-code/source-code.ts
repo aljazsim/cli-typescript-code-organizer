@@ -62,6 +62,11 @@ export class SourceCode
         this.addAfter(newLine);
     }
 
+    public get length()
+    {
+        return this.sourceCode.length;
+    }
+
     public addNewLineAfterIf(condition: boolean)
     {
         if (condition)
