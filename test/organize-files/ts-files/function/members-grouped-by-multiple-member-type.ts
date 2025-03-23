@@ -1,5 +1,8 @@
 // #region Functions (8)
 
+/*
+ * Fun 3
+ */
 function function3()
 {
     console.log("wduyuaeemi");
@@ -8,7 +11,7 @@ function function3()
 function function4()
 {
     return function5();
-}
+} // trailing comment
 
 function function5()
 {
@@ -20,6 +23,7 @@ export function function1()
     return function4();
 }
 
+// leading comment
 export function function2(input: string): string
 {
     return "lgmzcrylzg";

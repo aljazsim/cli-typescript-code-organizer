@@ -8,8 +8,11 @@ function function5()
 function function4()
 {
     return function5();
-}
+} // trailing comment
 
+/*
+ * Fun 3
+ */
 function function3()
 {
     console.log("wduyuaeemi");
@@ -33,6 +36,7 @@ export function function6()
 {
 }
 
+// leading comment
 export function function2(input: string): string
 {
     return "lgmzcrylzg";
