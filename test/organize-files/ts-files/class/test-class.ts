@@ -1,5 +1,6 @@
 import vue from "vue";
 import * as react from "react";
+// an import leading comment
 import { decoratorD, decoratorG, decoratorB, decoratorC, decoratorB, decoratorE, decoratorA, decoratorF } from "./test-decorators";
 import angular from "@angular";
 import vue, { Component } from "vue";
@@ -7,10 +8,11 @@ import * as angular from "@angular";
 import { decoratorA, decoratorB } from "./test-decorators";
 import * as angular from "@angular";
 import "./missing-file.json";
-import { TestInterface } from "../interface/test-interface";
+import { TestInterface } from "../interface/test-interface";// an import trailing comment
 import ts, { SourceFile, AbstractKeyword } from "typescript";
 import "../../../configurations/default-configuration-with-no-regions.json";
 
+// the test class
 export abstract class TestClass implements TestInterface
 {
     protected static readonly protectedStaticReadonlyProperty1 = "cc7r9dr3zj";
@@ -26,7 +28,7 @@ export abstract class TestClass implements TestInterface
     @decoratorD()
     public abstract accessor publicAbstractAccessor1: string;
     @decoratorD()
-    public abstract accessor publicAbstractAccessor3: string;
+    public abstract accessor publicAbstractAccessor3: string; // accessor
     public static accessor publicStaticAccessor2: number;
     protected static protectedStaticProperty2 = "hyc8khk2oj";
     @decoratorC(9860836855)
@@ -100,15 +102,19 @@ export abstract class TestClass implements TestInterface
         this.#privateProperty2 = "xzfkmndzen";
         this.publicProperty1 = name;
     }
-    [key: string]: any;
+    // the index B
+    [key: string]: any; // the index A
     readonly publicReadonlyProperty3: String = "16";
     publicMethod6()
     {
     }
+    /*
+     * Leading space
+     */
     get publicGetter4(): any
     {
         return 2;
-    }
+    } // trailing space
     readonly publicReadonlyProperty5: string = '15';
     set publicSetter4(value: any)
     {
@@ -427,4 +433,4 @@ export abstract class TestClass implements TestInterface
     {
         console.log("ohnpmwinia");
     }
-}
+} // end

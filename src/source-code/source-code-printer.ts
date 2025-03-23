@@ -94,6 +94,17 @@ export class SourceCodePrinter
             nodeSourceCode.addAfter(afterMembers);
         }
 
+        // add comments
+        if (node.leadingComment)
+        {
+            nodeSourceCode.addBefore(node.indentation + node.leadingComment);
+        }
+
+        if (node.trailingComment)
+        {
+            nodeSourceCode.addAfter(" " + node.trailingComment);
+        }
+
         return nodeSourceCode;
     }
 
@@ -189,9 +200,15 @@ export class SourceCodePrinter
             sourceCode = `import ${quote}${source}${quote};`;
         }
 
+        // add comments
         if (node.leadingComment)
         {
             sourceCode = node.leadingComment + sourceCode;
+        }
+
+        if (node.trailingComment)
+        {
+            sourceCode = sourceCode + " " + node.trailingComment;
         }
 
         return new SourceCode(sourceCode);
@@ -215,6 +232,17 @@ export class SourceCodePrinter
         if (afterMembers.length > 0)
         {
             nodeSourceCode.addAfter(afterMembers);
+        }
+
+        // add comments
+        if (node.leadingComment)
+        {
+            nodeSourceCode.addBefore(node.indentation + node.leadingComment);
+        }
+
+        if (node.trailingComment)
+        {
+            nodeSourceCode.addAfter(" " + node.trailingComment);
         }
 
         return nodeSourceCode;
@@ -390,6 +418,17 @@ export class SourceCodePrinter
         if (afterMembers.length > 0)
         {
             nodeSourceCode.addAfter(afterMembers);
+        }
+
+        // add comments
+        if (node.leadingComment)
+        {
+            nodeSourceCode.addBefore(node.indentation + node.leadingComment);
+        }
+
+        if (node.trailingComment)
+        {
+            nodeSourceCode.addAfter(" " + node.trailingComment);
         }
 
         return nodeSourceCode;
