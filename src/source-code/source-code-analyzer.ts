@@ -3,6 +3,7 @@ import * as ts from "typescript";
 import { Configuration } from "../configuration/configuration.js";
 import { ClassNode } from "../elements/class-node.js";
 import { ElementNode } from "../elements/element-node.js";
+import { EndOfFileNodeNode } from "../elements/end-of-file-node.js";
 import { EnumNode } from "../elements/enum-node.js";
 import { ExpressionNode } from "../elements/expression-node.js";
 import { FunctionNode } from "../elements/function-node.js";
@@ -123,6 +124,11 @@ export class SourceCodeAnalyzer
         {
             // expression
             elements.push(new ExpressionNode(sourceFile, node));
+        }
+        else if (node.kind == ts.SyntaxKind.EndOfFileToken)
+        {
+            // end of file node
+            elements.push(new EndOfFileNodeNode(sourceFile, node));
         }
 
         return elements;

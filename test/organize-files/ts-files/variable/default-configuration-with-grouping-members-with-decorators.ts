@@ -22,3 +22,5 @@ export let a03: number = 6751147137;
  */
 export let a09 = "a12";
 export let a12 = function (): string { return "aaa"; };
+
+// random comment

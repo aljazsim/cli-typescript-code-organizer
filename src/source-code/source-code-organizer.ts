@@ -9,7 +9,7 @@ import { ModuleMemberType } from "../enums/module-member-type.js";
 import { except, intersect, remove } from "../helpers/array-helper.js";
 import { compareStrings } from "../helpers/comparing-helper.js";
 import { directoryExists, getDirectoryPath, getFileExtension, getFilePathWithoutExtension, getFiles, getFullPath, getRelativePath, joinPath } from "../helpers/file-system-helper.js";
-import { getClasses, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getNodeDependencies, getNodeNames, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
+import { getClasses, getEndOfFileNodes, getEnums, getExpressions, getFunctions, getImports, getInterfaces, getNodeDependencies, getNodeNames, getTypeAliases, getVariables, order } from "../helpers/node-helper.js";
 import { SourceCodeAnalyzer } from "./source-code-analyzer.js";
 import { spacesRegex } from "./source-code-constants.js";
 import { resolveDeclarationDependenciesOrder } from "./source-code-dependency-resolver.js";
@@ -197,6 +197,7 @@ export class SourceCodeOrganizer
         const exportedTypes = getTypeAliases(elements, true);
         const enums = getEnums(elements, false);
         const exportedEnums = getEnums(elements, true);
+        const endOfFileNodes = getEndOfFileNodes(elements);
 
         const functions = getFunctions(elements, configuration.modules.members.treatArrowFunctionVariablesAsMethods, configuration.modules.members.treatArrowFunctionConstantsAsMethods, false);
         const exportedFunctions = getFunctions(elements, configuration.modules.members.treatArrowFunctionVariablesAsMethods, configuration.modules.members.treatArrowFunctionConstantsAsMethods, true);
@@ -342,6 +343,11 @@ export class SourceCodeOrganizer
             {
                 // this file contains no executable code ->  deal with declaration dependency order
                 resolveDeclarationDependenciesOrder(regions);
+
+                if (endOfFileNodes.length > 0)
+                {
+                    regions.push(new ElementNodeGroup(null, [], endOfFileNodes, false, null));
+                }
             }
         }
 
