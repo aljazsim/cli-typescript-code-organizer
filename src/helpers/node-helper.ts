@@ -3,6 +3,7 @@ import * as ts from "typescript";
 import { AccessorNode } from "../elements/accessor-node.js";
 import { ClassNode } from "../elements/class-node.js";
 import { ElementNode } from "../elements/element-node.js";
+import { EndOfFileNodeNode } from "../elements/end-of-file-node.js";
 import { EnumNode } from "../elements/enum-node.js";
 import { ExpressionNode } from "../elements/expression-node.js";
 import { FunctionNode } from "../elements/function-node.js";
@@ -41,7 +42,7 @@ function sortBy<T extends ElementNode>(nodes: T[], sortDirection: string, groupW
 
 // #endregion Functions
 
-// #region Exported Functions (33)
+// #region Exported Functions (34)
 
 export function getAccessModifier(node: ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration | ts.MethodDeclaration | ts.PropertySignature | ts.IndexSignatureDeclaration)
 {
@@ -108,6 +109,12 @@ export function getDependencies(sourceFile: ts.SourceFile, node: ts.Node, depend
     }
 
     return distinct(dependencies).sort();
+}
+
+export function getEndOfFileNodes(nodes: ElementNode[])
+{
+    return nodes.filter(n => n instanceof EndOfFileNodeNode)
+        .map(t => t as EndOfFileNodeNode);
 }
 
 export function getEnums(nodes: ElementNode[], exported: boolean)
