@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # organize code
-  tsco --organize
+tsco --organize
 
 # format code
 eslint
