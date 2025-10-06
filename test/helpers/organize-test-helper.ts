@@ -25,6 +25,7 @@ export function getOrganizeSpecialCaseTestParameters()
         "public-modifier-3",
         "public-modifier-4",
         "trailing-comment",
+        "eslint-directive"
     ];
 
     const memberOrganizeParameters: OrganizeTestParameters[] = [];
